@@ -6,7 +6,7 @@ import About from './views/About';
 import Login from './views/Login';
 import Register from './views/Register';
 import NotFound from './views/NotFound';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getUserData } from './services/users.service';
 import { auth } from './config/firebase-config';
@@ -17,7 +17,7 @@ function App() {
     user: null,
     userData: null,
   });
-
+  const { refresh } = useContext(AppContext);
   const [user] = useAuthState(auth);
 
   if (appState.user !== user) {
@@ -30,8 +30,9 @@ function App() {
     getUserData(appState.user.uid).then((snapshot) => {
       const userData = Object.values(snapshot.val())[0];
       setAppState({ ...appState, userData });
+      console.log('userData', userData);
     });
-  }, [appState.user]);
+  }, [refresh, appState.user]);
 
   return (
     <>

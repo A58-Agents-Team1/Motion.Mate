@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../context/AppContext.js';
 import { useContext } from 'react';
 import { logoutUser } from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
@@ -8,10 +8,10 @@ export const NavBar = () => {
   const { setAppState, userData } = useContext(AppContext);
   const navigate = useNavigate();
 
-  const logout = async () => {
+  const logout = async (e) => {
+    e.preventDefault();
     await logoutUser();
     setAppState({ user: null, userData: null });
-    console.log('After', userData);
     navigate('/');
   };
 
@@ -25,10 +25,9 @@ export const NavBar = () => {
           <NavLink to={'/register'}>Register</NavLink>
         </>
       ) : (
-        <button onClick={logout}>Logout</button>
+        <button onClick={(e) => logout(e)}>Logout</button>
       )}
       {userData && <p>{userData?.email}</p>}
-      {console.log('Before', userData)}
     </div>
   );
 };
