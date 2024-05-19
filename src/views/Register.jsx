@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   createUser,
   getUploadedPhoto,
@@ -6,8 +6,10 @@ import {
 } from '../services/users.service';
 import { registerUser } from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 
 export default function Register() {
+  const { user, setAppState } = useContext(AppContext);
   const [image, setImage] = useState(null);
   const [form, setForm] = useState({
     firstName: '',
@@ -47,14 +49,22 @@ export default function Register() {
     await createUser(
       userCredential.user.uid,
       form.username,
-      form.email,
+      userCredential.user.email,
       form.phoneNumber,
       form.firstName,
       form.lastName,
       url || ''
     );
+    setAppState({ user: userCredential.user, userData: null });
+
     navigate('/');
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <>
