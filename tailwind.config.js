@@ -1,4 +1,5 @@
 import daisyui from 'daisyui';
+import { DARK_THEME, LIGHT_THEME } from './src/common/constants';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,6 +9,6 @@ export default {
   },
   plugins: [daisyui],
   daisyui: {
-    themes: ["cupcake", "dracula"],
+    themes: [LIGHT_THEME, DARK_THEME],
   },
 };

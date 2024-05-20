@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
+import { DARK_THEME, LIGHT_THEME } from '../../common/constants';
 
 export default function ThemeChangeIcons({ toggleTheme, currentTheme }) {
   useEffect(() => {
     // check the current theme and set the toggle switch accordingly
     const themeController = document.querySelector('.theme-controller');
-    themeController.checked = currentTheme === 'dracula';
+    themeController.checked = currentTheme === DARK_THEME;
   }, [currentTheme]);
 
   return (
@@ -12,13 +13,13 @@ export default function ThemeChangeIcons({ toggleTheme, currentTheme }) {
       <input
         type='checkbox'
         className='theme-controller'
-        value='dracula'
+        value={DARK_THEME}
         onChange={(e) => {
           toggleTheme(e);
         }}
       />
       <>
-        {currentTheme === 'cupcake' ? (
+        {currentTheme === LIGHT_THEME ? (
           <svg
             className='swap-off fill-current w-10 h-10'
             xmlns='http://www.w3.org/2000/svg'

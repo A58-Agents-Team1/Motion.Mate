@@ -5,17 +5,18 @@ import { logoutUser } from '../../services/auth.service.js';
 import { useNavigate } from 'react-router-dom';
 import ThemeChangeIcons from './ThemeChangeIcons.jsx';
 import AvatarWithName from './AvatarWithName.jsx';
+import { DARK_THEME, LIGHT_THEME } from '../../common/constants.js';
 
 export const NavBar = () => {
   const { setAppState, userData } = useContext(AppContext);
   const navigate = useNavigate();
 
   const [theme, setTheme] = useState(
-    !localStorage.getItem('theme') ? 'cupcake' : localStorage.getItem('theme')
+    !localStorage.getItem('theme') ? LIGHT_THEME : localStorage.getItem('theme')
   );
 
   const handleToggle = (e) => {
-    setTheme(e.target.checked ? 'dracula' : 'cupcake');
+    setTheme(e.target.checked ? DARK_THEME : LIGHT_THEME);
   };
 
   useEffect(() => {
@@ -32,7 +33,11 @@ export const NavBar = () => {
 
   return (
     <div className='drawer'>
-      <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
+      <input
+        id='my-drawer-3'
+        type='checkbox'
+        className='drawer-toggle'
+      />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
         <div className='w-full navbar bg-base-300'>
@@ -89,7 +94,10 @@ export const NavBar = () => {
               )}
             </ul>
           </div>
-          <ThemeChangeIcons toggleTheme={handleToggle} currentTheme={theme} />
+          <ThemeChangeIcons
+            toggleTheme={handleToggle}
+            currentTheme={theme}
+          />
         </div>
         {/* Page content here */}
       </div>
