@@ -3,7 +3,7 @@ import { AppContext } from './context/AppContext';
 import Authenticated from './hoc/Authenticated';
 import Home from './views/Home';
 import About from './views/About';
-import Login from './views/Login';
+import Login from './components/Login/Login';
 import Register from './views/Register';
 import NotFound from './views/NotFound';
 import { useContext, useEffect, useState } from 'react';
@@ -39,11 +39,26 @@ function App() {
       <AppContext.Provider value={{ ...appState, setAppState }}>
         <Layout>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='*' element={<NotFound />} />
+            <Route
+              path='/'
+              element={<Home />}
+            />
+            <Route
+              path='/about'
+              element={<About />}
+            />
+            <Route
+              path='/login'
+              element={<Login />}
+            />
+            <Route
+              path='/register'
+              element={<Register />}
+            />
+            <Route
+              path='*'
+              element={<NotFound />}
+            />
           </Routes>
         </Layout>
       </AppContext.Provider>
