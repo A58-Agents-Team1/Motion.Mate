@@ -1,5 +1,13 @@
 import { db, storage } from '../config/firebase-config';
-import { equalTo, get, orderByChild, query, ref, set } from 'firebase/database';
+import {
+  equalTo,
+  get,
+  orderByChild,
+  query,
+  ref,
+  set,
+  update,
+} from 'firebase/database';
 import {
   getDownloadURL,
   ref as refStorage,
@@ -29,6 +37,13 @@ export const createUser = (
     avatar,
     userRole: 'user',
     createdOn: new Date().valueOf(),
+    exercises: [],
+  });
+};
+
+export const addUserExercise = async (username, exerciseId) => {
+  return await update(ref(db, `users/${username}`), {
+    exercises: exerciseId,
   });
 };
 
