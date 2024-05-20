@@ -1,6 +1,5 @@
 import { NavBar } from '../components/Navigation/NavBar';
 import { Footer } from '../components/Footer';
-import { propTypes } from 'prop-types';
 
 export const Layout = ({ children }) => {
   return (
@@ -10,8 +9,4 @@ export const Layout = ({ children }) => {
       <Footer />
     </div>
   );
-};
-
-Layout.propTypes = {
-  children: propTypes.any.isRequired,
 };

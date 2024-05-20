@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { propTypes } from 'prop-types';
 
-export default function ThemeChangeIcons({ toggleTheme, currentTheme }) {
+const ThemeChangeIcons = ({ toggleTheme, currentTheme }) => {
   useEffect(() => {
     // check the current theme and set the toggle switch accordingly
     const themeController = document.querySelector('.theme-controller');
@@ -39,9 +38,6 @@ export default function ThemeChangeIcons({ toggleTheme, currentTheme }) {
       </>
     </label>
   );
-}
-
-ThemeChangeIcons.propTypes = {
-  toggleTheme: propTypes.func.isRequired,
-  currentTheme: propTypes.string.isRequired,
 };
+
+export default ThemeChangeIcons;
