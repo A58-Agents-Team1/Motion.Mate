@@ -1,15 +1,15 @@
-import { Route, Routes } from 'react-router-dom';
+import { auth } from './config/firebase-config';
+import { Layout } from './hoc/Layout';
 import { AppContext } from './context/AppContext';
+import { getUserData } from './services/users.service';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Route, Routes } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import Home from './views/Home';
 import About from './views/About';
 import Login from './components/Login/Login';
 import Register from './views/Register';
 import NotFound from './views/NotFound';
-import { useContext, useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { getUserData } from './services/users.service';
-import { auth } from './config/firebase-config';
-import { Layout } from './hoc/Layout';
 import MyProfile from './views/MyProfile';
 
 function App() {
@@ -45,11 +45,6 @@ function App() {
             <Route path='/register' element={<Register />} />
             <Route path='*' element={<NotFound />} />
             <Route path='/my-profile' element={<MyProfile />} />
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='*' element={<NotFound />} />
           </Routes>
         </Layout>
       </AppContext.Provider>
