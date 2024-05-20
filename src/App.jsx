@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppContext } from './context/AppContext';
-import Authenticated from './hoc/Authenticated';
 import Home from './views/Home';
 import About from './views/About';
 import Login from './views/Login';
@@ -11,6 +10,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { getUserData } from './services/users.service';
 import { auth } from './config/firebase-config';
 import { Layout } from './hoc/Layout';
+import MyProfile from './views/MyProfile';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -44,6 +44,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='*' element={<NotFound />} />
+            <Route path='/my-profile' element={<MyProfile />} />
           </Routes>
         </Layout>
       </AppContext.Provider>
