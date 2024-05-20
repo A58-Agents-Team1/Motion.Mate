@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { logoutUser } from '../../services/auth.service.js';
 import { useNavigate } from 'react-router-dom';
 import ThemeChangeIcons from './ThemeChangeIcons.jsx';
+import AvatarWithName from './AvatarWithName.jsx';
 
 export const NavBar = () => {
   const { setAppState, userData } = useContext(AppContext);
@@ -31,11 +32,7 @@ export const NavBar = () => {
 
   return (
     <div className='drawer'>
-      <input
-        id='my-drawer-3'
-        type='checkbox'
-        className='drawer-toggle'
-      />
+      <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
         <div className='w-full navbar bg-base-300'>
@@ -60,7 +57,9 @@ export const NavBar = () => {
               </svg>
             </label>
           </div>
-          <div className='flex-1 px-2 mx-2'>Navbar Title</div>
+          <div className='flex-1 px-2 mx-2'>
+            <AvatarWithName />
+          </div>
           <div className='flex-none hidden lg:block'>
             <ul className='menu menu-horizontal items-center '>
               {/* Navbar menu content here */}
@@ -90,10 +89,7 @@ export const NavBar = () => {
               )}
             </ul>
           </div>
-          <ThemeChangeIcons
-            toggleTheme={handleToggle}
-            currentTheme={theme}
-          />
+          <ThemeChangeIcons toggleTheme={handleToggle} currentTheme={theme} />
         </div>
         {/* Page content here */}
       </div>
