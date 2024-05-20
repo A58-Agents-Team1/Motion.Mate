@@ -1,3 +1,5 @@
+import { AccountStats } from '../components/Account.Stats';
+import { Exercise } from '../components/Exercise';
 import { AppContext } from '../context/AppContext';
 import Authenticated from '../hoc/Authenticated';
 import { useContext } from 'react';
@@ -6,10 +8,10 @@ export default function Home() {
   const { userData } = useContext(AppContext);
   return (
     <>
-      <div>
-        <h1>Home</h1>
+      <div className='flex flex-col gap-5'>
         <Authenticated>
-          <p>Hello USER DATA: {userData?.username}</p>
+          <AccountStats />
+          <Exercise />
         </Authenticated>
       </div>
     </>
