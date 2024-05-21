@@ -1,4 +1,4 @@
-import { get, push, ref, set } from 'firebase/database';
+import { get, push, ref } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 export const createExercises = async (

@@ -17,7 +17,7 @@ export default function LoginBy({
           type={type}
           placeholder={placeholder}
           className='input input-bordered'
-          value={form.email}
+          value={form}
           onChange={updateForm(placeholder.toLowerCase())}
           required
         />
@@ -52,7 +52,7 @@ export default function LoginBy({
 LoginBy.propTypes = {
   placeholder: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  form: PropTypes.object.isRequired,
+  form: PropTypes.string.isRequired,
   updateForm: PropTypes.func.isRequired,
   handleLogin: PropTypes.func.isRequired,
 };

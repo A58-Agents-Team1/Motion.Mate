@@ -18,6 +18,11 @@ export const getUserByUsername = (username) => {
   return get(ref(db, `users/${username}`));
 };
 
+export const getAllUsers = async () => {
+  const result = await get(ref(db, 'users'));
+  return result;
+};
+
 export const createUser = (
   uid,
   username,
