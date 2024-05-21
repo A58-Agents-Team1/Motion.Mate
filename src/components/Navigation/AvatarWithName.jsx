@@ -33,7 +33,7 @@ export default function AvatarWithName() {
                 <NavLink to='/my-profile'>My Profile</NavLink>
               </li>
               <li>
-                <button>Users</button>
+                <NavLink to='/all-users'>All Users</NavLink>
               </li>
             </ul>
           </div>
