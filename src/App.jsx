@@ -11,6 +11,7 @@ import Login from './components/Login/Login';
 import Register from './views/Register';
 import NotFound from './views/NotFound';
 import MyProfile from './views/MyProfile';
+import Authenticated from './hoc/Authenticated';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -39,12 +40,26 @@ function App() {
       <AppContext.Provider value={{ ...appState, setAppState }}>
         <Layout>
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route
+              path='/'
+              element={
+                <Authenticated user={user}>
+                  <Home />
+                </Authenticated>
+              }
+            />
             <Route path='/about' element={<About />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='*' element={<NotFound />} />
-            <Route path='/my-profile' element={<MyProfile />} />
+            <Route
+              path='/my-profile'
+              element={
+                <Authenticated user={user}>
+                  <MyProfile />
+                </Authenticated>
+              }
+            />
           </Routes>
         </Layout>
       </AppContext.Provider>
