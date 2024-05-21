@@ -10,7 +10,6 @@ export default function Home() {
     <>
       <div className='flex flex-col gap-5'>
         <Authenticated>
-          <AccountStats />
           <Exercise />
         </Authenticated>
       </div>
