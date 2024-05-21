@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function LoginBy({
   placeholder,
   type,
@@ -33,23 +35,24 @@ export default function LoginBy({
           required
         />
         <label className='label'>
-          <a
-            href='#'
-            className='label-text-alt link link-hover'
-          >
+          <a href='#' className='label-text-alt link link-hover'>
             Forgot password?
           </a>
         </label>
       </div>
       <div className='form-control mt-6'>
-        <button
-          type='button'
-          className='btn btn-primary'
-          onClick={handleLogin}
-        >
+        <button type='button' className='btn btn-primary' onClick={handleLogin}>
           Login
         </button>
       </div>
     </>
   );
 }
+
+LoginBy.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  form: PropTypes.object.isRequired,
+  updateForm: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired,
+};
