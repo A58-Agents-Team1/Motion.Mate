@@ -16,7 +16,6 @@ export const Exercise = () => {
     const getAllExercises = async () => {
       const all = await getExercises();
       setAllExercises(all);
-      console.log(allExercises);
     };
     getAllExercises();
   }, []);
