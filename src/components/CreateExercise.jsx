@@ -62,15 +62,22 @@ export const CreateExercise = () => {
           <div className='modal-box'>
             <h3 className='font-bold text-lg mb-3'>Ready to workout</h3>
 
-            <label className='input input-bordered flex items-center gap-2 select-primary'>
-              <input
-                onChange={(e) => updateContent(e.target.value, 'category')}
-                type='text'
-                className='grow'
-                placeholder='Category'
-                value={content.category}
-              />
-            </label>
+            <div className='dropdown dropdown-hover  primary'>
+              <div tabIndex={0} role='button' className='btn m-1'>
+                Choose Category
+              </div>
+              <ul
+                tabIndex={0}
+                className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
+              >
+                <li>
+                  <a onClick={(e) => updateContent('Yoga', 'category')}>Yoga</a>
+                </li>
+                <li>
+                  <a onClick={(e) => updateContent('Jog', 'category')}>Jog</a>
+                </li>
+              </ul>
+            </div>
 
             <label className='input input-bordered flex items-center gap-2 select-primary'>
               <input
