@@ -17,7 +17,7 @@ export default function LoginBy({
           type={type}
           placeholder={placeholder}
           className='input input-bordered'
-          value={form.email}
+          value={form}
           onChange={updateForm(placeholder.toLowerCase())}
           required
         />
@@ -35,13 +35,20 @@ export default function LoginBy({
           required
         />
         <label className='label'>
-          <a href='#' className='label-text-alt link link-hover'>
+          <a
+            href='#'
+            className='label-text-alt link link-hover'
+          >
             Forgot password?
           </a>
         </label>
       </div>
       <div className='form-control mt-6'>
-        <button type='button' className='btn btn-primary' onClick={handleLogin}>
+        <button
+          type='button'
+          className='btn btn-primary'
+          onClick={handleLogin}
+        >
           Login
         </button>
       </div>

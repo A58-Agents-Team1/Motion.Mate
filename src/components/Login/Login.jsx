@@ -70,7 +70,7 @@ export default function Login() {
               <LoginBy
                 placeholder='Username'
                 type='text'
-                form={form}
+                form={form.username}
                 updateForm={updateForm}
                 handleLogin={handleLoginByUsername}
               />
@@ -79,7 +79,7 @@ export default function Login() {
               <LoginBy
                 placeholder='Email'
                 type='email'
-                form={form}
+                form={form.email}
                 updateForm={updateForm}
                 handleLogin={handleLoginByEmail}
               />
