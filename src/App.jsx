@@ -12,6 +12,7 @@ import Register from './views/Register';
 import NotFound from './views/NotFound';
 import MyProfile from './views/MyProfile';
 import Authenticated from './hoc/Authenticated';
+import AllUsers from './views/AllUsers';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -31,7 +32,6 @@ function App() {
     getUserData(appState.user.uid).then((snapshot) => {
       const userData = Object.values(snapshot.val())[0];
       setAppState({ ...appState, userData });
-      console.log('userData', userData);
     });
   }, [refresh, appState.user]);
 
@@ -52,6 +52,14 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='*' element={<NotFound />} />
+            <Route
+              path='/all-users'
+              element={
+                <Authenticated user={user}>
+                  <AllUsers />
+                </Authenticated>
+              }
+            />
             <Route
               path='/my-profile'
               element={
