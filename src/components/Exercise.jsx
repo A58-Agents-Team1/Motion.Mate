@@ -9,12 +9,35 @@ import { AccountStats } from './Account.Stats';
 export const Exercise = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(false);
-  const [filteredCategory, setFilteredCategory] = useState(null);
+  const [allExercises, setAllExercises] = useState([]);
 
+  // use effect to get all exercises
   useEffect(() => {
-    getExercises().then(setAllPosts);
-    // console.log(selectedCategory);
-  }, [selectedCategory]);
+    const getAllExercises = async () => {
+      const all = await getExercises();
+      setAllExercises(all);
+      console.log(allExercises);
+    };
+    getAllExercises();
+  }, []);
+
+  // use effect to get all exercises but also filter them to unique categories
+  useEffect(() => {
+    const fetchExercises = async () => {
+      const exercises = await getExercises();
+      const uniqueCategories = Object.values(
+        exercises.reduce((acc, exercise) => {
+          if (!acc[exercise.category]) {
+            acc[exercise.category] = exercise;
+          }
+          return acc;
+        }, {})
+      );
+      setAllPosts(uniqueCategories);
+    };
+
+    fetchExercises();
+  }, []);
 
   //   useEffect(() => {
   //   return onChildChanged(ref(db, 'exercises'), (snapshot) => {
@@ -55,8 +78,8 @@ export const Exercise = () => {
                   >
                     Join Now
                   </button>
+                  <p className='text-'>Level : {post.level}</p>
                 </div>
-                <p>Level : {post.level}</p>
               </div>
             ))}
         </div>
@@ -68,7 +91,7 @@ export const Exercise = () => {
           <ExerciseCategory
             category={selectedCategory}
             onBackToMain={handleBackToMain}
-            allPosts={allPosts}
+            allPosts={allExercises}
           />
         </div>
       )}
