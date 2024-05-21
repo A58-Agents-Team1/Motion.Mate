@@ -35,20 +35,13 @@ export default function LoginBy({
           required
         />
         <label className='label'>
-          <a
-            href='#'
-            className='label-text-alt link link-hover'
-          >
+          <a href='#' className='label-text-alt link link-hover'>
             Forgot password?
           </a>
         </label>
       </div>
       <div className='form-control mt-6'>
-        <button
-          type='button'
-          className='btn btn-primary'
-          onClick={handleLogin}
-        >
+        <button type='button' className='btn btn-primary' onClick={handleLogin}>
           Login
         </button>
       </div>
@@ -59,7 +52,7 @@ export default function LoginBy({
 LoginBy.propTypes = {
   placeholder: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  form: PropTypes.object.isRequired,
+  form: PropTypes.string.isRequired,
   updateForm: PropTypes.func.isRequired,
   handleLogin: PropTypes.func.isRequired,
 };
