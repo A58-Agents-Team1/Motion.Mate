@@ -56,9 +56,15 @@ export const getUserData = (uid) => {
   return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
 };
 
-export const uploadPhoto = async (image, imageName) => {
+export const updateUserByUsername = async (username, data) => {
+  return await update(ref(db, `users/${username}`), data);
+};
+
+export const uploadPhoto = async (image, username) => {
   try {
-    const imageRef = refStorage(storage, `images/${imageName}`);
+    const imageRef = refStorage(storage, `images/${username}`);
+    const url = await getUploadedPhoto(username);
+    updateUserByUsername(username, { avatar: url });
     return await uploadBytes(imageRef, image);
   } catch (e) {
     if (e) {
@@ -67,9 +73,9 @@ export const uploadPhoto = async (image, imageName) => {
   }
 };
 
-export const getUploadedPhoto = async (imageName) => {
+export const getUploadedPhoto = async (username) => {
   try {
-    const imageRef = refStorage(storage, `images/${imageName}`);
+    const imageRef = refStorage(storage, `images/${username}`);
     const url = await getDownloadURL(imageRef);
     return url;
   } catch (e) {
