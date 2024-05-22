@@ -62,24 +62,20 @@ export const CreateExercise = () => {
           <div className='modal-box'>
             <h3 className='font-bold text-lg mb-3'>Ready to workout</h3>
 
-            <div className='dropdown dropdown-hover  primary'>
-              <div tabIndex={0} role='button' className='btn m-1'>
-                Choose Category
-              </div>
-              <ul
-                tabIndex={0}
-                className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
-              >
-                <li>
-                  <a onClick={(e) => updateContent('Yoga', 'category')}>Yoga</a>
-                </li>
-                <li>
-                  <a onClick={(e) => updateContent('Jog', 'category')}>Jog</a>
-                </li>
-              </ul>
-            </div>
+            <select
+              className='select select-info w-full max-w-xs mb-3'
+              value={content.category}
+              onChange={(e) => updateContent(e.target.value, 'category')}
+            >
+              <option disabled value=''>
+                Select Category
+              </option>
+              <option value='Yoga'>Yoga</option>
+              <option value='Jog'>Jog</option>
+              <option value='Abb Workout'>Abb Workout</option>
+            </select>
 
-            <label className='input input-bordered flex items-center gap-2 select-primary'>
+            <label className='input input-bordered flex items-center mb-3 select-primary'>
               <input
                 onChange={(e) => updateContent(e.target.value, 'title')}
                 type='text'
@@ -89,7 +85,7 @@ export const CreateExercise = () => {
               />
             </label>
 
-            <label className='input input-bordered flex items-center gap-2 select-primary'>
+            <label className='input input-bordered flex items-center mb-3 select-primary'>
               <input
                 onChange={(e) => updateContent(e.target.value, 'duration')}
                 type='text'
@@ -99,7 +95,7 @@ export const CreateExercise = () => {
               />
             </label>
 
-            <label className='input input-bordered flex items-center gap-2 select-primary'>
+            <label className='input input-bordered flex items-center mb-3 select-primary'>
               <input
                 onChange={(e) => updateContent(e.target.value, 'description')}
                 type='text'
@@ -109,7 +105,7 @@ export const CreateExercise = () => {
               />
             </label>
 
-            <label className='input input-bordered flex items-center gap-2 select-primary'>
+            <label className='input input-bordered flex items-center mb-3 select-primary'>
               <input
                 onChange={(e) => updateContent(e.target.value, 'level')}
                 type='text'
@@ -119,7 +115,7 @@ export const CreateExercise = () => {
               />
             </label>
 
-            <label className='input input-bordered flex items-center gap-2 select-primary'>
+            <label className='input input-bordered flex items-center mb-3 select-primary'>
               <input
                 onChange={(e) =>
                   updateContent(e.target.value, 'shortDescription')
