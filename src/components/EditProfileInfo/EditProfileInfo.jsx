@@ -42,7 +42,7 @@ export default function EditProfileInfo({ setEditProfile }) {
             id='firstName'
             value={form?.firstName}
             onChange={updateForm('firstName')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl'
+            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
           />
           <label htmlFor='lastName'>Last Name:</label>
           <input
@@ -52,7 +52,7 @@ export default function EditProfileInfo({ setEditProfile }) {
             id='lastName'
             value={form?.lastName}
             onChange={updateForm('lastName')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl'
+            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
           />
           <label htmlFor='phoneNumber'>Phone Number:</label>
           <input
@@ -62,7 +62,7 @@ export default function EditProfileInfo({ setEditProfile }) {
             id='phoneNumber'
             value={form?.phoneNumber}
             onChange={updateForm('phoneNumber')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl'
+            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
           />
         </div>
         <div className='text-center'>
