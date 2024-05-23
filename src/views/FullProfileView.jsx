@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Avatar from '../components/Avatar';
 import { NavLink } from 'react-router-dom';
 import { fullFormatDate } from '../helper/format-date';
+import UserInfo from '../components/UserInfo';
 
 export default function FullProfileView() {
   const [user, setUser] = useState(null);
@@ -20,18 +21,24 @@ export default function FullProfileView() {
   }, [id]);
 
   return (
-    <div className='card card-side shadow-xl m-4 border border-gray-400 h-70 w-full flex flex-row rounded-2xl'>
+    <div className='card card-side shadow-xl m-4 border border-gray-400 flex flex-row rounded-2xl'>
       <Avatar user={user} />
-      <div className='card-body text-center flex flex-col'>
-        <p>{user?.username}</p>
-        <p className='text-gray-700'>{user?.email}</p>
-        <div className='mt-5'>
+      <div className='container card-body text-left justify-between'>
+        <div className='top-div text-center'>
+          {user?.firstName ? (
+            <h2 className='font-bold mb-8 underline'>{`${user?.firstName} ${user?.lastName}`}</h2>
+          ) : (
+            <h2 className='font-bold mb-8 underline'>{user?.username}</h2>
+          )}
+          <UserInfo userData={user} />
+          <p>Member Since: {fullFormatDate(user?.createdOn)}</p>
+        </div>
+        <div className='bottom-div card-actions justify-end mt-4'>
           <button className='btn btn-primary mr-4'>Add Friend</button>
           <NavLink to={'/all-users'} className='btn btn-error'>
             Back
           </NavLink>
         </div>
-        <p className='pt-8'>Member Since: {fullFormatDate(user?.createdOn)}</p>
       </div>
     </div>
   );

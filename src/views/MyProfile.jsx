@@ -5,6 +5,7 @@ import EditProfileInfo from '../components/EditProfileInfo/EditProfileInfo';
 import ChangeProfilePhoto from '../components/EditProfileInfo/ChangeProfilePhoto';
 import { getUserByUsername } from '../services/users.service';
 import Avatar from '../components/Avatar';
+import UserInfo from '../components/UserInfo';
 
 export default function MyProfile() {
   const { userData, setAppState } = useContext(AppContext);
@@ -33,27 +34,7 @@ export default function MyProfile() {
             </div>
             <div className='text-center'>
               <p className='font-bold underline'>Main Information:</p>
-              {userData?.username ? (
-                <p>UserName: {userData?.username}</p>
-              ) : (
-                <p>UserName: Missing information</p>
-              )}
-              <p>Email: {userData?.email}</p>
-              {userData?.firstName ? (
-                <p>First Name: {userData?.firstName}</p>
-              ) : (
-                <p>First Name: Missing information</p>
-              )}
-              {userData?.lastName ? (
-                <p>Last Name: {userData?.lastName}</p>
-              ) : (
-                <p>Last Name: Missing information</p>
-              )}
-              {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
-                <p>Phone: {userData?.phoneNumber}</p>
-              ) : (
-                <p>Phone: Missing information</p>
-              )}
+              <UserInfo userData={userData} />
               <div className='mt-5'>
                 <button
                   onClick={() => setEditProfile(!editProfile)}
