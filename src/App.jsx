@@ -30,10 +30,16 @@ function App() {
   useEffect(() => {
     if (!appState.user) return;
 
-    getUserData(appState.user.uid).then((snapshot) => {
-      const userData = Object.values(snapshot.val())[0];
-      setAppState({ ...appState, userData });
-    });
+    getUserData(appState.user.uid)
+      .then((snapshot) => {
+        if (snapshot.val()) {
+          const userData = Object.values(snapshot.val())[0];
+          setAppState({ ...appState, userData });
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+      });
   }, [refresh, appState.user]);
 
   return (
