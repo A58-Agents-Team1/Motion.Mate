@@ -37,7 +37,7 @@ export default function AvatarWithName() {
 
               <ul
                 tabIndex={0}
-                className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-gray-400 absolute right-5'
+                className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-gray-400 absolute right-0'
               >
                 <li>
                   <NavLink to='/my-profile'>My Profile</NavLink>
