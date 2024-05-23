@@ -7,7 +7,9 @@ export const CreateExercise = () => {
   const [content, setContent] = useState({
     category: '',
     title: '',
-    duration: '',
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
     description: '',
     level: '',
     createdBy: '',
@@ -26,16 +28,21 @@ export const CreateExercise = () => {
     const result = await createExercises(
       content.category,
       content.title,
-      content.duration,
+      `${content.hours || 0} hours ${content.minutes || 0} minutes ${
+        content.seconds || 0
+      } seconds`,
       content.description,
       content.level,
       userData?.username,
       content.shortDescription
     );
+    console.log(content);
     setContent({
       category: '',
       title: '',
-      duration: '',
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
       description: '',
       level: '',
       createdBy: '',
@@ -59,7 +66,7 @@ export const CreateExercise = () => {
       </button>
       <div>
         <dialog id='exercise-create-modal' className='modal'>
-          <div className='modal-box'>
+          <div className='modal-box overflow-x-hidden'>
             <h3 className='font-bold text-lg mb-3'>Ready to workout</h3>
 
             <select
@@ -85,15 +92,38 @@ export const CreateExercise = () => {
               />
             </label>
 
-            <label className='input input-bordered flex items-center mb-3 select-primary'>
-              <input
-                onChange={(e) => updateContent(e.target.value, 'duration')}
-                type='text'
-                className='grow'
-                placeholder='Duration'
-                value={content.duration}
-              />
-            </label>
+            <p>Duration</p>
+            <div className='flex gap-2'>
+              <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
+                <input
+                  onChange={(e) => updateContent(e.target.value, 'hours')}
+                  type='number'
+                  className='grow'
+                  placeholder='Hours'
+                  value={content.hours}
+                />
+              </label>
+
+              <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
+                <input
+                  onChange={(e) => updateContent(e.target.value, 'minutes')}
+                  type='number'
+                  className='grow'
+                  placeholder='Minutes'
+                  value={content.minutes}
+                />
+              </label>
+
+              <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
+                <input
+                  onChange={(e) => updateContent(e.target.value, 'seconds')}
+                  type='number'
+                  className='grow'
+                  placeholder='Seconds'
+                  value={content.seconds}
+                />
+              </label>
+            </div>
 
             <label className='input input-bordered flex items-center mb-3 select-primary'>
               <input
@@ -127,18 +157,21 @@ export const CreateExercise = () => {
               />
             </label>
 
-            <form method='dialog'>
-              <button
-                onClick={submitExercise}
-                className='btn btn-outline btn-primary'
-              >
-                Submit
-              </button>
-            </form>
-
-            <div className='modal-action'>
+            <div className='flex items-center justify-between'>
+              <div className='modal-action mt-1'>
+                <form method='dialog'>
+                  <button className='btn btn-outline btn-primary'>
+                    Cancel
+                  </button>
+                </form>
+              </div>
               <form method='dialog'>
-                <button className='btn btn-outline btn-primary'>Cancel</button>
+                <button
+                  onClick={submitExercise}
+                  className='btn btn-outline btn-primary'
+                >
+                  Submit
+                </button>
               </form>
             </div>
           </div>
