@@ -72,6 +72,13 @@ export const removeFriendService = async (username, friendUsername) => {
   update(ref(db), updateData);
 };
 
+export const checkFriendStatusService = async (username, friendUsername) => {
+  const friendsRef = ref(db, `users/${username}/friends/${friendUsername}`);
+
+  const snapshot = await get(friendsRef);
+  return snapshot.exists();
+};
+
 export const addUserExercise = async (username, exerciseId) => {
   return await update(ref(db, `users/${username}`), {
     exercises: exerciseId,

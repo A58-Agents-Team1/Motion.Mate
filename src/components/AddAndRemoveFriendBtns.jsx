@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   addFriendService,
+  checkFriendStatusService,
   removeFriendService,
 } from '../services/users.service';
 import PropTypes from 'prop-types';
@@ -19,6 +20,18 @@ export default function AddAndRemoveFriendBtns({ friendUsername }) {
     await removeFriendService(userData?.username, friendUsername);
     setIsFriend(false);
   };
+
+  useEffect(() => {
+    const fetchFriendStatus = async () => {
+      const status = await checkFriendStatusService(
+        userData?.username,
+        friendUsername
+      );
+      setIsFriend(status);
+    };
+
+    fetchFriendStatus();
+  }, [userData?.username, friendUsername]);
 
   return (
     <>
