@@ -58,6 +58,20 @@ export const createUser = (
   });
 };
 
+export const addFriendService = async (username, friendUsername) => {
+  const updateData = {};
+  updateData[`users/${username}/friends/${friendUsername}`] = true;
+
+  update(ref(db), updateData);
+};
+
+export const removeFriendService = async (username, friendUsername) => {
+  const updateData = {};
+  updateData[`users/${username}/friends/${friendUsername}`] = null;
+
+  update(ref(db), updateData);
+};
+
 export const addUserExercise = async (username, exerciseId) => {
   return await update(ref(db, `users/${username}`), {
     exercises: exerciseId,
