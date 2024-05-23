@@ -20,6 +20,11 @@ export default function MyProfile() {
     });
   }, [userData?.username, editProfile, changeProfilePhoto]);
 
+  const generateFriendTooltips = () => {
+    const friendNames = Object.keys(userData.friends).join(', ');
+    return friendNames;
+  };
+
   return (
     <div className='flex flex-col text-center'>
       {userData && editProfile === false && changeProfilePhoto === false ? (
@@ -35,6 +40,20 @@ export default function MyProfile() {
             <div className='text-center'>
               <p className='font-bold underline'>Main Information:</p>
               <UserInfo userData={userData} />
+              {userData?.friends &&
+                (Object.keys(userData.friends).length === 1 ? (
+                  <p title={generateFriendTooltips()}>
+                    You have{' '}
+                    <strong>{Object.keys(userData.friends).length}</strong>{' '}
+                    friend.
+                  </p>
+                ) : (
+                  <p title={generateFriendTooltips()}>
+                    You have{' '}
+                    <strong>{Object.keys(userData.friends).length}</strong>{' '}
+                    friends.
+                  </p>
+                ))}
               <div className='mt-5'>
                 <button
                   onClick={() => setEditProfile(!editProfile)}
