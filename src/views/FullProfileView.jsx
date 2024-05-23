@@ -3,7 +3,7 @@ import { getUserByUsername } from '../services/users.service';
 import { useEffect, useState } from 'react';
 import Avatar from '../components/Avatar';
 import { NavLink } from 'react-router-dom';
-import { formatDate } from '../helper/format-date';
+import { fullFormatDate } from '../helper/format-date';
 
 export default function FullProfileView() {
   const [user, setUser] = useState(null);
@@ -31,7 +31,7 @@ export default function FullProfileView() {
             Back
           </NavLink>
         </div>
-        <p className='pt-8'>Member Since: {formatDate(user?.createdOn)}</p>
+        <p className='pt-8'>Member Since: {fullFormatDate(user?.createdOn)}</p>
       </div>
     </div>
   );

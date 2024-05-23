@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
-import { formatDate } from '../helper/format-date';
+import { fullFormatDate } from '../helper/format-date';
 import EditProfileInfo from '../components/EditProfileInfo/EditProfileInfo';
 import ChangeProfilePhoto from '../components/EditProfileInfo/ChangeProfilePhoto';
 import { getUserByUsername } from '../services/users.service';
@@ -77,7 +77,7 @@ export default function MyProfile() {
         <ChangeProfilePhoto setChangeProfilePhoto={setChangeProfilePhoto} />
       )}
       <p className='mt-4'>
-        Account created on: {formatDate(userData?.createdOn)}
+        Account created on: {fullFormatDate(userData?.createdOn)}
       </p>
     </div>
   );
