@@ -11,6 +11,7 @@ export default function AllUsers() {
   const { userData } = useContext(AppContext);
   const [users, setUsers] = useState([]);
   const [searchBy, setSearchBy] = useState('firstName');
+  const [sortBy, setSortBy] = useState('username');
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search') || '';
 
@@ -27,6 +28,15 @@ export default function AllUsers() {
       setUsers(Object.values(snapshot.val()));
     });
   }, []);
+
+  const sortedUsers = [...users].sort((a, b) => {
+    if (sortBy === 'username') {
+      return a.username.toLowerCase().localeCompare(b.username.toLowerCase());
+    } else if (sortBy === 'createdOn') {
+      return new Date(b.createdOn) - new Date(a.createdOn);
+    }
+    return 0;
+  });
 
   return (
     <div>
@@ -61,10 +71,50 @@ export default function AllUsers() {
             className='p-2 border-2 border-gray-200 rounded-lg w-60 bg-gray-200 text-black'
           />
         </div>
+        <div className='dropdown'>
+          <div
+            tabIndex={0}
+            role='button'
+            className='btn m-1 border border-gray-500 rounded-2xl'
+          >
+            Sort Users By:
+          </div>
+          <ul
+            tabIndex={0}
+            className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 border border-gray-500'
+          >
+            <li>
+              <a
+                name='username'
+                onClick={() => setSortBy('username')}
+                className={`btn ${
+                  sortBy === 'username'
+                    ? 'btn-active border-white bg-gray-400 text-black'
+                    : 'btn-outline border-white'
+                } rounded-2xl shadow-2xl `}
+              >
+                User Name
+              </a>
+            </li>
+            <li>
+              <a
+                name='createdOn'
+                onClick={() => setSortBy('createdOn')}
+                className={`btn ${
+                  sortBy === 'createdOn'
+                    ? 'btn-active border-white bg-gray-400 text-black'
+                    : 'btn-outline border-white'
+                } rounded-2xl shadow-2xl mt-2`}
+              >
+                Last Created
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       <div className='flex flex-col'>
         <ul>
-          {users
+          {sortedUsers
             .filter((user) => user.username !== userData.username)
             .map((user) => (
               <li key={user.username}>
