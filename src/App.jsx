@@ -13,6 +13,7 @@ import NotFound from './views/NotFound';
 import MyProfile from './views/MyProfile';
 import Authenticated from './hoc/Authenticated';
 import AllUsers from './views/AllUsers';
+import FullProfileView from './views/FullProfileView';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -57,6 +58,14 @@ function App() {
               element={
                 <Authenticated user={user}>
                   <AllUsers />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/users/:id'
+              element={
+                <Authenticated user={user}>
+                  <FullProfileView />
                 </Authenticated>
               }
             />
