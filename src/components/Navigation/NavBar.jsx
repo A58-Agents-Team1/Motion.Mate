@@ -33,71 +33,66 @@ export const NavBar = () => {
 
   return (
     <div className='drawer'>
-      <input
-        id='my-drawer-3'
-        type='checkbox'
-        className='drawer-toggle'
-      />
+      <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
-        <div className='w-full navbar bg-base-300'>
-          <div className='flex-none lg:hidden'>
-            <label
-              htmlFor='my-drawer-3'
-              aria-label='open sidebar'
-              className='btn btn-square btn-ghost'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                className='inline-block w-6 h-6 stroke-current'
+        <div className='w-full navbar bg-base-300 flex justify-between px-3'>
+          <div>
+            <ThemeChangeIcons toggleTheme={handleToggle} currentTheme={theme} />
+            <div className='flex-none lg:hidden'>
+              <label
+                htmlFor='my-drawer-3'
+                aria-label='open sidebar'
+                className='btn btn-square btn-ghost'
               >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M4 6h16M4 12h16M4 18h16'
-                ></path>
-              </svg>
-            </label>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  className='inline-block w-6 h-6 stroke-current'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
+                    d='M4 6h16M4 12h16M4 18h16'
+                  ></path>
+                </svg>
+              </label>
+            </div>
+            <div className='flex-none hidden lg:block'>
+              <ul className='menu menu-horizontal items-center '>
+                {/* Navbar menu content here */}
+                <li>
+                  <NavLink to={'/'}>Home</NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/about'}>About</NavLink>
+                </li>
+                {!userData ? (
+                  <>
+                    <li>
+                      <NavLink to={'/login'}>Login</NavLink>
+                    </li>
+
+                    <li>
+                      <NavLink to={'/register'}>Register</NavLink>
+                    </li>
+                  </>
+                ) : (
+                  <div className='flex gap-2 items-center mx-2'>
+                    {userData && <p>{userData?.email}</p>}
+                    <li>
+                      <button onClick={(e) => logout(e)}>Logout</button>
+                    </li>
+                  </div>
+                )}
+              </ul>
+            </div>
           </div>
-          <div className='flex-1 px-2 mx-2'>
+          <div className='flex justify-end'>
             <AvatarWithName />
           </div>
-          <div className='flex-none hidden lg:block'>
-            <ul className='menu menu-horizontal items-center '>
-              {/* Navbar menu content here */}
-              <li>
-                <NavLink to={'/'}>Home</NavLink>
-              </li>
-              <li>
-                <NavLink to={'/about'}>About</NavLink>
-              </li>
-              {!userData ? (
-                <>
-                  <li>
-                    <NavLink to={'/login'}>Login</NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink to={'/register'}>Register</NavLink>
-                  </li>
-                </>
-              ) : (
-                <div className='flex gap-2 items-center mx-2'>
-                  {userData && <p>{userData?.email}</p>}
-                  <li>
-                    <button onClick={(e) => logout(e)}>Logout</button>
-                  </li>
-                </div>
-              )}
-            </ul>
-          </div>
-          <ThemeChangeIcons
-            toggleTheme={handleToggle}
-            currentTheme={theme}
-          />
         </div>
         {/* Page content here */}
       </div>
