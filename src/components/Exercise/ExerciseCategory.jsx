@@ -9,26 +9,26 @@ export const ExerciseCategory = ({
   setTimer,
   setStartTimer,
 }) => {
-  const [duration, setDuration] = useState([]);
+  const [duration, setDuration] = useState({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   const getDuration = (post) => {
-    setDuration(post.duration);
+    const hours = Number(post.duration.split(' ')[0]);
+    const minutes = Number(post.duration.split(' ')[2]);
+    const seconds = Number(post.duration.split(' ')[4]);
+    setDuration({ hours, minutes, seconds });
   };
 
   // TODO if we want the input to be selected if its hours or minutes or seconds
   useEffect(() => {
-    if (duration.includes('hour')) {
-      const countHours = duration.split(' ');
-      setTimer(Number(countHours[0]) * 3600);
-    }
-    if (duration.includes('minute')) {
-      const countHours = duration.split(' ');
-      setTimer(Number(countHours[0]) * 60);
-    }
-    if (duration.includes('seconds')) {
-      const countHours = duration.split(' ');
-      setTimer(Number(countHours[0]));
-    }
+    console.log('timer', timer, duration.hours);
+    setTimer(
+      timer + duration.hours * 3600 + duration.minutes * 60 + duration.seconds
+    );
+
     console.log(timer);
     setStartTimer(true);
   }, [duration]);
