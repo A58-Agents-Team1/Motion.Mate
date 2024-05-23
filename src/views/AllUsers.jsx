@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../context/AppContext';
+import { useSearchParams } from 'react-router-dom';
 import {
   getAllUsers,
   getFilterUserBySearchTerm,
 } from '../services/users.service';
-import { AppContext } from '../context/AppContext';
-import { useSearchParams } from 'react-router-dom';
 import SingleUserView from '../components/SingleUserView';
 
 export default function AllUsers() {
@@ -114,13 +114,22 @@ export default function AllUsers() {
       </div>
       <div className='flex flex-col'>
         <ul>
-          {sortedUsers
-            .filter((user) => user.username !== userData.username)
-            .map((user) => (
-              <li key={user.username}>
-                <SingleUserView user={user} />
-              </li>
-            ))}
+          {sortedUsers.length !== 0 ? (
+            sortedUsers
+              .filter((user) => user.username !== userData.username)
+              .map((user) => (
+                <li key={user.username}>
+                  <SingleUserView user={user} />
+                </li>
+              ))
+          ) : searchParams === '' ? (
+            <h1 className='text-center'>No Users Found</h1>
+          ) : (
+            <h1 className='text-center mt-4'>
+              No users matched your search by <strong>{searchBy}</strong> with{' '}
+              <strong>{search}</strong>.
+            </h1>
+          )}
         </ul>
       </div>
     </div>
