@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import userPhoto from '../../assets/userPhoto.png';
 import { uploadPhoto } from '../../services/users.service';
+import Avatar from '../Avatar';
 
 export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
   const { userData } = useContext(AppContext);
@@ -31,20 +31,7 @@ export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
       <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex flex-col items-center'>
         <div className='flex items-center'>
           <div className='mr-4'>
-            {userData?.avatar ? (
-              <img
-                src={userData?.avatar}
-                alt='Profile Photo'
-                className='w-auto h-64 max-w-full rounded-md object-cover shadow-xl'
-              />
-            ) : (
-              <img
-                src={userPhoto}
-                alt='User Photo'
-                className='w-auto h-64 max-w-full rounded-md object-cover shadow-xl'
-                title='User Photo'
-              />
-            )}
+            <Avatar user={userData} />
           </div>
           <div className='text-center'>
             {imageUpload !== null && (
