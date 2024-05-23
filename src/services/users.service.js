@@ -23,6 +23,18 @@ export const getAllUsers = async () => {
   return result;
 };
 
+export const getFilterUserBySearchTerm = async (searchBy, search) => {
+  const snapshot = await get(ref(db, 'users'));
+  const users = [];
+  snapshot.forEach((acc) => {
+    const user = acc.val();
+    if (user[searchBy].toLowerCase().includes(search.toLowerCase())) {
+      users.push(user);
+    }
+  });
+  return users;
+};
+
 export const createUser = (
   uid,
   username,
