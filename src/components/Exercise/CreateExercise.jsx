@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
-import { AppContext } from '../context/AppContext';
-import { createExercises } from '../services/exercise.service';
-import { addUserExercise } from '../services/users.service';
+import { AppContext } from '../../context/AppContext';
+import { createExercises } from '../../services/exercise.service';
+import { addUserExercise } from '../../services/users.service';
 
 export const CreateExercise = () => {
   const [content, setContent] = useState({

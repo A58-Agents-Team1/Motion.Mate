@@ -1,19 +1,38 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CreateExercise } from './CreateExercise';
-import { getExercisesByUsername } from '../services/exercise.service';
-import { AppContext } from '../context/AppContext';
+import { getExercisesByUsername } from '../../services/exercise.service';
+import { AppContext } from '../../context/AppContext';
 
-export const AccountStats = () => {
+export const AccountStats = ({
+  startTimer,
+  timer,
+  setStartTimer,
+  setTimer,
+}) => {
   const [count, setCount] = useState(0);
   const { userData } = useContext(AppContext);
+  const [doneExercise, setDoneExercise] = useState(0);
 
   const countOFExercises = async () => {
     const number = await getExercisesByUsername(userData?.username);
-    // console.log(number);
     setCount(number.length);
-    // console.log(count);
   };
   countOFExercises();
+
+  useEffect(() => {
+    if (startTimer && timer > 0) {
+      const timeoutId = setTimeout(() => {
+        setTimer((prev) => prev - 1);
+        if (timer === 1) {
+          setDoneExercise((doneExercise) => doneExercise + 1);
+        }
+      }, 1000);
+
+      return () => clearTimeout(timeoutId);
+    } else if (timer === 0) {
+      setStartTimer(false);
+    }
+  }, [startTimer, timer, doneExercise]);
 
   return (
     <div className='stats shadow'>
@@ -34,8 +53,15 @@ export const AccountStats = () => {
           </svg>
         </div>
         <div className='stat-title'>Exercises done</div>
-        <div className='stat-value text-secondary'>0</div>
-        <div className='stat-desc'>Be active - be happy</div>
+
+        <span className='countdown text-primary font-mono text-2xl'>
+          <span style={{ '--value': Math.floor(timer / 3600) }}></span>:
+          <span style={{ '--value': Math.floor((timer % 3600) / 60) }}></span>:
+          <span style={{ '--value': timer % 60 }}></span>
+        </span>
+
+        <div className='stat-value text-primary'>{doneExercise}</div>
+        <div className='stat-desc text-primary'>Be active</div>
       </div>
 
       <div className='stat gap-2'>
@@ -44,7 +70,7 @@ export const AccountStats = () => {
         </div>
         <div className='stat-title'>Goals reached</div>
 
-        <div className='stat-value'>0</div>
+        <div className='stat-value text-secondary'>0</div>
         <button className='btn btn-outline btn-secondary '>Set Goals</button>
         <div className='stat-desc text-secondary'>Challenge yourself</div>
       </div>
