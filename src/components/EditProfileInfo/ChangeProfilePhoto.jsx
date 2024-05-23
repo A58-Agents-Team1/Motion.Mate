@@ -35,11 +35,14 @@ export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
           </div>
           <div className='text-center'>
             {imageUpload !== null && (
-              <img
-                src={URL.createObjectURL(imageUpload)}
-                alt='Profile Photo'
-                className='w-auto h-64 max-w-full rounded-md object-cover shadow-xl'
-              />
+              <div>
+                <h2 className='font-bold underline'>New Profil Photo: </h2>
+                <img
+                  src={URL.createObjectURL(imageUpload)}
+                  alt='Profile Photo'
+                  className='w-auto h-64 max-w-full rounded-2xl object-cover shadow-xl mt-2'
+                />
+              </div>
             )}
           </div>
         </div>
