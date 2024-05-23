@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { formatDate } from '../helper/format-date';
-import userPhoto from '../assets/userPhoto.png';
 import EditProfileInfo from '../components/EditProfileInfo/EditProfileInfo';
 import ChangeProfilePhoto from '../components/EditProfileInfo/ChangeProfilePhoto';
 import { getUserByUsername } from '../services/users.service';
+import Avatar from '../components/Avatar';
 
 export default function MyProfile() {
   const { userData, setAppState } = useContext(AppContext);
@@ -29,20 +29,7 @@ export default function MyProfile() {
           </h1>
           <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center'>
             <div className='mr-4'>
-              {userData?.avatar ? (
-                <img
-                  src={userData?.avatar}
-                  alt='Profile Photo'
-                  className='w-auto h-64 max-w-full rounded-md object-cover shadow-xl'
-                />
-              ) : (
-                <img
-                  src={userPhoto}
-                  alt='userPhoto'
-                  className='w-auto h-64 max-w-full rounded-md object-cover shadow-xl'
-                  title='User Photo'
-                />
-              )}
+              <Avatar user={userData} />
             </div>
             <div className='text-center'>
               <p className='font-bold underline'>Main Information:</p>
