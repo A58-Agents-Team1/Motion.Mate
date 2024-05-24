@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 
 export const Layout = ({ children }) => {
   return (
-    <div className='flex flex-col justify-between w-full border min-h-[100vh]'>
+    <div className='flex flex-col justify-between w-full min-h-[100vh]'>
       <NavBar />
-      <div className='flex justify-center align-middle'>{children}</div>
+      <div className='flex flex-col self-center justify-center my-3 w-10/12'>
+        {children}
+      </div>
       <Footer />
     </div>
   );
