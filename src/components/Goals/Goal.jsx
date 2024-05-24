@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getUserByUsername } from '../../services/users.service';
 import GoalButton from './GoalButton';
 import PropTypes from 'prop-types';
-import { formatDate } from '../../helper/format-date';
+import { fullFormatDate } from '../../helper/format-date';
 export default function Goal({ owner, name, from, to, status, progress }) {
   const [ownerObj, setOwnerObj] = useState({
     avatar: '',
@@ -44,8 +44,8 @@ export default function Goal({ owner, name, from, to, status, progress }) {
         </div>
       </th>
       <td>{name}</td>
-      <td>{formatDate(from)}</td>
-      <td>{formatDate(to)}</td>
+      <td>{fullFormatDate(from)}</td>
+      <td>{fullFormatDate(to)}</td>
       <td>
         <div
           className='radial-progress'
