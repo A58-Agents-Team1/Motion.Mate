@@ -23,6 +23,18 @@ export const getAllUsers = async () => {
   return result;
 };
 
+export const getFilterUserBySearchTerm = async (searchBy, search) => {
+  const snapshot = await get(ref(db, 'users'));
+  const users = [];
+  snapshot.forEach((acc) => {
+    const user = acc.val();
+    if (user[searchBy].toLowerCase().includes(search.toLowerCase())) {
+      users.push(user);
+    }
+  });
+  return users;
+};
+
 export const createUser = (
   uid,
   username,
@@ -46,6 +58,27 @@ export const createUser = (
   });
 };
 
+export const addFriendService = async (username, friendUsername) => {
+  const updateData = {};
+  updateData[`users/${username}/friends/${friendUsername}`] = true;
+
+  update(ref(db), updateData);
+};
+
+export const removeFriendService = async (username, friendUsername) => {
+  const updateData = {};
+  updateData[`users/${username}/friends/${friendUsername}`] = null;
+
+  update(ref(db), updateData);
+};
+
+export const checkFriendStatusService = async (username, friendUsername) => {
+  const friendsRef = ref(db, `users/${username}/friends/${friendUsername}`);
+
+  const snapshot = await get(friendsRef);
+  return snapshot.exists();
+};
+
 export const addUserExercise = async (username, exerciseId) => {
   return await update(ref(db, `users/${username}`), {
     exercises: exerciseId,
@@ -56,9 +89,15 @@ export const getUserData = (uid) => {
   return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
 };
 
-export const uploadPhoto = async (image, imageName) => {
+export const updateUserByUsername = async (username, data) => {
+  return await update(ref(db, `users/${username}`), data);
+};
+
+export const uploadPhoto = async (image, username) => {
   try {
-    const imageRef = refStorage(storage, `images/${imageName}`);
+    const imageRef = refStorage(storage, `images/${username}`);
+    const url = await getUploadedPhoto(username);
+    updateUserByUsername(username, { avatar: url });
     return await uploadBytes(imageRef, image);
   } catch (e) {
     if (e) {
@@ -67,9 +106,9 @@ export const uploadPhoto = async (image, imageName) => {
   }
 };
 
-export const getUploadedPhoto = async (imageName) => {
+export const getUploadedPhoto = async (username) => {
   try {
-    const imageRef = refStorage(storage, `images/${imageName}`);
+    const imageRef = refStorage(storage, `images/${username}`);
     const url = await getDownloadURL(imageRef);
     return url;
   } catch (e) {

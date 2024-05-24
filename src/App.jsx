@@ -14,6 +14,7 @@ import MyProfile from './views/MyProfile';
 import Authenticated from './hoc/Authenticated';
 import AllUsers from './views/AllUsers';
 import Goals from './views/Goals';
+import FullProfileView from './views/FullProfileView';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -30,10 +31,16 @@ function App() {
   useEffect(() => {
     if (!appState.user) return;
 
-    getUserData(appState.user.uid).then((snapshot) => {
-      const userData = Object.values(snapshot.val())[0];
-      setAppState({ ...appState, userData });
-    });
+    getUserData(appState.user.uid)
+      .then((snapshot) => {
+        if (snapshot.val()) {
+          const userData = Object.values(snapshot.val())[0];
+          setAppState({ ...appState, userData });
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+      });
   }, [refresh, appState.user]);
 
   return (
@@ -78,6 +85,14 @@ function App() {
               element={
                 <Authenticated user={user}>
                   <AllUsers />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/users/:id'
+              element={
+                <Authenticated user={user}>
+                  <FullProfileView />
                 </Authenticated>
               }
             />

@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../context/AppContext';
-import { getExercises } from '../services/exercise.service';
-import { onChildChanged, ref } from 'firebase/database';
-import { db } from '../config/firebase-config';
-import { ExerciseCategory } from './Exercise.Category';
-import { AccountStats } from './Account.Stats';
+import { useEffect, useState } from 'react';
+import { getExercises } from '../../services/exercise.service';
+import { ExerciseCategory } from './ExerciseCategory';
+import { AccountStats } from './AccountStats';
 
 export const Exercise = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [allExercises, setAllExercises] = useState([]);
+
+  const [startTimer, setStartTimer] = useState(false);
+  const [timer, setTimer] = useState(0);
 
   // use effect to get all exercises
   useEffect(() => {
@@ -38,23 +38,18 @@ export const Exercise = () => {
     fetchExercises();
   }, []);
 
-  //   useEffect(() => {
-  //   return onChildChanged(ref(db, 'exercises'), (snapshot) => {
-  //     const value = snapshot.val();
-  //     setAllPosts((allPosts) =>
-  //       allPosts.map((exercise) => {
-  //         return exercise;
-  //       })
-  //     );
-  //   });
-  // }, []);
-
   const handleBackToMain = () => {
     setSelectedCategory(false);
   };
 
   return (
     <>
+      <AccountStats
+        startTimer={startTimer}
+        timer={timer}
+        setStartTimer={setStartTimer}
+        setTimer={setTimer}
+      />
       {selectedCategory === false && (
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4'>
           {allPosts.length > 0 &&
@@ -86,11 +81,14 @@ export const Exercise = () => {
 
       {selectedCategory && (
         <div>
-          <h1>Selected Category: {selectedCategory}</h1>
           <ExerciseCategory
             category={selectedCategory}
             onBackToMain={handleBackToMain}
             allPosts={allExercises}
+            startTimer={startTimer}
+            timer={timer}
+            setTimer={setTimer}
+            setStartTimer={setStartTimer}
           />
         </div>
       )}

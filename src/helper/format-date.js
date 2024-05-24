@@ -1,4 +1,4 @@
-export const formatDate = (date) =>
+export const fullFormatDate = (date) =>
   new Date(date).toLocaleDateString('bg-BG', {
     year: 'numeric',
     month: 'long',
@@ -6,4 +6,11 @@ export const formatDate = (date) =>
     minute: 'numeric',
     hour: 'numeric',
     second: 'numeric',
+  });
+
+export const shortFormatDate = (date) =>
+  new Date(date).toLocaleDateString('bg-BG', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });

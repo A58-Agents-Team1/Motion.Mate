@@ -1,60 +1,83 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
-import { formatDate } from '../helper/format-date';
-import userPhoto from '../assets/userPhoto.png';
+import { fullFormatDate } from '../helper/format-date';
+import EditProfileInfo from '../components/EditProfileInfo/EditProfileInfo';
+import ChangeProfilePhoto from '../components/EditProfileInfo/ChangeProfilePhoto';
+import { getUserByUsername } from '../services/users.service';
+import Avatar from '../components/Avatar';
+import UserInfo from '../components/UserInfo';
 
 export default function MyProfile() {
-  const { userData } = useContext(AppContext);
+  const { userData, setAppState } = useContext(AppContext);
+  const [editProfile, setEditProfile] = useState(false);
+  const [changeProfilePhoto, setChangeProfilePhoto] = useState(false);
+
+  useEffect(() => {
+    getUserByUsername(userData?.username).then((res) => {
+      setAppState((prev) => {
+        return { ...prev, userData: res.val() };
+      });
+    });
+  }, [userData?.username, editProfile, changeProfilePhoto]);
+
+  const generateFriendTooltips = () => {
+    const friendNames = Object.keys(userData.friends).join(', ');
+    return friendNames;
+  };
+
   return (
     <div className='flex flex-col text-center'>
-      <h1 className='mb-2'>My Profile Information</h1>
-      <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center'>
-        <div className='mr-4'>
-          {userData?.avatar ? (
-            <img
-              src={userData?.avatar}
-              alt='Profile Photo'
-              className='w-auto h-64 max-w-full rounded-md object-cover'
-            />
-          ) : (
-            <img
-              src={userPhoto}
-              alt='userPhoto'
-              className='w-auto h-64 max-w-full rounded-md object-cover'
-              title='User Photo'
-            />
-          )}
-        </div>
-        <div className='text-left'>
-          {userData?.firstName ? (
-            <p>First Name: {userData?.firstName}</p>
-          ) : (
-            <p>First Name: Missing information</p>
-          )}
-          {userData?.lastName ? (
-            <p>Last Name: {userData?.lastName}</p>
-          ) : (
-            <p>Last Name: Missing information</p>
-          )}
-          {userData?.username ? (
-            <p>UserName: {userData?.username}</p>
-          ) : (
-            <p>UserName: Missing information</p>
-          )}
-          <p>Email: {userData?.email}</p>
-          {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
-            <p>Phone: {userData?.phoneNumber}</p>
-          ) : (
-            <p>Phone: Missing information</p>
-          )}
-          <div className='mt-5'>
-            <button className='btn btn-primary mr-3'>Edit Profile</button>
-            <button className='btn btn-primary'>Change Photo</button>
+      {userData && editProfile === false && changeProfilePhoto === false ? (
+        <div className='flex flex-col text-center'>
+          <h1 className='mb-4'>
+            Greetings, {userData?.username}! Explore all the details about your
+            account here.
+          </h1>
+          <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center'>
+            <div className='mr-4'>
+              <Avatar user={userData} />
+            </div>
+            <div className='text-center'>
+              <p className='font-bold underline'>Main Information:</p>
+              <UserInfo userData={userData} />
+              {userData?.friends &&
+                (Object.keys(userData.friends).length === 1 ? (
+                  <p title={generateFriendTooltips()}>
+                    You have{' '}
+                    <strong>{Object.keys(userData.friends).length}</strong>{' '}
+                    friend.
+                  </p>
+                ) : (
+                  <p title={generateFriendTooltips()}>
+                    You have{' '}
+                    <strong>{Object.keys(userData.friends).length}</strong>{' '}
+                    friends.
+                  </p>
+                ))}
+              <div className='mt-5'>
+                <button
+                  onClick={() => setEditProfile(!editProfile)}
+                  className='btn btn-primary mr-3'
+                >
+                  Edit Profile
+                </button>
+                <button
+                  onClick={() => setChangeProfilePhoto(!changeProfilePhoto)}
+                  className='btn btn-primary'
+                >
+                  Change Photo
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <p className='mt-2'>
-        Account created on: {formatDate(userData?.createdOn)}
+      ) : editProfile === true ? (
+        <EditProfileInfo setEditProfile={setEditProfile} />
+      ) : (
+        <ChangeProfilePhoto setChangeProfilePhoto={setChangeProfilePhoto} />
+      )}
+      <p className='mt-4'>
+        Account created on: {fullFormatDate(userData?.createdOn)}
       </p>
     </div>
   );
