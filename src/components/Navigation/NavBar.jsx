@@ -38,7 +38,7 @@ export const NavBar = () => {
         type='checkbox'
         className='drawer-toggle'
       />
-      <div className='drawer-content flex flex-col'>
+      <div className='drawer-content flex flex-col '>
         {/* Navbar */}
         <div className='w-full navbar bg-base-300'>
           <div className='flex-none lg:hidden'>
@@ -72,6 +72,9 @@ export const NavBar = () => {
                 <NavLink to={'/'}>Home</NavLink>
               </li>
               <li>
+                <NavLink to={'/goals'}>Goals</NavLink>
+              </li>
+              <li>
                 <NavLink to={'/about'}>About</NavLink>
               </li>
               {!userData ? (
@@ -101,7 +104,7 @@ export const NavBar = () => {
         </div>
         {/* Page content here */}
       </div>
-      <div className='drawer-side'>
+      <div className='drawer-side z-50'>
         <label
           htmlFor='my-drawer-3'
           aria-label='close sidebar'
@@ -118,6 +121,9 @@ export const NavBar = () => {
           )}
           <li>
             <NavLink to={'/'}>Home</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/goals'}>Goals</NavLink>
           </li>
           <li>
             <NavLink to={'/about'}>About</NavLink>
