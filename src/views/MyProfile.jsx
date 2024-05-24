@@ -33,7 +33,7 @@ export default function MyProfile() {
             Greetings, {userData?.username}! Explore all the details about your
             account here.
           </h1>
-          <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center'>
+          <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center justify-center'>
             <div className='mr-4'>
               <Avatar user={userData} />
             </div>

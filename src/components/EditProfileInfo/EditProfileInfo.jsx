@@ -31,7 +31,7 @@ export default function EditProfileInfo({ setEditProfile }) {
         <p>Greetings, {userData?.username}! Ready to make updates? </p>
         <p>Edit your account details here.</p>
       </h1>
-      <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center'>
+      <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center justify-center'>
         <div className='mr-4 flex flex-col text-left'>
           <p className='font-bold underline'>Edit profile info here:</p>
           <label htmlFor='firstName'>First Name:</label>

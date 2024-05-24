@@ -40,7 +40,7 @@ export default function AllUsers() {
 
   return (
     <div>
-      <div className='flex items-center space-x-2 mt-4'>
+      <div className='flex justify-center items-center space-x-2 mt-4'>
         <div className='flex items-center space-x-1'>
           <p>Search By:</p>
           <button
@@ -75,13 +75,13 @@ export default function AllUsers() {
           <div
             tabIndex={0}
             role='button'
-            className='btn m-1 border border-gray-500 rounded-2xl'
+            className='btn m-1 border border-gray-500 rounded-2xl shadow-xl'
           >
             Sort Users By:
           </div>
           <ul
             tabIndex={0}
-            className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 border border-gray-500'
+            className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 border border-gray-500 absolute right-0'
           >
             <li>
               <a
