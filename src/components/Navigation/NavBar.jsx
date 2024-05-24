@@ -74,6 +74,9 @@ export const NavBar = () => {
                   <NavLink to={'/'}>Home</NavLink>
                 </li>
                 <li>
+                  <NavLink to={'/goals'}>Goals</NavLink>
+                </li>
+                <li>
                   <NavLink to={'/about'}>About</NavLink>
                 </li>
                 {!userData ? (
