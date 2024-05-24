@@ -4,12 +4,18 @@ import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext.js';
 import { Link } from 'react-router-dom';
 import LoginBy from './LoginBy.jsx';
+import {
+  validateEmailLogAsync,
+  validatePassword,
+  validateRequiredFieldsLogEmail,
+  validateRequiredFieldsLogUsername,
+  validateUserNameLogAsync,
+} from '../../common/user.validations.js';
 
 export default function Login() {
   const { setAppState, user, refresh } = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
-
   const [usernameEmail, setUsernameEmail] = useState(true);
   const [form, setForm] = useState({
     username: '',
@@ -24,22 +30,44 @@ export default function Login() {
     });
   };
 
+  const validateLoginFormByEmail = async () => {
+    validateRequiredFieldsLogEmail(form);
+    await validateEmailLogAsync(form.email);
+    validatePassword(form.password);
+  };
+
+  const validateLoginFormByUsername = async () => {
+    validateRequiredFieldsLogUsername(form);
+    await validateUserNameLogAsync(form.username);
+    validatePassword(form.password);
+  };
+
   const handleLoginByEmail = async () => {
     try {
+      await validateLoginFormByEmail();
       const { user } = await loginUser(form.email, form.password);
       setAppState({ user, userData: null, refresh: !refresh });
       navigate(location.state.from.pathname || '/');
     } catch (error) {
+      if (error.message.includes('auth/invalid-credential')) {
+        console.log('Wrong password!');
+        return;
+      }
       console.log(error.message);
     }
   };
 
   const handleLoginByUsername = async () => {
     try {
+      await validateLoginFormByUsername();
       await loginUserByUsername(form.username, form.password);
       setAppState({ user, userData: null, refresh: !refresh });
       navigate(location.state.from.pathname || '/');
     } catch (error) {
+      if (error.message.includes('auth/invalid-credential')) {
+        console.log('Wrong password!');
+        return;
+      }
       console.log(error.message);
     }
   };
@@ -58,10 +86,7 @@ export default function Login() {
   }, []);
 
   return (
-    <div
-      id='login'
-      className='hero min-h-screen bg-base-300'
-    >
+    <div id='login' className='hero min-h-screen bg-base-300'>
       <div className='hero-content flex-col lg:flex-row-reverse'>
         <div className='card shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
           <form className='card-body'>
