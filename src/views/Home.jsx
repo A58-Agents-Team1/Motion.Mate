@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
 import { getAllUsers } from '../services/users.service';
+import { getExercises } from '../services/exercise.service';
 
 export default function Home() {
-  const [all, setAll] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+  const [allExercises, setAllExercises] = useState([]);
 
   useEffect(() => {
-    const allUsers = async () => {
+    const func = async () => {
       const result = await getAllUsers();
       const users = result.val();
-      setAll(Object.keys(users).length);
+      setAllUsers(Object.keys(users).length);
+      const snapshot = await getExercises();
+      setAllExercises(Object.keys(snapshot).length);
     };
-    allUsers();
+    func();
   }, []);
 
   return (
@@ -24,11 +28,12 @@ export default function Home() {
           <div>
             <h1 className='text-5xl font-bold'>Ready to join the lifestyle?</h1>
             <p className='py-6'>
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              Find the right category that fits you. Challenge yourself with
+              exercises with difficulty for beginners or lovers. Here you can
+              find all type of exercises for all parts of the body, find other
+              users and exchange ideas.
             </p>
-            <button className='btn btn-primary'>Get Started</button>
+            <button className='btn btn-secondary'>Get Started</button>
           </div>
         </div>
       </div>
@@ -51,7 +56,7 @@ export default function Home() {
               </svg>
             </div>
             <div className='stat-title'>Downloads</div>
-            <div className='stat-value'>31K</div>
+            <div className='stat-value text-secondary'>0</div>
             <div className='stat-desc'>Jan 1st - Feb 1st</div>
           </div>
 
@@ -72,7 +77,7 @@ export default function Home() {
               </svg>
             </div>
             <div className='stat-title'>All Users</div>
-            <div className='stat-value'>{all}</div>
+            <div className='stat-value text-secondary'>{allUsers}</div>
             <div className='stat-desc'>
               ↗︎ What are you waiting for - join us!
             </div>
@@ -94,9 +99,9 @@ export default function Home() {
                 ></path>
               </svg>
             </div>
-            <div className='stat-title'>New Registers</div>
-            <div className='stat-value'>1,200</div>
-            <div className='stat-desc'>↘︎ 90 (14%)</div>
+            <div className='stat-title'>All exercises available</div>
+            <div className='stat-value text-secondary'>{allExercises}</div>
+            <div className='stat-desc'>Be active</div>
           </div>
         </div>
       </div>
