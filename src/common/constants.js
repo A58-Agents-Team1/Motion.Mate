@@ -1,3 +1,3 @@
-export const LIGHT_THEME = 'wireframe';
+export const LIGHT_THEME = 'fantasy';
 
-export const DARK_THEME = 'business';
+export const DARK_THEME = 'sunset';
