@@ -1,21 +1,31 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { createExercises } from '../../services/exercise.service';
 import { addUserExercise } from '../../services/users.service';
+import { getAllCategories } from '../../services/category.service';
 
 export const CreateExercise = () => {
   const [content, setContent] = useState({
-    category: '',
     title: '',
+    content: '',
     hours: 0,
     minutes: 0,
     seconds: 0,
-    description: '',
+    calories: '',
     level: '',
-    createdBy: '',
-    shortDescription: '',
+    categoryId: '',
   });
   const { userData } = useContext(AppContext);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const result = await getAllCategories();
+      setCategories(result);
+    };
+    getCategories();
+  }, []);
 
   const updateContent = (e, prop) => {
     setContent({
@@ -26,32 +36,19 @@ export const CreateExercise = () => {
 
   const submitExercise = async () => {
     const result = await createExercises(
-      content.category,
       content.title,
-      `${content.hours || 0} hours ${content.minutes || 0} minutes ${
-        content.seconds || 0
-      } seconds`,
-      content.description,
+      content.content,
+      content.hours,
+      content.minutes,
+      content.seconds,
+      content.calories,
       content.level,
-      userData?.username,
-      content.shortDescription
+      userData.username,
+      selectedCategoryId
     );
-    console.log(content);
-    setContent({
-      category: '',
-      title: '',
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-      description: '',
-      level: '',
-      createdBy: '',
-      shortDescription: '',
-    });
     console.log(result);
 
     await addUserExercise(userData.username, result);
-    console.log(content.createdBy);
   };
 
   return (
@@ -68,31 +65,24 @@ export const CreateExercise = () => {
         <dialog id='exercise-create-modal' className='modal'>
           <div className='modal-box overflow-x-hidden'>
             <h3 className='font-bold text-lg mb-3'>Ready to workout</h3>
-
-            <select
-              className='select select-info w-full max-w-xs mb-3'
-              value={content.category}
-              onChange={(e) => updateContent(e.target.value, 'category')}
-            >
-              <option disabled value=''>
-                Select Category
-              </option>
-              <option value='Yoga'>Yoga</option>
-              <option value='Jog'>Jog</option>
-              <option value='Abb Workout'>Abb Workout</option>
-            </select>
-
             <label className='input input-bordered flex items-center mb-3 select-primary'>
               <input
                 onChange={(e) => updateContent(e.target.value, 'title')}
                 type='text'
                 className='grow'
-                placeholder='Title'
+                placeholder='title'
                 value={content.title}
               />
             </label>
-
-            <p>Duration</p>
+            <label className='input input-bordered flex items-center mb-3 select-primary'>
+              <input
+                onChange={(e) => updateContent(e.target.value, 'content')}
+                type='text'
+                className='grow'
+                placeholder='Content'
+                value={content.content}
+              />
+            </label>
             <div className='flex gap-2'>
               <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
                 <input
@@ -124,36 +114,41 @@ export const CreateExercise = () => {
                 />
               </label>
             </div>
+            <select
+              className='select select-info w-full max-w-xs mb-3'
+              value={content.level}
+              onChange={(e) => updateContent(e.target.value, 'level')}
+            >
+              <option disabled value=''>
+                Select level
+              </option>
+              <option value='Easy'>Easy</option>
+              <option value='Medium'>Medium</option>
+              <option value='Hard'>Hard</option>
+            </select>
 
-            <label className='input input-bordered flex items-center mb-3 select-primary'>
-              <input
-                onChange={(e) => updateContent(e.target.value, 'description')}
-                type='text'
-                className='grow'
-                placeholder='description'
-                value={content.description}
-              />
-            </label>
+            <select
+              className='select select-info w-full max-w-xs mb-3'
+              value={selectedCategoryId}
+              onChange={(e) => setSelectedCategoryId(e.target.value)}
+            >
+              <option disabled value=''>
+                Select category
+              </option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.category}
+                </option>
+              ))}
+            </select>
 
-            <label className='input input-bordered flex items-center mb-3 select-primary'>
+            <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
               <input
-                onChange={(e) => updateContent(e.target.value, 'level')}
-                type='text'
+                onChange={(e) => updateContent(e.target.value, 'calories')}
+                type='number'
                 className='grow'
-                placeholder='Level'
-                value={content.level}
-              />
-            </label>
-
-            <label className='input input-bordered flex items-center mb-3 select-primary'>
-              <input
-                onChange={(e) =>
-                  updateContent(e.target.value, 'shortDescription')
-                }
-                type='text'
-                className='grow'
-                placeholder='Short description'
-                value={content.shortDescription}
+                placeholder='calories'
+                value={content.calories}
               />
             </label>
 
