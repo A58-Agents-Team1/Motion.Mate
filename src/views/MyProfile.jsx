@@ -20,6 +20,11 @@ export default function MyProfile() {
     });
   }, [userData?.username, editProfile, changeProfilePhoto]);
 
+  const generateFriendTooltips = () => {
+    const friendNames = Object.keys(userData.friends).join(', ');
+    return friendNames;
+  };
+
   return (
     <div className='flex flex-col text-center'>
       {userData && editProfile === false && changeProfilePhoto === false ? (
@@ -28,13 +33,27 @@ export default function MyProfile() {
             Greetings, {userData?.username}! Explore all the details about your
             account here.
           </h1>
-          <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center'>
+          <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center justify-center'>
             <div className='mr-4'>
               <Avatar user={userData} />
             </div>
             <div className='text-center'>
               <p className='font-bold underline'>Main Information:</p>
               <UserInfo userData={userData} />
+              {userData?.friends &&
+                (Object.keys(userData.friends).length === 1 ? (
+                  <p title={generateFriendTooltips()}>
+                    You have{' '}
+                    <strong>{Object.keys(userData.friends).length}</strong>{' '}
+                    friend.
+                  </p>
+                ) : (
+                  <p title={generateFriendTooltips()}>
+                    You have{' '}
+                    <strong>{Object.keys(userData.friends).length}</strong>{' '}
+                    friends.
+                  </p>
+                ))}
               <div className='mt-5'>
                 <button
                   onClick={() => setEditProfile(!editProfile)}

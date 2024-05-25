@@ -1,9 +1,9 @@
+import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { fullFormatDate } from '../helper/format-date';
 import { getUserByUsername } from '../services/users.service';
 import { useEffect, useState } from 'react';
 import Avatar from '../components/Avatar';
-import { NavLink } from 'react-router-dom';
-import { fullFormatDate } from '../helper/format-date';
 import UserInfo from '../components/UserInfo';
 
 export default function FullProfileView() {
@@ -34,7 +34,6 @@ export default function FullProfileView() {
           <p>Member Since: {fullFormatDate(user?.createdOn)}</p>
         </div>
         <div className='bottom-div card-actions justify-end mt-4'>
-          <button className='btn btn-primary mr-4'>Add Friend</button>
           <NavLink to={'/all-users'} className='btn btn-error'>
             Back
           </NavLink>

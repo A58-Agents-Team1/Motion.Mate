@@ -24,5 +24,5 @@ export default function Avatar({ user }) {
 }
 
 Avatar.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
 };

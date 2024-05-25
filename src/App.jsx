@@ -13,6 +13,7 @@ import NotFound from './views/NotFound';
 import MyProfile from './views/MyProfile';
 import Authenticated from './hoc/Authenticated';
 import AllUsers from './views/AllUsers';
+import Goals from './views/Goals';
 import FullProfileView from './views/FullProfileView';
 import Categories from './components/Exercise/Categories';
 
@@ -56,10 +57,30 @@ function App() {
                 </Authenticated>
               }
             />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='*' element={<NotFound />} />
+            <Route
+              path='/goals'
+              element={
+                <Authenticated user={user}>
+                  <Goals />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/about'
+              element={<About />}
+            />
+            <Route
+              path='/login'
+              element={<Login />}
+            />
+            <Route
+              path='/register'
+              element={<Register />}
+            />
+            <Route
+              path='*'
+              element={<NotFound />}
+            />
             <Route
               path='/all-users'
               element={

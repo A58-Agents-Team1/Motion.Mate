@@ -1,14 +1,23 @@
 import { useContext, useEffect, useState } from 'react';
+import { registerUser } from '../services/auth.service';
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 import {
   createUser,
   getUploadedPhoto,
   uploadPhoto,
 } from '../services/users.service';
-import { registerUser } from '../services/auth.service';
-import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../context/AppContext';
+import {
+  validatePassword,
+  validateRequiredFieldsReg,
+  validateEmailRegAsync,
+  validateUserNameRegAsync,
+  validatePhoneNumberAsync,
+  validatePhoto,
+} from '../common/user.validations';
 
 export default function Register() {
+  const navigate = useNavigate();
   const { user, setAppState } = useContext(AppContext);
   const [image, setImage] = useState(null);
   const [form, setForm] = useState({
@@ -19,7 +28,6 @@ export default function Register() {
     email: '',
     password: '',
   });
-  const navigate = useNavigate();
 
   const updateForm = (props) => (e) => {
     setForm({
@@ -35,29 +43,39 @@ export default function Register() {
     }
   };
 
+  const validateRegisterForm = async () => {
+    validateRequiredFieldsReg(form);
+    await validateUserNameRegAsync(form.username);
+    await validateEmailRegAsync(form.email);
+    await validatePhoneNumberAsync(form.phoneNumber);
+    validatePassword(form.password);
+    validatePhoto(image);
+  };
+
   const register = async (event) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      await validateRegisterForm();
 
-    const userCredential = await registerUser(form.email, form.password);
-
-    let url;
-    if (image) {
       await uploadPhoto(image, form.username);
-      url = await getUploadedPhoto(form.username);
+      let url = await getUploadedPhoto(form.username);
+      const userCredential = await registerUser(form.email, form.password);
+
+      await createUser(
+        userCredential.user.uid,
+        form.username,
+        userCredential.user.email,
+        form.phoneNumber,
+        form.firstName,
+        form.lastName,
+        url
+      );
+
+      setAppState({ user: userCredential.user, userData: null });
+      navigate('/');
+    } catch (error) {
+      console.log(error.message);
     }
-
-    await createUser(
-      userCredential.user.uid,
-      form.username,
-      userCredential.user.email,
-      form.phoneNumber,
-      form.firstName,
-      form.lastName,
-      url || ''
-    );
-    setAppState({ user: userCredential.user, userData: null });
-
-    navigate('/');
   };
 
   useEffect(() => {

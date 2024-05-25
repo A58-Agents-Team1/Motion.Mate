@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import Avatar from './Avatar';
 import { shortFormatDate } from '../helper/format-date';
+import Avatar from './Avatar';
+import PropTypes from 'prop-types';
+import AddAndRemoveFriendBtns from './AddAndRemoveFriendBtns';
 
 export default function SingleUserView({ user }) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function SingleUserView({ user }) {
           <p>Member Since: {shortFormatDate(user?.createdOn)}</p>
         </div>
         <div className='bottom-div card-actions justify-end mt-4'>
-          <button className='btn btn-primary'>Add Friend</button>
+          <AddAndRemoveFriendBtns friendUsername={user?.username} />
           <button
             onClick={() => navigate(`/users/${user?.username}`)}
             className='btn btn-primary'

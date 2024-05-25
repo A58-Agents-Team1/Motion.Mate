@@ -29,5 +29,5 @@ export default function UserInfo({ userData }) {
 }
 
 UserInfo.propTypes = {
-  userData: PropTypes.object.isRequired,
+  userData: PropTypes.object,
 };

@@ -4,7 +4,10 @@ import { useContext, useEffect, useState } from 'react';
 import { logoutUser } from '../../services/auth.service.js';
 import { useNavigate } from 'react-router-dom';
 import ThemeChangeIcons from './ThemeChangeIcons.jsx';
-import AvatarWithName from './AvatarWithName.jsx';
+import {
+  AvatarWithName,
+  AvatarWithNameAndDropDownMenu,
+} from './AvatarWithName.jsx';
 import { DARK_THEME, LIGHT_THEME } from '../../common/constants.js';
 
 export const NavBar = () => {
@@ -36,68 +39,73 @@ export const NavBar = () => {
       <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
-        <div className='w-full navbar bg-base-300'>
-          <div className='flex-none lg:hidden'>
-            <label
-              htmlFor='my-drawer-3'
-              aria-label='open sidebar'
-              className='btn btn-square btn-ghost'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                className='inline-block w-6 h-6 stroke-current'
+        <div className='w-full navbar bg-base-300 flex justify-between px-3'>
+          <div>
+            <ThemeChangeIcons toggleTheme={handleToggle} currentTheme={theme} />
+            <div className='flex-none lg:hidden'>
+              <label
+                htmlFor='my-drawer-3'
+                aria-label='open sidebar'
+                className='btn btn-square btn-ghost'
               >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M4 6h16M4 12h16M4 18h16'
-                ></path>
-              </svg>
-            </label>
-          </div>
-          <div className='flex-1 px-2 mx-2'>
-            <AvatarWithName />
-          </div>
-          <div className='flex-none hidden lg:block'>
-            <ul className='menu menu-horizontal items-center '>
-              {/* Navbar menu content here */}
-              <li>
-                <NavLink to={'/'}>Home</NavLink>
-              </li>
-              <li>
-                <NavLink to={'/about'}>About</NavLink>
-              </li>
-              {!userData ? (
-                <>
-                  <li>
-                    <NavLink to={'/login'}>Login</NavLink>
-                  </li>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  className='inline-block w-6 h-6 stroke-current'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
+                    d='M4 6h16M4 12h16M4 18h16'
+                  ></path>
+                </svg>
+              </label>
+            </div>
+            <div className='flex-none hidden lg:block'>
+              <ul className='menu menu-horizontal items-center '>
+                {/* Navbar menu content here */}
+                <li>
+                  <NavLink to={'/'}>Home</NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/categories'}>Categories</NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/goals'}>Goals</NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/about'}>About</NavLink>
+                </li>
+                {!userData ? (
+                  <>
+                    <li>
+                      <NavLink to={'/login'}>Login</NavLink>
+                    </li>
 
-                  <li>
-                    <NavLink to={'/register'}>Register</NavLink>
-                  </li>
-                </>
-              ) : (
-                <div className='flex gap-2 items-center mx-2'>
-                  {userData && <p>{userData?.email}</p>}
-                  <li>
-                    <NavLink to={'/categories'}>Categories</NavLink>
-                  </li>
-                  <li>
-                    <button onClick={(e) => logout(e)}>Logout</button>
-                  </li>
-                </div>
-              )}
-            </ul>
+                    <li>
+                      <NavLink to={'/register'}>Register</NavLink>
+                    </li>
+                  </>
+                ) : (
+                  <div className='flex gap-2 items-center mx-2'>
+                    {userData && <p>{userData?.email}</p>}
+                    <li>
+                      <button onClick={(e) => logout(e)}>Logout</button>
+                    </li>
+                  </div>
+                )}
+              </ul>
+            </div>
           </div>
-          <ThemeChangeIcons toggleTheme={handleToggle} currentTheme={theme} />
+          <div className='flex justify-end'>
+            <AvatarWithNameAndDropDownMenu />
+          </div>
         </div>
         {/* Page content here */}
       </div>
-      <div className='drawer-side'>
+      <div className='drawer-side z-50'>
         <label
           htmlFor='my-drawer-3'
           aria-label='close sidebar'
@@ -106,14 +114,18 @@ export const NavBar = () => {
         <ul className='menu p-4 w-80 min-h-full bg-base-200 gap-2 '>
           {/* Sidebar content here */}
 
-          {userData && (
-            <div className='textarea-lg '>
-              Hello
-              <p>{userData?.email}</p>
-            </div>
-          )}
+          {userData && <AvatarWithName className />}
           <li>
             <NavLink to={'/'}>Home</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/my-profile'}>My Profile</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/all-users'}>All Users</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/goals'}>Goals</NavLink>
           </li>
           <li>
             <NavLink to={'/about'}>About</NavLink>

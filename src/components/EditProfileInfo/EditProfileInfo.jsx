@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { updateUserByUsername } from '../../services/users.service';
+import { validatePhoneNumberAsync } from '../../common/user.validations';
 
 export default function EditProfileInfo({ setEditProfile }) {
   const { userData } = useContext(AppContext);
@@ -17,8 +18,8 @@ export default function EditProfileInfo({ setEditProfile }) {
 
   const editProfileInformation = async () => {
     try {
+      await validatePhoneNumberAsync(form.phoneNumber);
       await updateUserByUsername(userData?.username, form);
-      console.log('form', form);
       setEditProfile(false);
     } catch (error) {
       console.error(error.message);
@@ -31,7 +32,7 @@ export default function EditProfileInfo({ setEditProfile }) {
         <p>Greetings, {userData?.username}! Ready to make updates? </p>
         <p>Edit your account details here.</p>
       </h1>
-      <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center'>
+      <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center justify-center'>
         <div className='mr-4 flex flex-col text-left'>
           <p className='font-bold underline'>Edit profile info here:</p>
           <label htmlFor='firstName'>First Name:</label>
