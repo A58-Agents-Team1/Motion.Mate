@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { updateUserByUsername } from '../../services/users.service';
+import { validatePhoneNumberAsync } from '../../common/user.validations';
 
 export default function EditProfileInfo({ setEditProfile }) {
   const { userData } = useContext(AppContext);
@@ -17,8 +18,8 @@ export default function EditProfileInfo({ setEditProfile }) {
 
   const editProfileInformation = async () => {
     try {
+      await validatePhoneNumberAsync(form.phoneNumber);
       await updateUserByUsername(userData?.username, form);
-      console.log('form', form);
       setEditProfile(false);
     } catch (error) {
       console.error(error.message);
