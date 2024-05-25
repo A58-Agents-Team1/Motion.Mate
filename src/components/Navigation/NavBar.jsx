@@ -33,11 +33,7 @@ export const NavBar = () => {
 
   return (
     <div className='drawer'>
-      <input
-        id='my-drawer-3'
-        type='checkbox'
-        className='drawer-toggle'
-      />
+      <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
         <div className='w-full navbar bg-base-300'>
@@ -88,16 +84,16 @@ export const NavBar = () => {
                 <div className='flex gap-2 items-center mx-2'>
                   {userData && <p>{userData?.email}</p>}
                   <li>
+                    <NavLink to={'/categories'}>Categories</NavLink>
+                  </li>
+                  <li>
                     <button onClick={(e) => logout(e)}>Logout</button>
                   </li>
                 </div>
               )}
             </ul>
           </div>
-          <ThemeChangeIcons
-            toggleTheme={handleToggle}
-            currentTheme={theme}
-          />
+          <ThemeChangeIcons toggleTheme={handleToggle} currentTheme={theme} />
         </div>
         {/* Page content here */}
       </div>
@@ -121,6 +117,9 @@ export const NavBar = () => {
           </li>
           <li>
             <NavLink to={'/about'}>About</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/exercises'}>Exercises</NavLink>
           </li>
           {!userData ? (
             <>

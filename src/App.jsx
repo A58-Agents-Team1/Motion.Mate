@@ -14,6 +14,7 @@ import MyProfile from './views/MyProfile';
 import Authenticated from './hoc/Authenticated';
 import AllUsers from './views/AllUsers';
 import FullProfileView from './views/FullProfileView';
+import Categories from './components/Exercise/Categories';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -80,6 +81,14 @@ function App() {
               element={
                 <Authenticated user={user}>
                   <MyProfile />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/categories'
+              element={
+                <Authenticated user={user}>
+                  <Categories />
                 </Authenticated>
               }
             />
