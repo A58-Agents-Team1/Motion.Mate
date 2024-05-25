@@ -4,7 +4,10 @@ import { useContext, useEffect, useState } from 'react';
 import { logoutUser } from '../../services/auth.service.js';
 import { useNavigate } from 'react-router-dom';
 import ThemeChangeIcons from './ThemeChangeIcons.jsx';
-import AvatarWithName from './AvatarWithName.jsx';
+import {
+  AvatarWithName,
+  AvatarWithNameAndDropDownMenu,
+} from './AvatarWithName.jsx';
 import { DARK_THEME, LIGHT_THEME } from '../../common/constants.js';
 
 export const NavBar = () => {
@@ -33,19 +36,12 @@ export const NavBar = () => {
 
   return (
     <div className='drawer'>
-      <input
-        id='my-drawer-3'
-        type='checkbox'
-        className='drawer-toggle'
-      />
+      <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
         <div className='w-full navbar bg-base-300 flex justify-between px-3'>
           <div>
-            <ThemeChangeIcons
-              toggleTheme={handleToggle}
-              currentTheme={theme}
-            />
+            <ThemeChangeIcons toggleTheme={handleToggle} currentTheme={theme} />
             <div className='flex-none lg:hidden'>
               <label
                 htmlFor='my-drawer-3'
@@ -101,7 +97,7 @@ export const NavBar = () => {
             </div>
           </div>
           <div className='flex justify-end'>
-            <AvatarWithName />
+            <AvatarWithNameAndDropDownMenu />
           </div>
         </div>
         {/* Page content here */}
@@ -115,14 +111,15 @@ export const NavBar = () => {
         <ul className='menu p-4 w-80 min-h-full bg-base-200 gap-2 '>
           {/* Sidebar content here */}
 
-          {userData && (
-            <div className='textarea-lg '>
-              Hello
-              <p>{userData?.email}</p>
-            </div>
-          )}
+          {userData && <AvatarWithName className />}
           <li>
             <NavLink to={'/'}>Home</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/my-profile'}>My Profile</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/all-users'}>All Users</NavLink>
           </li>
           <li>
             <NavLink to={'/goals'}>Goals</NavLink>
