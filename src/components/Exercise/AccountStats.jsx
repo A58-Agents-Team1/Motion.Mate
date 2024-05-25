@@ -1,6 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { CreateExercise } from './CreateExercise';
-import { getExercisesByUsername } from '../../services/exercise.service';
 import { AppContext } from '../../context/AppContext';
 
 export const AccountStats = ({
@@ -92,7 +90,6 @@ export const AccountStats = ({
         </div>
         <div className='stat-title'>My exercises</div>
         <div className='stat-value text-primary'>{count}</div>
-        <CreateExercise />
         <div className='stat-desc text-primary'>Be active</div>
       </div>
     </div>
