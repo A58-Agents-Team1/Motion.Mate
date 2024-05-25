@@ -96,3 +96,30 @@ export const getUploadedPhoto = async (username) => {
     }
   }
 };
+
+export const uploadCategoryPhoto = async (image, category) => {
+  try {
+    const imageRef = refStorage(storage, `categories/${category}`);
+    await uploadBytes(imageRef, image);
+    const url = await getDownloadURL(imageRef);
+    return url;
+  } catch (e) {
+    console.log(e.message);
+    return null;
+  }
+};
+
+export const getCategoryPhoto = async (category) => {
+  try {
+    const imageRef = refStorage(storage, `categories/${category}`);
+    const url = await getDownloadURL(imageRef);
+    return url;
+  } catch (e) {
+    if (e.code === 'storage/object-not-found') {
+      return null;
+    } else {
+      console.log(e.message);
+      return null;
+    }
+  }
+};

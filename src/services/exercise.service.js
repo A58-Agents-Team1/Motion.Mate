@@ -1,53 +1,51 @@
-import { get, push, ref } from 'firebase/database';
+import { get, push, ref, remove } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 export const createExercises = async (
-  category,
   title,
-  duration,
-  description,
+  content,
+  hours,
+  minutes,
+  seconds,
+  calories,
   level,
   createdBy,
-  shortDescription
+  categoryId
 ) => {
   const exercise = {
     title,
-    duration,
-    description,
+    content,
+    duration: {
+      hours,
+      minutes,
+      seconds,
+    },
+    calories,
     level,
     createdBy,
-    shortDescription,
+    categoryId,
+    inProgress: false,
   };
 
-  const result = await push(ref(db, `exercises/${category}`), exercise);
-  return result.key;
+  try {
+    const result = await push(ref(db, `exercises/`), exercise);
+    return result.key;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const getExercises = async () => {
-  const snapshot = await get(ref(db, 'exercises'));
-  const data = snapshot.val();
-
-  if (!snapshot.exists()) return [];
-
-  const exercises = [];
-
-  Object.keys(data).forEach((category) => {
-    Object.keys(data[category]).forEach((exerciseId) => {
-      exercises.push({
-        id: exerciseId,
-        category,
-        ...data[category][exerciseId],
-      });
-    });
-  });
-
-  return exercises;
+  const snapshot = await get(ref(db, `exercises`));
+  return snapshot.val();
 };
 
-export const getExercisesByUsername = async (username) => {
-  const allExercises = await getExercises();
-  const number = allExercises.filter(
-    (exercise) => exercise.createdBy === username
-  );
-  return number;
+// ADD THROW ON EVERY FUNCTION
+export const deleteExercise = async (exerciseId) => {
+  try {
+    const postRef = ref(db, `exercises/${exerciseId}`);
+    await remove(postRef);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
