@@ -73,6 +73,9 @@ export const NavBar = () => {
                   <NavLink to={'/categories'}>Categories</NavLink>
                 </li>
                 <li>
+                  <NavLink to={'/BMI'}>Body Mass Index</NavLink>
+                </li>
+                <li>
                   <NavLink to={'/goals'}>Goals</NavLink>
                 </li>
                 <li>
@@ -123,6 +126,9 @@ export const NavBar = () => {
           </li>
           <li>
             <NavLink to={'/all-users'}>All Users</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/BMI'}>BMI</NavLink>
           </li>
           <li>
             <NavLink to={'/goals'}>Goals</NavLink>
