@@ -1,16 +1,30 @@
+import {
+  HEIGHT_MAX,
+  HEIGHT_MIN,
+  WEIGHT_HEIGHT_MIN,
+  WEIGHT_MAX,
+  WEIGHT_MIN,
+} from './constants';
+
 export const validateForm = (weight, height) => {
   if (weight === '' || height === '') {
     throw new Error(
       'Please enter your weight and height to calculate your BMI'
     );
   }
-  if (weight < 0 || height < 0) {
-    throw new Error('Weight and height must be greater than 0');
+  if (weight < WEIGHT_HEIGHT_MIN || height < WEIGHT_HEIGHT_MIN) {
+    throw new Error(
+      `Weight and height must be greater than ${WEIGHT_HEIGHT_MIN} kg and sm respectively`
+    );
   }
-  if (weight > 500 || weight < 20) {
-    throw new Error('Weight must be more than 20 kg and less than 500 kg');
+  if (weight > WEIGHT_MAX || weight < WEIGHT_MIN) {
+    throw new Error(
+      `Weight must be more than ${WEIGHT_MIN} kg and less than ${WEIGHT_MAX} kg`
+    );
   }
-  if (height > 300 || height < 50) {
-    throw new Error('Height must be more than 50 sm and less than 300 sm');
+  if (height > HEIGHT_MAX || height < HEIGHT_MIN) {
+    throw new Error(
+      `Height must be more than ${HEIGHT_MIN} sm and less than ${HEIGHT_MAX} sm`
+    );
   }
 };

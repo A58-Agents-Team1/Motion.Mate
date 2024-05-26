@@ -17,3 +17,13 @@ export const PHONE_NUMBER_LENGTH = 10;
 export const MIN_PASSWORD_LENGTH = 6;
 
 export const MAX_PASSWORD_LENGTH = 15;
+
+export const WEIGHT_HEIGHT_MIN = 0;
+
+export const WEIGHT_MIN = 20;
+
+export const WEIGHT_MAX = 500;
+
+export const HEIGHT_MIN = 50;
+
+export const HEIGHT_MAX = 300;

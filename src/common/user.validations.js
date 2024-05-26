@@ -23,7 +23,9 @@ export const validateUserNameRegAsync = async (username) => {
     username.length < MIN_USERNAME_LENGTH ||
     username.length > MAX_USERNAME_LENGTH
   ) {
-    throw new Error('User Name name must be between 2 and 20 characters long!');
+    throw new Error(
+      `User Name name must be between ${MIN_USERNAME_LENGTH} and ${MAX_USERNAME_LENGTH} characters long!`
+    );
   }
   const userObject = await getUserByUsername(username);
   const userData = userObject.val();
@@ -46,7 +48,7 @@ export const validateEmailRegAsync = async (email) => {
 
 export const validatePhoneNumberAsync = async (phoneNumber) => {
   if (phoneNumber.length !== PHONE_NUMBER_LENGTH) {
-    throw new Error('Phone number must be 10 digits long!');
+    throw new Error(`Phone number must be ${PHONE_NUMBER_LENGTH} digits long!`);
   }
   const snapshot = await getAllUsers();
   const allUsers = Object.values(snapshot.val());
@@ -63,7 +65,9 @@ export const validatePassword = (password) => {
     password.length < MIN_PASSWORD_LENGTH ||
     password.length > MAX_PASSWORD_LENGTH
   ) {
-    throw new Error('Password must be between 6 and 15 characters long!');
+    throw new Error(
+      `Password must be between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH} characters long!`
+    );
   }
 };
 
@@ -84,7 +88,9 @@ export const validateUserNameLogAsync = async (username) => {
     username.length < MIN_USERNAME_LENGTH ||
     username.length > MAX_USERNAME_LENGTH
   ) {
-    throw new Error('User Name name must be between 2 and 20 characters long!');
+    throw new Error(
+      `User Name name must be between ${MIN_USERNAME_LENGTH} and ${MAX_USERNAME_LENGTH} characters long!`
+    );
   }
   const userObject = await getUserByUsername(username);
   const userData = userObject.val();
