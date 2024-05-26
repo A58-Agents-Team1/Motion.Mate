@@ -69,15 +69,19 @@ export const NavBar = () => {
                 <li>
                   <NavLink to={'/'}>Home</NavLink>
                 </li>
-                <li>
-                  <NavLink to={'/categories'}>Categories</NavLink>
-                </li>
-                <li>
-                  <NavLink to={'/BMI'}>Body Mass Index</NavLink>
-                </li>
-                <li>
-                  <NavLink to={'/goals'}>Goals</NavLink>
-                </li>
+                {userData && (
+                  <>
+                    <li>
+                      <NavLink to={'/categories'}>Categories</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to={'/BMI'}>Body Mass Index</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to={'/goals'}>Goals</NavLink>
+                    </li>
+                  </>
+                )}
                 <li>
                   <NavLink to={'/about'}>About</NavLink>
                 </li>
@@ -121,23 +125,30 @@ export const NavBar = () => {
           <li>
             <NavLink to={'/'}>Home</NavLink>
           </li>
-          <li>
-            <NavLink to={'/my-profile'}>My Profile</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/all-users'}>All Users</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/BMI'}>BMI</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/goals'}>Goals</NavLink>
-          </li>
+          {userData && (
+            <>
+              <li>
+                <NavLink to={'/my-profile'}>My Profile</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/my-friends'}>My Friends</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/all-users'}>All Users</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/BMI'}>BMI</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/goals'}>Goals</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/exercises'}>Exercises</NavLink>
+              </li>
+            </>
+          )}
           <li>
             <NavLink to={'/about'}>About</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/exercises'}>Exercises</NavLink>
           </li>
           {!userData ? (
             <>
