@@ -29,7 +29,7 @@ export default function MyProfile() {
     <div className='flex flex-col text-center'>
       {userData && editProfile === false && changeProfilePhoto === false ? (
         <div className='flex flex-col text-center'>
-          <h1 className='mb-4'>
+          <h1 className='mb-4 text-xl'>
             Greetings, {userData?.username}! Explore all the details about your
             account here.
           </h1>
@@ -37,7 +37,7 @@ export default function MyProfile() {
             <div className='mr-4'>
               <Avatar user={userData} />
             </div>
-            <div className='text-center'>
+            <div className='text-center text-lg ml-5'>
               <p className='font-bold underline'>Main Information:</p>
               <UserInfo userData={userData} />
               {userData?.friends &&
