@@ -43,6 +43,9 @@ export function AvatarWithNameAndDropDownMenu() {
                   <NavLink to='/my-profile'>My Profile</NavLink>
                 </li>
                 <li>
+                  <NavLink to='/my-friends'>My Friends</NavLink>
+                </li>
+                <li>
                   <NavLink to='/all-users'>All Users</NavLink>
                 </li>
               </ul>

@@ -17,6 +17,7 @@ import Goals from './views/Goals';
 import FullProfileView from './views/FullProfileView';
 import Categories from './components/Exercise/Categories';
 import BodyMassIndex from './views/BodyMassIndex';
+import MyFriends from './views/MyFriends';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -76,6 +77,14 @@ function App() {
               element={
                 <Authenticated user={user}>
                   <AllUsers />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/my-friends'
+              element={
+                <Authenticated user={user}>
+                  <MyFriends />
                 </Authenticated>
               }
             />

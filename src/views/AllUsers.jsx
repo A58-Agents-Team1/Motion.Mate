@@ -13,6 +13,7 @@ export default function AllUsers() {
   const [searchBy, setSearchBy] = useState('firstName');
   const [sortBy, setSortBy] = useState('username');
   const [searchParams, setSearchParams] = useSearchParams();
+  const [refresh, setRefresh] = useState(false);
   const search = searchParams.get('search') || '';
 
   const setSearch = (value) => {
@@ -21,7 +22,7 @@ export default function AllUsers() {
 
   useEffect(() => {
     getFilterUserBySearchTerm(searchBy, search).then(setUsers);
-  }, [searchBy, search]);
+  }, [searchBy, search, refresh]);
 
   useEffect(() => {
     getAllUsers().then((snapshot) => {
@@ -116,10 +117,10 @@ export default function AllUsers() {
         <ul>
           {sortedUsers.length !== 0 ? (
             sortedUsers
-              .filter((user) => user.username !== userData.username)
+              .filter((user) => user?.username !== userData?.username)
               .map((user) => (
                 <li key={user.username}>
-                  <SingleUserView user={user} />
+                  <SingleUserView user={user} setRefresh={setRefresh} />
                 </li>
               ))
           ) : searchParams === '' ? (
