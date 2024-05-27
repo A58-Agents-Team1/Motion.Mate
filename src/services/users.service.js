@@ -57,7 +57,10 @@ export const createUser = (
   phoneNumber,
   firstName,
   lastName,
-  avatar
+  avatar,
+  age,
+  weight,
+  height,
 ) => {
   return set(ref(db, `users/${username}`), {
     uid,
@@ -71,6 +74,9 @@ export const createUser = (
     isBlocked: false,
     createdOn: new Date().valueOf(),
     exercises: [],
+    age,
+    weight,
+    height,
   });
 };
 
