@@ -12,7 +12,7 @@ export default function SingleUserView({ user, setRefresh }) {
       <Avatar user={user} />
       <div className='container card-body text-left justify-between'>
         <div className='top-div text-center'>
-          {user?.firstName ? (
+          {user?.firstName && user?.lastName ? (
             <h2 className='font-bold mb-8'>{`${user?.firstName} ${user?.lastName}`}</h2>
           ) : (
             <h2 className='font-bold mb-8'>{user?.username}</h2>

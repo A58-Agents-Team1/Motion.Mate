@@ -25,7 +25,7 @@ export default function FullProfileView() {
       <Avatar user={user} />
       <div className='container card-body text-left justify-between'>
         <div className='top-div text-center'>
-          {user?.firstName ? (
+          {user?.firstName && user?.lastName ? (
             <h2 className='font-bold mb-8 underline'>{`${user?.firstName} ${user?.lastName}`}</h2>
           ) : (
             <h2 className='font-bold mb-8 underline'>{user?.username}</h2>
