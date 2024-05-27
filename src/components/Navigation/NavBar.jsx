@@ -72,7 +72,7 @@ export const NavBar = () => {
                 {userData && (
                   <>
                     <li>
-                      <NavLink to={'/categories'}>Categories</NavLink>
+                      <NavLink to={'/exercises'}>Exercises</NavLink>
                     </li>
                     <li>
                       <NavLink to={'/BMI'}>Body Mass Index</NavLink>
