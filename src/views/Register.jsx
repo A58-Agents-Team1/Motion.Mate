@@ -120,7 +120,9 @@ export default function Register() {
               </div>
               <div className='form-control'>
                 <label className='label'>
-                  <span className='label-text'>Username</span>
+                  <span className='label-text'>
+                    Username <span className='text-red-600'>*</span>
+                  </span>
                 </label>
                 <input
                   onChange={updateForm('username')}
@@ -133,7 +135,9 @@ export default function Register() {
               </div>
               <div className='form-control'>
                 <label className='label'>
-                  <span className='label-text'>Email</span>
+                  <span className='label-text'>
+                    Email <span className='text-red-600'>*</span>
+                  </span>
                 </label>
                 <input
                   onChange={updateForm('email')}
@@ -146,7 +150,9 @@ export default function Register() {
               </div>
               <div className='form-control'>
                 <label className='label'>
-                  <span className='label-text'>Phone</span>
+                  <span className='label-text'>
+                    Phone <span className='text-red-600'>*</span>
+                  </span>
                 </label>
                 <input
                   onChange={updateForm('phoneNumber')}
@@ -159,7 +165,9 @@ export default function Register() {
               </div>
               <div className='form-control'>
                 <label className='label'>
-                  <span className='label-text'>Password</span>
+                  <span className='label-text'>
+                    Password <span className='text-red-600'>*</span>
+                  </span>
                 </label>
                 <input
                   onChange={updateForm('password')}
@@ -177,7 +185,9 @@ export default function Register() {
               </div>
               <div className='form-control'>
                 <label className='label'>
-                  <span className='label-text'>Upload Photo</span>
+                  <span className='label-text'>
+                    Upload Photo <span className='text-red-600'>*</span>
+                  </span>
                 </label>
                 <input
                   onChange={handleFileChange}

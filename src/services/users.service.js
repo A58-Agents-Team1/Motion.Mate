@@ -14,13 +14,27 @@ import {
   uploadBytes,
 } from 'firebase/storage';
 
-export const getUserByUsername = (username) => {
+export const getUserByUsername = async (username) => {
   return get(ref(db, `users/${username}`));
 };
 
 export const getAllUsers = async () => {
   const result = await get(ref(db, 'users'));
   return result;
+};
+
+export const getAllFriends = async (username) => {
+  const friendsRef = ref(db, `users/${username}/friends`);
+  const friendsSnapshot = await get(friendsRef);
+  const friendsData = await friendsSnapshot.val();
+  const friendsList = [];
+
+  for (const friendUsername in friendsData) {
+    const friendSnapshot = await getUserByUsername(friendUsername);
+    friendsList.push(friendSnapshot.val());
+  }
+
+  return friendsList;
 };
 
 export const getFilterUserBySearchTerm = async (searchBy, search) => {

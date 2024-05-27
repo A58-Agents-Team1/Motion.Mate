@@ -15,7 +15,9 @@ import Authenticated from './hoc/Authenticated';
 import AllUsers from './views/AllUsers';
 import Goals from './views/Goals';
 import FullProfileView from './views/FullProfileView';
-import Categories from './components/Exercise/Categories';
+import BodyMassIndex from './views/BodyMassIndex';
+import MyFriends from './views/MyFriends';
+import Categories from './components/Categories/Categories';
 import DetailedGoal from './components/Goals/DetailedGoal';
 
 function App() {
@@ -52,9 +54,29 @@ function App() {
           <Routes>
             <Route
               path='/'
+              element={<Home />}
+            />
+            <Route
+              path='/about'
+              element={<About />}
+            />
+            <Route
+              path='/login'
+              element={<Login />}
+            />
+            <Route
+              path='/register'
+              element={<Register />}
+            />
+            <Route
+              path='*'
+              element={<NotFound />}
+            />
+            <Route
+              path='/BMI'
               element={
                 <Authenticated user={user}>
-                  <Home />
+                  <BodyMassIndex />
                 </Authenticated>
               }
             />
@@ -63,14 +85,6 @@ function App() {
               element={
                 <Authenticated user={user}>
                   <Goals />
-                </Authenticated>
-              }
-            />
-            <Route
-              path='/goals/:id'
-              element={
-                <Authenticated user={user}>
-                  <DetailedGoal />
                 </Authenticated>
               }
             />
@@ -99,6 +113,14 @@ function App() {
               }
             />
             <Route
+              path='/my-friends'
+              element={
+                <Authenticated user={user}>
+                  <MyFriends />
+                </Authenticated>
+              }
+            />
+            <Route
               path='/users/:id'
               element={
                 <Authenticated user={user}>
@@ -115,7 +137,7 @@ function App() {
               }
             />
             <Route
-              path='/categories'
+              path='/exercises'
               element={
                 <Authenticated user={user}>
                   <Categories />

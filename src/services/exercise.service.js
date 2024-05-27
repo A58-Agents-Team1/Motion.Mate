@@ -1,4 +1,4 @@
-import { get, push, ref, remove } from 'firebase/database';
+import { get, push, ref, remove, update } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 export const createExercises = async (
@@ -36,15 +36,28 @@ export const createExercises = async (
 };
 
 export const getExercises = async () => {
-  const snapshot = await get(ref(db, `exercises`));
-  return snapshot.val();
+  try {
+    const snapshot = await get(ref(db, `exercises`));
+    return snapshot.val();
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
-// ADD THROW ON EVERY FUNCTION
 export const deleteExercise = async (exerciseId) => {
   try {
     const postRef = ref(db, `exercises/${exerciseId}`);
     await remove(postRef);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const addExerciseInProgress = async (exerciseId) => {
+  try {
+    return await update(ref(db, `exercises/${exerciseId}`), {
+      inProgress: true,
+    });
   } catch (error) {
     throw new Error(error.message);
   }

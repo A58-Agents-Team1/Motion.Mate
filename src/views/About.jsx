@@ -13,7 +13,7 @@ export default function About() {
 
   return (
     <>
-      <div className='card h-40 w-60 bg-base-100 shadow-xl image-full rounded-xl'>
+      <div className='card h-40 w-60 bg-base-100 shadow-xl image-full rounded-3xl'>
         <figure>
           <img src={backgroundUsers} alt='Users' />
         </figure>

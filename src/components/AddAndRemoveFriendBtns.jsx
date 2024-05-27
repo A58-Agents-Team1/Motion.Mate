@@ -7,18 +7,20 @@ import {
 import PropTypes from 'prop-types';
 import { AppContext } from '../context/AppContext';
 
-export default function AddAndRemoveFriendBtns({ friendUsername }) {
+export default function AddAndRemoveFriendBtns({ friendUsername, setRefresh }) {
   const { userData } = useContext(AppContext);
   const [isFriend, setIsFriend] = useState(false);
 
   const handleAddFriend = async () => {
     await addFriendService(userData?.username, friendUsername);
     setIsFriend(true);
+    setRefresh((prev) => !prev);
   };
 
   const handleRemoveFriend = async () => {
     await removeFriendService(userData?.username, friendUsername);
     setIsFriend(false);
+    setRefresh((prev) => !prev);
   };
 
   useEffect(() => {
@@ -40,7 +42,7 @@ export default function AddAndRemoveFriendBtns({ friendUsername }) {
           Add Friend
         </button>
       ) : (
-        <button onClick={handleRemoveFriend} className='btn btn-primary'>
+        <button onClick={handleRemoveFriend} className='btn btn-error'>
           Remove Friend
         </button>
       )}
@@ -51,4 +53,5 @@ export default function AddAndRemoveFriendBtns({ friendUsername }) {
 AddAndRemoveFriendBtns.propTypes = {
   username: PropTypes.string,
   friendUsername: PropTypes.string,
+  setRefresh: PropTypes.func,
 };

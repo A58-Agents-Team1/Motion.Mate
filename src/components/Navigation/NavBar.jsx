@@ -69,16 +69,23 @@ export const NavBar = () => {
                 <li>
                   <NavLink to={'/'}>Home</NavLink>
                 </li>
-                <li>
-                  <NavLink to={'/categories'}>Categories</NavLink>
-                </li>
-                <li>
-                  <NavLink to={'/goals'}>Goals</NavLink>
-                </li>
+                {userData && (
+                  <>
+                    <li>
+                      <NavLink to={'/exercises'}>Exercises</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to={'/BMI'}>Body Mass Index</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to={'/goals'}>Goals</NavLink>
+                    </li>
+                  </>
+                )}
                 <li>
                   <NavLink to={'/about'}>About</NavLink>
                 </li>
-                {!userData ? (
+                {!userData && (
                   <>
                     <li>
                       <NavLink to={'/login'}>Login</NavLink>
@@ -88,13 +95,6 @@ export const NavBar = () => {
                       <NavLink to={'/register'}>Register</NavLink>
                     </li>
                   </>
-                ) : (
-                  <div className='flex gap-2 items-center mx-2'>
-                    {userData && <p>{userData?.email}</p>}
-                    <li>
-                      <button onClick={(e) => logout(e)}>Logout</button>
-                    </li>
-                  </div>
                 )}
               </ul>
             </div>
@@ -118,20 +118,30 @@ export const NavBar = () => {
           <li>
             <NavLink to={'/'}>Home</NavLink>
           </li>
-          <li>
-            <NavLink to={'/my-profile'}>My Profile</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/all-users'}>All Users</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/goals'}>Goals</NavLink>
-          </li>
+          {userData && (
+            <>
+              <li>
+                <NavLink to={'/my-profile'}>My Profile</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/my-friends'}>My Friends</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/all-users'}>All Users</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/BMI'}>BMI</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/goals'}>Goals</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/exercises'}>Exercises</NavLink>
+              </li>
+            </>
+          )}
           <li>
             <NavLink to={'/about'}>About</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/exercises'}>Exercises</NavLink>
           </li>
           {!userData ? (
             <>
@@ -148,7 +158,7 @@ export const NavBar = () => {
               <button
                 onClick={(e) => logout(e)}
                 className={
-                  'btn-ghost  text-primary-contrast bg-primary-500 hover:bg-primary-600'
+                  'btn-ghost  hover:text-red-700 hover:font-bold text-red-500'
                 }
               >
                 Logout
