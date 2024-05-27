@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { fullFormatDate } from '../helper/format-date';
 import { getUserByUsername } from '../services/users.service';
@@ -9,6 +9,7 @@ import UserInfo from '../components/UserInfo';
 export default function FullProfileView() {
   const [user, setUser] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -34,9 +35,9 @@ export default function FullProfileView() {
           <p>Member Since: {fullFormatDate(user?.createdOn)}</p>
         </div>
         <div className='bottom-div card-actions justify-end mt-4'>
-          <NavLink to={'/all-users'} className='btn btn-error'>
+          <button onClick={() => navigate(-1)} className='btn btn-error'>
             Back
-          </NavLink>
+          </button>
         </div>
       </div>
     </div>
