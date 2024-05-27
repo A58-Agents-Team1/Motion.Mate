@@ -5,13 +5,14 @@ import { validateGoalForm } from '../../common/goal.validations';
 import { APP_NAME } from '../../common/constants';
 import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertError from '../Alerts/AlertError';
+import { alertHelper } from '../../helper/alert-helper';
 
 export default function CreateGoal() {
   document.querySelector('title').textContent = `${APP_NAME} | Create Goal`;
 
   const { userData } = useContext(AppContext);
   const [showError, setShowError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setAlertMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [form, setForm] = useState({
     name: '',
@@ -33,8 +34,7 @@ export default function CreateGoal() {
         form.name,
         userData?.username,
         new Date(form.from).getTime(),
-        new Date(form.to).getTime(),
-        setShowError
+        new Date(form.to).getTime()
       );
       await createGoal(
         form.name,
@@ -48,17 +48,10 @@ export default function CreateGoal() {
         to: '',
       });
 
-      setShowSuccess(true);
       document.getElementById('my_modal_3').close();
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 3000);
+      alertHelper(setAlertMessage, setShowSuccess, 'Goal Created!');
     } catch (error) {
-      setShowError(true);
-      setErrorMessage(error.message);
-      setTimeout(() => {
-        setShowError(false);
-      }, 3000);
+      alertHelper(setAlertMessage, setShowError, error.message);
     }
   };
 
