@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { registerUser } from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
+import AlertError from '../components/Alerts/AlertError';
+import AlertSuccess from '../components/Alerts/AlertSuccess';
 import {
   createUser,
   getUploadedPhoto,
@@ -15,10 +17,22 @@ import {
   validatePhoneNumberAsync,
   validatePhoto,
 } from '../common/user.validations';
+import {
+  AGE_MAX,
+  AGE_MIN,
+  HEIGHT_MAX,
+  HEIGHT_MIN,
+  WEIGHT_MAX,
+  WEIGHT_MIN,
+} from '../common/constants';
+import { alertHelper } from '../helper/alert-helper';
 
 export default function Register() {
   const navigate = useNavigate();
   const { user, setAppState } = useContext(AppContext);
+  const [alert, setAlert] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState(null);
   const [image, setImage] = useState(null);
   const [form, setForm] = useState({
     firstName: '',
@@ -27,6 +41,9 @@ export default function Register() {
     phoneNumber: '',
     email: '',
     password: '',
+    age: '',
+    weight: '',
+    height: '',
   });
 
   const updateForm = (props) => (e) => {
@@ -68,13 +85,17 @@ export default function Register() {
         form.phoneNumber,
         form.firstName,
         form.lastName,
-        url
+        url,
+        form.age,
+        form.weight,
+        form.height
       );
 
       setAppState({ user: userCredential.user, userData: null });
+      alertHelper(setMessage, setSuccess, 'User registered successfully!');
       navigate('/');
     } catch (error) {
-      console.log(error.message);
+      alertHelper(setMessage, setAlert, error.message);
     }
   };
 
@@ -86,7 +107,10 @@ export default function Register() {
 
   return (
     <>
-      <div id='register' className='hero min-h-screen bg-base-300'>
+      <div
+        id='register'
+        className='hero min-h-screen bg-base-300'
+      >
         <div className='hero-content flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
             <h1 className='text-5xl font-bold'>Register!</h1>
@@ -119,6 +143,52 @@ export default function Register() {
                 />
               </div>
               <div className='form-control'>
+                <label className='label justify-start gap-1'>
+                  <span className='label-text mr-1'>Age</span>
+
+                  <input
+                    onChange={updateForm('age')}
+                    type='number'
+                    placeholder={`Age (${AGE_MIN}-${AGE_MAX})`}
+                    className='input input-bordered w-11/12'
+                    required
+                    max={AGE_MAX}
+                    min={AGE_MIN}
+                    value={form.age === '' ? '' : parseInt(form.age)}
+                  />
+                </label>
+              </div>
+              <div className='form-control'>
+                <label className='label justify-start gap-1'>
+                  <span className='label-text  mr-1'>Weight</span>
+                  <input
+                    onChange={updateForm('weight')}
+                    type='number'
+                    placeholder={`Weight (${WEIGHT_MIN}-${WEIGHT_MAX})`}
+                    className='input input-bordered w-11/12'
+                    required
+                    max={WEIGHT_MAX}
+                    min={WEIGHT_MIN}
+                    value={form.weight === '' ? '' : parseInt(form.weight)}
+                  />
+                </label>
+              </div>
+              <div className='form-control'>
+                <label className='label justify-start gap-1'>
+                  <span className='label-text mr-1'>Height</span>
+                  <input
+                    onChange={updateForm('height')}
+                    type='number'
+                    placeholder={`Height (${HEIGHT_MIN}-${HEIGHT_MAX})`}
+                    className='input input-bordered w-11/12'
+                    required
+                    max={HEIGHT_MAX}
+                    min={HEIGHT_MIN}
+                    value={form.height === '' ? '' : parseInt(form.height)}
+                  />
+                </label>
+              </div>
+              <div className='form-control'>
                 <label className='label'>
                   <span className='label-text'>
                     Username <span className='text-red-600'>*</span>
@@ -148,6 +218,7 @@ export default function Register() {
                   value={form.email}
                 />
               </div>
+
               <div className='form-control'>
                 <label className='label'>
                   <span className='label-text'>
@@ -193,7 +264,10 @@ export default function Register() {
                 />
               </div>
               <div className='form-control mt-6'>
-                <button onClick={register} className='btn btn-primary '>
+                <button
+                  onClick={register}
+                  className='btn btn-primary '
+                >
                   Register
                 </button>
               </div>
@@ -201,6 +275,8 @@ export default function Register() {
           </div>
         </div>
       </div>
+      {success && <AlertSuccess message={message} />}
+      {alert && <AlertError message={message} />}
     </>
   );
 }
