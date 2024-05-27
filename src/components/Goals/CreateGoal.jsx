@@ -132,12 +132,7 @@ export default function CreateGoal() {
         </div>
         {showError && (
           <AlertError
-            message={
-              <div className='flex flex-col'>
-                <span>Something went wrong!</span>
-                <span>You forget about the {errorMessage}... right?!</span>
-              </div>
-            }
+            message={`Something went wrong! You forget about the ${errorMessage}... right?!`}
           />
         )}
       </dialog>
