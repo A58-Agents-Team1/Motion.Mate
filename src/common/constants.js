@@ -27,3 +27,7 @@ export const WEIGHT_MAX = 500;
 export const HEIGHT_MIN = 50;
 
 export const HEIGHT_MAX = 300;
+
+export const AGE_MIN = 10;
+
+export const AGE_MAX = 100;
