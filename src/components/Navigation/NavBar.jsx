@@ -66,6 +66,13 @@ export const NavBar = () => {
             <div className='flex-none hidden lg:block'>
               <ul className='menu menu-horizontal items-center '>
                 {/* Navbar menu content here */}
+                {userData?.userRole === 'admin' && (
+                  <li>
+                    <NavLink to={'/admin-panel'} className={'font-bold'}>
+                      Admin Panel
+                    </NavLink>
+                  </li>
+                )}
                 <li>
                   <NavLink to={'/'}>Home</NavLink>
                 </li>
@@ -115,6 +122,13 @@ export const NavBar = () => {
           {/* Sidebar content here */}
 
           {userData && <AvatarWithName className />}
+          {userData?.userRole === 'admin' && (
+            <li>
+              <NavLink to={'/admin-panel'} className={'font-bold'}>
+                Admin Panel
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink to={'/'}>Home</NavLink>
           </li>

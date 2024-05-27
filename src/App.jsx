@@ -18,6 +18,7 @@ import FullProfileView from './views/FullProfileView';
 import BodyMassIndex from './views/BodyMassIndex';
 import MyFriends from './views/MyFriends';
 import Categories from './components/Categories/Categories';
+import AdminPanel from './views/AdminPanel';
 import DetailedGoal from './components/Goals/DetailedGoal';
 
 function App() {
@@ -149,6 +150,14 @@ function App() {
               element={
                 <Authenticated user={user}>
                   <Categories />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/admin-panel'
+              element={
+                <Authenticated user={user}>
+                  <AdminPanel />
                 </Authenticated>
               }
             />
