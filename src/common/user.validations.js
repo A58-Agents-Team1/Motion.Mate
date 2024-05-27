@@ -1,10 +1,16 @@
 import { getAllUsers, getUserByUsername } from '../services/users.service';
 import {
+  AGE_MAX,
+  AGE_MIN,
+  HEIGHT_MAX,
+  HEIGHT_MIN,
   MAX_PASSWORD_LENGTH,
   MAX_USERNAME_LENGTH,
   MIN_PASSWORD_LENGTH,
   MIN_USERNAME_LENGTH,
   PHONE_NUMBER_LENGTH,
+  WEIGHT_MAX,
+  WEIGHT_MIN,
 } from './constants';
 
 export const validateRequiredFieldsReg = (form) => {
@@ -116,3 +122,21 @@ export const validateEmailLogAsync = async (email) => {
     throw new Error('User with this email does not exist!');
   }
 };
+
+export const validateAge = (age) => {
+  if (age < AGE_MIN || age > AGE_MAX) {
+    throw new Error(`Age must be between ${AGE_MIN} and ${AGE_MAX}.`);
+  }
+}
+
+export const validateWeight = (weight) => {
+  if (weight < WEIGHT_MIN || weight > WEIGHT_MAX) {
+    throw new Error(`Weight must be between ${WEIGHT_MIN} and ${WEIGHT_MAX}.`);
+  }
+}
+
+export const validateHeight = (height) => {
+  if (height < HEIGHT_MIN || height > HEIGHT_MAX) {
+    throw new Error(`Height must be between ${HEIGHT_MIN} and ${HEIGHT_MAX}.`);
+  }
+}
