@@ -28,12 +28,12 @@ export default function EditProfileInfo({ setEditProfile }) {
 
   return (
     <div className='flex flex-col text-center'>
-      <h1 className='mb-4'>
+      <h1 className='mb-4 text-xl'>
         <p>Greetings, {userData?.username}! Ready to make updates? </p>
         <p>Edit your account details here.</p>
       </h1>
       <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center justify-center'>
-        <div className='mr-4 flex flex-col text-left'>
+        <div className='mr-4 flex flex-col text-left text-lg'>
           <p className='font-bold underline'>Edit profile info here:</p>
           <label htmlFor='firstName'>First Name:</label>
           <input
@@ -66,7 +66,7 @@ export default function EditProfileInfo({ setEditProfile }) {
             className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
           />
         </div>
-        <div className='text-center'>
+        <div className='text-center text-lg ml-4'>
           <p className='font-bold underline'>Main Information:</p>
           {userData?.username ? (
             <p className='mb-2 mt-2'>UserName: {userData?.username}</p>

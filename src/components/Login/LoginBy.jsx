@@ -11,7 +11,9 @@ export default function LoginBy({
     <>
       <div className='form-control'>
         <label className='label'>
-          <span className='label-text'>{placeholder}</span>
+          <span className='label-text'>
+            {placeholder} <span className='text-red-600'>*</span>
+          </span>
         </label>
         <input
           type={type}
@@ -24,7 +26,9 @@ export default function LoginBy({
       </div>
       <div className='form-control'>
         <label className='label'>
-          <span className='label-text'>Password</span>
+          <span className='label-text'>
+            Password <span className='text-red-600'>*</span>
+          </span>
         </label>
         <input
           type='password'

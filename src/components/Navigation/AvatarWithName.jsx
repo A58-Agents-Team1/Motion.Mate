@@ -1,10 +1,21 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
 import userPhoto from '../../assets/userPhoto.png';
+import { logoutUser } from '../../services/auth.service';
 
 export function AvatarWithNameAndDropDownMenu() {
-  const { userData, user } = useContext(AppContext);
+  const { user } = useContext(AppContext);
+  const { setAppState, userData } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  const logout = async (e) => {
+    e.preventDefault();
+    await logoutUser();
+    setAppState({ user: null, userData: null });
+    navigate('/');
+  };
+
   return (
     <div className='flex justify-end'>
       {user && (
@@ -43,7 +54,18 @@ export function AvatarWithNameAndDropDownMenu() {
                   <NavLink to='/my-profile'>My Profile</NavLink>
                 </li>
                 <li>
+                  <NavLink to='/my-friends'>My Friends</NavLink>
+                </li>
+                <li>
                   <NavLink to='/all-users'>All Users</NavLink>
+                </li>
+                <li>
+                  <button
+                    className='hover:text-red-700 hover:font-bold text-red-500'
+                    onClick={(e) => logout(e)}
+                  >
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>

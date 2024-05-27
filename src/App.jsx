@@ -15,7 +15,9 @@ import Authenticated from './hoc/Authenticated';
 import AllUsers from './views/AllUsers';
 import Goals from './views/Goals';
 import FullProfileView from './views/FullProfileView';
-import Categories from './components/Categories/Categories';
+import Categories from './components/Exercise/Categories';
+import BodyMassIndex from './views/BodyMassIndex';
+import MyFriends from './views/MyFriends';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -49,11 +51,16 @@ function App() {
       <AppContext.Provider value={{ ...appState, setAppState }}>
         <Layout>
           <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='*' element={<NotFound />} />
             <Route
-              path='/'
+              path='/BMI'
               element={
                 <Authenticated user={user}>
-                  <Home />
+                  <BodyMassIndex />
                 </Authenticated>
               }
             />
@@ -65,15 +72,19 @@ function App() {
                 </Authenticated>
               }
             />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='*' element={<NotFound />} />
             <Route
               path='/all-users'
               element={
                 <Authenticated user={user}>
                   <AllUsers />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/my-friends'
+              element={
+                <Authenticated user={user}>
+                  <MyFriends />
                 </Authenticated>
               }
             />

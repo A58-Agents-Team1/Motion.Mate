@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { uploadPhoto } from '../../services/users.service';
-import Avatar from '../Avatar';
+import { FullAvatar } from '../Avatar';
 
 export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
   const { userData } = useContext(AppContext);
@@ -21,17 +21,17 @@ export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
 
   return (
     <div className='flex flex-col text-center'>
-      <h1 className='mb-4'>
+      <div className='text-xl mb-4'>
         <p>
           Greetings, {userData?.username}! Ready to give your profile a
           makeover?
         </p>
         <p>Upload or change your profile photo here.</p>
-      </h1>
+      </div>
       <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex flex-col items-center'>
         <div className='flex items-center'>
           <div className='mr-4'>
-            <Avatar user={userData} />
+            <FullAvatar user={userData} />
           </div>
           <div className='text-center'>
             {imageUpload !== null && (
@@ -46,7 +46,7 @@ export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
             )}
           </div>
         </div>
-        <div className='mt-5'>
+        <div className='mt-5 flex flex-row'>
           <input
             type='file'
             accept='image/*'

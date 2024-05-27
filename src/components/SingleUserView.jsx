@@ -4,7 +4,7 @@ import Avatar from './Avatar';
 import PropTypes from 'prop-types';
 import AddAndRemoveFriendBtns from './AddAndRemoveFriendBtns';
 
-export default function SingleUserView({ user }) {
+export default function SingleUserView({ user, setRefresh }) {
   const navigate = useNavigate();
 
   return (
@@ -21,7 +21,10 @@ export default function SingleUserView({ user }) {
           <p>Member Since: {shortFormatDate(user?.createdOn)}</p>
         </div>
         <div className='bottom-div card-actions justify-end mt-4'>
-          <AddAndRemoveFriendBtns friendUsername={user?.username} />
+          <AddAndRemoveFriendBtns
+            friendUsername={user?.username}
+            setRefresh={setRefresh}
+          />
           <button
             onClick={() => navigate(`/users/${user?.username}`)}
             className='btn btn-primary'
@@ -36,4 +39,5 @@ export default function SingleUserView({ user }) {
 
 SingleUserView.propTypes = {
   user: PropTypes.object.isRequired,
+  setRefresh: PropTypes.func,
 };
