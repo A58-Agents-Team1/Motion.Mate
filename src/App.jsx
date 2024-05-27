@@ -16,6 +16,7 @@ import AllUsers from './views/AllUsers';
 import Goals from './views/Goals';
 import FullProfileView from './views/FullProfileView';
 import Categories from './components/Exercise/Categories';
+import DetailedGoal from './components/Goals/DetailedGoal';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -62,6 +63,14 @@ function App() {
               element={
                 <Authenticated user={user}>
                   <Goals />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/goals/:id'
+              element={
+                <Authenticated user={user}>
+                  <DetailedGoal />
                 </Authenticated>
               }
             />
