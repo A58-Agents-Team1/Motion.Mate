@@ -62,3 +62,13 @@ export const addExerciseInProgress = async (exerciseId) => {
     throw new Error(error.message);
   }
 };
+
+export const removeExerciseInProgress = async (exerciseId) => {
+  try {
+    return await update(ref(db, `exercises/${exerciseId}`), {
+      inProgress: false,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
