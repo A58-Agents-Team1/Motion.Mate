@@ -26,7 +26,7 @@ export function AvatarWithNameAndDropDownMenu() {
                 {`${userData?.firstName} ${userData?.lastName}`}
               </h2>
             ) : (
-              <h2 className='text-2xl font-bold mx-2'>{userData?.username}</h2>
+              <h2 className='text-4xl font-bold mx-2'>{userData?.username}</h2>
             )}
           </div>
           <div className='dropdown dropdown-hover flex items-center'>
@@ -101,7 +101,7 @@ export function AvatarWithName() {
             {`${userData?.firstName} ${userData?.lastName}`}
           </h2>
         ) : (
-          <h2 className='text-2xl font-bold mx-2'>{userData?.username}</h2>
+          <h2 className='text-4xl font-bold mx-2'>{userData?.username}</h2>
         )}
       </div>
     )

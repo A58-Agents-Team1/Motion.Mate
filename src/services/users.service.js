@@ -5,6 +5,7 @@ import {
   orderByChild,
   query,
   ref,
+  remove,
   set,
   update,
 } from 'firebase/database';
@@ -67,9 +68,35 @@ export const createUser = (
     lastName,
     avatar,
     userRole: 'user',
+    isBlocked: false,
     createdOn: new Date().valueOf(),
     exercises: [],
   });
+};
+
+export const deleteUserAsync = async (username) => {
+  try {
+    const userRef = ref(db, `users/${username}`);
+    await remove(userRef);
+  } catch (error) {
+    console.error('Error deleting user:', error.message);
+  }
+};
+
+export const promoteToAdminAsync = async (username, role) => {
+  try {
+    await update(ref(db, `users/${username}`), { userRole: role });
+  } catch (error) {
+    console.log('Error promoting user to admin:', error.message);
+  }
+};
+
+export const blockUserAsync = async (username, isBlocked) => {
+  try {
+    await update(ref(db, `users/${username}`), { isBlocked: isBlocked });
+  } catch (error) {
+    console.log('Error blocking user:', error.message);
+  }
 };
 
 export const addFriendService = async (username, friendUsername) => {
