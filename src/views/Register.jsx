@@ -16,6 +16,9 @@ import {
   validateUserNameRegAsync,
   validatePhoneNumberAsync,
   validatePhoto,
+  validateAge,
+  validateHeight,
+  validateWeight,
 } from '../common/user.validations';
 import {
   AGE_MAX,
@@ -65,6 +68,9 @@ export default function Register() {
     await validateUserNameRegAsync(form.username);
     await validateEmailRegAsync(form.email);
     await validatePhoneNumberAsync(form.phoneNumber);
+    validateAge(form.age);
+    validateHeight(form.height);
+    validateWeight(form.weight);
     validatePassword(form.password);
     validatePhoto(image);
   };
