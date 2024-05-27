@@ -3,6 +3,8 @@ import { createGoal } from '../../services/goal.service';
 import { AppContext } from '../../context/AppContext';
 import { validateGoalForm } from '../../common/goal.validations';
 import { APP_NAME } from '../../common/constants';
+import AlertSuccess from '../Alerts/AlertSuccess';
+import AlertError from '../Alerts/AlertError';
 
 export default function CreateGoal() {
   document.querySelector('title').textContent = `${APP_NAME} | Create Goal`;
@@ -10,6 +12,7 @@ export default function CreateGoal() {
   const { userData } = useContext(AppContext);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
   const [form, setForm] = useState({
     name: '',
     from: '',
@@ -45,10 +48,17 @@ export default function CreateGoal() {
         to: '',
       });
 
+      setShowSuccess(true);
       document.getElementById('my_modal_3').close();
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
     } catch (error) {
       setShowError(true);
       setErrorMessage(error.message);
+      setTimeout(() => {
+        setShowError(false);
+      }, 3000);
     }
   };
 
@@ -121,14 +131,17 @@ export default function CreateGoal() {
           </button>
         </div>
         {showError && (
-          <div className='toast toast-end z-999'>
-            <div className='alert alert-error'>
-              <span>Something went wrong!</span>
-              <span>You forget about the {errorMessage}... right?!</span>
-            </div>
-          </div>
+          <AlertError
+            message={
+              <div className='flex flex-col'>
+                <span>Something went wrong!</span>
+                <span>You forget about the {errorMessage}... right?!</span>
+              </div>
+            }
+          />
         )}
       </dialog>
+      {showSuccess && <AlertSuccess message='Goal Created!' />}
     </>
   );
 }
