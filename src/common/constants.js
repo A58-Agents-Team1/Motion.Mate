@@ -27,3 +27,11 @@ export const WEIGHT_MAX = 500;
 export const HEIGHT_MIN = 50;
 
 export const HEIGHT_MAX = 300;
+
+export const EXERCISE_MIN_TITLE_LENGTH = 4;
+
+export const EXERCISE_MAX_TITLE_LENGTH = 30;
+
+export const EXERCISE_MIN_CONTENT_LENGTH = 4;
+
+export const EXERCISE_MAX_CONTENT_LENGTH = 30;
