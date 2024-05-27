@@ -3,6 +3,10 @@ import { AppContext } from '../../context/AppContext';
 import { createExercises } from '../../services/exercise.service';
 import { addUserExercise } from '../../services/users.service';
 import { getAllCategories } from '../../services/category.service';
+import { validateExerciseForm } from '../../common/exercise.validations';
+import AlertError from '../../components/Alerts/AlertError';
+import AlertSuccess from '../../components/Alerts/AlertSuccess';
+import { alertHelper } from '../../helper/alert-helper';
 
 export const CreateExercise = () => {
   const [content, setContent] = useState({
@@ -15,9 +19,14 @@ export const CreateExercise = () => {
     level: '',
     categoryId: '',
   });
+
   const { userData } = useContext(AppContext);
   const [categories, setCategories] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [takeResult, setTakeResult] = useState([]);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -35,20 +44,52 @@ export const CreateExercise = () => {
   };
 
   const submitExercise = async () => {
-    const result = await createExercises(
-      content.title,
-      content.content,
-      content.hours,
-      content.minutes,
-      content.seconds,
-      content.calories,
-      content.level,
-      userData.username,
-      selectedCategoryId
-    );
-    console.log(result);
+    try {
+      validateExerciseForm(
+        content.title,
+        content.content,
+        content.hours,
+        content.minutes,
+        content.seconds,
+        content.calories,
+        content.level,
+        selectedCategoryId
+      );
+      const result = await createExercises(
+        content.title,
+        content.content,
+        content.hours,
+        content.minutes,
+        content.seconds,
+        content.calories,
+        content.level,
+        userData.username,
+        selectedCategoryId
+      );
+      setTakeResult(result);
+      setContent({
+        title: '',
+        content: '',
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        calories: '',
+        level: '',
+        categoryId: '',
+      });
 
-    await addUserExercise(userData.username, result);
+      document.getElementById('exercise-create-modal').close();
+      alertHelper(
+        setAlertMessage,
+        setShowSuccess,
+        'Successfully created exercise!'
+      );
+    } catch (error) {
+      console.log(error.message);
+      alertHelper(setAlertMessage, setShowError, error.message);
+    }
+
+    await addUserExercise(userData.username, takeResult);
   };
 
   return (
@@ -164,6 +205,7 @@ export const CreateExercise = () => {
                 <button
                   onClick={submitExercise}
                   className='btn btn-outline btn-primary'
+                  type='button'
                 >
                   Submit
                 </button>
@@ -171,6 +213,8 @@ export const CreateExercise = () => {
             </div>
           </div>
         </dialog>
+        {showError && <AlertError message={alertMessage} />}
+        {showSuccess && <AlertSuccess message='Exercise Created!' />}
       </div>
     </div>
   );
