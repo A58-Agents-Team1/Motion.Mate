@@ -89,6 +89,14 @@ function App() {
               }
             />
             <Route
+              path='/goals/:id'
+              element={
+                <Authenticated user={user}>
+                  <DetailedGoal />
+                </Authenticated>
+              }
+            />
+            <Route
               path='/about'
               element={<About />}
             />
