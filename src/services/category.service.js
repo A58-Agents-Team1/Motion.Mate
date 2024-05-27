@@ -2,24 +2,28 @@ import { get, push, ref } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 export const getAllCategories = async () => {
-  const snapshot = await get(ref(db, 'categories'));
-  const data = snapshot.val();
+  try {
+    const snapshot = await get(ref(db, 'categories'));
+    const data = snapshot.val();
 
-  if (!snapshot.exists()) return [];
+    if (!snapshot.exists()) return [];
 
-  const exercises = [];
+    const exercises = [];
 
-  Object.keys(data).forEach((category) => {
-    Object.keys(data[category]).forEach((categoryId) => {
-      exercises.push({
-        id: categoryId,
-        category,
-        ...data[category][categoryId],
+    Object.keys(data).forEach((category) => {
+      Object.keys(data[category]).forEach((categoryId) => {
+        exercises.push({
+          id: categoryId,
+          category,
+          ...data[category][categoryId],
+        });
       });
     });
-  });
 
-  return exercises;
+    return exercises;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const createCategory = async (name, description, imageUrl) => {
@@ -27,6 +31,11 @@ export const createCategory = async (name, description, imageUrl) => {
     description,
     imageUrl,
   };
-  const result = await push(ref(db, `categories/${name}`), category);
-  return result.key;
+
+  try {
+    const result = await push(ref(db, `categories/${name}`), category);
+    return result.key;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
