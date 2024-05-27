@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { fullFormatDate } from '../helper/format-date';
+import { getUserByUsername } from '../services/users.service';
+import { FullAvatar } from '../components/Avatar';
 import EditProfileInfo from '../components/EditProfileInfo/EditProfileInfo';
 import ChangeProfilePhoto from '../components/EditProfileInfo/ChangeProfilePhoto';
-import { getUserByUsername } from '../services/users.service';
-import Avatar from '../components/Avatar';
 import UserInfo from '../components/UserInfo';
 
 export default function MyProfile() {
@@ -35,7 +35,7 @@ export default function MyProfile() {
           </h1>
           <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center justify-center'>
             <div className='mr-4'>
-              <Avatar user={userData} />
+              <FullAvatar user={userData} />
             </div>
             <div className='text-center text-lg ml-5'>
               <p className='font-bold underline'>Main Information:</p>
