@@ -2,21 +2,32 @@ import { useContext, useEffect, useState } from 'react';
 import {
   addExerciseInProgress,
   deleteExercise,
-  getExercises,
 } from '../services/exercise.service';
 import { AppContext } from '../context/AppContext';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../config/firebase-config';
+import { alertHelper } from '../helper/alert-helper';
+import AlertError from '../components/Alerts/AlertError';
+import AlertSuccess from '../components/Alerts/AlertSuccess';
 
 export const Exercises = ({ category, id, setSelectedCategory }) => {
   const [exercises, setExercises] = useState([]);
-  const [currentId, setCurrentId] = useState('');
   const { userData } = useContext(AppContext);
-
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [showError, setShowError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleDelete = async (itemId) => {
-    await deleteExercise(itemId);
+    try {
+      await deleteExercise(itemId);
+      alertHelper(
+        setAlertMessage,
+        setShowSuccess,
+        'Successfully deleted exercise!'
+      );
+    } catch (error) {
+      alertHelper(setAlertMessage, setShowError, error.message);
+    }
   };
 
   useEffect(() => {
@@ -36,15 +47,16 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
     });
   }, []);
 
-  const handleJoin = async (id) => {
-    await addExerciseInProgress(id);
-
-    if (currentId.includes(id)) {
-      setCurrentId(currentId.filter((id) => id !== itemId));
-      console.log(currentId);
-    } else {
-      setCurrentId([...currentId, id]);
-      console.log(currentId);
+  const handleAddToList = async (id) => {
+    try {
+      await addExerciseInProgress(id);
+      alertHelper(
+        setAlertMessage,
+        setShowSuccess,
+        'Successfully added exercise!'
+      );
+    } catch (error) {
+      alertHelper(setAlertMessage, setShowError, error.message);
     }
   };
 
@@ -74,7 +86,7 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
             <div className='card-actions justify-end'>
               <div className='flex flex-row gap-3'>
                 <button
-                  onClick={() => handleJoin(exercise.id)}
+                  onClick={() => handleAddToList(exercise.id)}
                   className='btn btn-primary'
                 >
                   Add to list
@@ -89,6 +101,10 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
             </div>
           </div>
         ))}
+        {showError && <AlertError message={alertMessage} />}
+        {showSuccess && (
+          <AlertSuccess message='Successfully deleted exercise!' />
+        )}
       </div>
       <button onClick={setSelectedCategory} className='btn btn-primary mt-4'>
         Back
