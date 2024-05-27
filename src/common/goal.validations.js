@@ -82,7 +82,7 @@ export const goalCreateValidation = (name, owner, timePeriodStart, timePeriodEnd
   }
 };
 
-export const goalUpdateValidation = (name, owner, timePeriodStart, timePeriodEnd, status, progress) => {
+export const goalUpdateValidation = (name, owner, timePeriodStart, timePeriodEnd, progress) => {
   const timeNow = new Date().getTime();
 
   if (!name) {
@@ -119,10 +119,6 @@ export const goalUpdateValidation = (name, owner, timePeriodStart, timePeriodEnd
 
   if (timePeriodStart > timePeriodEnd) {
     throw new Error('Start date must be before end date');
-  }
-
-  if (!status) {
-    throw new Error('Status is required');
   }
 
   if (!progress) {
