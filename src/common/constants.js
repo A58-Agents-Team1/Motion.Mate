@@ -35,3 +35,19 @@ export const EXERCISE_MAX_TITLE_LENGTH = 30;
 export const EXERCISE_MIN_CONTENT_LENGTH = 4;
 
 export const EXERCISE_MAX_CONTENT_LENGTH = 30;
+
+export const EXERCISE_MIN_TITLE_LENGTH = 4;
+
+export const EXERCISE_MAX_TITLE_LENGTH = 30;
+
+export const EXERCISE_MIN_CONTENT_LENGTH = 4;
+
+export const EXERCISE_MAX_CONTENT_LENGTH = 30;
+
+export const AGE_MIN = 10;
+
+export const AGE_MAX = 100;
+
+export const AGE_MIN = 10;
+
+export const AGE_MAX = 100;
