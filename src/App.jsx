@@ -18,6 +18,7 @@ import FullProfileView from './views/FullProfileView';
 import BodyMassIndex from './views/BodyMassIndex';
 import MyFriends from './views/MyFriends';
 import Categories from './components/Categories/Categories';
+import AdminPanel from './views/AdminPanel';
 
 function App() {
   const [appState, setAppState] = useState({
