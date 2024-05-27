@@ -1,6 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import { deleteExercise, getExercises } from '../services/exercise.service';
+import {
+  addExerciseInProgress,
+  deleteExercise,
+  getExercises,
+} from '../services/exercise.service';
 import { AppContext } from '../context/AppContext';
+import { onValue, ref } from 'firebase/database';
+import { db } from '../config/firebase-config';
 
 export const Exercises = ({ category, id, setSelectedCategory }) => {
   const [exercises, setExercises] = useState([]);
@@ -9,34 +15,36 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
 
   const [selectedItems, setSelectedItems] = useState([]);
 
-  //  // TODO ADD TRY CATCH ON EVERY FUNCTION
-  useEffect(() => {
-    const fetchExercises = async () => {
-      const result = await getExercises();
-      const filtered = Object.entries(result)
-        .map(([exerciseId, exercise]) => ({
-          id: exerciseId,
-          ...exercise,
-        }))
-        .filter(
-          (exercise) =>
-            exercise.categoryId === id &&
-            exercise.createdBy === userData.username
-        );
-      setExercises(filtered);
-    };
-
-    fetchExercises();
-  }, [category]);
-
-  const handleToggle = async (itemId) => {
+  const handleDelete = async (itemId) => {
     await deleteExercise(itemId);
-    if (selectedItems.includes(itemId)) {
-      setSelectedItems(selectedItems.filter((id) => id !== itemId));
-      console.log(selectedItems);
+  };
+
+  useEffect(() => {
+    return onValue(ref(db, 'exercises'), (snapshot) => {
+      const allExercises = [];
+      snapshot.forEach((child) => {
+        allExercises.push({
+          id: child.key,
+          ...child.val(),
+        });
+      });
+      const filtered = allExercises.filter(
+        (exercise) =>
+          exercise.categoryId === id && exercise.createdBy === userData.username
+      );
+      setExercises(filtered);
+    });
+  }, []);
+
+  const handleJoin = async (id) => {
+    await addExerciseInProgress(id);
+
+    if (currentId.includes(id)) {
+      setCurrentId(currentId.filter((id) => id !== itemId));
+      console.log(currentId);
     } else {
-      setSelectedItems([...selectedItems, itemId]);
-      console.log(selectedItems);
+      setCurrentId([...currentId, id]);
+      console.log(currentId);
     }
   };
 
@@ -66,33 +74,17 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
             <div className='card-actions justify-end'>
               <div className='flex flex-row gap-3'>
                 <button
-                  onClick={() => setCurrentId(exercise.createdBy)}
+                  onClick={() => handleJoin(exercise.id)}
                   className='btn btn-primary'
                 >
                   Add to list
                 </button>
                 <button
                   className='btn btn-primary'
-                  onClick={() => handleToggle(exercise.id)}
-                  variant={
-                    selectedItems.includes(exercise.id)
-                      ? 'contained'
-                      : 'outlined'
-                  }
+                  onClick={() => handleDelete(exercise.id)}
                 >
                   Delete
                 </button>
-                {/* <Modal
-                  message={'Are you sure u want to delete the post ?'}
-                  action={'Delete'}
-                  onClickFunc={handleToggle}
-                  exercise={exercise}
-                  variant={
-                    selectedItems.includes(exercise.id)
-                      ? 'contained'
-                      : 'outlined'
-                  }
-                /> */}
               </div>
             </div>
           </div>
