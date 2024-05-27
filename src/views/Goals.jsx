@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
 import Goal from '../components/Goals/Goal';
-import { getGoals } from '../services/goal.service';
-import CreateGoal from '../components/Navigation/CreateGoal';
+import CreateGoal from '../components/Goals/CreateGoal';
 import { APP_NAME } from '../common/constants';
+import { ref, onValue } from 'firebase/database';
+import { db } from '../config/firebase-config';
 
 export default function Goals() {
   document.querySelector('title').textContent = `${APP_NAME} | Goals`;
 
   const [goals, setGoals] = useState([]);
-  useEffect(() => {
-    const getAllGoals = async () => {
-      const allGoals = await getGoals();
-      setGoals(allGoals);
-    };
-    getAllGoals();
-  }, []);
 
-  // TODO: Implement the following function
-  // useEffect(() => {
-  //   return onChildChanged();
-  // }, []);
+  useEffect(() => {
+    return onValue(ref(db, 'goals'), (snapshot) => {
+      const goals = [];
+      snapshot.forEach((child) => {
+        goals.push({
+          id: child.key,
+          ...child.val(),
+        });
+      });
+      setGoals(goals);
+    });
+  }, []);
 
   return (
     <div className='flex flex-col w-full gap-2 overflow-x-auto'>
@@ -34,19 +36,21 @@ export default function Goals() {
               <th>Starts</th>
               <th>Ends</th>
               <th>Progress</th>
-              <th>State</th>
             </tr>
           </thead>
           {/* row */}
           <tbody>
-            {goals.map((goal) => (
-              <tr key={goal?.name}>
+            {goals.map((goal, idx) => (
+              <tr
+                key={goal?.id}
+                className={`${idx % 2 === 0 && 'bg-base-200 '}`}
+              >
                 <Goal
+                  id={goal?.id}
                   owner={goal?.owner}
                   name={goal?.name}
                   from={goal?.timePeriod?.from}
                   to={goal?.timePeriod?.to}
-                  status={goal?.status}
                   progress={goal?.progress}
                 />
               </tr>
@@ -60,7 +64,6 @@ export default function Goals() {
               <th>Starts</th>
               <th>Ends</th>
               <th>Progress</th>
-              <th>State</th>
             </tr>
           </tfoot>
         </table>
