@@ -85,7 +85,7 @@ export const NavBar = () => {
                 <li>
                   <NavLink to={'/about'}>About</NavLink>
                 </li>
-                {!userData ? (
+                {!userData && (
                   <>
                     <li>
                       <NavLink to={'/login'}>Login</NavLink>
@@ -95,13 +95,6 @@ export const NavBar = () => {
                       <NavLink to={'/register'}>Register</NavLink>
                     </li>
                   </>
-                ) : (
-                  <div className='flex gap-2 items-center mx-2'>
-                    {userData && <p>{userData?.email}</p>}
-                    <li>
-                      <button onClick={(e) => logout(e)}>Logout</button>
-                    </li>
-                  </div>
                 )}
               </ul>
             </div>
@@ -165,7 +158,7 @@ export const NavBar = () => {
               <button
                 onClick={(e) => logout(e)}
                 className={
-                  'btn-ghost  text-primary-contrast bg-primary-500 hover:bg-primary-600'
+                  'btn-ghost  hover:text-red-700 hover:font-bold text-red-500'
                 }
               >
                 Logout
