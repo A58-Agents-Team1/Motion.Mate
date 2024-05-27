@@ -15,7 +15,7 @@ import Authenticated from './hoc/Authenticated';
 import AllUsers from './views/AllUsers';
 import Goals from './views/Goals';
 import FullProfileView from './views/FullProfileView';
-import Categories from './components/Exercise/Categories';
+import Categories from './components/Categories/Categories';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -65,22 +65,10 @@ function App() {
                 </Authenticated>
               }
             />
-            <Route
-              path='/about'
-              element={<About />}
-            />
-            <Route
-              path='/login'
-              element={<Login />}
-            />
-            <Route
-              path='/register'
-              element={<Register />}
-            />
-            <Route
-              path='*'
-              element={<NotFound />}
-            />
+            <Route path='/about' element={<About />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='*' element={<NotFound />} />
             <Route
               path='/all-users'
               element={
@@ -106,7 +94,7 @@ function App() {
               }
             />
             <Route
-              path='/categories'
+              path='/exercises'
               element={
                 <Authenticated user={user}>
                   <Categories />
