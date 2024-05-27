@@ -1,9 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getUserByUsername } from '../../services/users.service';
 import GoalButton from './GoalButton';
 import PropTypes from 'prop-types';
 import { fullFormatDate } from '../../helper/format-date';
-export default function Goal({ owner, name, from, to, status, progress }) {
+import { AppContext } from '../../context/AppContext';
+import { deleteGoal } from '../../services/goal.service';
+import { useNavigate } from 'react-router-dom';
+import AlertSuccess from '../Alerts/AlertSuccess';
+import AlertError from '../Alerts/AlertError';
+
+export default function Goal({ id, owner, name, from, to, progress }) {
+  const navigation = useNavigate();
+  const { userData } = useContext(AppContext);
+  const [showDeleted, setShowDeleted] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+  const errorMessages = (message) => {
+    setShowError(true);
+    setShowErrorMessage(message);
+    setTimeout(() => {
+      setShowError(false);
+    }, 3000);
+  };
+
   const [ownerObj, setOwnerObj] = useState({
     avatar: '',
     firstName: '',
@@ -11,13 +31,29 @@ export default function Goal({ owner, name, from, to, status, progress }) {
     email: '',
   });
 
+  const handleDetailsClick = async () => {
+    navigation(`/goals/${id}`);
+  };
+
+  const handleDeleteClick = async () => {
+    try {
+      await deleteGoal(id);
+      setShowDeleted(true);
+      setTimeout(() => {
+        setShowDeleted(false);
+      }, 3000);
+    } catch (error) {
+      errorMessages(error.message);
+    }
+  };
+
   useEffect(() => {
     const goalOwner = async () => {
       try {
         const res = await getUserByUsername(owner);
         setOwnerObj(res.val());
       } catch (error) {
-        console.error('Error fetching goal owner:', error.message);
+        errorMessages(error.message);
       }
     };
     goalOwner();
@@ -25,6 +61,8 @@ export default function Goal({ owner, name, from, to, status, progress }) {
 
   return (
     <>
+      {showDeleted && <AlertSuccess message='Goal deleted successfully!' />}
+      {showError && <AlertError message={showErrorMessage} />}
       <th>
         <div className='flex items-center gap-3'>
           <div className='avatar'>
@@ -55,23 +93,31 @@ export default function Goal({ owner, name, from, to, status, progress }) {
           {progress}
         </div>
       </td>
-      <td>{status}</td>
       <th className='join join-vertical gap-3'>
         <GoalButton title={'Add Goal'} />
         <GoalButton
           primary={false}
           title={'Details'}
+          onClick={handleDetailsClick}
         />
+        {userData?.username === owner && (
+          <GoalButton
+            primary={false}
+            styles='btn-warning'
+            title={'Delete'}
+            onClick={handleDeleteClick}
+          />
+        )}
       </th>
     </>
   );
 }
 
 Goal.propTypes = {
+  id: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   from: PropTypes.any.isRequired,
   to: PropTypes.any.isRequired,
-  status: PropTypes.string.isRequired,
   progress: PropTypes.number.isRequired,
 };
