@@ -19,6 +19,21 @@ export default function UserInfo({ userData }) {
       ) : (
         <p>Last Name: Missing information</p>
       )}
+      {userData?.age ? (
+        <p>Age: {userData?.age}</p>
+      ) : (
+        <p>Age: Missing information</p>
+      )}
+      {userData?.weight ? (
+        <p>Weight: {userData?.weight} kg</p>
+      ) : (
+        <p>Weight: Missing information</p>
+      )}
+      {userData?.height ? (
+        <p>Height: {userData?.height} sm</p>
+      ) : (
+        <p>Height: Missing information</p>
+      )}
       {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
         <p>Phone: {userData?.phoneNumber}</p>
       ) : (
