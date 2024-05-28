@@ -12,7 +12,8 @@ export default function About() {
   }, [countUser]);
 
   return (
-    <>
+    <div className='flex flex-col items-center'>
+      <h1 className='font-bold text-4xl mb-3'>About</h1>
       <div className='card h-40 w-60 bg-base-100 shadow-xl image-full rounded-3xl'>
         <figure>
           <img src={backgroundUsers} alt='Users' />
@@ -25,6 +26,6 @@ export default function About() {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
