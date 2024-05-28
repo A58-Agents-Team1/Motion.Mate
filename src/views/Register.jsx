@@ -113,10 +113,7 @@ export default function Register() {
 
   return (
     <>
-      <div
-        id='register'
-        className='hero min-h-screen bg-base-300'
-      >
+      <div id='register' className='hero min-h-screen bg-base-300'>
         <div className='hero-content flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
             <h1 className='text-5xl font-bold'>Register!</h1>
@@ -126,78 +123,8 @@ export default function Register() {
             <form className='card-body '>
               <div className='form-control'>
                 <label className='label'>
-                  <span className='label-text'>First Name</span>
-                </label>
-                <input
-                  onChange={updateForm('firstName')}
-                  type='text'
-                  placeholder='First Name'
-                  className='input input-bordered'
-                  value={form.firstName}
-                />
-              </div>
-              <div className='form-control'>
-                <label className='label'>
-                  <span className='label-text'>Last Name</span>
-                </label>
-                <input
-                  onChange={updateForm('lastName')}
-                  type='text'
-                  placeholder='Last Name'
-                  className='input input-bordered'
-                  value={form.lastName}
-                />
-              </div>
-              <div className='form-control'>
-                <label className='label justify-start gap-1'>
-                  <span className='label-text mr-1'>Age</span>
-
-                  <input
-                    onChange={updateForm('age')}
-                    type='number'
-                    placeholder={`Age (${AGE_MIN}-${AGE_MAX})`}
-                    className='input input-bordered w-11/12'
-                    required
-                    max={AGE_MAX}
-                    min={AGE_MIN}
-                    value={form.age === '' ? '' : parseInt(form.age)}
-                  />
-                </label>
-              </div>
-              <div className='form-control'>
-                <label className='label justify-start gap-1'>
-                  <span className='label-text  mr-1'>Weight</span>
-                  <input
-                    onChange={updateForm('weight')}
-                    type='number'
-                    placeholder={`Weight (${WEIGHT_MIN}-${WEIGHT_MAX})`}
-                    className='input input-bordered w-11/12'
-                    required
-                    max={WEIGHT_MAX}
-                    min={WEIGHT_MIN}
-                    value={form.weight === '' ? '' : parseInt(form.weight)}
-                  />
-                </label>
-              </div>
-              <div className='form-control'>
-                <label className='label justify-start gap-1'>
-                  <span className='label-text mr-1'>Height</span>
-                  <input
-                    onChange={updateForm('height')}
-                    type='number'
-                    placeholder={`Height (${HEIGHT_MIN}-${HEIGHT_MAX})`}
-                    className='input input-bordered w-11/12'
-                    required
-                    max={HEIGHT_MAX}
-                    min={HEIGHT_MIN}
-                    value={form.height === '' ? '' : parseInt(form.height)}
-                  />
-                </label>
-              </div>
-              <div className='form-control'>
-                <label className='label'>
                   <span className='label-text'>
-                    Username <span className='text-red-600'>*</span>
+                    Username: <span className='text-red-600'>*</span>
                   </span>
                 </label>
                 <input
@@ -212,7 +139,7 @@ export default function Register() {
               <div className='form-control'>
                 <label className='label'>
                   <span className='label-text'>
-                    Email <span className='text-red-600'>*</span>
+                    Email: <span className='text-red-600'>*</span>
                   </span>
                 </label>
                 <input
@@ -228,7 +155,7 @@ export default function Register() {
               <div className='form-control'>
                 <label className='label'>
                   <span className='label-text'>
-                    Phone <span className='text-red-600'>*</span>
+                    Phone: <span className='text-red-600'>*</span>
                   </span>
                 </label>
                 <input
@@ -243,7 +170,7 @@ export default function Register() {
               <div className='form-control'>
                 <label className='label'>
                   <span className='label-text'>
-                    Password <span className='text-red-600'>*</span>
+                    Password: <span className='text-red-600'>*</span>
                   </span>
                 </label>
                 <input
@@ -253,6 +180,75 @@ export default function Register() {
                   className='input input-bordered'
                   required
                   value={form.password}
+                />
+              </div>
+              <div className='form-control'>
+                <label className='label'>
+                  <span className='label-text'>First Name: </span>
+                </label>
+                <input
+                  onChange={updateForm('firstName')}
+                  type='text'
+                  placeholder='First Name'
+                  className='input input-bordered'
+                  value={form.firstName}
+                />
+              </div>
+              <div className='form-control'>
+                <label className='label'>
+                  <span className='label-text'>Last Name: </span>
+                </label>
+                <input
+                  onChange={updateForm('lastName')}
+                  type='text'
+                  placeholder='Last Name'
+                  className='input input-bordered'
+                  value={form.lastName}
+                />
+              </div>
+              <div className='form-control'>
+                <label className='label justify-start gap-1'>
+                  <span className='label-text mr-1'>Age: </span>
+                </label>
+                <input
+                  onChange={updateForm('age')}
+                  type='number'
+                  placeholder={`Age (${AGE_MIN}-${AGE_MAX})`}
+                  className='input input-bordered w-11/12'
+                  required
+                  max={AGE_MAX}
+                  min={AGE_MIN}
+                  value={form.age === '' ? '' : parseInt(form.age)}
+                />
+              </div>
+              <div className='form-control'>
+                <label className='label justify-start gap-1'>
+                  <span className='label-text  mr-1'>Weight: </span>
+                </label>
+                <input
+                  onChange={updateForm('weight')}
+                  type='number'
+                  placeholder={`Weight (${WEIGHT_MIN}-${WEIGHT_MAX})`}
+                  className='input input-bordered w-11/12'
+                  required
+                  max={WEIGHT_MAX}
+                  min={WEIGHT_MIN}
+                  value={form.weight === '' ? '' : parseInt(form.weight)}
+                />
+              </div>
+              <div className='form-control'>
+                <label className='label justify-start gap-1'>
+                  <span className='label-text mr-1'>Height: </span>
+                </label>
+                <input
+                  onChange={updateForm('height')}
+                  type='number'
+                  placeholder={`Height (${HEIGHT_MIN}-${HEIGHT_MAX})`}
+                  className='input input-bordered w-11/12'
+                  required
+                  max={HEIGHT_MAX}
+                  min={HEIGHT_MIN}
+                  value={form.height === '' ? '' : parseInt(form.height)}
                 />
               </div>
               <div className='form-control'>
@@ -270,10 +266,7 @@ export default function Register() {
                 />
               </div>
               <div className='form-control mt-6'>
-                <button
-                  onClick={register}
-                  className='btn btn-primary '
-                >
+                <button onClick={register} className='btn btn-primary '>
                   Register
                 </button>
               </div>
