@@ -20,6 +20,7 @@ import MyFriends from './views/MyFriends';
 import Categories from './components/Categories/Categories';
 import AdminPanel from './views/AdminPanel';
 import DetailedGoal from './components/Goals/DetailedGoal';
+import ContactUs from './views/ContactUs';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -53,26 +54,12 @@ function App() {
       <AppContext.Provider value={{ ...appState, setAppState }}>
         <Layout>
           <Routes>
-            <Route
-              path='/'
-              element={<Home />}
-            />
-            <Route
-              path='/about'
-              element={<About />}
-            />
-            <Route
-              path='/login'
-              element={<Login />}
-            />
-            <Route
-              path='/register'
-              element={<Register />}
-            />
-            <Route
-              path='*'
-              element={<NotFound />}
-            />
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='*' element={<NotFound />} />
+            <Route path='/contact-us' element={<ContactUs />} />
             <Route
               path='/BMI'
               element={
@@ -96,22 +83,6 @@ function App() {
                   <DetailedGoal />
                 </Authenticated>
               }
-            />
-            <Route
-              path='/about'
-              element={<About />}
-            />
-            <Route
-              path='/login'
-              element={<Login />}
-            />
-            <Route
-              path='/register'
-              element={<Register />}
-            />
-            <Route
-              path='*'
-              element={<NotFound />}
             />
             <Route
               path='/all-users'

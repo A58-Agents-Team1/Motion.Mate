@@ -57,14 +57,16 @@ export const Footer = () => {
               title='About Us'
             />
           </NavLink>
-          <img
-            src={contact}
-            alt='Contact Us Logo'
-            width='40'
-            height='40'
-            className='fill-current'
-            title='Contact Us'
-          />
+          <NavLink to='/contact-us'>
+            <img
+              src={contact}
+              alt='Contact Us Logo'
+              width='40'
+              height='40'
+              className='fill-current'
+              title='Contact Us'
+            />
+          </NavLink>
         </nav>
       </div>
     </footer>
