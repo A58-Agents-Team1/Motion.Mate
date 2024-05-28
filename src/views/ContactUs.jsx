@@ -1,7 +1,7 @@
 export default function ContactUs() {
   return (
     <div className='flex flex-col items-center'>
-      <h1 className='font-bold text-4xl mb-3'>Contact Us</h1>
+      <h1 className='font-bold text-4xl'>Contact Us</h1>
       <div className='flex flex-row my-6'>
         <div id='Tisho'>
           <div className='flex flex-col gap-4 w-52 mx-4'>
@@ -66,6 +66,15 @@ export default function ContactUs() {
             </div>
           </div>
         </div>
+      </div>
+      <div className='flex flex-col items-center text-center my-2'>
+        <p>
+          Meet the Motion Mate Team! We are passionate about fitness and
+          dedicated to helping you achieve your health goals. Whether you have a
+          question, need support, or just want to share your fitness journey,
+          we`re here to help. Get in touch with us and let`s move towards a
+          healthier future together!
+        </p>
       </div>
     </div>
   );
