@@ -76,7 +76,7 @@ export const submitEdit = async (
     setShowSuccess(true);
     setEditingExerciseId(null);
   } catch (error) {
-    setAlertMessage('Failed to update exercise.');
+    setAlertMessage(error.message);
     setShowError(true);
   }
 };
