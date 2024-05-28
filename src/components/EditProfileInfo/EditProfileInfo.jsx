@@ -18,7 +18,9 @@ export default function EditProfileInfo({ setEditProfile }) {
 
   const editProfileInformation = async () => {
     try {
-      await validatePhoneNumberAsync(form.phoneNumber);
+      if (userData?.phoneNumber !== form.phoneNumber) {
+        await validatePhoneNumberAsync(form.phoneNumber);
+      }
       await updateUserByUsername(userData?.username, form);
       setEditProfile(false);
     } catch (error) {
