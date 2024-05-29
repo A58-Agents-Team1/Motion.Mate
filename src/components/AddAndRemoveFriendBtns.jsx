@@ -29,7 +29,7 @@ export default function AddAndRemoveFriendBtns({ friendUsername, setRefresh }) {
   };
 
   const handleRemoveFriendRequest = async () => {
-    await removeFriendRequestService(friendUsername, userData?.username);
+    await removeFriendRequestService(userData?.username, friendUsername);
     setIsFriend(false);
     setRefresh((prev) => !prev);
     setLocalRefresh((prev) => !prev);
@@ -59,16 +59,25 @@ export default function AddAndRemoveFriendBtns({ friendUsername, setRefresh }) {
     <>
       {!isFriend ? (
         hasRequest ? (
-          <button onClick={handleRemoveFriendRequest} className='btn btn-error'>
+          <button
+            onClick={handleRemoveFriendRequest}
+            className='btn btn-error'
+          >
             Remove Friend Request
           </button>
         ) : (
-          <button onClick={handleSendFriendRequest} className='btn btn-primary'>
+          <button
+            onClick={handleSendFriendRequest}
+            className='btn btn-primary'
+          >
             Add Friend
           </button>
         )
       ) : (
-        <button onClick={handleRemoveFriend} className='btn btn-error'>
+        <button
+          onClick={handleRemoveFriend}
+          className='btn btn-error'
+        >
           Remove Friend
         </button>
       )}
