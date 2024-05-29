@@ -16,18 +16,7 @@ import {
   validateUserNameRegAsync,
   validatePhoneNumberAsync,
   validatePhoto,
-  validateAge,
-  validateHeight,
-  validateWeight,
 } from '../common/user.validations';
-import {
-  AGE_MAX,
-  AGE_MIN,
-  HEIGHT_MAX,
-  HEIGHT_MIN,
-  WEIGHT_MAX,
-  WEIGHT_MIN,
-} from '../common/constants';
 import { alertHelper } from '../helper/alert-helper';
 
 export default function Register() {
@@ -68,9 +57,6 @@ export default function Register() {
     await validateUserNameRegAsync(form.username);
     await validateEmailRegAsync(form.email);
     await validatePhoneNumberAsync(form.phoneNumber);
-    validateAge(form.age);
-    validateHeight(form.height);
-    validateWeight(form.weight);
     validatePassword(form.password);
     validatePhoto(image);
   };
@@ -99,7 +85,7 @@ export default function Register() {
 
       setAppState({ user: userCredential.user, userData: null });
       alertHelper(setMessage, setSuccess, 'User registered successfully!');
-      navigate('/');
+      navigate('/register-additional-info');
     } catch (error) {
       alertHelper(setMessage, setAlert, error.message);
     }
@@ -180,75 +166,6 @@ export default function Register() {
                   className='input input-bordered'
                   required
                   value={form.password}
-                />
-              </div>
-              <div className='form-control'>
-                <label className='label'>
-                  <span className='label-text'>First Name: </span>
-                </label>
-                <input
-                  onChange={updateForm('firstName')}
-                  type='text'
-                  placeholder='First Name'
-                  className='input input-bordered'
-                  value={form.firstName}
-                />
-              </div>
-              <div className='form-control'>
-                <label className='label'>
-                  <span className='label-text'>Last Name: </span>
-                </label>
-                <input
-                  onChange={updateForm('lastName')}
-                  type='text'
-                  placeholder='Last Name'
-                  className='input input-bordered'
-                  value={form.lastName}
-                />
-              </div>
-              <div className='form-control'>
-                <label className='label justify-start gap-1'>
-                  <span className='label-text mr-1'>Age: </span>
-                </label>
-                <input
-                  onChange={updateForm('age')}
-                  type='number'
-                  placeholder={`Age (${AGE_MIN}-${AGE_MAX})`}
-                  className='input input-bordered w-11/12'
-                  required
-                  max={AGE_MAX}
-                  min={AGE_MIN}
-                  value={form.age === '' ? '' : parseInt(form.age)}
-                />
-              </div>
-              <div className='form-control'>
-                <label className='label justify-start gap-1'>
-                  <span className='label-text  mr-1'>Weight: </span>
-                </label>
-                <input
-                  onChange={updateForm('weight')}
-                  type='number'
-                  placeholder={`Weight (${WEIGHT_MIN}-${WEIGHT_MAX})`}
-                  className='input input-bordered w-11/12'
-                  required
-                  max={WEIGHT_MAX}
-                  min={WEIGHT_MIN}
-                  value={form.weight === '' ? '' : parseInt(form.weight)}
-                />
-              </div>
-              <div className='form-control'>
-                <label className='label justify-start gap-1'>
-                  <span className='label-text mr-1'>Height: </span>
-                </label>
-                <input
-                  onChange={updateForm('height')}
-                  type='number'
-                  placeholder={`Height (${HEIGHT_MIN}-${HEIGHT_MAX})`}
-                  className='input input-bordered w-11/12'
-                  required
-                  max={HEIGHT_MAX}
-                  min={HEIGHT_MIN}
-                  value={form.height === '' ? '' : parseInt(form.height)}
                 />
               </div>
               <div className='form-control'>

@@ -21,6 +21,7 @@ import Categories from './components/Categories/Categories';
 import AdminPanel from './views/AdminPanel';
 import DetailedGoal from './components/Goals/DetailedGoal';
 import ContactUs from './views/ContactUs';
+import RegisterAdditionalInfo from './views/RegisterAdditionalInfo';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -58,6 +59,10 @@ function App() {
             <Route path='/about' element={<About />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route
+              path='/register-additional-info'
+              element={<RegisterAdditionalInfo />}
+            />
             <Route path='*' element={<NotFound />} />
             <Route path='/contact-us' element={<ContactUs />} />
             <Route

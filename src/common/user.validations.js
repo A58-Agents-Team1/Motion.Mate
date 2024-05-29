@@ -20,7 +20,7 @@ export const validateRequiredFieldsReg = (form) => {
     form.password === '' ||
     form.phoneNumber === ''
   ) {
-    throw new Error('Please fill in the required fields.');
+    throw new Error('Please fill all required fields.');
   }
 };
 
@@ -127,16 +127,28 @@ export const validateAge = (age) => {
   if (age < AGE_MIN || age > AGE_MAX) {
     throw new Error(`Age must be between ${AGE_MIN} and ${AGE_MAX}.`);
   }
-}
+};
 
 export const validateWeight = (weight) => {
   if (weight < WEIGHT_MIN || weight > WEIGHT_MAX) {
     throw new Error(`Weight must be between ${WEIGHT_MIN} and ${WEIGHT_MAX}.`);
   }
-}
+};
 
 export const validateHeight = (height) => {
   if (height < HEIGHT_MIN || height > HEIGHT_MAX) {
     throw new Error(`Height must be between ${HEIGHT_MIN} and ${HEIGHT_MAX}.`);
   }
-}
+};
+
+export const validateFieldsForAdditionalInfo = (form) => {
+  if (
+    form.firstName === '' &&
+    form.lastName === '' &&
+    form.age === '' &&
+    form.weight === '' &&
+    form.height === ''
+  ) {
+    throw new Error('Please fill in at least one of the fields!');
+  }
+};
