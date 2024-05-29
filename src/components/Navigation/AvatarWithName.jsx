@@ -1,12 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
-import userPhoto from '../../assets/userPhoto.png';
 import { logoutUser } from '../../services/auth.service';
+import userPhoto from '../../assets/userPhoto.png';
+import Notifications from './Notifications/Notifications';
 
 export function AvatarWithNameAndDropDownMenu() {
-  const { user } = useContext(AppContext);
-  const { setAppState, userData } = useContext(AppContext);
+  const { user, userData, setAppState } = useContext(AppContext);
   const navigate = useNavigate();
 
   const logout = async (e) => {
@@ -29,6 +29,7 @@ export function AvatarWithNameAndDropDownMenu() {
               <h2 className='text-4xl font-bold mx-2'>{userData?.username}</h2>
             )}
           </div>
+          <Notifications />
           <div className='dropdown dropdown-hover flex items-center'>
             <div>
               <div className='avatar'>

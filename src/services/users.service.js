@@ -38,6 +38,20 @@ export const getAllFriends = async (username) => {
   return friendsList;
 };
 
+export const getAllUsersDataRequests = async (username) => {
+  const requestsRef = ref(db, `users/${username}/requests`);
+  const requestsSnapshot = await get(requestsRef);
+  const requestsData = await requestsSnapshot.val();
+  const requestsList = [];
+
+  for (const requestUsername in requestsData) {
+    const requestSnapshot = await getUserByUsername(requestUsername);
+    requestsList.push(requestSnapshot.val());
+  }
+
+  return requestsList;
+};
+
 export const getFilterUserBySearchTerm = async (searchBy, search) => {
   const snapshot = await get(ref(db, 'users'));
   const users = [];
@@ -60,7 +74,7 @@ export const createUser = (
   avatar,
   age,
   weight,
-  height,
+  height
 ) => {
   return set(ref(db, `users/${username}`), {
     uid,
@@ -108,6 +122,22 @@ export const blockUserAsync = async (username, isBlocked) => {
 export const addFriendService = async (username, friendUsername) => {
   const updateData = {};
   updateData[`users/${username}/friends/${friendUsername}`] = true;
+  updateData[`users/${friendUsername}/friends/${username}`] = true;
+  updateData[`users/${username}/requests/${friendUsername}`] = null;
+
+  update(ref(db), updateData);
+};
+
+export const removeFriendRequestService = async (username, friendUsername) => {
+  const updateData = {};
+  updateData[`users/${username}/requests/${friendUsername}`] = null;
+
+  update(ref(db), updateData);
+};
+
+export const sendRequestService = async (username, friendUsername) => {
+  const updateData = {};
+  updateData[`users/${friendUsername}/requests/${username}`] = true;
 
   update(ref(db), updateData);
 };
@@ -115,6 +145,7 @@ export const addFriendService = async (username, friendUsername) => {
 export const removeFriendService = async (username, friendUsername) => {
   const updateData = {};
   updateData[`users/${username}/friends/${friendUsername}`] = null;
+  updateData[`users/${friendUsername}/friends/${username}`] = null;
 
   update(ref(db), updateData);
 };
@@ -123,6 +154,13 @@ export const checkFriendStatusService = async (username, friendUsername) => {
   const friendsRef = ref(db, `users/${username}/friends/${friendUsername}`);
 
   const snapshot = await get(friendsRef);
+  return snapshot.exists();
+};
+
+export const checkFriendRequestService = async (username, friendUsername) => {
+  const requestsRef = ref(db, `users/${friendUsername}/requests/${username}`);
+
+  const snapshot = await get(requestsRef);
   return snapshot.exists();
 };
 
