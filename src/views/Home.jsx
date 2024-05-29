@@ -6,7 +6,7 @@ import { AppContext } from '../context/AppContext';
 import { HomeAuthenticated } from './HomeAuthenticated';
 import { useNavigate } from 'react-router-dom';
 import { getAllCategories } from '../services/category.service';
-import { Carousel } from '../components/Home/Caroulsel';
+import { Carousel } from '../components/Home/Carousel';
 
 export default function Home() {
   const [allUsers, setAllUsers] = useState([]);
