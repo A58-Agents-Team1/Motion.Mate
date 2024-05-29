@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
-import { getAllCategories } from '../../services/category.service';
+import {
+  deleteCategory,
+  getAllCategories,
+} from '../../services/category.service';
 import CreateCategory from './CreateCategory';
 import { CreateExercise } from '../Exercise/CreateExercise';
 import { Exercises } from '../../views/Exercises';
+import { DeleteIcon } from './DeleteIcon';
 
 const Categories = () => {
   const [allCategories, setAllCategories] = useState([]);
@@ -20,10 +24,13 @@ const Categories = () => {
     setAllCategories(snapshot);
   };
 
+  const handleDelete = async (category) => {
+    await deleteCategory(category.category, category.id);
+  };
+
   useEffect(() => {
     fetchCategories();
-  }, []);
-
+  }, [allCategories]);
   return (
     <div className='flex flex-col'>
       {selectedCategory ? (
@@ -51,15 +58,22 @@ const Categories = () => {
             {allCategories.length > 0 &&
               allCategories.map((category) => (
                 <div
-                  className='card w-64 bg-base-100 shadow-xl image-full z-0'
+                  className='card w-64 bg-base-100 shadow-xl image-full relative'
                   key={category.id}
                 >
                   <figure>
                     <img src={category.imageUrl} alt={category.category} />
                   </figure>
                   <div className='card-body text-xl'>
+                    <button
+                      onClick={() => handleDelete(category)}
+                      className='absolute top-2 right-2'
+                    >
+                      <DeleteIcon />
+                    </button>
                     <h2 className='card-title'>{category.category}</h2>
                     <p>{category.description}</p>
+                    <div className='flex flex-row'></div>
                     <button
                       onClick={() => getIdSetCategory(category)}
                       className='btn btn-primary'

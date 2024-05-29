@@ -1,4 +1,4 @@
-import { get, push, ref } from 'firebase/database';
+import { get, push, ref, remove } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 export const getAllCategories = async () => {
@@ -35,6 +35,15 @@ export const createCategory = async (name, description, imageUrl) => {
   try {
     const result = await push(ref(db, `categories/${name}`), category);
     return result.key;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const deleteCategory = async (categoryName, categoryId) => {
+  try {
+    const data = ref(db, `categories/${categoryName}/${categoryId}`);
+    await remove(data);
   } catch (error) {
     throw new Error(error.message);
   }

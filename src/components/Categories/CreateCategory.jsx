@@ -34,6 +34,10 @@ const CreateCategory = ({ onCategoryCreated }) => {
     const catUrl = await getCategoryPhoto(category.name);
     await createCategory(category.name, category.description, catUrl);
     onCategoryCreated();
+    setCategory({
+      name: '',
+      description: '',
+    });
   };
 
   return (
