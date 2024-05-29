@@ -4,7 +4,6 @@ import {
   uploadCategoryPhoto,
   getCategoryPhoto,
 } from '../../services/users.service';
-import { AppContext } from '../../context/AppContext';
 
 const CreateCategory = ({ onCategoryCreated }) => {
   const [image, setImage] = useState(null);
@@ -12,7 +11,6 @@ const CreateCategory = ({ onCategoryCreated }) => {
     name: '',
     description: '',
   });
-  const { userData } = useContext(AppContext);
 
   const updateCategory = (e, prop) => {
     setCategory({
@@ -36,6 +34,10 @@ const CreateCategory = ({ onCategoryCreated }) => {
     const catUrl = await getCategoryPhoto(category.name);
     await createCategory(category.name, category.description, catUrl);
     onCategoryCreated();
+    setCategory({
+      name: '',
+      description: '',
+    });
   };
 
   return (
@@ -50,10 +52,10 @@ const CreateCategory = ({ onCategoryCreated }) => {
       </button>
 
       <dialog id='category-create-modal' className='modal'>
-        <div className='modal-box'>
+        <div className='modal-box '>
           <h3 className='font-bold text-lg mb-3'>Create New Category</h3>
 
-          <label className='input input-bordered flex items-center mb-3'>
+          <label className='input input-bordered flex items-center mb-3 select-primary'>
             <input
               type='text'
               className='grow'
@@ -62,7 +64,7 @@ const CreateCategory = ({ onCategoryCreated }) => {
               onChange={(e) => updateCategory(e, 'name')}
             />
           </label>
-          <label className='input input-bordered flex items-center mb-3'>
+          <label className='input input-bordered flex items-center mb-3 select-primary'>
             <input
               type='text'
               className='grow'
@@ -72,7 +74,7 @@ const CreateCategory = ({ onCategoryCreated }) => {
             />
           </label>
 
-          <label className='input input-bordered flex items-center mb-3'>
+          <label className='input input-bordered flex items-center mb-3 select-primary'>
             <input
               type='file'
               accept='image/*'
@@ -80,14 +82,17 @@ const CreateCategory = ({ onCategoryCreated }) => {
               onChange={handleFileChange}
             />
           </label>
-
-          <button className='btn btn-primary' onClick={submitCategory}>
-            Create
-          </button>
-          <form method='dialog'>
-            {/* if there is a button in form, it will close the modal */}
-            <button className='btn'>Close</button>
-          </form>
+          <div className='flex flex-row gap-6'>
+            <button
+              className='btn btn-outline btn-primary'
+              onClick={submitCategory}
+            >
+              Create
+            </button>
+            <form method='dialog'>
+              <button className='btn btn-outline btn-primary'>Close</button>
+            </form>
+          </div>
         </div>
       </dialog>
     </div>
