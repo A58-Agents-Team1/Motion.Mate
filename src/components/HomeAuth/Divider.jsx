@@ -19,15 +19,18 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
   const [showError, setShowError] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [stopButton, setStopButton] = useState('');
 
   useEffect(() => {
     return onValue(ref(db, 'exercises'), (snapshot) => {
       const allExercises = [];
-      snapshot.forEach((child) => {
+      Object.entries(snapshot.val()).forEach(([id, child]) => {
         allExercises.push({
-          ...child.val(),
+          ...child,
+          id,
         });
       });
+
       const filtered = allExercises.filter((obj) => obj.inProgress === true);
       setInProgress(filtered);
     });
@@ -39,21 +42,17 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
     const seconds = Number(exercise.duration.seconds);
     setDuration({ hours, minutes, seconds });
     setHandleTimer(true);
+    setStopButton(exercise.id);
   };
 
-  const stopTimer = (exercise) => {
-    const hours = Number(exercise.duration.hours);
-    const minutes = Number(exercise.duration.minutes);
-    const seconds = Number(exercise.duration.seconds);
-    setTimer((timer) => timer - hours * 3600 - minutes * 60 - seconds);
+  const stopTimer = () => {
+    setTimer(0);
     setHandleTimer(false);
+    setStopButton('');
   };
 
   useEffect(() => {
-    setTimer(
-      timer + duration.hours * 3600 + duration.minutes * 60 + duration.seconds
-    );
-    console.log(timer);
+    setTimer(duration.hours * 3600 + duration.minutes * 60 + duration.seconds);
     setStartTimer(true);
   }, [duration]);
 
@@ -62,7 +61,7 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
       {inProgress.length > 0 ? (
         <div className='flex flex-col w-full lg:flex-row'>
           <div className='card w-96 bg-base-100 '>
-            {inProgress?.map((exercise) => (
+            {inProgress.map((exercise) => (
               <div key={exercise.id} className='card-body shadow-2xl mb-7'>
                 <h2 className='card-title'>{exercise.title}</h2>
                 <ul className='list-disc list-inside'>
@@ -72,8 +71,8 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
                 <p>minutes: {exercise.duration.minutes}</p>
                 <p>seconds: {exercise.duration.seconds}</p>
                 <div className='card-actions justify-end'>
-                  {handleTimer ? (
-                    <button onClick={() => stopTimer(exercise)}>Stop</button>
+                  {stopButton === exercise.id ? (
+                    <button onClick={stopTimer}>Stop</button>
                   ) : (
                     <button
                       onClick={() => {
@@ -84,7 +83,7 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
                       Start
                     </button>
                   )}
-                  {/* <button
+                  <button
                     onClick={() =>
                       handleRemoveFromList(
                         removeExerciseInProgress,
@@ -99,7 +98,7 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
                     className='btn btn-primary'
                   >
                     Remove from list
-                  </button> */}
+                  </button>
                 </div>
               </div>
             ))}
