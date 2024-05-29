@@ -33,7 +33,6 @@ const Notifications = ({ requests, refresher }) => {
   };
 
   useEffect(() => {
-    console.log('FN:', requests);
     setRequestsCount(requests?.length);
     if (requests?.length > 0) {
       getAllUsersDataRequests(userData.username).then((data) => {
