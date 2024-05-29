@@ -1,8 +1,6 @@
 import bellIcon from '../../../assets/bellIcon.png';
 import accept from '../../../assets/accept.png';
 import decline from '../../../assets/decline.png';
-import { onValue, ref } from 'firebase/database';
-import { db } from '../../../config/firebase-config';
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../../context/AppContext';
 import {
@@ -11,8 +9,9 @@ import {
   removeFriendRequestService,
 } from '../../../services/users.service';
 import DropDownNoNotifications from './DropDownWithoutNotifications';
+import PropTypes from 'prop-types';
 
-export default function Notifications() {
+const Notifications = ({ requests, refresher }) => {
   const { userData } = useContext(AppContext);
   const [users, setUsers] = useState([]);
   const [requestsCount, setRequestsCount] = useState(0);
@@ -34,33 +33,25 @@ export default function Notifications() {
   };
 
   useEffect(() => {
-    return onValue(ref(db, `users/${userData?.username}`), (snapshot) => {
-      console.log(snapshot?.val());
-      const fetchUserRequests = async () => {
-        if (snapshot?.val() && snapshot?.val()?.requests) {
-          const userRequests = await getAllUsersDataRequests(
-            snapshot.val()?.username
-          );
-          console.log('userRequests:', userRequests);
-          setUsers(userRequests);
-          setRequestsCount(
-            snapshot.val()?.requests
-              ? Object.keys(snapshot.val().requests).length
-              : 0
-          );
-        }
-      };
-
-      fetchUserRequests();
-    });
-  }, []);
+    console.log('FN:', requests);
+    setRequestsCount(requests?.length);
+    if (requests?.length > 0) {
+      getAllUsersDataRequests(userData.username).then((data) => {
+        setUsers(data);
+      });
+    }
+  }, [refresher]);
 
   return (
     <div className='dropdown dropdown-hover flex items-center'>
-      {users.length !== 0 ? (
+      {requestsCount > 0 ? (
         <div>
           <div className='relative flex mr-2'>
-            <img src={bellIcon} alt='bell' className='w-12' />
+            <img
+              src={bellIcon}
+              alt='bell'
+              className='w-12'
+            />
             <span className='absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center'>
               {requestsCount}
             </span>
@@ -72,7 +63,10 @@ export default function Notifications() {
           >
             {users?.map((user) => {
               return (
-                <li key={user?.username} className='p-2'>
+                <li
+                  key={user?.username}
+                  className='p-2'
+                >
                   <div className='flex flex-row items-center'>
                     <div className='flex items-center mr-5'>
                       <img
@@ -88,7 +82,11 @@ export default function Notifications() {
                         className=' btn-primary ml-6'
                         onClick={() => handleAddFriend(user?.username)}
                       >
-                        <img src={accept} alt='accept' className='w-8' />
+                        <img
+                          src={accept}
+                          alt='accept'
+                          className='w-8'
+                        />
                       </button>
                       <button
                         className=' btn-primary ml-4'
@@ -96,7 +94,11 @@ export default function Notifications() {
                           handleRemoveFriendRequest(user?.username)
                         }
                       >
-                        <img src={decline} alt='decline' className='w-7' />
+                        <img
+                          src={decline}
+                          alt='decline'
+                          className='w-7'
+                        />
                       </button>
                     </div>
                   </div>
@@ -111,4 +113,10 @@ export default function Notifications() {
       )}
     </div>
   );
-}
+};
+
+Notifications.propTypes = {
+  requests: PropTypes.array,
+  refresher: PropTypes.bool,
+};
+export default Notifications;
