@@ -8,6 +8,8 @@ import { deleteGoal } from '../../services/goal.service';
 import { useNavigate } from 'react-router-dom';
 import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertError from '../Alerts/AlertError';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 export default function Goal({ id, owner, name, from, to, progress }) {
   const navigation = useNavigate();
@@ -93,22 +95,22 @@ export default function Goal({ id, owner, name, from, to, progress }) {
           {progress}
         </div>
       </td>
-      <th className='join join-vertical gap-3'>
-        <GoalButton title={'Add Goal'} />
+      <td className=' box border border-red-500'>
         <GoalButton
           primary={false}
           title={'Details'}
           onClick={handleDetailsClick}
         />
-        {userData?.username === owner && (
+        {(userData?.username === owner || userData?.userRole === 'admin') && (
           <GoalButton
             primary={false}
             styles='btn-warning'
-            title={'Delete'}
             onClick={handleDeleteClick}
-          />
+          >
+            <FontAwesomeIcon icon={faTrashCan} />
+          </GoalButton>
         )}
-      </th>
+      </td>
     </>
   );
 }
