@@ -156,7 +156,7 @@ export const CreateExercise = () => {
               </label>
             </div>
             <select
-              className='select select-info w-full max-w-xs mb-3'
+              className='select  w-full max-w-xs mb-3 text-primary select-primary '
               value={content.level}
               onChange={(e) => updateContent(e.target.value, 'level')}
             >
@@ -169,7 +169,7 @@ export const CreateExercise = () => {
             </select>
 
             <select
-              className='select select-info w-full max-w-xs mb-3'
+              className='select select-primary w-full max-w-xs mb-3 text-primary'
               value={selectedCategoryId}
               onChange={(e) => setSelectedCategoryId(e.target.value)}
             >
