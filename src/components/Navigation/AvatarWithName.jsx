@@ -26,7 +26,6 @@ export function AvatarWithNameAndDropDownMenu() {
       const dataRequests = data?.requests || [];
       setRequests(Object.keys(dataRequests));
       setRefresher((prev) => !prev);
-      console.log('AWN:', requests);
     });
   }, [userData?.username]);
 
