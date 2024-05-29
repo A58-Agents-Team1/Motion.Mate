@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import {
-  addFriendService,
+  sendRequestService,
   checkFriendStatusService,
   removeFriendService,
+  checkFriendRequestService,
+  removeFriendRequestService,
 } from '../services/users.service';
 import PropTypes from 'prop-types';
 import { AppContext } from '../context/AppContext';
@@ -10,17 +12,27 @@ import { AppContext } from '../context/AppContext';
 export default function AddAndRemoveFriendBtns({ friendUsername, setRefresh }) {
   const { userData } = useContext(AppContext);
   const [isFriend, setIsFriend] = useState(false);
+  const [hasRequest, setHasRequest] = useState(false);
+  const [localRefresh, setLocalRefresh] = useState(false);
 
-  const handleAddFriend = async () => {
-    await addFriendService(userData?.username, friendUsername);
-    setIsFriend(true);
+  const handleSendFriendRequest = async () => {
+    await sendRequestService(userData?.username, friendUsername);
     setRefresh((prev) => !prev);
+    setLocalRefresh((prev) => !prev);
   };
 
   const handleRemoveFriend = async () => {
     await removeFriendService(userData?.username, friendUsername);
     setIsFriend(false);
     setRefresh((prev) => !prev);
+    setLocalRefresh((prev) => !prev);
+  };
+
+  const handleRemoveFriendRequest = async () => {
+    await removeFriendRequestService(friendUsername, userData?.username);
+    setIsFriend(false);
+    setRefresh((prev) => !prev);
+    setLocalRefresh((prev) => !prev);
   };
 
   useEffect(() => {
@@ -31,16 +43,30 @@ export default function AddAndRemoveFriendBtns({ friendUsername, setRefresh }) {
       );
       setIsFriend(status);
     };
+    const fetchFriendRequest = async () => {
+      const status = await checkFriendRequestService(
+        userData?.username,
+        friendUsername
+      );
+      setHasRequest(status);
+    };
 
+    fetchFriendRequest();
     fetchFriendStatus();
-  }, [userData?.username, friendUsername]);
+  }, [userData?.username, friendUsername, localRefresh]);
 
   return (
     <>
       {!isFriend ? (
-        <button onClick={handleAddFriend} className='btn btn-primary'>
-          Add Friend
-        </button>
+        hasRequest ? (
+          <button onClick={handleRemoveFriendRequest} className='btn btn-error'>
+            Remove Friend Request
+          </button>
+        ) : (
+          <button onClick={handleSendFriendRequest} className='btn btn-primary'>
+            Add Friend
+          </button>
+        )
       ) : (
         <button onClick={handleRemoveFriend} className='btn btn-error'>
           Remove Friend

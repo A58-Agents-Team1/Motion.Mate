@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 export default function GoalButton({
-  title,
+  children,
+  title = '',
   wide = false,
   primary = true,
   styles = '',
@@ -14,13 +15,14 @@ export default function GoalButton({
       className={`${styles} ${_primaryStyles} ${_wide}`}
       onClick={onClick}
     >
-      {title}
+      {title || children}
     </button>
   );
 }
 
 GoalButton.propTypes = {
   title: PropTypes.string.isRequired,
+  children: PropTypes.node,
   wide: PropTypes.bool,
   primary: PropTypes.bool,
   styles: PropTypes.string,

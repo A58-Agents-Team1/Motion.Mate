@@ -1,13 +1,17 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import userPhoto from '../../assets/userPhoto.png';
 import { logoutUser } from '../../services/auth.service';
+import userPhoto from '../../assets/userPhoto.png';
+import Notifications from './Notifications/Notifications';
+import { onValue, ref } from 'firebase/database';
+import { db } from '../../config/firebase-config';
 
 export function AvatarWithNameAndDropDownMenu() {
-  const { user } = useContext(AppContext);
-  const { setAppState, userData } = useContext(AppContext);
+  const { user, userData, setAppState } = useContext(AppContext);
+  const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
+  const [refresher, setRefresher] = useState(false);
 
   const logout = async (e) => {
     e.preventDefault();
@@ -15,6 +19,16 @@ export function AvatarWithNameAndDropDownMenu() {
     setAppState({ user: null, userData: null });
     navigate('/');
   };
+
+  useEffect(() => {
+    return onValue(ref(db, `users/${userData?.username}`), (snapshot) => {
+      const data = snapshot?.val();
+      const dataRequests = data?.requests || [];
+      setRequests(Object.keys(dataRequests));
+      setRefresher((prev) => !prev);
+      console.log('AWN:', requests);
+    });
+  }, [userData?.username]);
 
   return (
     <div className='flex justify-end'>
@@ -29,12 +43,20 @@ export function AvatarWithNameAndDropDownMenu() {
               <h2 className='text-4xl font-bold mx-2'>{userData?.username}</h2>
             )}
           </div>
+          <Notifications
+            requests={requests}
+            refresher={refresher}
+          />
           <div className='dropdown dropdown-hover flex items-center'>
             <div>
               <div className='avatar'>
                 <div className='avatar w-16 rounded-full border-1 border-black'>
                   {userData?.avatar ? (
-                    <img src={userData?.avatar} title='Account' alt='Account' />
+                    <img
+                      src={userData?.avatar}
+                      title='Account'
+                      alt='Account'
+                    />
                   ) : (
                     <img
                       src={userPhoto}
@@ -84,7 +106,11 @@ export function AvatarWithName() {
         <div className='avatar'>
           <div className='avatar w-16 rounded-full border-1 border-black mr-2 mb-2'>
             {userData?.avatar ? (
-              <img src={userData?.avatar} title='Account' alt='Account' />
+              <img
+                src={userData?.avatar}
+                title='Account'
+                alt='Account'
+              />
             ) : (
               <img
                 src={userPhoto}
