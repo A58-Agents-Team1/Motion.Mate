@@ -98,7 +98,7 @@ export default function CreateGoal() {
             <label className='input input-bordered flex items-center gap-2'>
               From
               <input
-                type='datetime-local'
+                type='date'
                 className='w-full'
                 value={form.from}
                 onChange={updateForm('from')}
@@ -108,7 +108,7 @@ export default function CreateGoal() {
             <label className='input input-bordered flex items-center gap-2'>
               To
               <input
-                type='datetime-local'
+                type='date'
                 className='w-full'
                 value={form.to}
                 onChange={updateForm('to')}
