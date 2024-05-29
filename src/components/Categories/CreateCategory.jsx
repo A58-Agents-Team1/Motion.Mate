@@ -1,9 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { createCategory } from '../../services/category.service';
 import {
   uploadCategoryPhoto,
   getCategoryPhoto,
 } from '../../services/users.service';
+import { validateCategoryForm } from '../../common/category.validations';
+import { alertHelper } from '../../helper/alert-helper';
+import AlertError from '../Alerts/AlertError';
+import AlertSuccess from '../Alerts/AlertSuccess';
 
 const CreateCategory = ({ onCategoryCreated }) => {
   const [image, setImage] = useState(null);
@@ -11,6 +15,9 @@ const CreateCategory = ({ onCategoryCreated }) => {
     name: '',
     description: '',
   });
+  const [showError, setShowError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const updateCategory = (e, prop) => {
     setCategory({
@@ -27,17 +34,30 @@ const CreateCategory = ({ onCategoryCreated }) => {
   };
 
   const submitCategory = async () => {
-    let url;
-    if (image) {
-      url = await uploadCategoryPhoto(image, category.name);
+    try {
+      let url;
+      if (image) {
+        url = await uploadCategoryPhoto(image, category.name);
+      }
+      const catUrl = await getCategoryPhoto(category.name);
+      validateCategoryForm(category.name, category.description, image);
+
+      await createCategory(category.name, category.description, catUrl);
+      onCategoryCreated();
+      setCategory({
+        name: '',
+        description: '',
+      });
+      setImage(null);
+      document.getElementById('category-create-modal').close();
+      alertHelper(
+        setAlertMessage,
+        setShowSuccess,
+        'Successfully created category!'
+      );
+    } catch (error) {
+      alertHelper(setAlertMessage, setShowError, error.message);
     }
-    const catUrl = await getCategoryPhoto(category.name);
-    await createCategory(category.name, category.description, catUrl);
-    onCategoryCreated();
-    setCategory({
-      name: '',
-      description: '',
-    });
   };
 
   return (
@@ -95,6 +115,8 @@ const CreateCategory = ({ onCategoryCreated }) => {
           </div>
         </div>
       </dialog>
+      {showError && <AlertError message={alertMessage} />}
+      {showSuccess && <AlertSuccess message={alertMessage} />}
     </div>
   );
 };
