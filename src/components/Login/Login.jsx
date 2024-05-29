@@ -88,9 +88,12 @@ export default function Login() {
   return (
     <div id='login' className='hero min-h-screen bg-base-300'>
       <div className='hero-content flex-col lg:flex-row-reverse'>
+        <div className='text-center lg:text-left'>
+          <h1 className='text-5xl font-bold'>Login!</h1>
+          <p className='py-6'>Join our journey!</p>
+        </div>
         <div className='card shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
           <form className='card-body'>
-            <h2 className='card-title'>Login</h2>
             {usernameEmail && (
               <LoginBy
                 placeholder='Username'

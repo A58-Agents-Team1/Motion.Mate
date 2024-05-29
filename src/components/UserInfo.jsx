@@ -20,7 +20,7 @@ export default function UserInfo({ userData }) {
         <p>Last Name: Missing information</p>
       )}
       {userData?.age ? (
-        <p>Age: {userData?.age}</p>
+        <p>Age: {userData?.age} years old</p>
       ) : (
         <p>Age: Missing information</p>
       )}

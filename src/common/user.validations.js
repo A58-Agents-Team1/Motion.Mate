@@ -131,13 +131,17 @@ export const validateAge = (age) => {
 
 export const validateWeight = (weight) => {
   if (weight < WEIGHT_MIN || weight > WEIGHT_MAX) {
-    throw new Error(`Weight must be between ${WEIGHT_MIN} and ${WEIGHT_MAX}.`);
+    throw new Error(
+      `Weight must be between ${WEIGHT_MIN} kg and ${WEIGHT_MAX} kg.`
+    );
   }
 };
 
 export const validateHeight = (height) => {
   if (height < HEIGHT_MIN || height > HEIGHT_MAX) {
-    throw new Error(`Height must be between ${HEIGHT_MIN} and ${HEIGHT_MAX}.`);
+    throw new Error(
+      `Height must be between ${HEIGHT_MIN} sm and ${HEIGHT_MAX} sm.`
+    );
   }
 };
 

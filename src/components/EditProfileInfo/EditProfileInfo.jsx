@@ -2,10 +2,22 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { updateUserByUsername } from '../../services/users.service';
-import { validatePhoneNumberAsync } from '../../common/user.validations';
+import {
+  validateAge,
+  validateFieldsForAdditionalInfo,
+  validateHeight,
+  validatePhoneNumberAsync,
+  validateWeight,
+} from '../../common/user.validations';
+import { alertHelper } from '../../helper/alert-helper';
+import AlertSuccess from '../Alerts/AlertSuccess';
+import AlertError from '../Alerts/AlertError';
 
 export default function EditProfileInfo({ setEditProfile }) {
   const { userData } = useContext(AppContext);
+  const [message, setMessage] = useState(null);
+  const [alert, setAlert] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
     firstName: userData?.firstName || '',
     lastName: userData?.lastName || '',
@@ -19,15 +31,30 @@ export default function EditProfileInfo({ setEditProfile }) {
     setForm({ ...form, [key]: e.target.value });
   };
 
+  const validateFieldsAsync = async () => {
+    validateFieldsForAdditionalInfo(form);
+    if (userData?.age !== form.age) {
+      validateAge(form.age);
+    }
+    if (userData.weight !== form.weight) {
+      validateWeight(form.weight);
+    }
+    if (userData?.height !== form.height) {
+      validateHeight(form.height);
+    }
+    if (userData?.phoneNumber !== form.phoneNumber) {
+      await validatePhoneNumberAsync(form.phoneNumber);
+    }
+  };
+
   const editProfileInformation = async () => {
     try {
-      if (userData?.phoneNumber !== form.phoneNumber) {
-        await validatePhoneNumberAsync(form.phoneNumber);
-      }
+      await validateFieldsAsync();
       await updateUserByUsername(userData?.username, form);
       setEditProfile(false);
+      alertHelper(setMessage, setSuccess, 'Info Changed successfully!');
     } catch (error) {
-      console.error(error.message);
+      alertHelper(setMessage, setAlert, error.message);
     }
   };
 
@@ -104,42 +131,42 @@ export default function EditProfileInfo({ setEditProfile }) {
         <div className='text-center text-lg ml-4 px-4'>
           <p className='font-bold underline'>Main Information:</p>
           {userData?.username ? (
-            <p className='mb-2 mt-2'>UserName: {userData?.username}</p>
+            <p className='my-4'>UserName: {userData?.username}</p>
           ) : (
-            <p className='mb-2 mt-2'>UserName: Missing information</p>
+            <p className='my-4'>UserName: Missing information</p>
           )}
-          <p className='mb-2'>Email: {userData?.email}</p>
+          <p className='my-4'>Email: {userData?.email}</p>
           {userData?.firstName ? (
-            <p className='mb-2'>First Name: {userData?.firstName}</p>
+            <p className='my-4'>First Name: {userData?.firstName}</p>
           ) : (
-            <p className='mb-2'>First Name: Missing information</p>
+            <p className='my-4'>First Name: Missing information</p>
           )}
           {userData?.lastName ? (
-            <p className='mb-2'>Last Name: {userData?.lastName}</p>
+            <p className='my-4'>Last Name: {userData?.lastName}</p>
           ) : (
-            <p className='mb-2'>Last Name: Missing information</p>
+            <p className='my-4'>Last Name: Missing information</p>
           )}
           {userData?.age ? (
-            <p className='mb-2'>Age: {userData?.age}</p>
+            <p className='my-4'>Age: {userData?.age} years old</p>
           ) : (
-            <p className='mb-2'>Age: Missing information</p>
+            <p className='my-4'>Age: Missing information</p>
           )}
           {userData?.weight ? (
-            <p className='mb-2'>Weight: {userData?.weight}</p>
+            <p className='my-4'>Weight: {userData?.weight} kg</p>
           ) : (
-            <p className='mb-2'>Weight: Missing information</p>
+            <p className='my-4'>Weight: Missing information</p>
           )}
           {userData?.height ? (
-            <p className='mb-2'>Height: {userData?.height}</p>
+            <p className='my-4'>Height: {userData?.height} sm</p>
           ) : (
-            <p className='mb-2'>Height: Missing information</p>
+            <p className='my-4'>Height: Missing information</p>
           )}
           {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
-            <p className='mb-2'>Phone: {userData?.phoneNumber}</p>
+            <p className='my-4'>Phone: {userData?.phoneNumber}</p>
           ) : (
-            <p className='mb-2'>Phone: Missing information</p>
+            <p className='my-4'>Phone: Missing information</p>
           )}
-          <div className='mt-5'>
+          <div className='my-5'>
             <button
               className='btn btn-primary mr-4'
               onClick={() => editProfileInformation()}
@@ -155,6 +182,8 @@ export default function EditProfileInfo({ setEditProfile }) {
           </div>
         </div>
       </div>
+      {success && <AlertSuccess message={message} />}
+      {alert && <AlertError message={message} />}
     </div>
   );
 }
