@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { getUserByUsername } from '../../services/users.service';
 import GoalButton from './GoalButton';
 import PropTypes from 'prop-types';
-import { fullFormatDate } from '../../helper/format-date';
+import { shortFormatDate } from '../../helper/format-date';
 import { AppContext } from '../../context/AppContext';
 import { deleteGoal } from '../../services/goal.service';
 import { useNavigate } from 'react-router-dom';
@@ -82,8 +82,8 @@ export default function Goal({ id, owner, name, from, to, progress }) {
         </div>
       </th>
       <td>{name}</td>
-      <td>{fullFormatDate(from)}</td>
-      <td>{fullFormatDate(to)}</td>
+      <td>{shortFormatDate(from)}</td>
+      <td>{shortFormatDate(to)}</td>
       <td>
         <div
           className='radial-progress'
