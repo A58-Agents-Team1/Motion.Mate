@@ -39,3 +39,11 @@ export const EXERCISE_MAX_CONTENT_LENGTH = 30;
 export const AGE_MIN = 10;
 
 export const AGE_MAX = 100;
+
+export const CATEGORY_MAX_TITLE_LENGTH = 20;
+
+export const CATEGORY_MIN_TITLE_LENGTH = 5;
+
+export const CATEGORY_MAX_DESCRIPTION_LENGTH = 40;
+
+export const CATEGORY_MIN_DESCRIPTION_LENGTH = 1;

@@ -7,11 +7,17 @@ import CreateCategory from './CreateCategory';
 import { CreateExercise } from '../Exercise/CreateExercise';
 import { Exercises } from '../../views/Exercises';
 import { DeleteIcon } from './DeleteIcon';
+import { alertHelper } from '../../helper/alert-helper';
+import AlertError from '../Alerts/AlertError';
+import AlertSuccess from '../Alerts/AlertSuccess';
 
 const Categories = () => {
   const [allCategories, setAllCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [id, setId] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const getIdSetCategory = (category) => {
     setSelectedCategory(category.category);
@@ -20,12 +26,25 @@ const Categories = () => {
 
   // TODO ADD TRY CATCH ON EVERY FUNCTION
   const fetchCategories = async () => {
-    const snapshot = await getAllCategories();
-    setAllCategories(snapshot);
+    try {
+      const snapshot = await getAllCategories();
+      setAllCategories(snapshot);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   const handleDelete = async (category) => {
-    await deleteCategory(category.category, category.id);
+    try {
+      await deleteCategory(category.category, category.id);
+      alertHelper(
+        setAlertMessage,
+        setShowSuccess,
+        'Successfully deleted category!'
+      );
+    } catch (error) {
+      alertHelper(setAlertMessage, setShowError, error.message);
+    }
   };
 
   useEffect(() => {
@@ -86,6 +105,8 @@ const Categories = () => {
           </div>
         </>
       )}
+      {showError && <AlertError message={alertMessage} />}
+      {showSuccess && <AlertSuccess message={alertMessage} />}
     </div>
   );
 };
