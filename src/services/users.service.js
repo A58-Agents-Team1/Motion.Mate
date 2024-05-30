@@ -131,6 +131,7 @@ export const addFriendService = async (username, friendUsername) => {
 export const removeFriendRequestService = async (username, friendUsername) => {
   const updateData = {};
   updateData[`users/${username}/requests/${friendUsername}`] = null;
+  updateData[`users/${friendUsername}/requests/${username}`] = null;
 
   update(ref(db), updateData);
 };
