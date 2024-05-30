@@ -17,6 +17,7 @@ export default function SingleUserView({ user, setRefresh }) {
   const navigate = useNavigate();
   const [isFriend, setIsFriend] = useState(false);
   const [hasRequest, setHasRequest] = useState(false);
+  const [hasMyRequest, setHasMyRequest] = useState(false);
 
   const handleSendFriendRequest = async () => {
     await sendRequestService(userData.username, user.username);
@@ -44,10 +45,15 @@ export default function SingleUserView({ user, setRefresh }) {
 
       const dataRequests = data?.requests || [];
       const dataFriends = data?.friends || [];
+      const dataMyRequests = data?.myRequests || [];
 
       Object.keys(dataRequests).includes(user.username)
         ? setHasRequest(() => true)
         : setHasRequest(() => false);
+
+      Object.keys(dataMyRequests).includes(user.username)
+        ? setHasMyRequest(() => true)
+        : setHasMyRequest(() => false);
 
       Object.keys(dataFriends).includes(user.username)
         ? setIsFriend(() => true)
@@ -69,7 +75,7 @@ export default function SingleUserView({ user, setRefresh }) {
           <p>Member Since: {shortFormatDate(user?.createdOn)}</p>
         </div>
         <div className='bottom-div card-actions justify-end mt-4'>
-          {hasRequest ? (
+          {hasRequest || hasMyRequest ? (
             <button
               type='button'
               onClick={handleRemoveFriendRequest}
