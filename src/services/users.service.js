@@ -124,7 +124,8 @@ export const addFriendService = async (username, friendUsername) => {
   updateData[`users/${username}/friends/${friendUsername}`] = true;
   updateData[`users/${friendUsername}/friends/${username}`] = true;
   updateData[`users/${username}/requests/${friendUsername}`] = null;
-
+  updateData[`users/${username}/myRequests/${friendUsername}`] = null;
+  updateData[`users/${friendUsername}/myRequests/${username}`] = null;
   update(ref(db), updateData);
 };
 
@@ -132,6 +133,8 @@ export const removeFriendRequestService = async (username, friendUsername) => {
   const updateData = {};
   updateData[`users/${username}/requests/${friendUsername}`] = null;
   updateData[`users/${friendUsername}/requests/${username}`] = null;
+  updateData[`users/${username}/myRequests/${friendUsername}`] = null;
+  updateData[`users/${friendUsername}/myRequests/${username}`] = null;
 
   update(ref(db), updateData);
 };
@@ -139,6 +142,7 @@ export const removeFriendRequestService = async (username, friendUsername) => {
 export const sendRequestService = async (username, friendUsername) => {
   const updateData = {};
   updateData[`users/${friendUsername}/requests/${username}`] = true;
+  updateData[`users/${username}/myRequests/${friendUsername}`] = true;
 
   update(ref(db), updateData);
 };
@@ -147,6 +151,8 @@ export const removeFriendService = async (username, friendUsername) => {
   const updateData = {};
   updateData[`users/${username}/friends/${friendUsername}`] = null;
   updateData[`users/${friendUsername}/friends/${username}`] = null;
+  updateData[`users/${username}/myRequests/${friendUsername}`] = null;
+  updateData[`users/${friendUsername}/myRequests/${username}`] = null;
 
   update(ref(db), updateData);
 };
