@@ -42,20 +42,13 @@ export function AvatarWithNameAndDropDownMenu() {
               <h2 className='text-4xl font-bold mx-2'>{userData?.username}</h2>
             )}
           </div>
-          <Notifications
-            requests={requests}
-            refresher={refresher}
-          />
+          <Notifications requests={requests} refresher={refresher} />
           <div className='dropdown dropdown-hover flex items-center'>
             <div>
               <div className='avatar'>
                 <div className='avatar w-16 rounded-full border-1 border-black'>
                   {userData?.avatar ? (
-                    <img
-                      src={userData?.avatar}
-                      title='Account'
-                      alt='Account'
-                    />
+                    <img src={userData?.avatar} title='Account' alt='Account' />
                   ) : (
                     <img
                       src={userPhoto}
@@ -74,12 +67,16 @@ export function AvatarWithNameAndDropDownMenu() {
                 <li>
                   <NavLink to='/my-profile'>My Profile</NavLink>
                 </li>
-                <li>
-                  <NavLink to='/my-friends'>My Friends</NavLink>
-                </li>
-                <li>
-                  <NavLink to='/all-users'>All Users</NavLink>
-                </li>
+                {userData && !userData?.isBlocked && (
+                  <>
+                    <li>
+                      <NavLink to='/my-friends'>My Friends</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to='/all-users'>All Users</NavLink>
+                    </li>
+                  </>
+                )}
                 <li>
                   <button
                     className='hover:text-red-700 hover:font-bold text-red-500'
@@ -105,11 +102,7 @@ export function AvatarWithName() {
         <div className='avatar'>
           <div className='avatar w-16 rounded-full border-1 border-black mr-2 mb-2'>
             {userData?.avatar ? (
-              <img
-                src={userData?.avatar}
-                title='Account'
-                alt='Account'
-              />
+              <img src={userData?.avatar} title='Account' alt='Account' />
             ) : (
               <img
                 src={userPhoto}

@@ -4,7 +4,6 @@ import { AppContext } from '../../context/AppContext';
 import { updateUserByUsername } from '../../services/users.service';
 import {
   validateAge,
-  validateFieldsForAdditionalInfo,
   validateFirstName,
   validateHeight,
   validateLastName,
@@ -34,7 +33,6 @@ export default function EditProfileInfo({ setEditProfile }) {
   };
 
   const validateFieldsAsync = async () => {
-    validateFieldsForAdditionalInfo(form);
     if (userData?.firstName !== form.firstName && form.firstName !== '') {
       validateFirstName(form.firstName);
     }
