@@ -1,13 +1,31 @@
+import {
+  validateFormInImperial,
+  validateFormInMetric,
+} from '../common/BMIValidations';
+import { alertHelper } from '../helper/alert-helper';
 import { useState } from 'react';
-import BMIClassificationTable from '../components/BMIClassificationTable';
-import { validateForm } from '../common/BMIValidations';
+import BMIClassificationTable from '../components/BMI/BMIClassificationTable';
+import BMIInMetricSystem from '../components/BMI/BMIInMetricSystem';
+import BMIInImperialSystem from '../components/BMI/BMIInImperialSystem';
+import AlertSuccess from '../components/Alerts/AlertSuccess';
+import AlertError from '../components/Alerts/AlertError';
+import { BMI_CONVERSION_FACTOR } from '../common/constants';
 
 export default function BodyMassIndex() {
+  const [isChecked, setIsChecked] = useState(true);
+  const [message, setMessage] = useState(null);
+  const [alert, setAlert] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [BMI, setBMI] = useState(0);
   const [form, setForm] = useState({
     weight: '',
     height: '',
   });
+
+  const handleChange = () => {
+    setIsChecked(!isChecked);
+    setForm({ weight: '', height: '' });
+  };
 
   const updateForm = (key) => (e) => {
     setForm({ ...form, [key]: e.target.value });
@@ -15,12 +33,27 @@ export default function BodyMassIndex() {
 
   const calculate = () => {
     try {
-      validateForm(form.weight, form.height);
-      const squaredHeight = (Math.pow(form.height, 2) / 10000).toFixed(2);
-      const bmi = (form.weight / squaredHeight).toFixed(1);
-      setBMI(bmi);
+      if (isChecked) {
+        validateFormInMetric(form.weight, form.height);
+        const squaredHeight = (Math.pow(form.height, 2) / 10000).toFixed(2);
+        const bmi = (form.weight / squaredHeight).toFixed(1);
+        setBMI(bmi);
+      } else {
+        validateFormInImperial(form.weight, form.height);
+        const squaredHeight = Math.pow(form.height, 2).toFixed(2);
+        const bmi = (
+          (form.weight / squaredHeight) *
+          BMI_CONVERSION_FACTOR
+        ).toFixed(1);
+        setBMI(bmi);
+      }
+      alertHelper(
+        setMessage,
+        setSuccess,
+        'Body Mass Index calculated successfully!'
+      );
     } catch (error) {
-      console.log(error.message);
+      alertHelper(setMessage, setAlert, error.message);
     }
   };
 
@@ -38,34 +71,30 @@ export default function BodyMassIndex() {
         groups of people.
       </p>
       <div className='mt-8 flex flex-col border-2 border-gray-400 rounded-3xl p-4 bg-orange-200 text-black'>
-        <p>Find your BMI and health risks</p>
-        <div className='mt-2'>
-          <label htmlFor='weight'>Weight: </label>
-          <input
-            type='number'
-            name='weight'
-            placeholder='Weight in kg'
-            value={form?.weight}
-            onChange={updateForm('weight')}
-            className='border-2 border-gray-500 rounded p-2 mr-6 bg-gray-200 shadow-xl text-black'
-          />
-          <label htmlFor='height'>Height: </label>
-          <input
-            type='number'
-            name='height'
-            placeholder='Height in sm'
-            value={form?.height}
-            onChange={updateForm('height')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
-          />
-        </div>
-        <div className='flex justify-end mt-4'>
+        <p>Find your BMI and health risks: </p>
+        {isChecked ? (
+          <BMIInMetricSystem form={form} updateForm={updateForm} />
+        ) : (
+          <BMIInImperialSystem form={form} updateForm={updateForm} />
+        )}
+        <div className='flex mt-4 items-center justify-end'>
           <button
-            className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black'
+            className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 mr-4'
             onClick={() => calculate()}
           >
             Calculate
           </button>
+          <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
+            <p>Imperial or Metric System</p>
+            <label className='cursor-pointer label'>
+              <input
+                type='checkbox'
+                className='toggle toggle-info'
+                checked={isChecked}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
         </div>
         <div className='mt-4'>
           {BMI === 0 ? (
@@ -122,6 +151,8 @@ export default function BodyMassIndex() {
           obesity-related diseases.
         </p>
       </div>
+      {success && <AlertSuccess message={message} />}
+      {alert && <AlertError message={message} />}
     </div>
   );
 }

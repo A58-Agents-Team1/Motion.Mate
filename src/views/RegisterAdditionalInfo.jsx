@@ -8,6 +8,7 @@ import { AppContext } from '../context/AppContext';
 import {
   validateAge,
   validateFieldsForAdditionalInfo,
+  validateFirstName,
   validateHeight,
   validateWeight,
 } from '../common/user.validations';
@@ -35,6 +36,12 @@ export default function RegisterAdditionalInfo() {
 
   const validateAdditionalInfo = async () => {
     validateFieldsForAdditionalInfo(form);
+    if (form.firstName !== '') {
+      validateFirstName(form.firstName);
+    }
+    if (form.lastName !== '') {
+      validateFirstName(form.lastName);
+    }
     if (form.age !== '') {
       validateAge(form.age);
     }
@@ -124,7 +131,7 @@ export default function RegisterAdditionalInfo() {
                 <input
                   onChange={updateForm('height')}
                   type='number'
-                  placeholder={'Height in sm'}
+                  placeholder={'Height in cm'}
                   className='input input-bordered w-11/12'
                   value={form.height}
                 />

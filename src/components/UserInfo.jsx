@@ -30,7 +30,7 @@ export default function UserInfo({ userData }) {
         <p>Weight: Missing information</p>
       )}
       {userData?.height ? (
-        <p>Height: {userData?.height} sm</p>
+        <p>Height: {userData?.height} cm</p>
       ) : (
         <p>Height: Missing information</p>
       )}
