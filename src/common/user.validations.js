@@ -58,6 +58,9 @@ export const validatePhoneNumberAsync = async (phoneNumber) => {
   if (phoneNumber.length !== PHONE_NUMBER_LENGTH) {
     throw new Error(`Phone number must be ${PHONE_NUMBER_LENGTH} digits long!`);
   }
+  if (!/^\d+$/.test(phoneNumber)) {
+    throw new Error('Phone number must contain only digits!');
+  }
   const snapshot = await getAllUsers();
   const allUsers = Object.values(snapshot.val());
   const userPhoneNumber = allUsers.find(

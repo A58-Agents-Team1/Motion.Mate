@@ -146,8 +146,8 @@ export default function Register() {
                 </label>
                 <input
                   onChange={updateForm('phoneNumber')}
-                  type='string'
-                  placeholder='+359 123-456-789'
+                  type='text'
+                  placeholder='0 888 888 888'
                   className='input input-bordered'
                   required
                   value={form.phoneNumber || ''}
