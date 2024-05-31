@@ -76,7 +76,7 @@ export const NavBar = () => {
                 <li>
                   <NavLink to={'/'}>Home</NavLink>
                 </li>
-                {userData && (
+                {userData && !userData?.isBlocked && (
                   <>
                     <li>
                       <NavLink to={'/BMI'}>Body Mass Index</NavLink>
@@ -106,6 +106,13 @@ export const NavBar = () => {
               </ul>
             </div>
           </div>
+          {userData?.isBlocked && (
+            <div>
+              <p className='text-red-500 font-bold text-lg'>
+                Your account is temporarily blocked !!!
+              </p>
+            </div>
+          )}
           <div className='flex justify-end'>
             <AvatarWithNameAndDropDownMenu />
           </div>
@@ -133,10 +140,12 @@ export const NavBar = () => {
             <NavLink to={'/'}>Home</NavLink>
           </li>
           {userData && (
+            <li>
+              <NavLink to={'/my-profile'}>My Profile</NavLink>
+            </li>
+          )}
+          {userData && !userData?.isBlocked && (
             <>
-              <li>
-                <NavLink to={'/my-profile'}>My Profile</NavLink>
-              </li>
               <li>
                 <NavLink to={'/my-friends'}>My Friends</NavLink>
               </li>
