@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { getUserByUsername } from '../../services/users.service';
 import GoalButton from './GoalButton';
 import PropTypes from 'prop-types';
-import { shortFormatDate } from '../../helper/format-date';
+import { calculateTimeLeft } from '../../helper/format-date';
 import { AppContext } from '../../context/AppContext';
 import { deleteGoal } from '../../services/goal.service';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ export default function Goal({ id, owner, name, from, to, progress }) {
   const [showError, setShowError] = useState(false);
   const [showMessage, setShowMessage] = useState('');
   const [showDeleted, setShowDeleted] = useState(false);
-
+  const [timeLeft, setTimeLeft] = useState();
   const [ownerObj, setOwnerObj] = useState({
     avatar: '',
     firstName: '',
@@ -52,6 +52,12 @@ export default function Goal({ id, owner, name, from, to, progress }) {
     goalOwner();
   }, [owner]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setTimeLeft({ ...calculateTimeLeft(new Date(to)) });
+    }, 1000);
+  }, [timeLeft]);
+
   return (
     <>
       <th>
@@ -73,8 +79,35 @@ export default function Goal({ id, owner, name, from, to, progress }) {
         </div>
       </th>
       <td>{name}</td>
-      <td>{shortFormatDate(from)}</td>
-      <td>{shortFormatDate(to)}</td>
+
+      <td>
+        <div className='grid grid-flow-col gap-5 text-center auto-cols-max'>
+          <div className='flex flex-col'>
+            <span className='countdown font-mono text-xl'>
+              <span style={{ '--value': timeLeft?.days }}></span>
+            </span>
+            days
+          </div>
+          <div className='flex flex-col'>
+            <span className='countdown font-mono text-xl'>
+              <span style={{ '--value': timeLeft?.hours }}></span>
+            </span>
+            hours
+          </div>
+          <div className='flex flex-col'>
+            <span className='countdown font-mono text-xl'>
+              <span style={{ '--value': timeLeft?.minutes }}></span>
+            </span>
+            min
+          </div>
+          <div className='flex flex-col'>
+            <span className='countdown font-mono text-xl'>
+              <span style={{ '--value': timeLeft?.seconds }}></span>
+            </span>
+            sec
+          </div>
+        </div>
+      </td>
       <td>
         <div
           className={`radial-progress 
