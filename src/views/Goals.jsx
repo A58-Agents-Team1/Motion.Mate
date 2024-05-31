@@ -1,26 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Goal from '../components/Goals/Goal';
 import CreateGoal from '../components/Goals/CreateGoal';
 import { APP_NAME } from '../common/constants';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../config/firebase-config';
+import { AppContext } from '../context/AppContext';
 
 export default function Goals() {
   document.querySelector('title').textContent = `${APP_NAME} | Goals`;
 
+  const { userData } = useContext(AppContext);
   const [goals, setGoals] = useState([]);
 
   useEffect(() => {
-    return onValue(ref(db, 'goals'), (snapshot) => {
-      const goals = [];
-      snapshot.forEach((child) => {
-        goals.push({
-          id: child.key,
-          ...child.val(),
+    return onValue(
+      ref(db, `users/${userData?.username}/myGoals`),
+      (snapshot) => {
+        const goals = [];
+        snapshot.forEach((child) => {
+          goals.push({
+            id: child.key,
+            ...child.val(),
+          });
         });
-      });
-      setGoals(goals);
-    });
+        setGoals(goals);
+      }
+    );
   }, []);
 
   return (
