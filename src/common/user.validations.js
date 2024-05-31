@@ -140,7 +140,7 @@ export const validateWeight = (weight) => {
 export const validateHeight = (height) => {
   if (height < HEIGHT_MIN || height > HEIGHT_MAX) {
     throw new Error(
-      `Height must be between ${HEIGHT_MIN} sm and ${HEIGHT_MAX} sm.`
+      `Height must be between ${HEIGHT_MIN} cm and ${HEIGHT_MAX} cm.`
     );
   }
 };

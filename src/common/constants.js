@@ -28,6 +28,16 @@ export const HEIGHT_MIN = 50;
 
 export const HEIGHT_MAX = 300;
 
+export const WEIGHT_MIN_LBS = 44;
+
+export const WEIGHT_MAX_LBS = 1102;
+
+export const HEIGHT_MIN_IN = 20;
+
+export const HEIGHT_MAX_IN = 118;
+
+export const BMI_CONVERSION_FACTOR = 703;
+
 export const EXERCISE_MIN_TITLE_LENGTH = 4;
 
 export const EXERCISE_MAX_TITLE_LENGTH = 30;

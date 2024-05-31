@@ -124,7 +124,7 @@ export default function RegisterAdditionalInfo() {
                 <input
                   onChange={updateForm('height')}
                   type='number'
-                  placeholder={'Height in sm'}
+                  placeholder={'Height in cm'}
                   className='input input-bordered w-11/12'
                   value={form.height}
                 />
