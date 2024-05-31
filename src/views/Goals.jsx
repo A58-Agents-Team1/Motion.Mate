@@ -38,8 +38,7 @@ export default function Goals() {
             <tr>
               <th>Goals</th>
               <th>Name</th>
-              <th>Starts</th>
-              <th>Ends</th>
+              <th>Time left</th>
               <th>Progress</th>
             </tr>
           </thead>
@@ -66,8 +65,7 @@ export default function Goals() {
             <tr>
               <th>Goals</th>
               <th>Name</th>
-              <th>Starts</th>
-              <th>Ends</th>
+              <th>Time left</th>
               <th>Progress</th>
             </tr>
           </tfoot>
