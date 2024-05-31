@@ -10,21 +10,14 @@ import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertError from '../Alerts/AlertError';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { alertHelper } from '../../helper/alert-helper';
 
 export default function Goal({ id, owner, name, from, to, progress }) {
   const navigation = useNavigate();
   const { userData } = useContext(AppContext);
-  const [showDeleted, setShowDeleted] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-
-  const errorMessages = (message) => {
-    setShowError(true);
-    setShowErrorMessage(message);
-    setTimeout(() => {
-      setShowError(false);
-    }, 3000);
-  };
+  const [showMessage, setShowMessage] = useState('');
+  const [showDeleted, setShowDeleted] = useState(false);
 
   const [ownerObj, setOwnerObj] = useState({
     avatar: '',
@@ -33,19 +26,16 @@ export default function Goal({ id, owner, name, from, to, progress }) {
     email: '',
   });
 
-  const handleDetailsClick = async () => {
-    navigation(`/goals/${id}`);
+  const handleDetailsClick = () => {
+    navigation(`/goals/${(userData?.username, id)}`);
   };
 
   const handleDeleteClick = async () => {
     try {
-      await deleteGoal(id);
-      setShowDeleted(true);
-      setTimeout(() => {
-        setShowDeleted(false);
-      }, 3000);
+      await deleteGoal(userData?.username, id);
+      alertHelper(setShowMessage, setShowDeleted, 'Goal deleted successfully!');
     } catch (error) {
-      errorMessages(error.message);
+      alertHelper(setShowMessage, setShowError, error.message);
     }
   };
 
@@ -55,18 +45,17 @@ export default function Goal({ id, owner, name, from, to, progress }) {
         const res = await getUserByUsername(owner);
         setOwnerObj(res.val());
       } catch (error) {
-        errorMessages(error.message);
+        alertHelper(setShowMessage, setShowError, error.message);
       }
     };
+
     goalOwner();
   }, [owner]);
 
   return (
     <>
-      {showDeleted && <AlertSuccess message='Goal deleted successfully!' />}
-      {showError && <AlertError message={showErrorMessage} />}
       <th>
-        <div className='flex items-center gap-3'>
+        <div className={'flex items-center gap-3'}>
           <div className='avatar'>
             <div className='mask mask-squircle w-12 h-12'>
               <img
@@ -88,17 +77,29 @@ export default function Goal({ id, owner, name, from, to, progress }) {
       <td>{shortFormatDate(to)}</td>
       <td>
         <div
-          className='radial-progress'
+          className={`radial-progress 
+          ${
+            progress < 25
+              ? 'bg-red-500'
+              : progress >= 25 && progress < 50
+              ? 'bg-yellow-400'
+              : progress >= 50 && progress < 75
+              ? 'bg-yellow-500'
+              : progress >= 75 && progress < 100
+              ? 'bg-green-400'
+              : 'bg-green-500'
+          }`}
           style={{ '--value': progress }}
           role='progressbar'
         >
           {progress}
         </div>
       </td>
-      <td className=' box border border-red-500'>
+      <td>
         <GoalButton
           primary={false}
           title={'Details'}
+          styles='btn-primary mx-2'
           onClick={handleDetailsClick}
         />
         {(userData?.username === owner || userData?.userRole === 'admin') && (
@@ -110,6 +111,8 @@ export default function Goal({ id, owner, name, from, to, progress }) {
             <FontAwesomeIcon icon={faTrashCan} />
           </GoalButton>
         )}
+        {showDeleted && <AlertSuccess message={showMessage} />}
+        {showError && <AlertError message={showMessage} />}
       </td>
     </>
   );
