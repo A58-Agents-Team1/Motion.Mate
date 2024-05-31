@@ -21,7 +21,7 @@ export default function GoalButton({
 }
 
 GoalButton.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node,
   wide: PropTypes.bool,
   primary: PropTypes.bool,
