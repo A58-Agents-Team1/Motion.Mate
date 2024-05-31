@@ -14,3 +14,15 @@ export const shortFormatDate = (date) =>
     month: 'long',
     day: 'numeric',
   });
+
+export const calculateTimeLeft = (to) => {
+  const now = new Date().getTime();
+  const timeLeft = to - now;
+
+  const seconds = Math.floor((timeLeft / 1000) % 60);
+  const minutes = Math.floor((timeLeft / 1000 / 60) % 60);
+  const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+  const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+
+  return { days, hours, minutes, seconds };
+};
