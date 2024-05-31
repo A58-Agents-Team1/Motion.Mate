@@ -1,6 +1,6 @@
 import { goalCreateValidation } from '../common/goal.validations';
 import { db } from '../config/firebase-config'
-import { get, push, ref, set } from 'firebase/database'
+import { get, push, ref, remove, set } from 'firebase/database'
 
 export const createGoal = async (name, owner, timePeriodStart, timePeriodEnd) => {
   try {
@@ -15,16 +15,19 @@ export const createGoal = async (name, owner, timePeriodStart, timePeriodEnd) =>
       sharedWith: null,
       progress: 0
     }
-    return await push(ref(db, `goals/`), goal);
+
+    const goalId = await push(ref(db, `users/${owner}/myGoals/`), goal);
+
+    return goalId
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
-export const getGoals = async () => {
+export const getGoals = async (username) => {
   try {
     const result = [];
-    const snapshot = (await get(ref(db, 'goals')));
+    const snapshot = (await get(ref(db, `users/${username}/myGoals/`)));
     snapshot.forEach((child) => {
       result.push({
         id: child.key,
@@ -37,10 +40,9 @@ export const getGoals = async () => {
   }
 };
 
-// TODO: Implement the following functions
-export const getGoalById = async (goalId) => {
+export const getGoalById = async (username, goalId) => {
   try {
-    const goal = await get(ref(db, `goals/${goalId}`));
+    const goal = await get(ref(db, `users/${username}/myGoals/${goalId}`));
     return await goal.val();
   }
   catch (error) {
@@ -48,10 +50,10 @@ export const getGoalById = async (goalId) => {
   }
 }
 
-export const updateGoal = async (goalId, updates) => {
+export const updateGoal = async (username, goalId, updates) => {
   try {
     const goal = await getGoalById(goalId);
-    return await set(ref(db, `goals/${goalId}`), {
+    return await set(ref(db, `users/${username}/myGoals/${goalId}`), {
       ...goal,
       ...updates
     });
@@ -60,9 +62,9 @@ export const updateGoal = async (goalId, updates) => {
   }
 }
 
-export const deleteGoal = async (goalId) => {
+export const deleteGoal = async (username, goalId) => {
   try {
-    return await set(ref(db, `goals/${goalId}`), null);
+    await remove(ref(db, `users/${username}/myGoals/${goalId}`));
   } catch (error) {
     throw new Error(error.message);
   }
