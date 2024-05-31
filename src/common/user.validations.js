@@ -4,8 +4,10 @@ import {
   AGE_MIN,
   HEIGHT_MAX,
   HEIGHT_MIN,
+  MAX_NAME_LENGTH,
   MAX_PASSWORD_LENGTH,
   MAX_USERNAME_LENGTH,
+  MIN_NAME_LENGTH,
   MIN_PASSWORD_LENGTH,
   MIN_USERNAME_LENGTH,
   PHONE_NUMBER_LENGTH,
@@ -120,6 +122,33 @@ export const validateEmailLogAsync = async (email) => {
   const userEmail = allUsers.find((user) => user.email === email);
   if (!userEmail) {
     throw new Error('User with this email does not exist!');
+  }
+};
+
+export const validateFirstName = (firstName) => {
+  const alphabeticRegex = /^[A-Za-z]+$/;
+  if (
+    firstName.length < MIN_NAME_LENGTH ||
+    firstName.length > MAX_NAME_LENGTH
+  ) {
+    throw new Error(
+      `First name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long!`
+    );
+  }
+  if (!alphabeticRegex.test(firstName)) {
+    throw new Error('First name must contain only alphabetic characters!');
+  }
+};
+
+export const validateLastName = (lastName) => {
+  const alphabeticRegex = /^[A-Za-z]+$/;
+  if (lastName.length < MIN_NAME_LENGTH || lastName.length > MAX_NAME_LENGTH) {
+    throw new Error(
+      `Last name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long!`
+    );
+  }
+  if (!alphabeticRegex.test(lastName)) {
+    throw new Error('Last name must contain only alphabetic characters!');
   }
 };
 

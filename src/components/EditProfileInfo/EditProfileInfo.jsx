@@ -5,7 +5,9 @@ import { updateUserByUsername } from '../../services/users.service';
 import {
   validateAge,
   validateFieldsForAdditionalInfo,
+  validateFirstName,
   validateHeight,
+  validateLastName,
   validatePhoneNumberAsync,
   validateWeight,
 } from '../../common/user.validations';
@@ -33,13 +35,19 @@ export default function EditProfileInfo({ setEditProfile }) {
 
   const validateFieldsAsync = async () => {
     validateFieldsForAdditionalInfo(form);
-    if (userData?.age !== form.age) {
+    if (userData?.firstName !== form.firstName && form.firstName !== '') {
+      validateFirstName(form.firstName);
+    }
+    if (userData?.lastName !== form.lastName && form.lastName !== '') {
+      validateLastName(form.lastName);
+    }
+    if (userData?.age !== form.age && form.age !== '') {
       validateAge(form.age);
     }
-    if (userData.weight !== form.weight) {
+    if (userData.weight !== form.weight && form.weight !== '') {
       validateWeight(form.weight);
     }
-    if (userData?.height !== form.height) {
+    if (userData?.height !== form.height && form.height !== '') {
       validateHeight(form.height);
     }
     if (userData?.phoneNumber !== form.phoneNumber) {
