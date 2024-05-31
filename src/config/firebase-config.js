@@ -3,19 +3,22 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 import { getStorage } from 'firebase/storage';
-// TODO: Add SDKs for Firebase products that you want to use
+import.meta.env.REACT_APP_FIREBASE_API_KEY;
+import.meta.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID;
+import.meta.env.REACT_APP_FIREBASE_APP_ID;
+import.meta.env.REACT_APP_FIREBASE_DATABASE_URL;
+
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyCUGX8ovmd13o8jlx5T_rIWmZ7LvMQp--E',
+  apiKey: `${import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY}`,
   authDomain: 'motion-mate.firebaseapp.com',
   projectId: 'motion-mate',
   storageBucket: 'motion-mate.appspot.com',
-  messagingSenderId: '1002546205882',
-  appId: '1:1002546205882:web:6f9fa11f7f0787c915de83',
-  databaseURL:
-    'https://motion-mate-default-rtdb.europe-west1.firebasedatabase.app/',
+  messagingSenderId: `${import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID}`,
+  appId: `${import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID}`,
+  databaseURL: `${import.meta.env.VITE_REACT_APP_FIREBASE_DATABASE_URL}`,
 };
 
 // Initialize Firebase
