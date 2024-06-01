@@ -81,46 +81,58 @@ export default function Goal({ id, owner, name, from, to, progress }) {
       <td>{name}</td>
 
       <td>
-        <div className='grid grid-flow-col gap-5 text-center auto-cols-max'>
-          <div className='flex flex-col'>
-            <span className='countdown font-mono text-xl'>
-              <span style={{ '--value': timeLeft?.days }}></span>
-            </span>
-            days
+        {timeLeft?.days +
+          timeLeft?.hours +
+          timeLeft?.minutes +
+          timeLeft?.seconds >
+        0 ? (
+          <div className='grid grid-flow-col gap-5 text-center auto-cols-max'>
+            <div className='flex flex-col'>
+              <span className='countdown font-mono text-xl'>
+                <span style={{ '--value': timeLeft?.days }}></span>
+              </span>
+              days
+            </div>
+            <div className='flex flex-col'>
+              <span className='countdown font-mono text-xl'>
+                <span style={{ '--value': timeLeft?.hours }}></span>
+              </span>
+              hours
+            </div>
+            <div className='flex flex-col'>
+              <span className='countdown font-mono text-xl'>
+                <span style={{ '--value': timeLeft?.minutes }}></span>
+              </span>
+              min
+            </div>
+            <div className='flex flex-col'>
+              <span className='countdown font-mono text-xl'>
+                <span style={{ '--value': timeLeft?.seconds }}></span>
+              </span>
+              sec
+            </div>
           </div>
-          <div className='flex flex-col'>
-            <span className='countdown font-mono text-xl'>
-              <span style={{ '--value': timeLeft?.hours }}></span>
+        ) : (
+          <div className='flex flex-col timeline-middle'>
+            <span className='font-mono text-xl'>
+              <span className='text-red-500'>Time is up!</span>
             </span>
-            hours
           </div>
-          <div className='flex flex-col'>
-            <span className='countdown font-mono text-xl'>
-              <span style={{ '--value': timeLeft?.minutes }}></span>
-            </span>
-            min
-          </div>
-          <div className='flex flex-col'>
-            <span className='countdown font-mono text-xl'>
-              <span style={{ '--value': timeLeft?.seconds }}></span>
-            </span>
-            sec
-          </div>
-        </div>
+        )}
       </td>
       <td>
         <div
           className={`radial-progress 
           ${
             progress < 25
-              ? 'bg-red-500'
+              ? 'bg-red-500/45'
               : progress >= 25 && progress < 50
-              ? 'bg-yellow-400'
+              ? 'bg-yellow-400/45'
               : progress >= 50 && progress < 75
-              ? 'bg-yellow-500'
+              ? 'bg-yellow-500/45'
               : progress >= 75 && progress < 100
-              ? 'bg-green-400'
-              : 'bg-green-500'
+              ? 'bg-green-300/45'
+              : 'bg-green-400/45'
           }`}
           style={{ '--value': progress }}
           role='progressbar'
