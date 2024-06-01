@@ -64,19 +64,19 @@ users: {
     isBlocked: <boolean>,
     userRole: <string>,
     uid: <string>,
-    friends: {
+    friends: { <object> (optional)
       username: <boolean>,
       ...
     },
-    requests: {
+    requests: { <object> (optional)
       username: <boolean>,
       ...
     },
-    myRequests: {
+    myRequests: { <object> (optional)
       username: <boolean>,
       ...
     },
-    myGoals: {
+    myGoals: { <object> (optional)
       uid: {
         name: <string>,
         owner: <string>,
@@ -97,7 +97,7 @@ users: {
 ### Categories document:
 
 ```js
-Categories: {
+categories: {
   category: {
         uid: {
          description: <string>
