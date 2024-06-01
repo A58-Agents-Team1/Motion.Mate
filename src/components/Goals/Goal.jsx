@@ -8,9 +8,10 @@ import { deleteGoal } from '../../services/goal.service';
 import { useNavigate } from 'react-router-dom';
 import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertError from '../Alerts/AlertError';
+import { alertHelper } from '../../helper/alert-helper';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { alertHelper } from '../../helper/alert-helper';
 
 export default function Goal({ id, owner, name, from, to, progress }) {
   const navigation = useNavigate();
@@ -18,7 +19,7 @@ export default function Goal({ id, owner, name, from, to, progress }) {
   const [showError, setShowError] = useState(false);
   const [showMessage, setShowMessage] = useState('');
   const [showDeleted, setShowDeleted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState();
+  const [timeLeft, setTimeLeft] = useState(null);
   const [ownerObj, setOwnerObj] = useState({
     avatar: '',
     firstName: '',
@@ -56,6 +57,7 @@ export default function Goal({ id, owner, name, from, to, progress }) {
     setTimeout(() => {
       setTimeLeft({ ...calculateTimeLeft(new Date(to)) });
     }, 1000);
+    return () => clearTimeout();
   }, [timeLeft]);
 
   return (
@@ -112,11 +114,42 @@ export default function Goal({ id, owner, name, from, to, progress }) {
               sec
             </div>
           </div>
+        ) : timeLeft !== null ? (
+          <div className='flex flex-col text-center'>
+            <div className='font-mono text-xl'>
+              <div className='text-red-500 '>
+                {progress < 100 && 'Just do it!'}
+                {progress === 100 && 'Congratulations!'}
+              </div>
+              <div className='flex gap-1 align-middle justify-center text-center text-red-500 w-full'>
+                {progress < 100 && 'But next time'}
+                {progress < 100 && (
+                  <FontAwesomeIcon
+                    beat
+                    icon={faCheck}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
         ) : (
-          <div className='flex flex-col timeline-middle'>
-            <span className='font-mono text-xl'>
-              <span className='text-red-500'>Time is up!</span>
-            </span>
+          <div className='flex flex-row gap-2.5 w-48'>
+            <div className='flex flex-col gap-1'>
+              <div className='skeleton h-9 w-9'></div>
+              <div className='skeleton h-4 w-9'></div>
+            </div>
+            <div className='flex flex-col gap-1'>
+              <div className='skeleton h-9 w-9'></div>
+              <div className='skeleton h-4 w-9'></div>
+            </div>
+            <div className='flex flex-col gap-1'>
+              <div className='skeleton h-9 w-9'></div>
+              <div className='skeleton h-4 w-9'></div>
+            </div>
+            <div className='flex flex-col gap-1'>
+              <div className='skeleton h-9 w-9'></div>
+              <div className='skeleton h-4 w-9'></div>
+            </div>
           </div>
         )}
       </td>
