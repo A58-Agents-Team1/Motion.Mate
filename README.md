@@ -22,7 +22,11 @@ To install and run the project, follow these steps:
 
 ```bash
 git clone https://github.com/A58-Agents-Team1/Motion.Mate.git
-	@@ -18,16 +30,117 @@ git clone https://github.com/A58-Agents-Team1/Motion.Mate.git
+```
+
+2. Navigate to the project directory:
+
+```bash
 cd Motion.Mate
 ```
 
