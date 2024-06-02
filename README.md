@@ -2,7 +2,7 @@
 
 ## Motion.Mate
 
-Fitness tracking application, where users can track their daily exercises, such as steps taken, runs (time and distance), or other activities. Users can set their daily/weekly/monthly goals and track their progress.
+Fitness tracking application, where app offers both public and private features, including an administrative section, allowing users to send friend requests, add friends, create goals and exercises, and calculate their body mass index. It provides a comprehensive platform to connect with friends and achieve fitness objectives.
 
 **Languages:** <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" height="20"> <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" height="20">
 
@@ -77,11 +77,11 @@ users: {
       ...
     },
     myGoals: { <object> (optional)
-      uid: {
+      uid: { <object>
         name: <string>,
         owner: <string>,
         progress: <number>,
-        timePeriod: {
+        timePeriod: { <object>
           from: <number>,
           to: <number>,
         }
@@ -99,8 +99,8 @@ users: {
 ```js
 categories: {
   category: {
-        uid: {
-         description: <string>
+        uid: { <object>
+          description: <string>
           imageUrl: <string>
         }
       ...
@@ -113,6 +113,23 @@ categories: {
 ### Exercises document:
 
 ```js
+exercises: {
+  uid: { <object>
+    calories: <number>,
+    categoryId: <string>,
+    content: <string>
+    createdBy: <string>
+    duration: { <object>
+      hours: <number>
+      minutes: <number>
+      seconds: <number>
+    }
+    inProgress: <boolean>
+    level: <string>
+    title: <string>
+  }
+  ...
+}
 
 ```
 

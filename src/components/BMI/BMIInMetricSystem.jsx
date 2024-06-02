@@ -29,7 +29,7 @@ export default function BMIInMetricSystem({ form, updateForm }) {
         placeholder='centimeters'
         value={form?.height}
         onChange={updateForm('height')}
-        className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black w-28'
+        className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black w-32'
       />
     </div>
   );
