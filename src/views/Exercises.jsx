@@ -18,6 +18,9 @@ import {
   startEditing,
   submitEdit,
 } from '../helper/exercise-control';
+import { getFriends } from '../services/users.service';
+import { FriendAvatar } from '../components/Exercise/FriendAvatar';
+import { ExerciseCard } from '../components/Exercise/ExerciseCard';
 
 export const Exercises = ({ category, id, setSelectedCategory }) => {
   const [exercises, setExercises] = useState([]);
@@ -26,12 +29,21 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
   const [alertMessage, setAlertMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [editingExerciseId, setEditingExerciseId] = useState(null);
+  const [friends, setFriends] = useState();
   const [editForm, setEditForm] = useState({
     title: '',
     content: '',
     calories: '',
     level: '',
   });
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      const snapshot = await getFriends(userData?.username);
+      setFriends(snapshot);
+    };
+    fetchFriends();
+  }, []);
 
   useEffect(() => {
     return onValue(ref(db, 'exercises'), (snapshot) => {
@@ -46,9 +58,21 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
         (exercise) =>
           exercise.categoryId === id && exercise.createdBy === userData.username
       );
-      setExercises(filtered);
+      const exerciseByFriend = friends?.map((friend) => {
+        return allExercises.filter(
+          (exercise) =>
+            exercise?.categoryId === id && exercise?.createdBy === friend
+        );
+      });
+
+      const flatten = exerciseByFriend?.filter((arr) => arr.length > 0).flat();
+      if (flatten?.length > 0) {
+        setExercises(filtered.concat(flatten));
+      } else {
+        setExercises(filtered);
+      }
     });
-  }, []);
+  }, [friends]);
 
   const cancelEditing = () => {
     setEditingExerciseId(null);
@@ -77,7 +101,11 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
           exercises.map((exercise) => (
             <div
               key={exercise.id}
-              className='card bg-base-100 shadow-xl p-4 flex flex-col w-full'
+              className={
+                userData.username === exercise.createdBy
+                  ? 'card bg-base-100 shadow-xl p-4 flex flex-col w-full'
+                  : 'card  shadow-xl p-4 flex flex-col w-full bg-base-300'
+              }
             >
               <div className='card-body'>
                 {editingExerciseId === exercise.id ? (
@@ -111,45 +139,7 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
                     />
                   </>
                 ) : (
-                  <>
-                    <h3 className='card-title text-lg font-bold '>
-                      {exercise.title}
-                    </h3>
-                    <div className='grid grid-cols-2 gap-6'>
-                      <div className=''>
-                        <p>
-                          <strong className='text-primary '>Content:</strong>{' '}
-                          {exercise.content}
-                        </p>
-                        <p>
-                          <strong className='text-primary '>Calories:</strong>{' '}
-                          {exercise.calories}
-                        </p>
-                        <p>
-                          <strong className='text-primary '>Level:</strong>{' '}
-                          {exercise.level}
-                        </p>
-                      </div>
-                      <div>
-                        <p className=''>
-                          <strong className='text-primary '>Duration:</strong>
-                          <br />
-                          <strong className='text-primary '>Hours:</strong>{' '}
-                          {exercise.duration?.hours}
-                          <br />
-                          <strong className='text-primary '>
-                            Minutes:
-                          </strong>{' '}
-                          {exercise.duration?.minutes}
-                          <br />
-                          <strong className='text-primary '>
-                            Seconds:
-                          </strong>{' '}
-                          {exercise.duration?.seconds}
-                        </p>
-                      </div>
-                    </div>
-                  </>
+                  <ExerciseCard exercise={exercise} userData={userData} />
                 )}
               </div>
               <div className='card-actions justify-end'>
@@ -215,18 +205,20 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
                         Add to list
                       </button>
                     )}
-                    <button
-                      onClick={() =>
-                        startEditing(
-                          exercise,
-                          setEditingExerciseId,
-                          setEditForm
-                        )
-                      }
-                      className='btn btn-primary'
-                    >
-                      Edit
-                    </button>
+                    {exercise.createdBy === userData.username && (
+                      <button
+                        onClick={() =>
+                          startEditing(
+                            exercise,
+                            setEditingExerciseId,
+                            setEditForm
+                          )
+                        }
+                        className='btn btn-primary'
+                      >
+                        Edit
+                      </button>
+                    )}
                   </div>
                 )}
                 <button
