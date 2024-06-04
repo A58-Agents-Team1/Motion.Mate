@@ -236,3 +236,21 @@ export const getCategoryPhoto = async (category) => {
     }
   }
 };
+
+export const getFriends = async (username) => {
+  try {
+    const friendsRef = ref(db, `users/${username}/friends`);
+    const friendsSnapshot = await get(friendsRef);
+    const friendsData = friendsSnapshot.val();
+    if (friendsData) {
+      return Object.keys(friendsData);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getUserAvatar = async (username) => {
+  const result = await get(ref(db, `users/${username}/avatar`));
+  return result.val();
+};
