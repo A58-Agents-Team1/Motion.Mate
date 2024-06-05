@@ -36,7 +36,7 @@ export default function Home() {
         <div className='flex flex-col'>
           <div className=' bg-base-200'>
             <div className='hero-content flex-col lg:flex-row'>
-              <Carousel></Carousel>
+              <Carousel />
               <div>
                 <h1 className='text-5xl font-bold'>
                   Ready to join the lifestyle?
