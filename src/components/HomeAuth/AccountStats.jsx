@@ -1,28 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { getExercises } from '../../services/exercise.service';
 import { calculateTimeLeft } from '../../helper/format-date';
 
 export const AccountStats = ({ timer }) => {
-  const [countOFExercises, setCountOfExercises] = useState([]);
   const { userData } = useContext(AppContext);
   const [doneExercise, setDoneExercise] = useState(0);
   const [timeLeft, setTimeLeft] = useState(null);
-
-  useEffect(() => {
-    const count = async () => {
-      const number = await getExercises();
-      const data = Object.values(number);
-      if (data) {
-        const filtered = Object.values(data).filter((exerciseInfo) =>
-          console.log(exerciseInfo)
-        );
-        console.log(filtered);
-        setCountOfExercises(filtered);
-      }
-    };
-    count();
-  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -54,7 +37,7 @@ export const AccountStats = ({ timer }) => {
             </svg>
           </div>
           <div className='stat-title'>Exercises done </div>
-          <div className='stat-value text-secondary'>{doneExercise || 0}</div>
+          <div className='stat-value text-secondary'>{0}</div>
           <div className='stat-desc text-secondary'>Be active</div>
         </div>
         <div className='stat gap-2'>
