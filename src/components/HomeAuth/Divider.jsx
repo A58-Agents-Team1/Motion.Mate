@@ -7,21 +7,18 @@ import AlertSuccess from '../Alerts/AlertSuccess';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
 import { AppContext } from '../../context/AppContext';
-import { getFriends } from '../../services/users.service';
+import {
+  endExercise,
+  getFriends,
+  startExercise,
+} from '../../services/users.service';
 import { ExerciseCard } from '../Exercise/ExerciseCard';
 
-export const Divider = ({ timer, setTimer, setStartTimer }) => {
+export const Divider = ({ stopButton }) => {
   const [inProgress, setInProgress] = useState([]);
-  const [duration, setDuration] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-  const [handleTimer, setHandleTimer] = useState(false);
   const [showError, setShowError] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
-  const [stopButton, setStopButton] = useState('');
   const { userData } = useContext(AppContext);
   const [friends, setFriends] = useState();
 
@@ -49,26 +46,27 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
     });
   }, [userData?.username]);
 
-  const getDuration = (exercise) => {
-    const hours = Number(exercise.duration.hours);
-    const minutes = Number(exercise.duration.minutes);
-    const seconds = Number(exercise.duration.seconds);
-    setDuration({ hours, minutes, seconds });
-    setHandleTimer(true);
-    setStopButton(exercise.id);
+  const stopTimer = async () => {
+    await endExercise(userData.username);
   };
 
-  const stopTimer = () => {
-    setTimer(0);
-    setHandleTimer(false);
-    setStopButton('');
+  const handleOnStart = async (exercise) => {
+    const endDate = new Date();
+    endDate.setHours(endDate.getHours() + Number(exercise.duration.hours));
+    endDate.setMinutes(
+      endDate.getMinutes() + Number(exercise.duration.minutes)
+    );
+    endDate.setSeconds(
+      endDate.getSeconds() + Number(exercise.duration.seconds)
+    );
+
+    await startExercise(
+      userData.username,
+      endDate.getTime(),
+      exercise.id,
+      exercise.calories
+    );
   };
-
-  useEffect(() => {
-    setTimer(duration.hours * 3600 + duration.minutes * 60 + duration.seconds);
-    setStartTimer(true);
-  }, [duration]);
-
   return (
     <div>
       {inProgress.length > 0 ? (
@@ -86,7 +84,7 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
                       ) : (
                         <button
                           onClick={() => {
-                            getDuration(exercise);
+                            handleOnStart(exercise);
                           }}
                           className='btn btn-secondary'
                         >
