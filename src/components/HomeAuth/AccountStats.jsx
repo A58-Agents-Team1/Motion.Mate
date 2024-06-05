@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { getExercises } from '../../services/exercise.service';
-import { Divider } from '../HomeAuth/Divider';
+import { Divider } from './Divider';
 
 export const AccountStats = () => {
   const [countOFExercises, setCountOfExercises] = useState([]);
@@ -39,8 +39,8 @@ export const AccountStats = () => {
   }, [startTimer, timer, doneExercise]);
 
   return (
-    <div className='flex flex-col items-center w-full'>
-      <div className='stats shadow w-full max-w-3xl flex items-start'>
+    <div className='flex flex-col items-center w-full '>
+      <div className='stats shadow w-full max-w-3xl flex items-start mb-10'>
         <div className='stat gap-2'>
           <div className='stat-figure text-secondary'>
             <svg
