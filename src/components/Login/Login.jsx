@@ -11,11 +11,17 @@ import {
   validateRequiredFieldsLogUsername,
   validateUserNameLogAsync,
 } from '../../common/user.validations.js';
+import AlertSuccess from '../Alerts/AlertSuccess.jsx';
+import AlertError from '../Alerts/AlertError.jsx';
+import { alertHelper } from '../../helper/alert-helper.js';
 
 export default function Login() {
   const { setAppState, user, refresh } = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [alert, setAlert] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState(null);
   const [usernameEmail, setUsernameEmail] = useState(true);
   const [form, setForm] = useState({
     username: '',
@@ -47,13 +53,14 @@ export default function Login() {
       await validateLoginFormByEmail();
       const { user } = await loginUser(form.email, form.password);
       setAppState({ user, userData: null, refresh: !refresh });
+      alertHelper(setMessage, setSuccess, 'User login successfully!');
       navigate(location.state.from.pathname || '/');
     } catch (error) {
       if (error.message.includes('auth/invalid-credential')) {
-        console.log('Wrong password!');
+        alertHelper(setMessage, setAlert, 'Wrong Password!');
         return;
       }
-      console.log(error.message);
+      alertHelper(setMessage, setAlert, error.message);
     }
   };
 
@@ -62,13 +69,14 @@ export default function Login() {
       await validateLoginFormByUsername();
       await loginUserByUsername(form.username, form.password);
       setAppState({ user, userData: null, refresh: !refresh });
+      alertHelper(setMessage, setSuccess, 'User login successfully!');
       navigate(location.state.from.pathname || '/');
     } catch (error) {
       if (error.message.includes('auth/invalid-credential')) {
-        console.log('Wrong password!');
+        alertHelper(setMessage, setAlert, 'Wrong Password!');
         return;
       }
-      console.log(error.message);
+      alertHelper(setMessage, setAlert, error.message);
     }
   };
 
@@ -150,6 +158,8 @@ export default function Login() {
           </div>
         </div>
       </div>
+      {success && <AlertSuccess message={message} />}
+      {alert && <AlertError message={message} />}
     </div>
   );
 }
