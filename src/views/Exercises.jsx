@@ -19,10 +19,10 @@ import {
   submitEdit,
 } from '../helper/exercise-control';
 import { getFriends } from '../services/users.service';
-import { FriendAvatar } from '../components/Exercise/FriendAvatar';
 import { ExerciseCard } from '../components/Exercise/ExerciseCard';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export const Exercises = ({ category, id, setSelectedCategory }) => {
+export const Exercises = ({ id, setSelectedCategory }) => {
   const [exercises, setExercises] = useState([]);
   const { userData } = useContext(AppContext);
   const [showError, setShowError] = useState(false);
@@ -36,6 +36,8 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
     calories: '',
     level: '',
   });
+  const { category } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -46,7 +48,7 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
   }, []);
 
   useEffect(() => {
-    return onValue(ref(db, 'exercises'), (snapshot) => {
+    return onValue(ref(db, `exercises/${category}`), (snapshot) => {
       const allExercises = [];
       snapshot.forEach((child) => {
         allExercises.push({
@@ -54,14 +56,13 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
           ...child.val(),
         });
       });
+      console.log(allExercises);
       const filtered = allExercises.filter(
-        (exercise) =>
-          exercise.categoryId === id && exercise.createdBy === userData.username
+        (exercise) => exercise.createdBy === userData.username
       );
       const exerciseByFriend = friends?.map((friend) => {
         return allExercises.filter(
-          (exercise) =>
-            exercise?.categoryId === id && exercise?.createdBy === friend
+          (exercise) => exercise?.createdBy === friend
         );
       });
 
@@ -92,20 +93,16 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
   };
 
   return (
-    <div className='container mx-auto p-4'>
+    <div className='container mx-auto p-4 '>
       <h2 className='text-2xl font-bold mb-4'>
         Exercises for Category: {category}
       </h2>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 '>
         {exercises.length > 0 ? (
           exercises.map((exercise) => (
             <div
               key={exercise.id}
-              className={
-                userData.username === exercise.createdBy
-                  ? 'card bg-base-100 shadow-xl p-4 flex flex-col w-full'
-                  : 'card  shadow-xl p-4 flex flex-col w-full bg-base-300'
-              }
+              className={'card  p-4 flex flex-col w-full bg-base-300'}
             >
               <div className='card-body'>
                 {editingExerciseId === exercise.id ? (
@@ -263,7 +260,7 @@ export const Exercises = ({ category, id, setSelectedCategory }) => {
         {showError && <AlertError message={alertMessage} />}
         {showSuccess && <AlertSuccess message={alertMessage} />}
       </div>
-      <button onClick={setSelectedCategory} className='btn btn-primary mt-4'>
+      <button onClick={() => navigate(-1)} className='btn btn-primary mt-4'>
         Back
       </button>
     </div>

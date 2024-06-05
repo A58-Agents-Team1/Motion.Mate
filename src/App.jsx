@@ -22,6 +22,7 @@ import AdminPanel from './views/AdminPanel';
 import DetailedGoal from './components/Goals/DetailedGoal';
 import ContactUs from './views/ContactUs';
 import RegisterAdditionalInfo from './views/RegisterAdditionalInfo';
+import { Exercises } from './views/Exercises';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -118,6 +119,14 @@ function App() {
               element={
                 <Authenticated user={user}>
                   <MyProfile />
+                </Authenticated>
+              }
+            />
+            <Route
+              path='/exercises/:category'
+              element={
+                <Authenticated user={user}>
+                  <Exercises />
                 </Authenticated>
               }
             />
