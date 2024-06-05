@@ -45,17 +45,18 @@ export const CreateExercise = () => {
 
   const submitExercise = async () => {
     try {
-      validateExerciseForm(
-        content.title,
-        content.content,
-        content.hours,
-        content.minutes,
-        content.seconds,
-        content.calories,
-        content.level,
-        selectedCategoryId
-      );
+      // validateExerciseForm(
+      //   content.title,
+      //   content.content,
+      //   content.hours,
+      //   content.minutes,
+      //   content.seconds,
+      //   content.calories,
+      //   content.level,
+      //   selectedCategoryId
+      // );
       const result = await createExercises(
+        selectedCategoryId,
         content.title,
         content.content,
         content.hours,
@@ -63,8 +64,7 @@ export const CreateExercise = () => {
         content.seconds,
         content.calories,
         content.level,
-        userData.username,
-        selectedCategoryId
+        userData.username
       );
       setTakeResult(result);
       setContent({
@@ -177,7 +177,7 @@ export const CreateExercise = () => {
                 Select category
               </option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
+                <option key={cat.id} value={cat.category}>
                   {cat.category}
                 </option>
               ))}

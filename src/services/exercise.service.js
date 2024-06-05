@@ -2,6 +2,7 @@ import { get, push, ref, remove, update } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 export const createExercises = async (
+  categoryName,
   title,
   content,
   hours,
@@ -9,10 +10,10 @@ export const createExercises = async (
   seconds,
   calories,
   level,
-  createdBy,
-  categoryId
+  createdBy
 ) => {
   const exercise = {
+    categoryName,
     title,
     content,
     duration: {
@@ -23,12 +24,11 @@ export const createExercises = async (
     calories,
     level,
     createdBy,
-    categoryId,
     inProgress: false,
   };
 
   try {
-    const result = await push(ref(db, `exercises/`), exercise);
+    const result = await push(ref(db, `exercises/${categoryName}`), exercise);
     return result.key;
   } catch (error) {
     throw new Error(error.message);
