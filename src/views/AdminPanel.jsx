@@ -11,6 +11,7 @@ export default function AdminPanel() {
   const { userData } = useContext(AppContext);
   const [allUsers, setAllUsers] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -35,9 +36,15 @@ export default function AdminPanel() {
     setRefresh((prev) => !prev);
   };
 
-  const deleteUserAccount = async (user) => {
-    await deleteUserAsync(user.username);
-    setRefresh((prev) => !prev);
+  const confirmDelete = async () => {
+    if (userToDelete) {
+      await deleteUserAsync(userToDelete.username);
+      setRefresh((prev) => !prev);
+    }
+  };
+
+  const cancelDelete = () => {
+    setUserToDelete(null);
   };
 
   return (
@@ -101,12 +108,47 @@ export default function AdminPanel() {
                   )}
                   <button
                     className='btn btn-error mx-2'
-                    onClick={() => deleteUserAccount(user)}
+                    onClick={() => setUserToDelete(user)}
                   >
                     Delete Account
                   </button>
                 </div>
               </div>
+              {userToDelete?.username === user.username && (
+                <div role='alert' className='alert mb-3'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    className='stroke-info shrink-0 w-6 h-6'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                    ></path>
+                  </svg>
+                  <span>
+                    Are you sure you want to delete the account of{' '}
+                    {userToDelete?.username}?
+                  </span>
+                  <div>
+                    <button
+                      className='btn btn-sm btn-primary mx-2 '
+                      onClick={confirmDelete}
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      className='btn btn-sm btn-error'
+                      onClick={cancelDelete}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ))
         ) : (
