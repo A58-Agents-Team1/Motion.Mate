@@ -72,7 +72,7 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
     <div>
       {inProgress.length > 0 ? (
         <div className='flex flex-col w-full lg:flex-row'>
-          <div className='card w-96 bg-base-100 '>
+          <div className='card w-96 bg-base-300'>
             {inProgress?.map((exercise) => (
               <div key={exercise.id}>
                 {(exercise.createdBy === userData.username ||

@@ -3,7 +3,7 @@ import { FriendAvatar } from './FriendAvatar';
 export const ExerciseCard = ({ exercise, userData }) => {
   return (
     <>
-      <div className='flex flex-row gap-5'>
+      <div className='flex flex-row gap-5 '>
         {exercise?.createdBy !== userData?.username && (
           <div className='avatar'>
             <div className='w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
@@ -14,7 +14,7 @@ export const ExerciseCard = ({ exercise, userData }) => {
         <h3 className='card-title text-lg font-bold '>{exercise.title}</h3>
       </div>
 
-      <div className='grid grid-cols-2 gap-6'>
+      <div className='grid grid-cols-2 gap-6 '>
         <div className=''>
           <p>
             <strong className='text-primary '>Content:</strong>{' '}
