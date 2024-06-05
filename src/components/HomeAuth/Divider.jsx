@@ -27,11 +27,12 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
 
   useEffect(() => {
     return onValue(ref(db, 'exercises'), (snapshot) => {
+      const exercises = snapshot.val();
       const allExercises = [];
-      Object.entries(snapshot.val()).forEach(([id, child]) => {
-        allExercises.push({
-          ...child,
-          id,
+
+      Object.entries(exercises).forEach(([id, exercise]) => {
+        Object.entries(exercise).forEach(([exerciseId, exerciseData]) => {
+          allExercises.push({ id: exerciseId, ...exerciseData });
         });
       });
 
@@ -73,7 +74,7 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
       {inProgress.length > 0 ? (
         <div className='flex flex-col w-full lg:flex-row'>
           <div className='card w-96 bg-base-300'>
-            {inProgress?.map((exercise) => (
+            {inProgress.map((exercise) => (
               <div key={exercise.id}>
                 {(exercise.createdBy === userData.username ||
                   friends?.includes(exercise.createdBy)) && (
@@ -96,6 +97,7 @@ export const Divider = ({ timer, setTimer, setStartTimer }) => {
                         onClick={() =>
                           handleRemoveFromList(
                             removeExerciseInProgress,
+                            exercise.categoryName,
                             exercise.id,
                             setAlertMessage,
                             setShowSuccess,

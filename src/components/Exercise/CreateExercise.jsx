@@ -85,7 +85,6 @@ export const CreateExercise = () => {
         'Successfully created exercise!'
       );
     } catch (error) {
-      console.log(error.message);
       alertHelper(setAlertMessage, setShowError, error.message);
     }
 
