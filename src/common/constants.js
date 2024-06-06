@@ -61,3 +61,14 @@ export const CATEGORY_MIN_TITLE_LENGTH = 5;
 export const CATEGORY_MAX_DESCRIPTION_LENGTH = 40;
 
 export const CATEGORY_MIN_DESCRIPTION_LENGTH = 1;
+
+export const KG_TO_LBS_CONVERSION_FACTOR = 2.2046;
+
+export const WATER_INTAKE_CONSTANT = 0.033;
+
+export const ACTIVITY_MULTIPLIERS = {
+  lightly_active: 1.33,
+  moderately_active: 1.5,
+  very_active: 1.75,
+  default: 1,
+};
