@@ -1,4 +1,4 @@
-import userPhoto from '../assets/userPhoto.png';
+import userPhoto from '../../assets/userPhoto.png';
 import PropTypes from 'prop-types';
 
 export default function Avatar({ user }) {

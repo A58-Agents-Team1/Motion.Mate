@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
-import logo from '../assets/logo.png';
-import about from '../assets/about.png';
-import contact from '../assets/contact.png';
-import github from '../assets/github.png';
+import { AppContext } from '../../context/AppContext';
+import logo from '../../assets/logo.png';
+import github from '../../assets/github.png';
+import about from '../../assets/about.png';
+import contact from '../../assets/contact.png';
 
 export const Footer = () => {
   const { user } = useContext(AppContext);

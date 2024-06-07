@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../context/AppContext';
-import { fullFormatDate } from '../helper/format-date';
-import { getUserByUsername } from '../services/users.service';
-import { FullAvatar } from '../components/Avatar';
-import EditProfileInfo from '../components/EditProfileInfo/EditProfileInfo';
-import ChangeProfilePhoto from '../components/EditProfileInfo/ChangeProfilePhoto';
-import UserInfo from '../components/UserInfo';
+import { AppContext } from '../../context/AppContext';
+import { fullFormatDate } from '../../helper/format-date';
+import { getUserByUsername } from '../../services/users.service';
+import { FullAvatar } from '../../components/Avatar/Avatar';
+import EditProfileInfo from '../../components/EditProfileInfo/EditProfileInfo';
+import ChangeProfilePhoto from '../../components/EditProfileInfo/ChangeProfilePhoto';
+import UserInfo from '../../components/UserInfo/UserInfo';
 
 export default function MyProfile() {
   const { userData, setAppState } = useContext(AppContext);

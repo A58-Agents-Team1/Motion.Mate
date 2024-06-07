@@ -1,17 +1,17 @@
-import AlertError from '../components/Alerts/AlertError';
-import AlertSuccess from '../components/Alerts/AlertSuccess';
+import AlertError from '../../components/Alerts/AlertError';
+import AlertSuccess from '../../components/Alerts/AlertSuccess';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { alertHelper } from '../helper/alert-helper';
-import { updateUserByUsername } from '../services/users.service';
-import { AppContext } from '../context/AppContext';
+import { alertHelper } from '../../helper/alert-helper';
+import { updateUserByUsername } from '../../services/users.service';
+import { AppContext } from '../../context/AppContext';
 import {
   validateAge,
   validateFieldsForAdditionalInfo,
   validateFirstName,
   validateHeight,
   validateWeight,
-} from '../common/user.validations';
+} from '../../common/user.validations';
 
 export default function RegisterAdditionalInfo() {
   const { userData } = useContext(AppContext);

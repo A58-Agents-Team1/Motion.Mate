@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
-import { getAllFriends } from '../services/users.service';
-import { AppContext } from '../context/AppContext';
-import SingleUserView from '../components/SingleUserView';
+import { getAllFriends } from '../../services/users.service';
+import { AppContext } from '../../context/AppContext';
+import SingleUserView from '../../components/SingleUser/SingleUserView';
 
 export default function MyFriends() {
   const { userData } = useContext(AppContext);

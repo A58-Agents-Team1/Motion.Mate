@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import { useSearchParams } from 'react-router-dom';
 import {
   getAllUsers,
   getFilterUserBySearchTerm,
-} from '../services/users.service';
-import SingleUserView from '../components/SingleUserView';
+} from '../../services/users.service';
+import SingleUserView from '../../components/SingleUser/SingleUserView';
 
 export default function AllUsers() {
   const { userData } = useContext(AppContext);

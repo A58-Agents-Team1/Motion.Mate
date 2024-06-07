@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
-import { registerUser } from '../services/auth.service';
+import { registerUser } from '../../services/auth.service';
+import { alertHelper } from '../../helper/alert-helper';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../context/AppContext';
-import AlertError from '../components/Alerts/AlertError';
-import AlertSuccess from '../components/Alerts/AlertSuccess';
+import { AppContext } from '../../context/AppContext';
+import AlertError from '../../components/Alerts/AlertError';
+import AlertSuccess from '../../components/Alerts/AlertSuccess';
 import {
   createUser,
   getUploadedPhoto,
   uploadPhoto,
-} from '../services/users.service';
+} from '../../services/users.service';
 import {
   validatePassword,
   validateRequiredFieldsReg,
@@ -16,8 +17,7 @@ import {
   validateUserNameRegAsync,
   validatePhoneNumberAsync,
   validatePhoto,
-} from '../common/user.validations';
-import { alertHelper } from '../helper/alert-helper';
+} from '../../common/user.validations';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -99,10 +99,7 @@ export default function Register() {
 
   return (
     <>
-      <div
-        id='register'
-        className='hero min-h-screen bg-base-300'
-      >
+      <div id='register' className='hero min-h-screen bg-base-300'>
         <div className='hero-content flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
             <h1 className='text-5xl font-bold'>Register!</h1>
@@ -187,10 +184,7 @@ export default function Register() {
                 />
               </div>
               <div className='form-control mt-6'>
-                <button
-                  onClick={register}
-                  className='btn btn-primary '
-                >
+                <button onClick={register} className='btn btn-primary '>
                   Register
                 </button>
               </div>

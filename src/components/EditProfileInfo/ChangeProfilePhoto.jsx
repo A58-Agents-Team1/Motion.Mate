@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { uploadPhoto } from '../../services/users.service';
-import { FullAvatar } from '../Avatar';
+import { FullAvatar } from '../Avatar/Avatar';
 
 export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
   const { userData } = useContext(AppContext);

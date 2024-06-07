@@ -1,5 +1,5 @@
-import logo from '../assets/logo.png';
-import userPhoto from '../assets/userPhoto.png';
+import logo from '../../assets/logo.png';
+import userPhoto from '../../assets/userPhoto.png';
 
 export default function ContactUs() {
   return (

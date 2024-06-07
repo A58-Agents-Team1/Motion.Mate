@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { shortFormatDate } from '../helper/format-date';
-import Avatar from './Avatar';
+import { shortFormatDate } from '../../helper/format-date';
+import Avatar from '../Avatar/Avatar';
 import PropTypes from 'prop-types';
 import {
   removeFriendRequestService,
   removeFriendService,
   sendRequestService,
-} from '../services/users.service';
+} from '../../services/users.service';
 import { onValue, ref } from 'firebase/database';
 import { useContext, useEffect, useState } from 'react';
-import { db } from '../config/firebase-config';
-import { AppContext } from '../context/AppContext';
+import { db } from '../../config/firebase-config';
+import { AppContext } from '../../context/AppContext';
 
 export default function SingleUserView({ user, setRefresh }) {
   const { userData } = useContext(AppContext);

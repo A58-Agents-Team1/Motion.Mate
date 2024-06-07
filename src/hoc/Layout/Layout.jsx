@@ -1,5 +1,5 @@
-import { NavBar } from '../components/Navigation/NavBar';
-import { Footer } from '../components/Footer';
+import { NavBar } from '../../components/Navigation/NavBar';
+import { Footer } from '../../components/Footer/Footer';
 import PropTypes from 'prop-types';
 
 export const Layout = ({ children }) => {

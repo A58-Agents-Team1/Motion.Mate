@@ -1,28 +1,28 @@
 import { auth } from './config/firebase-config';
-import { Layout } from './hoc/Layout';
+import { Layout } from './hoc/Layout/Layout';
+import { Exercises } from './views/Exercises';
 import { AppContext } from './context/AppContext';
 import { getUserData } from './services/users.service';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Route, Routes } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import Home from './views/Home';
-import About from './views/About';
 import Login from './components/Login/Login';
-import Register from './views/Register';
-import NotFound from './views/NotFound';
-import MyProfile from './views/MyProfile';
-import Authenticated from './hoc/Authenticated';
-import AllUsers from './views/AllUsers';
+import Register from './views/Register/Register';
+import NotFound from './views/NotFound/NotFound';
+import MyProfile from './views/MyProfile/MyProfile';
+import Authenticated from './hoc/Authenticated/Authenticated';
+import AllUsers from './views/AllUsers/AllUsers';
 import Goals from './views/Goals';
-import FullProfileView from './views/FullProfileView';
-import MyFriends from './views/MyFriends';
+import FullProfileView from './views/FullProfileView/FullProfileView';
+import MyFriends from './views/MyFriends/MyFriends';
 import Categories from './components/Categories/Categories';
-import AdminPanel from './views/AdminPanel';
+import AdminPanel from './views/AdminPanel/AdminPanel';
 import DetailedGoal from './components/Goals/DetailedGoal';
-import ContactUs from './views/ContactUs';
-import RegisterAdditionalInfo from './views/RegisterAdditionalInfo';
-import { Exercises } from './views/Exercises';
+import ContactUs from './views/ContactUs/ContactUs';
+import RegisterAdditionalInfo from './views/RegisterAdditionalInfo/RegisterAdditionalInfo';
 import WellnessHealthTools from './views/WellnessAndHealthTools/WellnessAndHealthTools';
+import About from './views/About/About';
 
 function App() {
   const [appState, setAppState] = useState({

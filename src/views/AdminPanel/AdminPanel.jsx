@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../context/AppContext';
 import {
   blockUserAsync,
   deleteUserAsync,
   getAllUsers,
   promoteToAdminAsync,
-} from '../services/users.service';
-import { AppContext } from '../context/AppContext';
+} from '../../services/users.service';
 
 export default function AdminPanel() {
   const { userData } = useContext(AppContext);

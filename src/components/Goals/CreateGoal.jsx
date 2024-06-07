@@ -85,10 +85,7 @@ export default function CreateGoal() {
       >
         Create Goal
       </button>
-      <dialog
-        id='my_modal_3'
-        className='modal '
-      >
+      <dialog id='my_modal_3' className='modal '>
         <div className='modal-box py-16'>
           <form method='dialog'>
             <button

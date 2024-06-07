@@ -110,23 +110,13 @@ const DetailedGoal = () => {
         </div>
 
         {goal?.type === 'exercises' && (
-          <GoalButton
-            primary
-            title='Add Exercise'
-          />
+          <GoalButton primary title='Add Exercise' />
         )}
         {goal?.type === 'calories' && (
-          <GoalButton
-            primary
-            title='Add Exercise'
-          />
+          <GoalButton primary title='Add Exercise' />
         )}
 
-        <GoalButton
-          primary
-          title='Back'
-          onClick={() => navigate(-1)}
-        />
+        <GoalButton primary title='Back' onClick={() => navigate(-1)} />
       </div>
       {showError && <AlertError message={showMessage} />}
     </>

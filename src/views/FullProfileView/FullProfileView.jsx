@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { fullFormatDate } from '../helper/format-date';
-import { getUserByUsername } from '../services/users.service';
+import { fullFormatDate } from '../../helper/format-date';
+import { getUserByUsername } from '../../services/users.service';
 import { useEffect, useState } from 'react';
-import Avatar from '../components/Avatar';
-import UserInfo from '../components/UserInfo';
+import Avatar from '../../components/Avatar/Avatar';
+import UserInfo from '../../components/UserInfo/UserInfo';
 
 export default function FullProfileView() {
   const [user, setUser] = useState(null);

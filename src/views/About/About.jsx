@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getAllUsers } from '../services/users.service';
-import { SVG } from '../components/About/SVG';
+import { getAllUsers } from '../../services/users.service';
+import { SVG } from '../../components/About/SVG';
 
 export default function About() {
   const [countUser, setCountUser] = useState();
