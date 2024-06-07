@@ -6,11 +6,7 @@ import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
 import PropTypes from 'prop-types';
 
-export const AccountStats = ({
-  timer,
-  // exerciseInProgress,
-  // setExerciseInProgress,
-}) => {
+export const AccountStats = ({ timer }) => {
   const { userData } = useContext(AppContext);
   const [currentCalories, setCurrentCalories] = useState(0);
   const [timeLeft, setTimeLeft] = useState(null);
@@ -34,7 +30,6 @@ export const AccountStats = ({
     if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours === -3) {
       const updateCalories = async () => {
         await whenTimerEnds(userData.username, 0);
-        // setExerciseInProgress(0);
       };
       updateCalories();
     }

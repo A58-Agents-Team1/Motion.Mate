@@ -10,9 +10,6 @@ export const HomeAuthenticated = () => {
   const { userData } = useContext(AppContext);
   const [stopButton, setStopButton] = useState('');
 
-  // Still in process
-  // const [exerciseInProgress, setExerciseInProgress] = useState(0);
-
   useEffect(() => {
     return onValue(
       ref(db, `users/${userData.username}/endCurrentExercise`),
@@ -20,7 +17,6 @@ export const HomeAuthenticated = () => {
         if (snapshot?.val()) {
           setTimer(snapshot.val().timeLeft);
           setStopButton(snapshot.val().exerciseId);
-          // setExerciseInProgress(1);
         } else {
           setTimer(null);
           setStopButton('');
@@ -31,11 +27,7 @@ export const HomeAuthenticated = () => {
 
   return (
     <>
-      <AccountStats
-        timer={timer}
-        // exerciseInProgress={exerciseInProgress}
-        // setExerciseInProgress={setExerciseInProgress}
-      />
+      <AccountStats timer={timer} />
       <Divider stopButton={stopButton} />
     </>
   );
