@@ -70,9 +70,11 @@ export default function EditProfileInfo({ setEditProfile }) {
         <p>Greetings, {userData?.username}! Ready to make updates? </p>
         <p>Edit your account details here.</p>
       </h1>
-      <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center justify-center'>
+      <div className='border-2 border-gray-500 rounded bg-base-300 p-4 shadow-lg flex items-center justify-center'>
         <div className='mr-4 flex flex-col text-left text-lg px-4'>
-          <p className='font-bold underline'>Edit profile info here:</p>
+          <p className='font-bold underline text-primary'>
+            Edit profile info here:
+          </p>
           <label htmlFor='firstName'>First Name:</label>
           <input
             type='text'
@@ -135,7 +137,7 @@ export default function EditProfileInfo({ setEditProfile }) {
           />
         </div>
         <div className='text-center text-lg ml-4 px-4'>
-          <p className='font-bold underline'>Main Information:</p>
+          <p className='font-bold underline text-primary'>Main Information:</p>
           {userData?.username ? (
             <p className='my-4'>UserName: {userData?.username}</p>
           ) : (

@@ -11,7 +11,9 @@ export default function BMIClassificationTable() {
 
   return (
     <div className='flex flex-col items-center justify-center my-6'>
-      <h2 className='font-bold text-2xl mb-4'>BMI Classification Table</h2>
+      <h2 className='font-bold text-2xl mb-4 text-primary'>
+        BMI Classification Table
+      </h2>
       <div className='w-full max-w-md'>
         {classifications.map((item, index) => (
           <div

@@ -60,7 +60,7 @@ export default function BodyMassIndex() {
 
   return (
     <div className='card p-4 flex flex-col bg-base-100 text-center m-4 border-2 border-gray-500 rounded-2xl shadow-2xl'>
-      <p className='font-bold text-xl mb-8'>
+      <p className='font-bold text-xl text-primary mb-8'>
         BMI, or Body Mass Index, is a widely used tool to assess whether an
         individual has a healthy body weight for a given height.
       </p>
@@ -71,7 +71,7 @@ export default function BodyMassIndex() {
         popular measure, it can also be misleading in certain cases and for some
         groups of people.
       </p>
-      <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-200 text-black'>
+      <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
         <p>Find your BMI and health risks: </p>
         {isChecked ? (
           <BMIInMetricSystem form={form} updateForm={updateForm} />
@@ -143,7 +143,9 @@ export default function BodyMassIndex() {
       </div>
       <BMIClassificationTable />
       <div className='mb-4'>
-        <h1>Why is BMI important to know?</h1>
+        <h1 className='text-primary font-bold'>
+          Why is BMI important to know?
+        </h1>
         <p>
           BMI is a good way to check your risk of diseases related to body fat.
           Living with overweight or obesity is associated with an increased risk

@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { fullFormatDate } from '../../helper/format-date';
 import { getUserByUsername } from '../../services/users.service';
-import { FullAvatar } from '../../components/Avatar/Avatar';
 import EditProfileInfo from '../../components/EditProfileInfo/EditProfileInfo';
 import ChangeProfilePhoto from '../../components/EditProfileInfo/ChangeProfilePhoto';
 import UserInfo from '../../components/UserInfo/UserInfo';
+import UnSizedAvatar from '../../components/Avatar/UnSizedAvatar';
 
 export default function MyProfile() {
   const { userData, setAppState } = useContext(AppContext);
@@ -33,12 +33,14 @@ export default function MyProfile() {
             Greetings, {userData?.username}! Explore all the details about your
             account here.
           </h1>
-          <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex items-center justify-center'>
+          <div className='border-2 border-gray-500 rounded-xl bg-base-300 p-4 shadow-lg flex items-center justify-center'>
             <div className='mr-4'>
-              <FullAvatar user={userData} />
+              <UnSizedAvatar user={userData} />
             </div>
             <div className='text-center text-lg ml-5'>
-              <p className='font-bold underline'>Main Information:</p>
+              <p className='font-bold underline text-primary'>
+                Main Information:
+              </p>
               <UserInfo userData={userData} />
               {userData?.friends &&
                 (Object.keys(userData.friends).length === 1 ? (

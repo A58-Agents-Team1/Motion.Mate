@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { uploadPhoto } from '../../services/users.service';
-import { FullAvatar } from '../Avatar/Avatar';
+import UnSizedAvatar from '../Avatar/UnSizedAvatar';
 
 export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
   const { userData } = useContext(AppContext);
@@ -28,10 +28,10 @@ export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
         </p>
         <p>Upload or change your profile photo here.</p>
       </div>
-      <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex flex-col items-center'>
+      <div className='border-2 border-gray-500 bg-base-300 rounded p-4 shadow-lg flex flex-col items-center'>
         <div className='flex items-center'>
           <div className='mr-4'>
-            <FullAvatar user={userData} />
+            <UnSizedAvatar user={userData} />
           </div>
           <div className='text-center'>
             {imageUpload !== null && (
