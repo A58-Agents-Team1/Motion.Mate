@@ -81,7 +81,7 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
           </div>
         </div>
       </th>
-      <td>{type}</td>
+      <td className='first-letter:uppercase'>{type}</td>
       <td>{name}</td>
 
       <td>
