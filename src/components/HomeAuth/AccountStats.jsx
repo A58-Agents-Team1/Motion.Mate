@@ -1,25 +1,48 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { calculateTimeLeft } from '../../helper/format-date';
+import { whenTimerEnds } from '../../services/users.service';
+import { onValue, ref } from 'firebase/database';
+import { db } from '../../config/firebase-config';
 
-export const AccountStats = ({ timer }) => {
+export const AccountStats = ({
+  timer,
+  // exerciseInProgress,
+  // setExerciseInProgress,
+}) => {
   const { userData } = useContext(AppContext);
-  const [doneExercise, setDoneExercise] = useState(0);
+  const [currentCalories, setCurrentCalories] = useState(0);
   const [timeLeft, setTimeLeft] = useState(null);
+  const [doneExercises, setDoneExercises] = useState(0);
+
+  useEffect(() => {
+    return onValue(
+      ref(db, `users/${userData.username}/updatedScores`),
+      (snapshot) => {
+        setCurrentCalories(snapshot?.val()?.updatedCalories);
+        setDoneExercises(snapshot?.val()?.doneExercises);
+      }
+    );
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
       setTimeLeft({ ...calculateTimeLeft(new Date(timer)) });
-      if (timeLeft?.seconds === 1) {
-        setDoneExercise((doneExercise) => doneExercise + 1);
-      }
     }, 1000);
+
+    if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours === -3) {
+      const updateCalories = async () => {
+        await whenTimerEnds(userData.username, 0);
+        // setExerciseInProgress(0);
+      };
+      updateCalories();
+    }
     return () => clearTimeout();
   }, [timeLeft]);
 
   return (
     <div className='flex flex-col items-center w-full '>
-      <div className='stats shadow w-full max-w-3xl flex items-start mb-10'>
+      <div className='stats shadow w-full max-w-3xl flex items-start '>
         <div className='stat gap-2'>
           <div className='stat-figure text-secondary'>
             <svg
@@ -37,7 +60,7 @@ export const AccountStats = ({ timer }) => {
             </svg>
           </div>
           <div className='stat-title'>Exercises done </div>
-          <div className='stat-value text-secondary'>{0}</div>
+          <div className='stat-value text-secondary'>{doneExercises || 0}</div>
           <div className='stat-desc text-secondary'>Be active</div>
         </div>
         <div className='stat gap-2'>
@@ -104,7 +127,9 @@ export const AccountStats = ({ timer }) => {
             <div className='avatar online'></div>
           </div>
           <div className='stat-title'>Calories burned</div>
-          <div className='stat-value text-secondary'>0</div>
+          <div className='stat-value text-secondary'>
+            {currentCalories || 0}
+          </div>
           <div className='stat-desc text-secondary'>Challenge yourself</div>
         </div>
       </div>
