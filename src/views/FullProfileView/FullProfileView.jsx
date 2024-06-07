@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { fullFormatDate } from '../../helper/format-date';
 import { getUserByUsername } from '../../services/users.service';
 import { useEffect, useState } from 'react';
-import Avatar from '../../components/Avatar/Avatar';
 import UserInfo from '../../components/UserInfo/UserInfo';
+import SizedAvatar from '../../components/Avatar/SizedAvatar';
 
 export default function FullProfileView() {
   const [user, setUser] = useState(null);
@@ -23,7 +23,9 @@ export default function FullProfileView() {
 
   return (
     <div className='card card-side shadow-xl m-4 border border-gray-400 flex flex-row rounded-2xl'>
-      <Avatar user={user} />
+      <div className='flex ml-8'>
+        <SizedAvatar user={user} />
+      </div>
       <div className='container card-body text-left justify-between'>
         <div className='top-div text-center'>
           {user?.firstName && user?.lastName ? (

@@ -74,7 +74,7 @@ export default function ActivityLevelWaterIntake() {
   return (
     <>
       <div className='card p-4 flex flex-col bg-base-100 text-center m-4 border-2 border-gray-500 rounded-2xl shadow-2xl'>
-        <p className='font-bold text-xl mb-8'>
+        <p className='font-bold text-xl mb-8 text-primary'>
           Understanding how much water you need to drink daily is essential for
           maintaining good health, and your activity level plays a significant
           role in determining this amount.
@@ -86,7 +86,7 @@ export default function ActivityLevelWaterIntake() {
           the body properly hydrated. A sedentary individual needs less water
           compared to someone who is very active.
         </p>
-        <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-200 text-black'>
+        <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
           <p>Water Intake Calculator: </p>
 
           <div>
@@ -140,7 +140,9 @@ export default function ActivityLevelWaterIntake() {
           </div>
         </div>
         <div className='mb-4 mt-6'>
-          <h1>Why is Proper Hydration Important?</h1>
+          <h1 className='text-primary font-bold'>
+            Why is Proper Hydration Important?
+          </h1>
           <p>
             Proper hydration is crucial for maintaining overall health and
             well-being. Water is essential for various bodily functions,

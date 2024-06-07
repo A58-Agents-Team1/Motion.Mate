@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { shortFormatDate } from '../../helper/format-date';
-import Avatar from '../Avatar/Avatar';
 import PropTypes from 'prop-types';
 import {
   removeFriendRequestService,
@@ -11,6 +10,7 @@ import { onValue, ref } from 'firebase/database';
 import { useContext, useEffect, useState } from 'react';
 import { db } from '../../config/firebase-config';
 import { AppContext } from '../../context/AppContext';
+import SizedAvatar from '../Avatar/SizedAvatar';
 
 export default function SingleUserView({ user, setRefresh }) {
   const { userData } = useContext(AppContext);
@@ -63,7 +63,7 @@ export default function SingleUserView({ user, setRefresh }) {
 
   return (
     <div className='card card-side shadow-xl m-4 border border-gray-400 rounded-2xl h-70 w-full'>
-      <Avatar user={user} />
+      <SizedAvatar user={user} />
       <div className='container card-body text-left justify-between'>
         <div className='top-div text-center'>
           {user?.firstName && user?.lastName ? (
