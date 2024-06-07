@@ -92,7 +92,7 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
           <Progress progress={progress} />
         </td>
       )}
-      <td>
+      <td className='flex items-center h-28'>
         <GoalButton
           primary={false}
           title={'Details'}
@@ -102,7 +102,7 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
         {(userData?.username === owner || userData?.userRole === 'admin') && (
           <GoalButton
             primary={false}
-            styles='btn-warning'
+            styles='btn-warning '
             onClick={handleDeleteClick}
           >
             <FontAwesomeIcon icon={faTrashCan} />
