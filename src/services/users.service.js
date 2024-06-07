@@ -254,3 +254,27 @@ export const getUserAvatar = async (username) => {
   const result = await get(ref(db, `users/${username}/avatar`));
   return result.val();
 };
+
+export const startExercise = async (username, time, exerciseId, calories) => {
+  await update(ref(db, `users/${username}`), {
+    endCurrentExercise: {
+      timeLeft: time,
+      exerciseId,
+      calories: calories,
+    },
+  });
+};
+
+export const endExercise = async (username) => {
+  await update(ref(db, `users/${username}`), { endCurrentExercise: null });
+};
+
+export const addBurnedCalories = async (username, calories) => {
+  await update(ref(db, `users/${username}`), { burnedCalories: calories });
+};
+
+export const getCalories = async (username) => {
+  const result = await get(ref(db, `users/${username}/burnedCalories`));
+  console.log(result.val());
+  return result.val();
+};

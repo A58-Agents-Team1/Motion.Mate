@@ -79,7 +79,9 @@ export const NavBar = () => {
                 {userData && !userData?.isBlocked && (
                   <>
                     <li>
-                      <NavLink to={'/BMI'}>Body Mass Index</NavLink>
+                      <NavLink to={'/wellness-health-tools'}>
+                        Wellness & Health Tools
+                      </NavLink>
                     </li>
                     <li>
                       <NavLink to={'/goals'}>Goals</NavLink>
@@ -153,7 +155,9 @@ export const NavBar = () => {
                 <NavLink to={'/all-users'}>All Users</NavLink>
               </li>
               <li>
-                <NavLink to={'/BMI'}>BMI</NavLink>
+                <NavLink to={'/wellness-health-tools'}>
+                  Wellness & Health Tools
+                </NavLink>
               </li>
               <li>
                 <NavLink to={'/goals'}>Goals</NavLink>

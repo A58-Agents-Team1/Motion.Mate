@@ -1,5 +1,6 @@
 export const handleRemoveFromList = async (
   removeExerciseInProgress,
+  categoryName,
   id,
   setAlertMessage,
   setShowSuccess,
@@ -9,7 +10,7 @@ export const handleRemoveFromList = async (
   message
 ) => {
   try {
-    await removeExerciseInProgress(id);
+    await removeExerciseInProgress(categoryName, id);
     alertHelper(setAlertMessage, setShowSuccess, message);
   } catch (error) {
     alertHelper(setAlertMessage, setShowError, error.message);
@@ -17,6 +18,7 @@ export const handleRemoveFromList = async (
 };
 
 export const handleAddToList = async (
+  categoryName,
   id,
   addExerciseInProgress,
   alertHelper,
@@ -27,7 +29,7 @@ export const handleAddToList = async (
   message
 ) => {
   try {
-    await addExerciseInProgress(id);
+    await addExerciseInProgress(categoryName, id);
     alertHelper(setAlertMessage, setShowSuccess, message);
   } catch (error) {
     alertHelper(setAlertMessage, setShowError, error.message);
@@ -35,6 +37,7 @@ export const handleAddToList = async (
 };
 
 export const handleDelete = async (
+  categoryName,
   itemId,
   deleteExercise,
   alertHelper,
@@ -44,7 +47,7 @@ export const handleDelete = async (
   message
 ) => {
   try {
-    await deleteExercise(itemId);
+    await deleteExercise(categoryName, itemId);
     alertHelper(setAlertMessage, setShowSuccess, message);
   } catch (error) {
     alertHelper(setAlertMessage, setShowError, error.message);
@@ -62,6 +65,7 @@ export const startEditing = (exercise, setEditingExerciseId, setEditForm) => {
 };
 
 export const submitEdit = async (
+  categoryName,
   exerciseId,
   editForm,
   editExercise,
@@ -71,7 +75,7 @@ export const submitEdit = async (
   setShowError
 ) => {
   try {
-    await editExercise(exerciseId, editForm);
+    await editExercise(categoryName, exerciseId, editForm);
     setAlertMessage('Exercise updated successfully!');
     setShowSuccess(true);
     setEditingExerciseId(null);

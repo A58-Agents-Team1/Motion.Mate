@@ -1,15 +1,15 @@
+import { useState } from 'react';
 import {
   validateFormInImperial,
   validateFormInMetric,
-} from '../common/BMIValidations';
-import { alertHelper } from '../helper/alert-helper';
-import { useState } from 'react';
-import BMIClassificationTable from '../components/BMI/BMIClassificationTable';
-import BMIInMetricSystem from '../components/BMI/BMIInMetricSystem';
-import BMIInImperialSystem from '../components/BMI/BMIInImperialSystem';
-import AlertSuccess from '../components/Alerts/AlertSuccess';
-import AlertError from '../components/Alerts/AlertError';
-import { BMI_CONVERSION_FACTOR } from '../common/constants';
+} from '../../common/BMIValidations';
+import { BMI_CONVERSION_FACTOR } from '../../common/constants';
+import { alertHelper } from '../../helper/alert-helper';
+import BMIInMetricSystem from './BMIInMetricSystem';
+import BMIInImperialSystem from './BMIInImperialSystem';
+import BMIClassificationTable from './BMIClassificationTable';
+import AlertSuccess from '../Alerts/AlertSuccess';
+import AlertError from '../Alerts/AlertError';
 
 export default function BodyMassIndex() {
   const [isChecked, setIsChecked] = useState(true);
@@ -25,6 +25,7 @@ export default function BodyMassIndex() {
   const handleChange = () => {
     setIsChecked(!isChecked);
     setForm({ weight: '', height: '' });
+    setBMI(0);
   };
 
   const updateForm = (key) => (e) => {
@@ -58,7 +59,7 @@ export default function BodyMassIndex() {
   };
 
   return (
-    <div className='flex flex-col text-center'>
+    <div className='card p-4 flex flex-col bg-base-100 text-center m-4 border-2 border-gray-500 rounded-2xl shadow-2xl'>
       <p className='font-bold text-xl mb-8'>
         BMI, or Body Mass Index, is a widely used tool to assess whether an
         individual has a healthy body weight for a given height.
@@ -70,7 +71,7 @@ export default function BodyMassIndex() {
         popular measure, it can also be misleading in certain cases and for some
         groups of people.
       </p>
-      <div className='mt-8 flex flex-col border-2 border-gray-400 rounded-3xl p-4 bg-orange-200 text-black'>
+      <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-200 text-black'>
         <p>Find your BMI and health risks: </p>
         {isChecked ? (
           <BMIInMetricSystem form={form} updateForm={updateForm} />
@@ -78,12 +79,6 @@ export default function BodyMassIndex() {
           <BMIInImperialSystem form={form} updateForm={updateForm} />
         )}
         <div className='flex mt-4 items-center justify-end'>
-          <button
-            className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 mr-4'
-            onClick={() => calculate()}
-          >
-            Calculate
-          </button>
           <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
             <p>Imperial or Metric System</p>
             <label className='cursor-pointer label'>
@@ -95,10 +90,16 @@ export default function BodyMassIndex() {
               />
             </label>
           </div>
+          <button
+            className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 mx-4'
+            onClick={() => calculate()}
+          >
+            Calculate
+          </button>
         </div>
         <div className='mt-4'>
           {BMI === 0 ? (
-            <p>Enter your weight and height to calculate your BMI</p>
+            <p>Enter your weight and height to calculate your BMI.</p>
           ) : BMI < 18.5 ? (
             <p>
               Your BMI is {BMI}. You are{' '}

@@ -15,7 +15,6 @@ import Authenticated from './hoc/Authenticated';
 import AllUsers from './views/AllUsers';
 import Goals from './views/Goals';
 import FullProfileView from './views/FullProfileView';
-import BodyMassIndex from './views/BodyMassIndex';
 import MyFriends from './views/MyFriends';
 import Categories from './components/Categories/Categories';
 import AdminPanel from './views/AdminPanel';
@@ -23,6 +22,7 @@ import DetailedGoal from './components/Goals/DetailedGoal';
 import ContactUs from './views/ContactUs';
 import RegisterAdditionalInfo from './views/RegisterAdditionalInfo';
 import { Exercises } from './views/Exercises';
+import WellnessHealthTools from './views/WellnessAndHealthTools/WellnessAndHealthTools';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -67,10 +67,10 @@ function App() {
             <Route path='*' element={<NotFound />} />
             <Route path='/contact-us' element={<ContactUs />} />
             <Route
-              path='/BMI'
+              path='/wellness-health-tools'
               element={
                 <Authenticated user={user}>
-                  <BodyMassIndex />
+                  <WellnessHealthTools />
                 </Authenticated>
               }
             />

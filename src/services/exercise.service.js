@@ -44,18 +44,18 @@ export const getExercises = async () => {
   }
 };
 
-export const deleteExercise = async (exerciseId) => {
+export const deleteExercise = async (categoryName, exerciseId) => {
   try {
-    const postRef = ref(db, `exercises/${exerciseId}`);
+    const postRef = ref(db, `exercises/${categoryName}/${exerciseId}`);
     await remove(postRef);
   } catch (error) {
     throw new Error(error.message);
   }
 };
 
-export const addExerciseInProgress = async (exerciseId) => {
+export const addExerciseInProgress = async (categoryName, exerciseId) => {
   try {
-    return await update(ref(db, `exercises/${exerciseId}`), {
+    return await update(ref(db, `exercises/${categoryName}/${exerciseId}`), {
       inProgress: true,
     });
   } catch (error) {
@@ -63,9 +63,9 @@ export const addExerciseInProgress = async (exerciseId) => {
   }
 };
 
-export const removeExerciseInProgress = async (exerciseId) => {
+export const removeExerciseInProgress = async (categoryName, exerciseId) => {
   try {
-    return await update(ref(db, `exercises/${exerciseId}`), {
+    return await update(ref(db, `exercises/${categoryName}/${exerciseId}`), {
       inProgress: false,
     });
   } catch (error) {
@@ -73,9 +73,12 @@ export const removeExerciseInProgress = async (exerciseId) => {
   }
 };
 
-export const editExercise = async (exerciseId, data) => {
+export const editExercise = async (categoryName, exerciseId, data) => {
   try {
-    return await update(ref(db, `exercises/${exerciseId}`), data);
+    return await update(
+      ref(db, `exercises/${categoryName}/${exerciseId}`),
+      data
+    );
   } catch (error) {
     throw new Error(error.message);
   }

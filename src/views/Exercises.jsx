@@ -22,7 +22,7 @@ import { getFriends } from '../services/users.service';
 import { ExerciseCard } from '../components/Exercise/ExerciseCard';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export const Exercises = ({ id, setSelectedCategory }) => {
+export const Exercises = () => {
   const [exercises, setExercises] = useState([]);
   const { userData } = useContext(AppContext);
   const [showError, setShowError] = useState(false);
@@ -40,15 +40,13 @@ export const Exercises = ({ id, setSelectedCategory }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchFriends = async () => {
-      const snapshot = await getFriends(userData?.username);
-      setFriends(snapshot);
-    };
-    fetchFriends();
-  }, []);
-
-  useEffect(() => {
     return onValue(ref(db, `exercises/${category}`), (snapshot) => {
+      const fetchFriends = async () => {
+        const snapshot = await getFriends(userData?.username);
+        setFriends(snapshot);
+      };
+      fetchFriends();
+
       const allExercises = [];
       snapshot.forEach((child) => {
         allExercises.push({
@@ -56,7 +54,7 @@ export const Exercises = ({ id, setSelectedCategory }) => {
           ...child.val(),
         });
       });
-      console.log(allExercises);
+
       const filtered = allExercises.filter(
         (exercise) => exercise.createdBy === userData.username
       );
@@ -145,6 +143,7 @@ export const Exercises = ({ id, setSelectedCategory }) => {
                     <button
                       onClick={() =>
                         submitEdit(
+                          category,
                           exercise.id,
                           editForm,
                           editExercise,
@@ -172,6 +171,7 @@ export const Exercises = ({ id, setSelectedCategory }) => {
                         onClick={() =>
                           handleRemoveFromList(
                             removeExerciseInProgress,
+                            category,
                             exercise.id,
                             setAlertMessage,
                             setShowSuccess,
@@ -188,6 +188,7 @@ export const Exercises = ({ id, setSelectedCategory }) => {
                       <button
                         onClick={() =>
                           handleAddToList(
+                            category,
                             exercise.id,
                             addExerciseInProgress,
                             alertHelper,
@@ -221,6 +222,7 @@ export const Exercises = ({ id, setSelectedCategory }) => {
                 <button
                   onClick={() =>
                     handleDelete(
+                      category,
                       exercise.id,
                       deleteExercise,
                       alertHelper,

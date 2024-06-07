@@ -1,46 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { getExercises } from '../../services/exercise.service';
-import { Divider } from '../HomeAuth/Divider';
+import { calculateTimeLeft } from '../../helper/format-date';
 
-export const AccountStats = () => {
-  const [countOFExercises, setCountOfExercises] = useState([]);
+export const AccountStats = ({ timer }) => {
   const { userData } = useContext(AppContext);
-  const [startTimer, setStartTimer] = useState(false);
-  const [timer, setTimer] = useState(0);
   const [doneExercise, setDoneExercise] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
-    const count = async () => {
-      const number = await getExercises();
-      if (number) {
-        const filtered = Object.values(number).filter(
-          (obj) => obj.createdBy === userData.username
-        );
-        setCountOfExercises(filtered);
+    setTimeout(() => {
+      setTimeLeft({ ...calculateTimeLeft(new Date(timer)) });
+      if (timeLeft?.seconds === 1) {
+        setDoneExercise((doneExercise) => doneExercise + 1);
       }
-    };
-    count();
-  }, []);
-
-  useEffect(() => {
-    if (startTimer && timer > 0) {
-      const timeoutId = setTimeout(() => {
-        setTimer((prev) => prev - 1);
-        if (timer === 1) {
-          setDoneExercise((doneExercise) => doneExercise + 1);
-        }
-      }, 1000);
-
-      return () => clearTimeout(timeoutId);
-    } else if (timer === 0) {
-      setStartTimer(false);
-    }
-  }, [startTimer, timer, doneExercise]);
+    }, 1000);
+    return () => clearTimeout();
+  }, [timeLeft]);
 
   return (
-    <div className='flex flex-col items-center w-full'>
-      <div className='stats shadow w-full max-w-3xl flex items-start'>
+    <div className='flex flex-col items-center w-full '>
+      <div className='stats shadow w-full max-w-3xl flex items-start mb-10'>
         <div className='stat gap-2'>
           <div className='stat-figure text-secondary'>
             <svg
@@ -58,7 +37,7 @@ export const AccountStats = () => {
             </svg>
           </div>
           <div className='stat-title'>Exercises done </div>
-          <div className='stat-value text-secondary'>{doneExercise || 0}</div>
+          <div className='stat-value text-secondary'>{0}</div>
           <div className='stat-desc text-secondary'>Be active</div>
         </div>
         <div className='stat gap-2'>
@@ -78,11 +57,46 @@ export const AccountStats = () => {
             </svg>
           </div>
           <div className='stat-title'>Exercises in progress</div>
-          <span className='countdown text-secondary font-mono text-2xl mb-4'>
-            <span style={{ '--value': Math.floor(timer / 3600) }}></span>:
-            <span style={{ '--value': Math.floor((timer % 3600) / 60) }}></span>
-            :<span style={{ '--value': timer % 60 }}></span>
-          </span>
+          {timeLeft?.days +
+            timeLeft?.hours +
+            timeLeft?.minutes +
+            timeLeft?.seconds >
+          0 ? (
+            <div>
+              <span className='countdown text-secondary font-mono text-2xl mb-4'>
+                <span style={{ '--value': timeLeft?.hours }}></span>:
+                <span
+                  style={{
+                    '--value': timeLeft?.minutes,
+                  }}
+                ></span>
+                :
+                <span
+                  style={{
+                    '--value': timeLeft?.seconds,
+                  }}
+                ></span>
+              </span>
+            </div>
+          ) : (
+            <div>
+              <span className='countdown text-secondary font-mono text-2xl mb-4'>
+                <span style={{ '--value': 0 }}></span>:
+                <span
+                  style={{
+                    '--value': 0,
+                  }}
+                ></span>
+                :
+                <span
+                  style={{
+                    '--value': 0,
+                  }}
+                ></span>
+              </span>
+            </div>
+          )}
+
           <div className='stat-desc text-secondary'>Be active</div>
         </div>
         <div className='stat gap-2'>
@@ -94,11 +108,6 @@ export const AccountStats = () => {
           <div className='stat-desc text-secondary'>Challenge yourself</div>
         </div>
       </div>
-      <Divider
-        timer={timer}
-        setTimer={setTimer}
-        setStartTimer={setStartTimer}
-      />
     </div>
   );
 };

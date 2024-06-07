@@ -1,5 +1,5 @@
 export const fullFormatDate = (date) =>
-  new Date(date).toLocaleDateString('bg-BG', {
+  new Date(date).toLocaleDateString('en-EN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -9,7 +9,7 @@ export const fullFormatDate = (date) =>
   });
 
 export const shortFormatDate = (date) =>
-  new Date(date).toLocaleDateString('bg-BG', {
+  new Date(date).toLocaleDateString('en-EN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
