@@ -5,4 +5,5 @@ export const alertHelper = (setMessage, setAlert, message) => {
     setAlert(false);
     setMessage(null);
   }, 3000);
+  return () => clearTimeout();
 };
