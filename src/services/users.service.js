@@ -91,6 +91,10 @@ export const createUser = (
     age,
     weight,
     height,
+    previousScores: {
+      previousCalories: 0,
+      doneExercises: 0,
+    },
   });
 };
 
@@ -256,25 +260,44 @@ export const getUserAvatar = async (username) => {
 };
 
 export const startExercise = async (username, time, exerciseId, calories) => {
-  await update(ref(db, `users/${username}`), {
-    endCurrentExercise: {
-      timeLeft: time,
-      exerciseId,
-      calories: calories,
-    },
-  });
+  try {
+    await update(ref(db, `users/${username}`), {
+      endCurrentExercise: {
+        timeLeft: time,
+        exerciseId,
+      },
+    });
+    const newScores = await get(ref(db, `users/${username}/previousScores`));
+    const updatedCalories =
+      Number(newScores.val().previousCalories) + Number(calories);
+
+    await update(ref(db, `users/${username}/previousScores`), {
+      previousCalories: updatedCalories,
+      doneExercises: Number(newScores.val().doneExercises) + 1,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const endExercise = async (username) => {
-  await update(ref(db, `users/${username}`), { endCurrentExercise: null });
+  try {
+    await update(ref(db, `users/${username}`), { endCurrentExercise: null });
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
-export const addBurnedCalories = async (username, calories) => {
-  await update(ref(db, `users/${username}`), { burnedCalories: calories });
-};
-
-export const getCalories = async (username) => {
-  const result = await get(ref(db, `users/${username}/burnedCalories`));
-  console.log(result.val());
-  return result.val();
+export const whenTimerEnds = async (username, countOfDoneExercises) => {
+  try {
+    const currentScores = await get(
+      ref(db, `users/${username}/previousScores`)
+    );
+    await update(ref(db, `users/${username}/updatedScores`), {
+      updatedCalories: currentScores.val().previousCalories,
+      doneExercises: currentScores.val().doneExercises,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
