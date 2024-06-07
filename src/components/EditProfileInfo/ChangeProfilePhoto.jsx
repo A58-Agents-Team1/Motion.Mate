@@ -28,7 +28,7 @@ export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
         </p>
         <p>Upload or change your profile photo here.</p>
       </div>
-      <div className='border-2 border-gray-500 rounded p-4 shadow-lg flex flex-col items-center'>
+      <div className='border-2 border-gray-500 bg-base-300 rounded p-4 shadow-lg flex flex-col items-center'>
         <div className='flex items-center'>
           <div className='mr-4'>
             <UnSizedAvatar user={userData} />

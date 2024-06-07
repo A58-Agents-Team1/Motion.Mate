@@ -62,14 +62,14 @@ export default function SingleUserView({ user, setRefresh }) {
   }, [userData?.username, isFriend, hasRequest]);
 
   return (
-    <div className='card card-side shadow-xl m-4 border border-gray-400 rounded-2xl h-70 w-full'>
+    <div className='card card-side shadow-xl m-5 bg-base-300 border-2 border-gray-500 rounded-2xl h-72 w-full'>
       <SizedAvatar user={user} />
       <div className='container card-body text-left justify-between'>
         <div className='top-div text-center'>
           {user?.firstName && user?.lastName ? (
-            <h2 className='font-bold mb-8'>{`${user?.firstName} ${user?.lastName}`}</h2>
+            <h2 className='font-bold mb-8 text-primary'>{`${user?.firstName} ${user?.lastName}`}</h2>
           ) : (
-            <h2 className='font-bold mb-8'>{user?.username}</h2>
+            <h2 className='font-bold mb-8 text-primary'>{user?.username}</h2>
           )}
           <p>Username: {user?.username}</p>
           <p>Member Since: {shortFormatDate(user?.createdOn)}</p>
