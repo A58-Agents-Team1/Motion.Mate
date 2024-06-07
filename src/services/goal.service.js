@@ -1,10 +1,26 @@
+import { GOAL_MIN_CALORIES, GOAL_MIN_EXERCISES, GOAL_MIN_PROGRESS } from '../common/constants';
 import { goalCreateValidation } from '../common/goal.validations';
 import { db } from '../config/firebase-config'
 import { get, push, ref, remove, set } from 'firebase/database'
 
-export const createGoal = async (name, owner, timePeriodStart, timePeriodEnd) => {
+export const createGoal = async (
+  name,
+  owner,
+  timePeriodStart,
+  timePeriodEnd,
+  type,
+  exercises = GOAL_MIN_EXERCISES,
+  progress = GOAL_MIN_PROGRESS,
+  calories = GOAL_MIN_CALORIES) => {
   try {
-    goalCreateValidation(name, owner, timePeriodStart, timePeriodEnd);
+    const snapshot = await get(ref(db, `users/${owner}/myGoals/`));
+    snapshot.forEach((child) => {
+      if (child.val().name === name) {
+        throw new Error('Goal with this name already exists');
+      }
+    }
+    );
+    goalCreateValidation(name, owner, timePeriodStart, timePeriodEnd, exercises, progress, calories);
     const goal = {
       name,
       owner,
@@ -13,7 +29,10 @@ export const createGoal = async (name, owner, timePeriodStart, timePeriodEnd) =>
         to: timePeriodEnd
       },
       sharedWith: null,
-      progress: 0
+      type,
+      exercises,
+      progress,
+      calories
     }
 
     const goalId = await push(ref(db, `users/${owner}/myGoals/`), goal);
@@ -71,6 +90,10 @@ export const deleteGoal = async (username, goalId) => {
 
 }
 
-// export const shareGoal = async (goalId) => {
-
-// }
+export const updateGoalProgress = async (username, goalId, progress) => {
+  try {
+    return await set(ref(db, `users/${username}/myGoals/${goalId}/progress`), progress);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
