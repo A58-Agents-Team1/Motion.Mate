@@ -1,4 +1,4 @@
-import { GOAL_MAX_NAME_LENGTH, GOAL_MIN_NAME_LENGTH } from "./constants";
+import { GOAL_MAX_CALORIES, GOAL_MAX_EXERCISES, GOAL_MAX_NAME_LENGTH, GOAL_MAX_PROGRESS, GOAL_MIN_CALORIES, GOAL_MIN_EXERCISES, GOAL_MIN_NAME_LENGTH, GOAL_MIN_PROGRESS } from "./constants";
 // TODO: Discuss with your team and implement the following validations:
 // 1. timePeriodStart should be less than now?
 
@@ -25,10 +25,6 @@ export const validateGoalForm = (name, owner, timePeriodStart, timePeriodEnd) =>
     throw new Error('Start date is required');
   }
 
-  // if (timePeriodStart > timeNow) {
-  //   throw new Error('Start date must be today or before');
-  // }
-
   if (!timePeriodEnd) {
     throw new Error('End date is required');
   }
@@ -42,7 +38,7 @@ export const validateGoalForm = (name, owner, timePeriodStart, timePeriodEnd) =>
   }
 }
 
-export const goalCreateValidation = (name, owner, timePeriodStart, timePeriodEnd) => {
+export const goalCreateValidation = (name, owner, timePeriodStart, timePeriodEnd, exercises, progress, calories) => {
   const timeNow = new Date().getTime();
 
   if (!name) {
@@ -65,10 +61,6 @@ export const goalCreateValidation = (name, owner, timePeriodStart, timePeriodEnd
     throw new Error('Start date is required')
   }
 
-  // if (timePeriodStart > timeNow) {
-  //   throw new Error('Start date must be today or before')
-  // }
-
   if (!timePeriodEnd) {
     throw new Error('End date is required')
   }
@@ -80,9 +72,33 @@ export const goalCreateValidation = (name, owner, timePeriodStart, timePeriodEnd
   if (timePeriodStart > timePeriodEnd) {
     throw new Error('Start date must be before end date')
   }
+
+  if (exercises < GOAL_MIN_EXERCISES) {
+    throw new Error(`Exercises must be at least ${GOAL_MIN_EXERCISES}`)
+  }
+
+  if (exercises > GOAL_MAX_EXERCISES) {
+    throw new Error(`Exercises must be at most ${GOAL_MAX_EXERCISES}`)
+  }
+
+  if (progress < GOAL_MIN_PROGRESS) {
+    throw new Error(`Progress must be at least ${GOAL_MIN_PROGRESS}`)
+  }
+
+  if (progress > GOAL_MAX_PROGRESS) {
+    throw new Error(`Progress must be at most ${GOAL_MAX_PROGRESS}`)
+  }
+
+  if (calories < GOAL_MIN_CALORIES) {
+    throw new Error(`Calories must be at least ${GOAL_MIN_CALORIES}`)
+  }
+
+  if (calories > GOAL_MAX_CALORIES) {
+    throw new Error(`Calories must be at most ${GOAL_MAX_CALORIES}`)
+  }
 };
 
-export const goalUpdateValidation = (name, owner, timePeriodStart, timePeriodEnd, progress) => {
+export const goalUpdateValidation = (name, owner, timePeriodStart, timePeriodEnd, exercises, progress, calories) => {
   const timeNow = new Date().getTime();
 
   if (!name) {
@@ -105,10 +121,6 @@ export const goalUpdateValidation = (name, owner, timePeriodStart, timePeriodEnd
     throw new Error('Start date is required');
   }
 
-  // if (timePeriodStart > timeNow) {
-  //   throw new Error('Start date must be today or before');
-  // }
-
   if (!timePeriodEnd) {
     throw new Error('End date is required');
   }
@@ -121,7 +133,27 @@ export const goalUpdateValidation = (name, owner, timePeriodStart, timePeriodEnd
     throw new Error('Start date must be before end date');
   }
 
-  if (!progress) {
-    throw new Error('Progress is required');
+  if (exercises < GOAL_MIN_EXERCISES) {
+    throw new Error(`Exercises must be at least ${GOAL_MIN_EXERCISES}`)
+  }
+
+  if (exercises > GOAL_MAX_EXERCISES) {
+    throw new Error(`Exercises must be at most ${GOAL_MAX_EXERCISES}`)
+  }
+
+  if (progress < GOAL_MIN_PROGRESS) {
+    throw new Error(`Progress must be at least ${GOAL_MIN_PROGRESS}`)
+  }
+
+  if (progress > GOAL_MAX_PROGRESS) {
+    throw new Error(`Progress must be at most ${GOAL_MAX_PROGRESS}`)
+  }
+
+  if (calories < GOAL_MIN_CALORIES) {
+    throw new Error(`Calories must be at least ${GOAL_MIN_CALORIES}`)
+  }
+
+  if (calories > GOAL_MAX_CALORIES) {
+    throw new Error(`Calories must be at most ${GOAL_MAX_CALORIES}`)
   }
 };
