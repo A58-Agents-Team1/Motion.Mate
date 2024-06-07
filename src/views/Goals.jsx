@@ -37,6 +37,7 @@ export default function Goals() {
           <thead>
             <tr>
               <th>Goals</th>
+              <th>Type</th>
               <th>Name</th>
               <th>Time left</th>
               <th>Progress</th>
@@ -54,6 +55,7 @@ export default function Goals() {
                   owner={goal?.owner}
                   name={goal?.name}
                   from={goal?.timePeriod?.from}
+                  type={goal?.type}
                   to={goal?.timePeriod?.to}
                   progress={goal?.progress}
                 />
@@ -64,6 +66,7 @@ export default function Goals() {
           <tfoot>
             <tr>
               <th>Goals</th>
+              <th>Type</th>
               <th>Name</th>
               <th>Time left</th>
               <th>Progress</th>
