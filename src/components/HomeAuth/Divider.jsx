@@ -70,14 +70,20 @@ export const Divider = ({ stopButton }) => {
   return (
     <div>
       {inProgress.length > 0 ? (
-        <div className='flex flex-col w-full lg:flex-row'>
-          <div className='card w-96 bg-base-300 '>
+        <div className='flex flex-col lg:flex-row'>
+          <div className='flex-1 flex flex-wrap'>
             {inProgress.map((exercise) => (
-              <div key={exercise.id}>
+              <div
+                key={exercise.id}
+                className='card w-96 bg-base-300 mb-4'
+              >
                 {(exercise.createdBy === userData.username ||
                   friends?.includes(exercise.createdBy)) && (
                   <div className='card-body '>
-                    <ExerciseCard exercise={exercise} userData={userData} />
+                    <ExerciseCard
+                      exercise={exercise}
+                      userData={userData}
+                    />
                     <div className='card-actions justify-end'>
                       {stopButton === exercise.id ? (
                         <button onClick={stopTimer}>Stop</button>
@@ -114,9 +120,9 @@ export const Divider = ({ stopButton }) => {
               </div>
             ))}
           </div>
-          <div className='divider lg:divider-horizontal'>OR</div>
-          <div className='grid flex-grow h-32 card bg-base-300 rounded-box place-items-center'>
-            <div className='card w-96 bg-base-100 '>
+          <div className='divider lg:divider-horizontal my-auto'>OR</div>
+          <div className='flex-1 grid h-32  place-items-center'>
+            <div className='card w-96 bg-base-100'>
               <div className='card-body shadow-2xl mb-7'>
                 <h2 className='card-title'>Goals</h2>
                 <p>Here are your reached goals</p>
