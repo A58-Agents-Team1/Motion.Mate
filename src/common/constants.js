@@ -61,3 +61,15 @@ export const CATEGORY_MIN_TITLE_LENGTH = 5;
 export const CATEGORY_MAX_DESCRIPTION_LENGTH = 40;
 
 export const CATEGORY_MIN_DESCRIPTION_LENGTH = 1;
+
+export const GOAL_MAX_EXERCISES = 100;
+
+export const GOAL_MIN_EXERCISES = 0;
+
+export const GOAL_MAX_PROGRESS = 100;
+
+export const GOAL_MIN_PROGRESS = 0;
+
+export const GOAL_MAX_CALORIES = 10000;
+
+export const GOAL_MIN_CALORIES = 0;
