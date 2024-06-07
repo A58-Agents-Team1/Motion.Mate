@@ -4,21 +4,22 @@ import GoalButton from './GoalButton';
 import PropTypes from 'prop-types';
 import { calculateTimeLeft } from '../../helper/format-date';
 import { AppContext } from '../../context/AppContext';
-import { deleteGoal } from '../../services/goal.service';
 import { useNavigate } from 'react-router-dom';
-import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertError from '../Alerts/AlertError';
 import { alertHelper } from '../../helper/alert-helper';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import TimeLeft from './TimeLeft';
+import Progress from './Progress';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import AlertSuccess from '../Alerts/AlertSuccess';
+import { deleteGoal } from '../../services/goal.service';
 
-export default function Goal({ id, owner, name, from, to, progress }) {
-  const navigation = useNavigate();
+export default function Goal({ id, owner, name, from, to, progress, type }) {
+  const navigate = useNavigate();
   const { userData } = useContext(AppContext);
   const [showError, setShowError] = useState(false);
-  const [showMessage, setShowMessage] = useState('');
   const [showDeleted, setShowDeleted] = useState(false);
+  const [showMessage, setShowMessage] = useState('');
   const [timeLeft, setTimeLeft] = useState(null);
   const [ownerObj, setOwnerObj] = useState({
     avatar: '',
@@ -28,7 +29,7 @@ export default function Goal({ id, owner, name, from, to, progress }) {
   });
 
   const handleDetailsClick = () => {
-    navigation(`/goals/${(userData?.username, id)}`);
+    navigate(`/goals/${(userData?.username, id)}`);
   };
 
   const handleDeleteClick = async () => {
@@ -80,99 +81,17 @@ export default function Goal({ id, owner, name, from, to, progress }) {
           </div>
         </div>
       </th>
+      <td>{type}</td>
       <td>{name}</td>
 
       <td>
-        {timeLeft?.days +
-          timeLeft?.hours +
-          timeLeft?.minutes +
-          timeLeft?.seconds >
-        0 ? (
-          <div className='grid grid-flow-col gap-5 text-center auto-cols-max'>
-            <div className='flex flex-col'>
-              <span className='countdown font-mono text-xl'>
-                <span style={{ '--value': timeLeft?.days }}></span>
-              </span>
-              days
-            </div>
-            <div className='flex flex-col'>
-              <span className='countdown font-mono text-xl'>
-                <span style={{ '--value': timeLeft?.hours }}></span>
-              </span>
-              hours
-            </div>
-            <div className='flex flex-col'>
-              <span className='countdown font-mono text-xl'>
-                <span style={{ '--value': timeLeft?.minutes }}></span>
-              </span>
-              min
-            </div>
-            <div className='flex flex-col'>
-              <span className='countdown font-mono text-xl'>
-                <span style={{ '--value': timeLeft?.seconds }}></span>
-              </span>
-              sec
-            </div>
-          </div>
-        ) : timeLeft !== null ? (
-          <div className='flex flex-col text-center'>
-            <div className='font-mono text-xl'>
-              <div className='text-red-500 '>
-                {progress < 100 && 'Just do it!'}
-                {progress === 100 && 'Congratulations!'}
-              </div>
-              <div className='flex gap-1 align-middle justify-center text-center text-red-500 w-full'>
-                {progress < 100 && 'But next time'}
-                {progress < 100 && (
-                  <FontAwesomeIcon
-                    beat
-                    icon={faCheck}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className='flex flex-row gap-2.5 w-48'>
-            <div className='flex flex-col gap-1'>
-              <div className='skeleton h-9 w-9'></div>
-              <div className='skeleton h-4 w-9'></div>
-            </div>
-            <div className='flex flex-col gap-1'>
-              <div className='skeleton h-9 w-9'></div>
-              <div className='skeleton h-4 w-9'></div>
-            </div>
-            <div className='flex flex-col gap-1'>
-              <div className='skeleton h-9 w-9'></div>
-              <div className='skeleton h-4 w-9'></div>
-            </div>
-            <div className='flex flex-col gap-1'>
-              <div className='skeleton h-9 w-9'></div>
-              <div className='skeleton h-4 w-9'></div>
-            </div>
-          </div>
-        )}
+        <TimeLeft goal={{ name, owner, progress, timePeriod: { from, to } }} />
       </td>
-      <td>
-        <div
-          className={`radial-progress 
-          ${
-            progress < 25
-              ? 'bg-red-500/45'
-              : progress >= 25 && progress < 50
-              ? 'bg-yellow-400/45'
-              : progress >= 50 && progress < 75
-              ? 'bg-yellow-500/45'
-              : progress >= 75 && progress < 100
-              ? 'bg-green-300/45'
-              : 'bg-green-400/45'
-          }`}
-          style={{ '--value': progress }}
-          role='progressbar'
-        >
-          {progress}
-        </div>
-      </td>
+      {type && (
+        <td>
+          <Progress progress={progress} />
+        </td>
+      )}
       <td>
         <GoalButton
           primary={false}
@@ -203,4 +122,5 @@ Goal.propTypes = {
   from: PropTypes.any.isRequired,
   to: PropTypes.any.isRequired,
   progress: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
 };
