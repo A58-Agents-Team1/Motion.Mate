@@ -45,16 +45,16 @@ export const CreateExercise = () => {
 
   const submitExercise = async () => {
     try {
-      // validateExerciseForm(
-      //   content.title,
-      //   content.content,
-      //   content.hours,
-      //   content.minutes,
-      //   content.seconds,
-      //   content.calories,
-      //   content.level,
-      //   selectedCategoryId
-      // );
+      validateExerciseForm(
+        content.title,
+        content.content,
+        content.hours,
+        content.minutes,
+        content.seconds,
+        content.calories,
+        content.level,
+        selectedCategoryId
+      );
       const result = await createExercises(
         selectedCategoryId,
         content.title,
@@ -102,7 +102,10 @@ export const CreateExercise = () => {
         Create Exercise
       </button>
       <div>
-        <dialog id='exercise-create-modal' className='modal'>
+        <dialog
+          id='exercise-create-modal'
+          className='modal'
+        >
           <div className='modal-box overflow-x-hidden'>
             <h3 className='font-bold text-lg mb-3'>Ready to workout</h3>
             <label className='input input-bordered flex items-center mb-3 select-primary'>
@@ -159,7 +162,10 @@ export const CreateExercise = () => {
               value={content.level}
               onChange={(e) => updateContent(e.target.value, 'level')}
             >
-              <option disabled value=''>
+              <option
+                disabled
+                value=''
+              >
                 Select level
               </option>
               <option value='Easy'>Easy</option>
@@ -172,11 +178,17 @@ export const CreateExercise = () => {
               value={selectedCategoryId}
               onChange={(e) => setSelectedCategoryId(e.target.value)}
             >
-              <option disabled value=''>
+              <option
+                disabled
+                value=''
+              >
                 Select category
               </option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.category}>
+                <option
+                  key={cat.id}
+                  value={cat.category}
+                >
                   {cat.category}
                 </option>
               ))}

@@ -1,4 +1,5 @@
 import { FriendAvatar } from './FriendAvatar';
+import PropTypes from 'prop-types';
 
 export const ExerciseCard = ({ exercise, userData }) => {
   return (
@@ -51,4 +52,9 @@ export const ExerciseCard = ({ exercise, userData }) => {
       </div>
     </>
   );
+};
+
+ExerciseCard.propTypes = {
+  exercise: PropTypes.object,
+  userData: PropTypes.object,
 };

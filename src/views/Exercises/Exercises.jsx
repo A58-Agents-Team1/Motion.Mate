@@ -4,22 +4,22 @@ import {
   deleteExercise,
   editExercise,
   removeExerciseInProgress,
-} from '../services/exercise.service';
-import { AppContext } from '../context/AppContext';
+} from '../../services/exercise.service';
+import { AppContext } from '../../context/AppContext';
 import { onValue, ref } from 'firebase/database';
-import { db } from '../config/firebase-config';
-import { alertHelper } from '../helper/alert-helper';
-import AlertError from '../components/Alerts/AlertError';
-import AlertSuccess from '../components/Alerts/AlertSuccess';
+import { db } from '../../config/firebase-config';
+import { alertHelper } from '../../helper/alert-helper';
+import AlertError from '../../components/Alerts/AlertError';
+import AlertSuccess from '../../components/Alerts/AlertSuccess';
 import {
   handleAddToList,
   handleDelete,
   handleRemoveFromList,
   startEditing,
   submitEdit,
-} from '../helper/exercise-control';
-import { getFriends } from '../services/users.service';
-import { ExerciseCard } from '../components/Exercise/ExerciseCard';
+} from '../../helper/exercise-control';
+import { getFriends } from '../../services/users.service';
+import { ExerciseCard } from '../../components/Exercise/ExerciseCard';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export const Exercises = () => {
@@ -134,7 +134,10 @@ export const Exercises = () => {
                     />
                   </>
                 ) : (
-                  <ExerciseCard exercise={exercise} userData={userData} />
+                  <ExerciseCard
+                    exercise={exercise}
+                    userData={userData}
+                  />
                 )}
               </div>
               <div className='card-actions justify-end'>
@@ -262,7 +265,10 @@ export const Exercises = () => {
         {showError && <AlertError message={alertMessage} />}
         {showSuccess && <AlertSuccess message={alertMessage} />}
       </div>
-      <button onClick={() => navigate(-1)} className='btn btn-primary mt-4'>
+      <button
+        onClick={() => navigate(-1)}
+        className='btn btn-primary mt-4'
+      >
         Back
       </button>
     </div>

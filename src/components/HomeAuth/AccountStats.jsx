@@ -4,6 +4,7 @@ import { calculateTimeLeft } from '../../helper/format-date';
 import { whenTimerEnds } from '../../services/users.service';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
+import PropTypes from 'prop-types';
 
 export const AccountStats = ({
   timer,
@@ -135,4 +136,8 @@ export const AccountStats = ({
       </div>
     </div>
   );
+};
+
+AccountStats.propTypes = {
+  timer: PropTypes.number,
 };

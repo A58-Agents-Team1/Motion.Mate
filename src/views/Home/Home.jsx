@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { getAllUsers } from '../services/users.service';
-import { getExercises } from '../services/exercise.service';
+import { getAllUsers } from '../../services/users.service';
+import { getExercises } from '../../services/exercise.service';
 import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
-import { HomeAuthenticated } from './HomeAuthenticated';
+import { AppContext } from '../../context/AppContext';
 import { useNavigate } from 'react-router-dom';
-import { getAllCategories } from '../services/category.service';
-import { Carousel } from '../components/Home/Carousel';
+import { getAllCategories } from '../../services/category.service';
+import { Carousel } from '../../components/Home/Carousel';
+import { HomeAuthenticated } from '../HomeAuthenticated';
 
 export default function Home() {
   const [allUsers, setAllUsers] = useState([]);

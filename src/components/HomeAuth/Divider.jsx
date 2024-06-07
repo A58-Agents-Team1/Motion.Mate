@@ -13,6 +13,7 @@ import {
   startExercise,
 } from '../../services/users.service';
 import { ExerciseCard } from '../Exercise/ExerciseCard';
+import PropTypes from 'prop-types';
 
 export const Divider = ({ stopButton }) => {
   const [inProgress, setInProgress] = useState([]);
@@ -145,4 +146,8 @@ export const Divider = ({ stopButton }) => {
       {showSuccess && <AlertSuccess message={alertMessage} />}
     </div>
   );
+};
+
+Divider.propTypes = {
+  stopButton: PropTypes.string,
 };

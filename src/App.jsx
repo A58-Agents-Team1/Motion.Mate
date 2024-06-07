@@ -1,12 +1,11 @@
 import { auth } from './config/firebase-config';
 import { Layout } from './hoc/Layout/Layout';
-import { Exercises } from './views/Exercises';
 import { AppContext } from './context/AppContext';
 import { getUserData } from './services/users.service';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Route, Routes } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import Home from './views/Home';
+import { Exercises } from './views/Exercises/Exercises';
 import Login from './components/Login/Login';
 import Register from './views/Register/Register';
 import NotFound from './views/NotFound/NotFound';
@@ -23,6 +22,7 @@ import ContactUs from './views/ContactUs/ContactUs';
 import RegisterAdditionalInfo from './views/RegisterAdditionalInfo/RegisterAdditionalInfo';
 import WellnessHealthTools from './views/WellnessAndHealthTools/WellnessAndHealthTools';
 import About from './views/About/About';
+import Home from './views/Home/Home';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -56,16 +56,34 @@ function App() {
       <AppContext.Provider value={{ ...appState, setAppState }}>
         <Layout>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
+            <Route
+              path='/'
+              element={<Home />}
+            />
+            <Route
+              path='/about'
+              element={<About />}
+            />
+            <Route
+              path='/login'
+              element={<Login />}
+            />
+            <Route
+              path='/register'
+              element={<Register />}
+            />
             <Route
               path='/register-additional-info'
               element={<RegisterAdditionalInfo />}
             />
-            <Route path='*' element={<NotFound />} />
-            <Route path='/contact-us' element={<ContactUs />} />
+            <Route
+              path='*'
+              element={<NotFound />}
+            />
+            <Route
+              path='/contact-us'
+              element={<ContactUs />}
+            />
             <Route
               path='/wellness-health-tools'
               element={

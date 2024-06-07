@@ -8,6 +8,7 @@ import { validateCategoryForm } from '../../common/category.validations';
 import { alertHelper } from '../../helper/alert-helper';
 import AlertError from '../Alerts/AlertError';
 import AlertSuccess from '../Alerts/AlertSuccess';
+import PropTypes from 'prop-types';
 
 const CreateCategory = ({ onCategoryCreated }) => {
   const [image, setImage] = useState(null);
@@ -71,7 +72,10 @@ const CreateCategory = ({ onCategoryCreated }) => {
         Create Category
       </button>
 
-      <dialog id='category-create-modal' className='modal'>
+      <dialog
+        id='category-create-modal'
+        className='modal'
+      >
         <div className='modal-box '>
           <h3 className='font-bold text-lg mb-3'>Create New Category</h3>
 
@@ -122,3 +126,7 @@ const CreateCategory = ({ onCategoryCreated }) => {
 };
 
 export default CreateCategory;
+
+CreateCategory.propTypes = {
+  onCategoryCreated: PropTypes.func,
+};

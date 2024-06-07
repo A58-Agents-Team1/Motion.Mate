@@ -5,7 +5,6 @@ import {
 } from '../../services/category.service';
 import CreateCategory from './CreateCategory';
 import { CreateExercise } from '../Exercise/CreateExercise';
-import { Exercises } from '../../views/Exercises';
 import { DeleteIcon } from './DeleteIcon';
 import { alertHelper } from '../../helper/alert-helper';
 import AlertError from '../Alerts/AlertError';
@@ -72,7 +71,10 @@ const Categories = () => {
                 key={category.id}
               >
                 <figure>
-                  <img src={category.imageUrl} alt={category.category} />
+                  <img
+                    src={category.imageUrl}
+                    alt={category.category}
+                  />
                 </figure>
                 <div className='card-body text-xl'>
                   <button
