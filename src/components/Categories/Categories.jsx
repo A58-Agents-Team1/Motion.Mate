@@ -63,15 +63,16 @@ const Categories = () => {
             </span>
           </h1>
         </div>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8'>
           {allCategories.length > 0 &&
             allCategories.map((category) => (
               <div
-                className='card w-64 bg-base-100 shadow-xl image-full relative'
+                className='card max-h-[400px] bg-base-100 shadow-xl image-full relative'
                 key={category.id}
               >
                 <figure>
                   <img
+                    className='w-full'
                     src={category.imageUrl}
                     alt={category.category}
                   />
@@ -83,8 +84,10 @@ const Categories = () => {
                   >
                     <DeleteIcon />
                   </button>
-                  <h2 className='card-title'>{category.category}</h2>
-                  <p>{category.description}</p>
+                  <h2 className='card-title text-white'>{category.category}</h2>
+                  <p className='text-white opacity-70'>
+                    {category.description}
+                  </p>
                   <div className='flex flex-row'></div>
                   <button
                     onClick={() => navigateToExercise(category)}

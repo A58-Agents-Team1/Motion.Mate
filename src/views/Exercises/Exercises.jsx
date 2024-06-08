@@ -95,14 +95,14 @@ export const Exercises = () => {
       <h2 className='text-2xl font-bold mb-4'>
         Exercises for Category: {category}
       </h2>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2'>
         {exercises.length > 0 ? (
           exercises.map((exercise) => (
             <div
               key={exercise.id}
-              className={'card  p-4 flex flex-col w-full bg-base-300'}
+              className={'card flex flex-col w-full bg-base-300'}
             >
-              <div className='card-body'>
+              <div className='card-body p-4'>
                 {editingExerciseId === exercise.id ? (
                   <>
                     <input
@@ -140,7 +140,7 @@ export const Exercises = () => {
                   />
                 )}
               </div>
-              <div className='card-actions justify-end'>
+              <div className='card-actions justify-end mb-3 mr-3'>
                 {editingExerciseId === exercise.id ? (
                   <div className='flex flex-row gap-3'>
                     <button
@@ -183,7 +183,7 @@ export const Exercises = () => {
                             'Exercise removed from list!'
                           )
                         }
-                        className='btn btn-primary'
+                        className='border border-primary bg-primary text-black px-2 py-1 rounded-md hover:bg-primary hover:text-white transition-all'
                       >
                         Remove from list
                       </button>
@@ -201,7 +201,7 @@ export const Exercises = () => {
                             'Exercise added in list!'
                           )
                         }
-                        className='btn btn-primary'
+                        className='border border-primary bg-primary text-black px-2 py-1 rounded-md hover:bg-primary hover:text-white transition-all'
                       >
                         Add to list
                       </button>
@@ -215,7 +215,7 @@ export const Exercises = () => {
                             setEditForm
                           )
                         }
-                        className='btn btn-primary'
+                        className='border border-primary px-2 py-1 rounded-md text-primary hover:bg-primary hover:text-white transition-all'
                       >
                         Edit
                       </button>
@@ -235,7 +235,7 @@ export const Exercises = () => {
                       'Exercise deleted!'
                     )
                   }
-                  className='btn btn-square btn-outline'
+                  className='border border-red-400 p-1 rounded-md text-red-400 hover:bg-red-400 hover:text-white transition-all'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

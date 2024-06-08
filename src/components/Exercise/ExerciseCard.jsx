@@ -1,54 +1,60 @@
 import { FriendAvatar } from './FriendAvatar';
 import PropTypes from 'prop-types';
+import InfoBite from './InfoBite';
 
 export const ExerciseCard = ({ exercise, userData }) => {
   return (
     <>
-      <div className='flex flex-row gap-5 '>
-        {exercise?.createdBy !== userData?.username && (
-          <div className='avatar'>
-            <div className='w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+      <div className='mb-2'>
+        <div className='avatar flex items-center mb-3'>
+          <div className='w-12 mr-3 rounded-full border-2 border-primary'>
+            {exercise?.createdBy !== userData?.username ? (
               <FriendAvatar username={exercise?.createdBy} />
-            </div>
+            ) : (
+              <img
+                src={userData.avatar}
+                alt='user avatar'
+              />
+            )}
           </div>
-        )}
-        <h3 className='card-title text-lg font-bold '>{exercise.title}</h3>
+
+          <div className='username !aspect-auto'>
+            <small className='block text-xs'>Created By</small>
+            <strong>{exercise.createdBy}</strong>
+          </div>
+        </div>
+
+        <div className='flex items-center justify-between'>
+          <div>
+            <small className='block text-xs'>Exercise</small>
+            <h3 className='card-title text-lg font-bold '>{exercise.title}</h3>
+          </div>
+
+          <div>
+            <small className='block text-xs'>Duration</small>
+
+            <strong className='text-primary'>{`${exercise.duration?.hours}h : ${exercise.duration?.minutes}m : ${exercise.duration?.seconds}s`}</strong>
+          </div>
+        </div>
       </div>
 
-      <div className='grid grid-cols-2 gap-6 '>
-        <div className=''>
-          <p>
-            <strong className='text-primary '>Content:</strong>{' '}
-            {exercise.content}
-          </p>
-          <p>
-            <strong className='text-primary '>Calories:</strong>{' '}
-            {exercise.calories}
-          </p>
-          <p>
-            <strong className='text-primary '>Level:</strong> {exercise.level}
-          </p>
-          {exercise.createdBy !== userData.username && (
-            <p>
-              <strong className='text-primary '>Created By</strong>{' '}
-              {exercise.createdBy}
-            </p>
-          )}
-        </div>
-        <div>
-          <p>
-            <strong className='text-primary '>Duration:</strong>
-            <br />
-            <strong className='text-primary '>Hours:</strong>{' '}
-            {exercise.duration?.hours}
-            <br />
-            <strong className='text-primary '>Minutes:</strong>{' '}
-            {exercise.duration?.minutes}
-            <br />
-            <strong className='text-primary '>Seconds:</strong>{' '}
-            {exercise.duration?.seconds}
-          </p>
-        </div>
+      <div className='grid grid-cols-2 gap-2 '>
+        <InfoBite
+          isBlock
+          title={'Content'}
+          content={exercise.content}
+        />
+
+        <InfoBite
+          isBlock
+          title={'Calories'}
+          content={exercise.calories + ' kcal'}
+        />
+
+        <InfoBite
+          title={'Level'}
+          content={exercise.level}
+        />
       </div>
     </>
   );
