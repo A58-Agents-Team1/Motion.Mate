@@ -32,6 +32,8 @@ export const HomeAuthenticated = () => {
       (snapshot) => {
         if (snapshot?.val()) {
           setWorkoutTimer(snapshot.val());
+        } else {
+          setWorkoutTimer(null);
         }
       }
     );

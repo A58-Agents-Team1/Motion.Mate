@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { calculateTimeLeft } from '../../helper/format-date';
-import { whenTimerEnds } from '../../services/users.service';
+import { endExercise, whenTimerEnds } from '../../services/users.service';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
 import PropTypes from 'prop-types';
@@ -32,7 +32,8 @@ export const AccountStats = ({ timer, setStopButton, workoutTimer }) => {
 
     if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours === -3) {
       const updateCalories = async () => {
-        await whenTimerEnds(userData.username, 0);
+        await whenTimerEnds(userData.username);
+        await endExercise(userData.username);
       };
       updateCalories();
       setStopButton('');
