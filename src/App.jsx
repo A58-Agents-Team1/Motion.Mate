@@ -23,6 +23,7 @@ import RegisterAdditionalInfo from './views/RegisterAdditionalInfo/RegisterAddit
 import WellnessHealthTools from './views/WellnessAndHealthTools/WellnessAndHealthTools';
 import About from './views/About/About';
 import Home from './views/Home/Home';
+import Index from './views/Index';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -60,6 +61,11 @@ function App() {
               path='/'
               element={<Home />}
             />
+            <Route
+              path='/Motion.Mate'
+              element={<Index />}
+            />
+
             <Route
               path='/about'
               element={<About />}
