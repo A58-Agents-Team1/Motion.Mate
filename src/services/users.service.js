@@ -3,6 +3,7 @@ import {
   equalTo,
   get,
   orderByChild,
+  push,
   query,
   ref,
   remove,
@@ -288,7 +289,7 @@ export const endExercise = async (username) => {
   }
 };
 
-export const whenTimerEnds = async (username, countOfDoneExercises) => {
+export const whenTimerEnds = async (username) => {
   try {
     const currentScores = await get(
       ref(db, `users/${username}/previousScores`)
@@ -300,4 +301,10 @@ export const whenTimerEnds = async (username, countOfDoneExercises) => {
   } catch (error) {
     throw new Error(error.message);
   }
+};
+
+export const StartTimerWorkout = async (username, timer) => {
+  await update(ref(db, `users/${username}/workoutTimer`), {
+    timer: timer,
+  });
 };
