@@ -93,12 +93,14 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
         </td>
       )}
       <td className='flex items-center h-28'>
-        <GoalButton
-          primary={false}
-          title={'Details'}
-          styles='btn-primary mx-2'
-          onClick={handleDetailsClick}
-        />
+        {userData?.username === owner && (
+          <GoalButton
+            primary={false}
+            title={'Details'}
+            styles='btn-primary mx-2'
+            onClick={handleDetailsClick}
+          />
+        )}
         {(userData?.username === owner || userData?.userRole === 'admin') && (
           <GoalButton
             primary={false}
