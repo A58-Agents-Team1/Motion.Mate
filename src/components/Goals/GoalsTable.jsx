@@ -1,12 +1,7 @@
 import PropTypes from 'prop-types';
 import Goal from './Goal';
-import { useEffect } from 'react';
 
 const GoalsTable = ({ goals, myGoals = false }) => {
-  useEffect(() => {
-    console.log('goals:', goals);
-  }, [goals]);
-
   return (
     <div className='flex flex-col w-full gap-2 overflow-x-auto'>
       {goals?.length > 0 ? (
@@ -15,9 +10,9 @@ const GoalsTable = ({ goals, myGoals = false }) => {
           <thead>
             <tr>
               <th>Goals</th>
-              <th>Type</th>
               <th>Name</th>
               <th>Time left</th>
+              <th>Type</th>
               <th>Progress</th>
             </tr>
           </thead>
@@ -44,9 +39,9 @@ const GoalsTable = ({ goals, myGoals = false }) => {
           <tfoot>
             <tr>
               <th>Goals</th>
-              <th>Type</th>
               <th>Name</th>
               <th>Time left</th>
+              <th>Type</th>
               <th>Progress</th>
             </tr>
           </tfoot>

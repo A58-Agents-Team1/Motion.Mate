@@ -31,7 +31,6 @@ export default function Goals() {
         getGoals(friend)
           .then((friendGoals) => {
             friendGoals.forEach((goal) => {
-              console.log('friend goal:', goal);
               _friendsGoals.push(goal);
             });
           })
