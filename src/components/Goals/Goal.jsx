@@ -81,12 +81,11 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
           </div>
         </div>
       </th>
-      <td className='first-letter:uppercase'>{type}</td>
       <td>{name}</td>
-
       <td>
         <TimeLeft goal={{ name, owner, progress, timePeriod: { from, to } }} />
       </td>
+      <td className='first-letter:uppercase'>{type}</td>
       {type && (
         <td>
           <Progress progress={progress} />

@@ -15,9 +15,9 @@ const GoalsTable = ({ goals, myGoals = false }) => {
           <thead>
             <tr>
               <th>Goals</th>
-              <th>Type</th>
               <th>Name</th>
               <th>Time left</th>
+              <th>Type</th>
               <th>Progress</th>
             </tr>
           </thead>
@@ -44,9 +44,9 @@ const GoalsTable = ({ goals, myGoals = false }) => {
           <tfoot>
             <tr>
               <th>Goals</th>
-              <th>Type</th>
               <th>Name</th>
               <th>Time left</th>
+              <th>Type</th>
               <th>Progress</th>
             </tr>
           </tfoot>
