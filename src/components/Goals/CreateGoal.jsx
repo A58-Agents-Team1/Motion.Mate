@@ -33,6 +33,16 @@ export default function CreateGoal() {
     progress: GOAL_MIN_PROGRESS,
   });
 
+  const formClearObject = {
+    name: '',
+    from: '',
+    to: '',
+    type: 'manual',
+    exercises: GOAL_MIN_EXERCISES,
+    calories: GOAL_MIN_CALORIES,
+    progress: GOAL_MIN_PROGRESS,
+  };
+
   const updateForm = (props) => (e) => {
     setForm((form) => ({
       ...form,
@@ -60,21 +70,18 @@ export default function CreateGoal() {
         Number(form.progress),
         Number(form.calories)
       );
-      setForm({
-        name: '',
-        from: '',
-        to: '',
-        type: 'manual',
-        exercises: GOAL_MIN_EXERCISES,
-        calories: GOAL_MIN_CALORIES,
-        progress: GOAL_MIN_PROGRESS,
-      });
+      setForm(formClearObject);
 
       document.getElementById('my_modal_3').close();
       alertHelper(setAlertMessage, setShowSuccess, 'Goal Created!');
     } catch (error) {
       alertHelper(setAlertMessage, setShowError, error.message);
     }
+  };
+
+  const handleCloseModal = (e) => {
+    e.preventDefault();
+    document.getElementById('my_modal_3').close(), setForm(formClearObject);
   };
 
   return (
@@ -85,19 +92,17 @@ export default function CreateGoal() {
       >
         Create Goal
       </button>
-      <dialog id='my_modal_3' className='modal '>
+      <dialog
+        id='my_modal_3'
+        className='modal '
+      >
         <div className='modal-box py-16'>
           <form method='dialog'>
             <button
               type='button'
               className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'
-              onClick={() => {
-                document.getElementById('my_modal_3').close(),
-                  setForm({
-                    name: '',
-                    from: '',
-                    to: '',
-                  });
+              onClick={(e) => {
+                handleCloseModal(e);
               }}
             >
               ✕
