@@ -1,5 +1,8 @@
 import { useContext, useState } from 'react';
-import { StartTimerWorkout } from '../../services/users.service';
+import {
+  StartTimerWorkout,
+  stopTimerWorkout,
+} from '../../services/users.service';
 import { AppContext } from '../../context/AppContext';
 
 export const StartWorkoutButton = () => {
@@ -23,7 +26,6 @@ export const StartWorkoutButton = () => {
     endDate.setHours(endDate.getHours() + Number(content.hours));
     endDate.setMinutes(endDate.getMinutes() + Number(content.minutes));
     endDate.setSeconds(endDate.getSeconds() + Number(content.seconds));
-    console.log(endDate);
     await StartTimerWorkout(userData.username, endDate.getTime());
     setContent({
       hours: 0,
@@ -35,7 +37,7 @@ export const StartWorkoutButton = () => {
 
   const endTimer = async () => {
     setStartWorkout(true);
-    await StartTimerWorkout(userData.username, 0);
+    await stopTimerWorkout(userData.username);
   };
 
   return (
@@ -53,7 +55,7 @@ export const StartWorkoutButton = () => {
         <div>
           <button
             className='btn btn-secondary'
-            onClick={() => endTimer()}
+            onClick={endTimer}
           >
             End workout
           </button>
@@ -99,6 +101,7 @@ export const StartWorkoutButton = () => {
           </div>
           <div className='modal-action'>
             <form method='dialog'>
+              <button className='btn'>Cancel</button>
               <button
                 onClick={startTimer}
                 className='btn'
