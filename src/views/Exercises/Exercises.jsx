@@ -21,6 +21,7 @@ import {
 import { getFriends } from '../../services/users.service';
 import { ExerciseCard } from '../../components/Exercise/ExerciseCard';
 import { useNavigate, useParams } from 'react-router-dom';
+import { RemoveFromListButton } from '../../components/Exercise/RemoveFromListButton';
 
 export const Exercises = () => {
   const [exercises, setExercises] = useState([]);
@@ -170,23 +171,13 @@ export const Exercises = () => {
                 ) : (
                   <div className='flex flex-row gap-3'>
                     {exercise?.inProgress ? (
-                      <button
-                        onClick={() =>
-                          handleRemoveFromList(
-                            removeExerciseInProgress,
-                            category,
-                            exercise.id,
-                            setAlertMessage,
-                            setShowSuccess,
-                            setShowError,
-                            alertHelper,
-                            'Exercise removed from list!'
-                          )
-                        }
-                        className='border border-primary bg-primary text-black px-2 py-1 rounded-md hover:bg-primary hover:text-white transition-all'
-                      >
-                        Remove from list
-                      </button>
+                      <RemoveFromListButton
+                        exercise={exercise}
+                        category={category}
+                        setAlertMessage={setAlertMessage}
+                        setShowSuccess={setShowSuccess}
+                        setShowError={setShowError}
+                      />
                     ) : (
                       <button
                         onClick={() =>
@@ -201,7 +192,7 @@ export const Exercises = () => {
                             'Exercise added in list!'
                           )
                         }
-                        className='border border-primary bg-primary text-black px-2 py-1 rounded-md hover:bg-primary hover:text-white transition-all'
+                        className='btn btn-outline btn-primary'
                       >
                         Add to list
                       </button>
@@ -215,7 +206,7 @@ export const Exercises = () => {
                             setEditForm
                           )
                         }
-                        className='border border-primary px-2 py-1 rounded-md text-primary hover:bg-primary hover:text-white transition-all'
+                        className='btn btn-outline btn-primary'
                       >
                         Edit
                       </button>
@@ -235,7 +226,7 @@ export const Exercises = () => {
                       'Exercise deleted!'
                     )
                   }
-                  className='border border-red-400 p-1 rounded-md text-red-400 hover:bg-red-400 hover:text-white transition-all'
+                  className='btn btn-outline btn-secondary'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
