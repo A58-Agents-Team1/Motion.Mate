@@ -304,7 +304,37 @@ export const whenTimerEnds = async (username) => {
 };
 
 export const StartTimerWorkout = async (username, timer) => {
-  await update(ref(db, `users/${username}/workoutTimer`), {
-    timer: timer,
-  });
+  try {
+    await update(ref(db, `users/${username}/workoutTimer`), {
+      timer: timer,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const stopTimerRemoveCalories = async (username, calories) => {
+  try {
+    const currentScores = await get(
+      ref(db, `users/${username}/previousScores`)
+    );
+    console.log(currentScores.val().previousCalories);
+    const previousCalories = Number(currentScores.val().previousCalories);
+    const doneExercises = Number(currentScores.val().doneExercises);
+
+    await update(ref(db, `users/${username}/previousScores`), {
+      previousCalories: previousCalories - Number(calories),
+      doneExercises: doneExercises - 1,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const stopTimerWorkout = async (username) => {
+  try {
+    await update(ref(db, `users/${username}`), { workoutTimer: null });
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };

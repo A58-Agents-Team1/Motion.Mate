@@ -1,7 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { removeExerciseInProgress } from '../../services/exercise.service';
-import { handleRemoveFromList } from '../../helper/exercise-control';
-import { alertHelper } from '../../helper/alert-helper';
 import AlertError from '../Alerts/AlertError';
 import AlertSuccess from '../Alerts/AlertSuccess';
 import { onValue, ref } from 'firebase/database';
@@ -11,9 +8,11 @@ import {
   endExercise,
   getFriends,
   startExercise,
+  stopTimerRemoveCalories,
 } from '../../services/users.service';
 import { ExerciseCard } from '../Exercise/ExerciseCard';
 import PropTypes from 'prop-types';
+import { RemoveFromListButton } from '../Exercise/RemoveFromListButton';
 
 export const Divider = ({ stopButton }) => {
   const [inProgress, setInProgress] = useState([]);
@@ -47,8 +46,9 @@ export const Divider = ({ stopButton }) => {
     });
   }, [userData?.username]);
 
-  const stopTimer = async () => {
+  const stopTimer = async (exercise) => {
     await endExercise(userData.username);
+    await stopTimerRemoveCalories(userData.username, exercise.calories);
   };
 
   const handleOnStart = async (exercise) => {
@@ -85,28 +85,18 @@ export const Divider = ({ stopButton }) => {
                         userData={userData}
                       />
                       <div className='card-actions mt-2 justify-end'>
-                        <button
-                          onClick={() =>
-                            handleRemoveFromList(
-                              removeExerciseInProgress,
-                              exercise.categoryName,
-                              exercise.id,
-                              setAlertMessage,
-                              setShowSuccess,
-                              setShowError,
-                              alertHelper,
-                              'Exercise removed from list!'
-                            )
-                          }
-                          className='border border-primary px-2 py-1 rounded-md text-primary hover:bg-primary hover:text-white transition-all'
-                        >
-                          Remove from list
-                        </button>
+                        <RemoveFromListButton
+                          exercise={exercise}
+                          category={exercise.categoryName}
+                          setAlertMessage={setAlertMessage}
+                          setShowSuccess={setShowSuccess}
+                          setShowError={setShowError}
+                        />
 
                         {stopButton === exercise.id ? (
                           <button
-                            className='border border-red-400 bg-red-400 text-black px-2 py-1 rounded-md hover:bg-red-400 hover:text-white transition-all'
-                            onClick={stopTimer}
+                            className='btn bg-red-400'
+                            onClick={() => stopTimer(exercise)}
                           >
                             Stop
                           </button>
@@ -115,7 +105,7 @@ export const Divider = ({ stopButton }) => {
                             onClick={() => {
                               handleOnStart(exercise);
                             }}
-                            className='border border-secondary bg-secondary text-black px-2 py-1 rounded-md hover:bg-secondary hover:text-white transition-all'
+                            className='btn btn-secondary'
                           >
                             Start
                           </button>
