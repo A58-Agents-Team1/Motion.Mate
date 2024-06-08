@@ -68,53 +68,59 @@ export const Divider = ({ stopButton }) => {
       exercise.calories
     );
   };
+
   return (
     <div>
-      {inProgress.length > 0 ? (
+      {inProgress.length ? (
         <div className='flex flex-col lg:flex-row'>
           <div className='flex-1 flex flex-wrap'>
             {inProgress.map((exercise) => (
-              <div
-                key={exercise.id}
-                className='card w-96 bg-base-300 mb-4'
-              >
+              <div key={exercise.id}>
                 {(exercise.createdBy === userData.username ||
                   friends?.includes(exercise.createdBy)) && (
-                  <div className='card-body '>
-                    <ExerciseCard
-                      exercise={exercise}
-                      userData={userData}
-                    />
-                    <div className='card-actions justify-end'>
-                      {stopButton === exercise.id ? (
-                        <button onClick={stopTimer}>Stop</button>
-                      ) : (
+                  <div className='card w-96 bg-base-300 mb-4'>
+                    <div className='card-body p-4'>
+                      <ExerciseCard
+                        exercise={exercise}
+                        userData={userData}
+                      />
+                      <div className='card-actions mt-2 justify-end'>
                         <button
-                          onClick={() => {
-                            handleOnStart(exercise);
-                          }}
-                          className='btn btn-secondary'
+                          onClick={() =>
+                            handleRemoveFromList(
+                              removeExerciseInProgress,
+                              exercise.categoryName,
+                              exercise.id,
+                              setAlertMessage,
+                              setShowSuccess,
+                              setShowError,
+                              alertHelper,
+                              'Exercise removed from list!'
+                            )
+                          }
+                          className='border border-primary px-2 py-1 rounded-md text-primary hover:bg-primary hover:text-white transition-all'
                         >
-                          Start
+                          Remove from list
                         </button>
-                      )}
-                      <button
-                        onClick={() =>
-                          handleRemoveFromList(
-                            removeExerciseInProgress,
-                            exercise.categoryName,
-                            exercise.id,
-                            setAlertMessage,
-                            setShowSuccess,
-                            setShowError,
-                            alertHelper,
-                            'Exercise removed from list!'
-                          )
-                        }
-                        className='btn btn-primary'
-                      >
-                        Remove from list
-                      </button>
+
+                        {stopButton === exercise.id ? (
+                          <button
+                            className='border border-red-400 bg-red-400 text-black px-2 py-1 rounded-md hover:bg-red-400 hover:text-white transition-all'
+                            onClick={stopTimer}
+                          >
+                            Stop
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              handleOnStart(exercise);
+                            }}
+                            className='border border-secondary bg-secondary text-black px-2 py-1 rounded-md hover:bg-secondary hover:text-white transition-all'
+                          >
+                            Start
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
