@@ -5,12 +5,15 @@ import { whenTimerEnds } from '../../services/users.service';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
 import PropTypes from 'prop-types';
+import { Timer } from './Timer';
+import { StartWorkoutButton } from './StartWorkoutButton';
 
-export const AccountStats = ({ timer }) => {
+export const AccountStats = ({ timer, setStopButton, workoutTimer }) => {
   const { userData } = useContext(AppContext);
   const [currentCalories, setCurrentCalories] = useState(0);
   const [timeLeft, setTimeLeft] = useState(null);
   const [doneExercises, setDoneExercises] = useState(0);
+  const [workoutTimeLeft, setWorkoutTimeLeft] = useState(null);
 
   useEffect(() => {
     return onValue(
@@ -32,13 +35,22 @@ export const AccountStats = ({ timer }) => {
         await whenTimerEnds(userData.username, 0);
       };
       updateCalories();
+      setStopButton('');
     }
     return () => clearTimeout();
   }, [timeLeft]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setWorkoutTimeLeft({ ...calculateTimeLeft(new Date(workoutTimer)) });
+    }, 1000);
+
+    return () => clearTimeout();
+  }, [workoutTimeLeft]);
+
   return (
-    <div className='flex flex-col items-center w-full '>
-      <div className='stats shadow w-full max-w-3xl flex items-start '>
+    <div className='flex flex-col items-center w-full mb-5'>
+      <div className='stats shadow w-full max-w-4xl flex items-start '>
         <div className='stat gap-2'>
           <div className='stat-figure text-secondary'>
             <svg
@@ -76,47 +88,10 @@ export const AccountStats = ({ timer }) => {
             </svg>
           </div>
           <div className='stat-title'>Exercises in progress</div>
-          {timeLeft?.days +
-            timeLeft?.hours +
-            timeLeft?.minutes +
-            timeLeft?.seconds >
-          0 ? (
-            <div>
-              <span className='countdown text-secondary font-mono text-2xl mb-4'>
-                <span style={{ '--value': timeLeft?.hours }}></span>:
-                <span
-                  style={{
-                    '--value': timeLeft?.minutes,
-                  }}
-                ></span>
-                :
-                <span
-                  style={{
-                    '--value': timeLeft?.seconds,
-                  }}
-                ></span>
-              </span>
-            </div>
-          ) : (
-            <div>
-              <span className='countdown text-secondary font-mono text-2xl mb-4'>
-                <span style={{ '--value': 0 }}></span>:
-                <span
-                  style={{
-                    '--value': 0,
-                  }}
-                ></span>
-                :
-                <span
-                  style={{
-                    '--value': 0,
-                  }}
-                ></span>
-              </span>
-            </div>
-          )}
-
-          <div className='stat-desc text-secondary'>Be active</div>
+          <Timer timeLeft={timeLeft} />
+          <div className='stat-desc text-secondary'>
+            Track the exercise duration
+          </div>
         </div>
         <div className='stat gap-2'>
           <div className='stat-figure text-secondary'>
@@ -128,6 +103,26 @@ export const AccountStats = ({ timer }) => {
           </div>
           <div className='stat-desc text-secondary'>Challenge yourself</div>
         </div>
+        <div className='stat gap-2'>
+          <div className='stat-figure text-secondary'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              className='inline-block w-8 h-8 stroke-current'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M13 10V3L4 14h7v7l9-11h-7z'
+              ></path>
+            </svg>
+          </div>
+          <div className='stat-title'>Start your workout</div>
+          <Timer timeLeft={workoutTimeLeft} />
+          <StartWorkoutButton />
+        </div>
       </div>
     </div>
   );
@@ -135,4 +130,6 @@ export const AccountStats = ({ timer }) => {
 
 AccountStats.propTypes = {
   timer: PropTypes.number,
+  setStopButton: PropTypes.func,
+  workoutTimer: PropTypes.number,
 };

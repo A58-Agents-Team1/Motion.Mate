@@ -9,6 +9,7 @@ export const HomeAuthenticated = () => {
   const [timer, setTimer] = useState(null);
   const { userData } = useContext(AppContext);
   const [stopButton, setStopButton] = useState('');
+  const [workoutTimer, setWorkoutTimer] = useState(null);
 
   useEffect(() => {
     return onValue(
@@ -25,9 +26,24 @@ export const HomeAuthenticated = () => {
     );
   }, []);
 
+  useEffect(() => {
+    return onValue(
+      ref(db, `users/${userData.username}/workoutTimer/timer`),
+      (snapshot) => {
+        if (snapshot?.val()) {
+          setWorkoutTimer(snapshot.val());
+        }
+      }
+    );
+  }, []);
+
   return (
     <>
-      <AccountStats timer={timer} />
+      <AccountStats
+        timer={timer}
+        setStopButton={setStopButton}
+        workoutTimer={workoutTimer}
+      />
       <Divider stopButton={stopButton} />
     </>
   );
