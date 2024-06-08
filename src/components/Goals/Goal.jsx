@@ -32,9 +32,9 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
     navigate(`/goals/${(userData?.username, id)}`);
   };
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = async (user) => {
     try {
-      await deleteGoal(userData?.username, id);
+      await deleteGoal(user, id);
       alertHelper(setShowMessage, setShowDeleted, 'Goal deleted successfully!');
     } catch (error) {
       alertHelper(setShowMessage, setShowError, error.message);
@@ -105,7 +105,7 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
           <GoalButton
             primary={false}
             styles='btn-warning '
-            onClick={handleDeleteClick}
+            onClick={() => handleDeleteClick(owner)}
           >
             <FontAwesomeIcon icon={faTrashCan} />
           </GoalButton>
