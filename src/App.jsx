@@ -12,7 +12,7 @@ import NotFound from './views/NotFound/NotFound';
 import MyProfile from './views/MyProfile/MyProfile';
 import Authenticated from './hoc/Authenticated/Authenticated';
 import AllUsers from './views/AllUsers/AllUsers';
-import Goals from './views/Goals';
+import Goals from './views/Goals/Goals';
 import FullProfileView from './views/FullProfileView/FullProfileView';
 import MyFriends from './views/MyFriends/MyFriends';
 import Categories from './components/Categories/Categories';

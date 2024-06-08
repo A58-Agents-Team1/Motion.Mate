@@ -1,36 +1,14 @@
-import { useContext, useEffect, useState } from 'react';
-import Goal from '../components/Goals/Goal';
-import CreateGoal from '../components/Goals/CreateGoal';
-import { APP_NAME } from '../common/constants';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../config/firebase-config';
-import { AppContext } from '../context/AppContext';
+import PropTypes from 'prop-types';
+import Goal from './Goal';
+import { useEffect } from 'react';
 
-export default function Goals() {
-  document.querySelector('title').textContent = `${APP_NAME} | Goals`;
-
-  const { userData } = useContext(AppContext);
-  const [goals, setGoals] = useState([]);
-
+const GoalsTable = ({ goals, myGoals = false }) => {
   useEffect(() => {
-    return onValue(
-      ref(db, `users/${userData?.username}/myGoals`),
-      (snapshot) => {
-        const goals = [];
-        snapshot.forEach((child) => {
-          goals.push({
-            id: child.key,
-            ...child.val(),
-          });
-        });
-        setGoals(goals);
-      }
-    );
-  }, []);
+    console.log('goals:', goals);
+  }, [goals]);
 
   return (
     <div className='flex flex-col w-full gap-2 overflow-x-auto'>
-      <CreateGoal />
       {goals?.length > 0 ? (
         <table className='table'>
           {/* head */}
@@ -76,9 +54,15 @@ export default function Goals() {
       ) : (
         <div className='mx-auto my-2'>
           <h2 className='flex justify-center mb-2 text-lg'>No Goals found.</h2>
-          <p>Create the first goal with the button above.</p>
+          {myGoals && <p>Create the first goal with the button above.</p>}
         </div>
       )}
     </div>
   );
-}
+};
+
+GoalsTable.propTypes = {
+  goals: PropTypes.array,
+  myGoals: PropTypes.bool,
+};
+export default GoalsTable;
