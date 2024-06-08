@@ -19,11 +19,16 @@ export default function Home() {
     const func = async () => {
       const result = await getAllUsers();
       const exercises = await getExercises();
+      const exercisesLength = exercises.reduce((acc, category) => {
+        acc += Object.values(category).length;
+        return acc;
+      }, 0);
+
       const users = result.val();
       const categories = await getAllCategories();
       setAllCategories(categories.length);
       setAllUsers(Object.keys(users).length);
-      setAllExercises(Object.keys(exercises).length);
+      setAllExercises(exercisesLength);
     };
     func();
   }, []);
