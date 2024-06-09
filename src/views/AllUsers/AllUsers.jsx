@@ -1,10 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { useSearchParams } from 'react-router-dom';
-import {
-  getAllUsers,
-  getFilterUserBySearchTerm,
-} from '../../services/users.service';
+import { getFilterUserBySearchTerm } from '../../services/users.service';
 import SingleUserView from '../../components/SingleUser/SingleUserView';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
