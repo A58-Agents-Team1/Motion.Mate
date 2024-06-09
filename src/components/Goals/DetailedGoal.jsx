@@ -10,6 +10,7 @@ import Progress from './Progress';
 import { updateGoalProgress } from '../../services/goal.service';
 import { alertHelper } from '../../helper/alert-helper';
 import AlertError from '../Alerts/AlertError';
+import { fullFormatDate, shortFormatDate } from '../../helper/format-date';
 
 const DetailedGoal = () => {
   const params = useParams();
@@ -51,8 +52,28 @@ const DetailedGoal = () => {
 
   return (
     <>
-      <div className='flex flex-col w-full justify-around gap-2 overflow-x-auto '>
-        <div className='flex justify-around items-center'>
+      <div
+        className={
+          'flex place-content-center gap-3 mb-2 border-2 border-primary rounded p-2 shadow-lg'
+        }
+      >
+        <div className='avatar'>
+          <div className='mask mask-squircle w-12 h-12'>
+            <img
+              src={userData?.avatar || '/img/avatars/avatar-1.jpg'}
+              alt={`Avatar of ${userData?.firstName} ${userData?.lastName}`}
+            />
+          </div>
+        </div>
+        <div>
+          <div className='font-bold'>
+            {userData?.firstName} {userData?.lastName}
+          </div>
+          <div className='text-sm opacity-50'>{userData?.email}</div>
+        </div>
+      </div>
+      <div className='flex flex-col w-full justify-around gap-2 overflow-x-auto border-2 border-primary rounded p-2 shadow-2xl'>
+        <div className='flex justify-around items-center border-2 border-secondary rounded-lg p-3 shadow-xl'>
           <TimeLeft goal={goal} />
           {typeof goal?.progress !== 'undefined' ? (
             <Progress progress={goal?.progress} />
@@ -69,7 +90,8 @@ const DetailedGoal = () => {
             <div className='w-44'></div>
           )}
         </div>
-        <div className='flex flex-col ring-offset-0 h-14'>
+
+        <div className='flex flex-col ring-offset-0 h-14 border-b-2 border-primary mt-2 p-2'>
           {toggleEditGoal && (
             <>
               <input
@@ -92,31 +114,47 @@ const DetailedGoal = () => {
             </>
           )}
         </div>
-        <div className={'flex items-center gap-3'}>
-          <div className='avatar'>
-            <div className='mask mask-squircle w-12 h-12'>
-              <img
-                src={userData?.avatar || '/img/avatars/avatar-1.jpg'}
-                alt={`Avatar of ${userData?.firstName} ${userData?.lastName}`}
-              />
+
+        <div className='flex flex-col gap-2'>
+          <div className='label border-b-2 border-primary p-2'>
+            Goal Type
+            <div className='text-lg font-bold first-letter:uppercase'>
+              {goal?.type}
             </div>
           </div>
-          <div>
-            <div className='font-bold'>
-              {userData?.firstName} {userData?.lastName}
-            </div>
-            <div className='text-sm opacity-50'>{userData?.email}</div>
+
+          <div className='label border-b-2 border-primary p-2'>
+            Goal Name
+            <div className='text-lg'>{goal?.name}</div>
+          </div>
+
+          <div className='label border-b-2 border-primary p-2'>
+            Goal Time Period
+            <div className='text-lg'></div>
+            {fullFormatDate(goal?.timePeriod?.from)} -{' '}
+            {fullFormatDate(goal?.timePeriod?.to)}
+          </div>
+
+          <div className='label border-b-2 border-primary p-2'>
+            Calories
+            <div className='text-lg'>{goal?.calories}</div>
+          </div>
+
+          <div className='label border-b-2 border-primary p-2'>
+            Exercises
+            <div className='text-lg'>{goal?.exercises}</div>
+          </div>
+
+          <div className='label border-b-2 border-primary p-2'>
+            Goal Progress
+            <div className='text-lg'>{goal?.progress}%</div>
           </div>
         </div>
-
-        {goal?.type === 'exercises' && (
-          <GoalButton primary title='Add Exercise' />
-        )}
-        {goal?.type === 'calories' && (
-          <GoalButton primary title='Add Exercise' />
-        )}
-
-        <GoalButton primary title='Back' onClick={() => navigate(-1)} />
+        <GoalButton
+          primary
+          title='Back'
+          onClick={() => navigate(-1)}
+        />
       </div>
       {showError && <AlertError message={showMessage} />}
     </>
