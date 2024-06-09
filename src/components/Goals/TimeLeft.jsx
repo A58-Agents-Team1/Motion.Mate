@@ -19,7 +19,7 @@ const TimeLeft = ({ goal }) => {
         timeLeft?.hours +
         timeLeft?.minutes +
         timeLeft?.seconds >
-      0 ? (
+        0 && goal?.progress < 100 ? (
         <div className='grid grid-flow-col gap-5 text-center auto-cols-max'>
           <div className='flex flex-col'>
             <span className='countdown font-mono text-xl'>
@@ -49,9 +49,9 @@ const TimeLeft = ({ goal }) => {
       ) : timeLeft !== null ? (
         <div className='flex flex-col text-center'>
           <div className='font-mono text-xl'>
-            <div className='text-red-500 '>
+            <div className='text-green-500 '>
               {goal?.progress < 100 && 'Just do it!'}
-              {goal?.progress === 100 && 'Congratulations!'}
+              {goal?.progress === 100 && 'Goal Completed!'}
             </div>
             <div className='flex gap-1 align-middle justify-center text-center text-red-500 w-full'>
               {goal?.progress < 100 && 'But next time'}
