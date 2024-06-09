@@ -6,6 +6,8 @@ import {
   getFilterUserBySearchTerm,
 } from '../../services/users.service';
 import SingleUserView from '../../components/SingleUser/SingleUserView';
+import { onValue, ref } from 'firebase/database';
+import { db } from '../../config/firebase-config';
 
 export default function AllUsers() {
   const { userData } = useContext(AppContext);
@@ -25,7 +27,7 @@ export default function AllUsers() {
   }, [searchBy, search, refresh]);
 
   useEffect(() => {
-    getAllUsers().then((snapshot) => {
+    return onValue(ref(db, 'users'), (snapshot) => {
       setUsers(Object.values(snapshot.val()));
     });
   }, []);
@@ -120,7 +122,10 @@ export default function AllUsers() {
               .filter((user) => user?.username !== userData?.username)
               .map((user) => (
                 <li key={user.username}>
-                  <SingleUserView user={user} setRefresh={setRefresh} />
+                  <SingleUserView
+                    user={user}
+                    setRefresh={setRefresh}
+                  />
                 </li>
               ))
           ) : searchParams === '' ? (
