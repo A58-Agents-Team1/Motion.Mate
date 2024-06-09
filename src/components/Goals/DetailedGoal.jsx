@@ -80,15 +80,12 @@ const DetailedGoal = () => {
           ) : (
             <div className='skeleton rounded-full w-20 h-20'></div>
           )}
-          {goal?.type === 'manual' ? (
-            <GoalButton
-              primary
-              title='Edit Goal Progress'
-              onClick={() => setToggleEditGoal((prev) => !prev)}
-            />
-          ) : (
-            <div className='w-44'></div>
-          )}
+
+          <GoalButton
+            primary
+            title='Edit Goal Progress'
+            onClick={() => setToggleEditGoal((prev) => !prev)}
+          />
         </div>
 
         <div className='flex flex-col ring-offset-0 h-14 border-b-2 border-primary mt-2 p-2'>
@@ -119,7 +116,7 @@ const DetailedGoal = () => {
           <h2>Current Goal Status</h2>
         </div>
         <div className='flex flex-col gap-2'>
-          <div className='label border-b-2 border-primary p-2'>
+          <div className='label border-b-2 border-primary p-2 bg-base-200'>
             Exercises Done
             <div className='text-lg'>{goal?.exercisesDone || 0}</div>
           </div>
@@ -129,7 +126,7 @@ const DetailedGoal = () => {
             <div className='text-lg'>{goal?.caloriesBurned || 0}</div>
           </div>
 
-          <div className='label border-b-2 border-primary p-2'>
+          <div className='label border-b-2 border-primary p-2 bg-base-200'>
             Progress
             <div className='text-lg'>{goal?.progress}%</div>
           </div>
@@ -140,7 +137,7 @@ const DetailedGoal = () => {
         </div>
 
         <div className='flex flex-col gap-2'>
-          <div className='label border-b-2 border-primary p-2'>
+          <div className='label border-b-2 border-primary p-2 bg-base-200'>
             Goal Type
             <div className='text-lg first-letter:uppercase'>{goal?.type}</div>
           </div>
@@ -150,7 +147,7 @@ const DetailedGoal = () => {
             <div className='text-lg'>{goal?.name}</div>
           </div>
 
-          <div className='label border-b-2 border-primary p-2'>
+          <div className='label border-b-2 border-primary p-2 bg-base-200'>
             Calories
             <div className='text-lg'>{goal?.calories}</div>
           </div>
@@ -160,7 +157,7 @@ const DetailedGoal = () => {
             <div className='text-lg'>{goal?.exercises}</div>
           </div>
 
-          <div className='label border-b-2 border-primary p-2'>
+          <div className='label border-b-2 border-primary p-2 bg-base-200'>
             Goal Time Period
             <div className='text-lg'></div>
             {fullFormatDate(goal?.timePeriod?.from)} -{' '}
