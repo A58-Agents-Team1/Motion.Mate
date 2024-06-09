@@ -11,7 +11,8 @@ export const createGoal = async (
   type,
   exercises = GOAL_MIN_EXERCISES,
   progress = GOAL_MIN_PROGRESS,
-  calories = GOAL_MIN_CALORIES) => {
+  calories = GOAL_MIN_CALORIES,
+) => {
   try {
     const snapshot = await get(ref(db, `users/${owner}/myGoals/`));
     snapshot.forEach((child) => {
@@ -32,7 +33,9 @@ export const createGoal = async (
       type,
       exercises,
       progress,
-      calories
+      calories,
+      exercisesDone: 0,
+      caloriesBurned: 0
     }
 
     const goalId = await push(ref(db, `users/${owner}/myGoals/`), goal);
