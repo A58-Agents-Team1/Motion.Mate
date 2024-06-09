@@ -14,6 +14,8 @@ import {
 import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertError from '../Alerts/AlertError';
 import { alertHelper } from '../../helper/alert-helper';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function CreateGoal() {
   document.querySelector('title').textContent = `${APP_NAME} | Create Goal`;
@@ -22,6 +24,19 @@ export default function CreateGoal() {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setAlertMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setForm({
+      ...form,
+      from: start,
+      to: end,
+    });
+  };
 
   const [form, setForm] = useState({
     name: '',
@@ -71,6 +86,8 @@ export default function CreateGoal() {
         Number(form.calories)
       );
       setForm(formClearObject);
+      setStartDate(null);
+      setEndDate(null);
 
       document.getElementById('my_modal_3').close();
       alertHelper(setAlertMessage, setShowSuccess, 'Goal Created!');
@@ -81,7 +98,10 @@ export default function CreateGoal() {
 
   const handleCloseModal = (e) => {
     e.preventDefault();
-    document.getElementById('my_modal_3').close(), setForm(formClearObject);
+    setForm(formClearObject),
+      setStartDate(null),
+      setEndDate(null),
+      document.getElementById('my_modal_3').close();
   };
 
   return (
@@ -119,29 +139,17 @@ export default function CreateGoal() {
                 onChange={updateForm('name')}
               />
             </label>
-            <div className='join join-vertical shadow-xl'>
-              <label className='input input-bordered flex items-center gap-2'>
-                From
-                <input
-                  type='datetime-local'
-                  className='w-full'
-                  value={form.from}
-                  onChange={updateForm('from')}
-                />
-              </label>
 
-              <label className='input input-bordered flex items-center gap-2'>
-                To
-                <input
-                  type='datetime-local'
-                  className='w-full'
-                  value={form.to}
-                  onChange={updateForm('to')}
-                />
-              </label>
-            </div>
+            <DatePicker
+              selected={startDate}
+              onChange={onChange}
+              startDate={startDate}
+              endDate={endDate}
+              selectsRange
+              inline
+            />
 
-            <label className='label self-center '>Goal Type</label>
+            <label className='label self-center'>Select your goal type</label>
             <div className='flex w-full'>
               <div className='grid h-20 flex-grow card bg-base-300 rounded-box place-items-center shadow-2xl'>
                 <div className='form-control'>
