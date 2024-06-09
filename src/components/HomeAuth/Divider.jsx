@@ -94,29 +94,6 @@ export const Divider = ({ stopButton }) => {
                             Start
                           </button>
                         )}
-                        {/* <div>
-                          {showModal &&
-                            document.getElementById('goal_modal').showModal()}
-                          <dialog
-                            id='goal_modal'
-                            className='modal'
-                          >
-                            <div className='modal-box max-w-2xl skeleton'>
-                              <h3 className='font-bold text-lg'>
-                                Congratulations!
-                              </h3>
-                              <p>You have achieved a goal!</p>
-                              <form method='dialog'>
-                                <button
-                                  onClick={() => setShowModal(false)}
-                                  className='btn'
-                                >
-                                  Close
-                                </button>
-                              </form>
-                            </div>
-                          </dialog>
-                        </div> */}
                       </div>
                     </div>
                   </div>

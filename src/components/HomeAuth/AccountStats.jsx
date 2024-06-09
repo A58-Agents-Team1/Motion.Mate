@@ -13,6 +13,7 @@ export const AccountStats = ({
   setStopButton,
   workoutTimer,
   startWorkout,
+  setStartWorkout,
 }) => {
   const { userData } = useContext(AppContext);
   const [currentCalories, setCurrentCalories] = useState(0);
@@ -50,13 +51,27 @@ export const AccountStats = ({
     }
   }, [timeLeft, timer]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setWorkoutTimeLeft({ ...calculateTimeLeft(new Date(workoutTimer)) });
-  //   }, 1000);
+  useEffect(() => {
+    if (workoutTimer) {
+      setTimeout(() => {
+        setWorkoutTimeLeft({ ...calculateTimeLeft(new Date(workoutTimer)) });
+      }, 1000);
 
-  //   return () => clearTimeout();
-  // }, [workoutTimeLeft]);
+      if (
+        workoutTimeLeft?.seconds +
+          workoutTimeLeft?.minutes +
+          workoutTimeLeft?.hours ===
+        -3
+      ) {
+        setWorkoutTimeLeft(null);
+        setStartWorkout(false);
+      }
+    } else {
+      setWorkoutTimeLeft(null);
+      setStartWorkout(false);
+      return () => clearTimeout();
+    }
+  }, [workoutTimeLeft, workoutTimer]);
 
   return (
     <div className='flex flex-col items-center w-full mb-5'>
