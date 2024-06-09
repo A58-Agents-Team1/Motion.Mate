@@ -103,6 +103,17 @@ export const deleteGoal = async (username, goalId) => {
   }
 };
 
+export const getGoalProgress = async (username, goalId) => {
+  try {
+    const progress = await get(
+      ref(db, `users/${username}/myGoals/${goalId}/progress`)
+    );
+    return progress.val();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 export const updateGoalProgress = async (username, goalId, progress) => {
   try {
     return await set(
@@ -126,14 +137,28 @@ export const markAsDone = async (username, goalId) => {
 
 export const updateGoalCalories = async (username, goalId, calories) => {
   try {
-    const currentCalories = await get(
-      ref(db, `users/${username}/myGoals/${goalId}/caloriesBurned`)
-    );
-    const count = Number(currentCalories.val()) + Number(calories);
-    await set(
-      ref(db, `users/${username}/myGoals/${goalId}/caloriesBurned`),
-      count
-    );
+    const base = `users/${username}/myGoals/${goalId}`;
+
+    const goal = await getGoalById(username, goalId);
+    const caloriesGoal = goal?.calories;
+    const exercisesDone = goal?.exercisesDone + 1;
+    const currentCalories = goal?.caloriesBurned;
+    const totalCalories = Number(currentCalories) + Number(calories);
+
+    const newCalorieProgress = (totalCalories / caloriesGoal) * 100 || 0;
+    const newExercisesProgress = (exercisesDone / goal?.exercises) * 100 || 0;
+
+    const updatedGoal = {}
+    updatedGoal[`${base}/exercisesDone/`] = exercisesDone;
+    updatedGoal[`${base}/caloriesBurned/`] = totalCalories;
+
+    (goal?.type === 'calories') && (
+      updatedGoal[`${base}/progress/`] = newCalorieProgress);
+
+    (goal?.type === 'exercises') && (
+      updatedGoal[`${base}/progress/`] = newExercisesProgress);
+
+    await update(ref(db), updatedGoal);
   } catch (error) {
     throw new Error(error.message);
   }
