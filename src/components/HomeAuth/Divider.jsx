@@ -14,7 +14,6 @@ import { ExerciseCard } from '../Exercise/ExerciseCard';
 import PropTypes from 'prop-types';
 import { RemoveFromListButton } from '../Exercise/RemoveFromListButton';
 import { handleOnStart } from '../../helper/exercise-timer';
-import { updateGoalProgressCalories } from '../../helper/update-goals-progress';
 
 export const Divider = ({ stopButton }) => {
   const [inProgress, setInProgress] = useState([]);
@@ -48,20 +47,6 @@ export const Divider = ({ stopButton }) => {
       fetchFriends();
     });
   }, [userData?.username]);
-
-  useEffect(() => {
-    return onValue(
-      ref(db, `users/${userData.username}/myGoals`),
-      (snapshot) => {
-        // Object.values(snapshot.val()).filter((goal) => {
-        //   if (goal?.isDone) {
-        //     setShowModal(true);
-        //   }
-        // });
-        updateGoalProgressCalories(userData.username);
-      }
-    );
-  }, []);
 
   const stopTimer = async (exercise) => {
     await endExercise(userData.username);

@@ -31,28 +31,32 @@ export const AccountStats = ({
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setTimeLeft({ ...calculateTimeLeft(new Date(timer)) });
-    }, 1000);
+    if (timer) {
+      setTimeout(() => {
+        setTimeLeft({ ...calculateTimeLeft(new Date(timer)) });
+      }, 1000);
 
-    if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours === -3) {
-      const updateCalories = async () => {
-        await whenTimerEnds(userData.username);
-        await endExercise(userData.username);
-      };
-      updateCalories();
-      setStopButton('');
+      if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours === -3) {
+        const updateCalories = async () => {
+          await whenTimerEnds(userData.username);
+          await endExercise(userData.username);
+        };
+        updateCalories();
+        setStopButton('');
+      }
+    } else {
+      setTimeLeft(null);
+      return () => clearTimeout();
     }
-    return () => clearTimeout();
-  }, [timeLeft]);
+  }, [timeLeft, timer]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setWorkoutTimeLeft({ ...calculateTimeLeft(new Date(workoutTimer)) });
-    }, 1000);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setWorkoutTimeLeft({ ...calculateTimeLeft(new Date(workoutTimer)) });
+  //   }, 1000);
 
-    return () => clearTimeout();
-  }, [workoutTimeLeft]);
+  //   return () => clearTimeout();
+  // }, [workoutTimeLeft]);
 
   return (
     <div className='flex flex-col items-center w-full mb-5'>

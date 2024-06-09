@@ -1,33 +1,34 @@
 import {
   getGoals,
   markAsDone,
+  updateGoalCalories,
   updateGoalProgress,
 } from '../services/goal.service';
-import { getUserScores } from '../services/users.service';
 
-export const updateGoalProgressCalories = async (username) => {
+export const updateGoalProgressCalories = async (username, calories) => {
   const allGoals = await getGoals(username);
-  const userScores = await getUserScores(username);
 
-  const caloriesBurned = userScores.updatedCalories; // 168
   if (allGoals) {
-    allGoals
-      .filter((goal) => goal?.type === 'calories')
-      .map(async (goal) => {
-        let calculate = Math.floor((caloriesBurned / goal.calories) * 100);
-        if (calculate > 100) {
-          calculate = 100;
-        }
+    for (const goal of allGoals.filter(
+      (goal) => goal?.type === 'calories' && !goal?.isDone
+    )) {
+      if (calories) {
+        await updateGoalCalories(username, goal?.id, calories);
 
-        await updateGoalProgress(username, goal?.id, calculate);
-      });
+        (await getGoals(username)).map(async (goal) => {
+          let calculate = Math.floor(
+            (goal.caloriesBurned / goal.calories) * 100
+          );
 
-    const fullProgress = allGoals
-      .filter((goal) => goal.progress === 100)
-      .map(async (goal) => {
-        return await markAsDone(username, goal.id);
-      });
+          if (calculate > 100) {
+            calculate = 100;
+          }
+          await updateGoalProgress(username, goal?.id, calculate);
+          if (goal.progress === 100) {
+            await markAsDone(username, goal.id);
+          }
+        });
+      }
+    }
   }
 };
-
-// console.log(50 % 100);

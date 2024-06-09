@@ -267,6 +267,7 @@ export const startExercise = async (username, time, exerciseId, calories) => {
       endCurrentExercise: {
         timeLeft: time,
         exerciseId,
+        calories: Number(calories),
       },
     });
     const newScores = await get(ref(db, `users/${username}/previousScores`));
@@ -319,7 +320,7 @@ export const stopTimerRemoveCalories = async (username, calories) => {
     const currentScores = await get(
       ref(db, `users/${username}/previousScores`)
     );
-    console.log(currentScores.val().previousCalories);
+
     const previousCalories = Number(currentScores.val().previousCalories);
     const doneExercises = Number(currentScores.val().doneExercises);
 

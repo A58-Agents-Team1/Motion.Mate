@@ -67,7 +67,7 @@ export const getGoals = async (username) => {
         ...child.val(),
       });
     });
-    console.log(result);
+
     return result;
   } catch (error) {
     throw new Error(error.message);
@@ -119,6 +119,21 @@ export const markAsDone = async (username, goalId) => {
     await update(ref(db, `users/${username}/myGoals/${goalId}`), {
       isDone: true,
     });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const updateGoalCalories = async (username, goalId, calories) => {
+  try {
+    const currentCalories = await get(
+      ref(db, `users/${username}/myGoals/${goalId}/caloriesBurned`)
+    );
+    const count = Number(currentCalories.val()) + Number(calories);
+    await set(
+      ref(db, `users/${username}/myGoals/${goalId}/caloriesBurned`),
+      count
+    );
   } catch (error) {
     throw new Error(error.message);
   }

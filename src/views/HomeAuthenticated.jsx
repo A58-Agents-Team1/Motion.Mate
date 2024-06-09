@@ -4,6 +4,7 @@ import { Divider } from '../components/HomeAuth/Divider';
 import { onValue, ref } from 'firebase/database';
 import { AppContext } from '../context/AppContext';
 import { db } from '../config/firebase-config';
+import { updateGoalProgressCalories } from '../helper/update-goals-progress';
 
 export const HomeAuthenticated = () => {
   const [timer, setTimer] = useState(null);
@@ -11,6 +12,7 @@ export const HomeAuthenticated = () => {
   const [stopButton, setStopButton] = useState('');
   const [workoutTimer, setWorkoutTimer] = useState(null);
   const [startWorkout, setStartWorkout] = useState(null);
+  const [calories, setCalories] = useState();
 
   useEffect(() => {
     return onValue(
@@ -19,6 +21,7 @@ export const HomeAuthenticated = () => {
         if (snapshot?.val()) {
           setTimer(snapshot.val().timeLeft);
           setStopButton(snapshot.val().exerciseId);
+          setCalories(snapshot.val().calories);
         } else {
           setTimer(null);
           setStopButton('');
@@ -42,6 +45,10 @@ export const HomeAuthenticated = () => {
     );
   }, []);
 
+  useEffect(() => {
+    updateGoalProgressCalories(userData.username, calories);
+  }, [calories]);
+
   return (
     <>
       <AccountStats
@@ -49,8 +56,12 @@ export const HomeAuthenticated = () => {
         setStopButton={setStopButton}
         workoutTimer={workoutTimer}
         startWorkout={startWorkout}
+        setTimer={setTimer}
       />
-      <Divider stopButton={stopButton} />
+      <Divider
+        stopButton={stopButton}
+        calories={calories}
+      />
     </>
   );
 };
