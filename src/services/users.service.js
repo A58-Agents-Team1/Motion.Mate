@@ -3,7 +3,6 @@ import {
   equalTo,
   get,
   orderByChild,
-  push,
   query,
   ref,
   remove,
@@ -75,7 +74,8 @@ export const createUser = (
   avatar,
   age,
   weight,
-  height
+  height,
+  activityLevel
 ) => {
   return set(ref(db, `users/${username}`), {
     uid,
@@ -92,6 +92,7 @@ export const createUser = (
     age,
     weight,
     height,
+    activityLevel,
     previousScores: {
       previousCalories: 0,
       doneExercises: 0,
