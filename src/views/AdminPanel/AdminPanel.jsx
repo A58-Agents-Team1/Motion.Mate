@@ -6,12 +6,16 @@ import {
   getAllUsers,
   promoteToAdminAsync,
 } from '../../services/users.service';
+import AlertSuccess from '../../components/Alerts/AlertSuccess';
+import { alertHelper } from '../../helper/alert-helper';
 
 export default function AdminPanel() {
   const { userData } = useContext(AppContext);
   const [allUsers, setAllUsers] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -39,6 +43,7 @@ export default function AdminPanel() {
   const confirmDelete = async () => {
     if (userToDelete) {
       await deleteUserAsync(userToDelete.username);
+      alertHelper(setMessage, setSuccess, 'User delete successfully!');
       setRefresh((prev) => !prev);
     }
   };
@@ -155,6 +160,7 @@ export default function AdminPanel() {
           <h1 className='text-center'>No users found!</h1>
         )}
       </div>
+      {success && <AlertSuccess message={message} />}
     </div>
   );
 }

@@ -183,7 +183,8 @@ export const validateFieldsForAdditionalInfo = (form) => {
     form.lastName === '' &&
     form.age === '' &&
     form.weight === '' &&
-    form.height === ''
+    form.height === '' &&
+    form.activityLevel === ''
   ) {
     throw new Error('Please fill in at least one of the fields!');
   }

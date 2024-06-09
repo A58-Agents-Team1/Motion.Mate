@@ -36,6 +36,7 @@ export default function Register() {
     age: '',
     weight: '',
     height: '',
+    activityLevel: '',
   });
 
   const updateForm = (props) => (e) => {
@@ -80,7 +81,8 @@ export default function Register() {
         url,
         form.age,
         form.weight,
-        form.height
+        form.height,
+        form.activityLevel
       );
 
       setAppState({ user: userCredential.user, userData: null });
@@ -99,7 +101,10 @@ export default function Register() {
 
   return (
     <>
-      <div id='register' className='hero min-h-screen bg-base-300'>
+      <div
+        id='register'
+        className='hero min-h-screen bg-base-300'
+      >
         <div className='hero-content flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
             <h1 className='text-5xl font-bold'>Register!</h1>
@@ -184,7 +189,10 @@ export default function Register() {
                 />
               </div>
               <div className='form-control mt-6'>
-                <button onClick={register} className='btn btn-primary '>
+                <button
+                  onClick={register}
+                  className='btn btn-primary '
+                >
                   Register
                 </button>
               </div>

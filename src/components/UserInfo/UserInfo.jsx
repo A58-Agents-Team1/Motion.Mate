@@ -34,6 +34,11 @@ export default function UserInfo({ userData }) {
       ) : (
         <p>Height: Missing information</p>
       )}
+      {userData?.activityLevel ? (
+        <p>Activity Level: {userData?.activityLevel}</p>
+      ) : (
+        <p>Activity Level: Missing information</p>
+      )}
       {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
         <p>Phone: {userData?.phoneNumber}</p>
       ) : (

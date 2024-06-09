@@ -25,6 +25,7 @@ export default function RegisterAdditionalInfo() {
     age: '',
     weight: '',
     height: '',
+    activityLevel: '',
   });
 
   const updateForm = (props) => (e) => {
@@ -67,7 +68,10 @@ export default function RegisterAdditionalInfo() {
 
   return (
     <>
-      <div id='register' className='hero min-h-screen bg-base-300'>
+      <div
+        id='register'
+        className='hero min-h-screen bg-base-300'
+      >
         <div className='hero-content flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
             <h1 className='text-5xl font-bold'>Additional</h1>
@@ -136,9 +140,27 @@ export default function RegisterAdditionalInfo() {
                   value={form.height}
                 />
               </div>
+              <div className='form-control'>
+                <label className='label'>
+                  <span className='label-text'>Activity Level: </span>
+                </label>
+                <select
+                  onChange={updateForm('activityLevel')}
+                  className='select select-bordered w-11/12'
+                  value={form.activityLevel}
+                >
+                  <option value='Sedentary'>Sedentary</option>
+                  <option value='Lightly Active'>Lightly Active</option>
+                  <option value='Moderately Active'>Moderately Active</option>
+                  <option value='Very Active'>Very Active</option>
+                </select>
+              </div>
 
               <div className='form-control flex flex-row justify-center mt-6'>
-                <button onClick={addInfo} className='btn btn-primary mx-3'>
+                <button
+                  onClick={addInfo}
+                  className='btn btn-primary mx-3'
+                >
                   Add Additional Info
                 </button>
                 <button

@@ -25,6 +25,7 @@ export default function EditProfileInfo({ setEditProfile }) {
     age: userData?.age || '',
     weight: userData?.weight || '',
     height: userData?.height || '',
+    activityLevel: userData?.activityLevel || '',
     phoneNumber: userData?.phoneNumber || '',
   });
 
@@ -125,6 +126,19 @@ export default function EditProfileInfo({ setEditProfile }) {
             onChange={updateForm('height')}
             className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
           />
+          <label htmlFor='activity-level'>Activity Level:</label>
+          <select
+            name='activity-level'
+            id='activity-level'
+            value={form?.activityLevel}
+            onChange={updateForm('activityLevel')}
+            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+          >
+            <option value='Sedentary'>Sedentary</option>
+            <option value='Lightly-Active'>Lightly Active</option>
+            <option value='Moderately-Active'>Moderately Active</option>
+            <option value='Very-Active'>Very Active</option>
+          </select>
           <label htmlFor='phoneNumber'>Phone Number:</label>
           <input
             type='number'
@@ -168,6 +182,11 @@ export default function EditProfileInfo({ setEditProfile }) {
             <p className='my-4'>Height: {userData?.height} cm</p>
           ) : (
             <p className='my-4'>Height: Missing information</p>
+          )}
+          {userData?.activityLevel ? (
+            <p className='my-4'>Activity Level: {userData?.activityLevel}</p>
+          ) : (
+            <p className='my-4'>Activity Level: Missing information</p>
           )}
           {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
             <p className='my-4'>Phone: {userData?.phoneNumber}</p>
