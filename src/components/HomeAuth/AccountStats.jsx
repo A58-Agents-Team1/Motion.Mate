@@ -8,7 +8,12 @@ import PropTypes from 'prop-types';
 import { Timer } from './Timer';
 import { StartWorkoutButton } from './StartWorkoutButton';
 
-export const AccountStats = ({ timer, setStopButton, workoutTimer }) => {
+export const AccountStats = ({
+  timer,
+  setStopButton,
+  workoutTimer,
+  startWorkout,
+}) => {
   const { userData } = useContext(AppContext);
   const [currentCalories, setCurrentCalories] = useState(0);
   const [timeLeft, setTimeLeft] = useState(null);
@@ -122,7 +127,7 @@ export const AccountStats = ({ timer, setStopButton, workoutTimer }) => {
           </div>
           <div className='stat-title'>Start your workout</div>
           <Timer timeLeft={workoutTimeLeft} />
-          <StartWorkoutButton />
+          <StartWorkoutButton startWorkout={startWorkout} />
         </div>
       </div>
     </div>
@@ -133,4 +138,5 @@ AccountStats.propTypes = {
   timer: PropTypes.number,
   setStopButton: PropTypes.func,
   workoutTimer: PropTypes.number,
+  startWorkout: PropTypes.bool,
 };

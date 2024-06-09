@@ -4,10 +4,10 @@ import {
   stopTimerWorkout,
 } from '../../services/users.service';
 import { AppContext } from '../../context/AppContext';
+import PropTypes from 'prop-types';
 
-export const StartWorkoutButton = () => {
+export const StartWorkoutButton = ({ startWorkout }) => {
   const { userData } = useContext(AppContext);
-  const [startWorkout, setStartWorkout] = useState(true);
   const [content, setContent] = useState({
     hours: 0,
     minutes: 0,
@@ -32,17 +32,15 @@ export const StartWorkoutButton = () => {
       minutes: 0,
       seconds: 0,
     });
-    setStartWorkout(false);
   };
 
   const endTimer = async () => {
-    setStartWorkout(true);
     await stopTimerWorkout(userData.username);
   };
 
   return (
     <div className='stat-desc text-secondary'>
-      {startWorkout ? (
+      {!startWorkout ? (
         <div>
           <button
             className='btn btn-secondary'
@@ -66,7 +64,7 @@ export const StartWorkoutButton = () => {
         id='my_modal_1'
         className='modal'
       >
-        <div className='modal-box max-w-2xl'>
+        <div className='modal-box max-w-2xl skeleton'>
           <h3 className='font-bold text-lg'>Hello!</h3>
           <div className='flex gap-2'>
             <label className='input input-bordered w-1/3 flex items-center mb-3 select-secondary'>
@@ -114,4 +112,8 @@ export const StartWorkoutButton = () => {
       </dialog>
     </div>
   );
+};
+
+StartWorkoutButton.propTypes = {
+  startWorkout: PropTypes.bool,
 };
