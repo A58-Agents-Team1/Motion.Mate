@@ -115,24 +115,39 @@ const DetailedGoal = () => {
           )}
         </div>
 
+        <div className='flex place-content-center text-lg font-bold border-b-4 border-primary p-2'>
+          <h2>Current Goal Status</h2>
+        </div>
+        <div className='flex flex-col gap-2'>
+          <div className='label border-b-2 border-primary p-2'>
+            Exercises Done
+            <div className='text-lg'>{goal?.exercisesDone || 0}</div>
+          </div>
+
+          <div className='label border-b-2 border-primary p-2'>
+            Calories Burned
+            <div className='text-lg'>{goal?.caloriesBurned || 0}</div>
+          </div>
+
+          <div className='label border-b-2 border-primary p-2'>
+            Progress
+            <div className='text-lg'>{goal?.progress}%</div>
+          </div>
+        </div>
+
+        <div className='flex place-content-center text-lg font-bold border-b-4 border-primary p-2'>
+          <h2>Goal Details</h2>
+        </div>
+
         <div className='flex flex-col gap-2'>
           <div className='label border-b-2 border-primary p-2'>
             Goal Type
-            <div className='text-lg font-bold first-letter:uppercase'>
-              {goal?.type}
-            </div>
+            <div className='text-lg first-letter:uppercase'>{goal?.type}</div>
           </div>
 
           <div className='label border-b-2 border-primary p-2'>
             Goal Name
             <div className='text-lg'>{goal?.name}</div>
-          </div>
-
-          <div className='label border-b-2 border-primary p-2'>
-            Goal Time Period
-            <div className='text-lg'></div>
-            {fullFormatDate(goal?.timePeriod?.from)} -{' '}
-            {fullFormatDate(goal?.timePeriod?.to)}
           </div>
 
           <div className='label border-b-2 border-primary p-2'>
@@ -146,8 +161,10 @@ const DetailedGoal = () => {
           </div>
 
           <div className='label border-b-2 border-primary p-2'>
-            Goal Progress
-            <div className='text-lg'>{goal?.progress}%</div>
+            Goal Time Period
+            <div className='text-lg'></div>
+            {fullFormatDate(goal?.timePeriod?.from)} -{' '}
+            {fullFormatDate(goal?.timePeriod?.to)}
           </div>
         </div>
         <GoalButton
