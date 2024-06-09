@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   validateFormInImperial,
   validateFormInMetric,
@@ -10,17 +10,29 @@ import BMIInImperialSystem from './BMIInImperialSystem';
 import BMIClassificationTable from './BMIClassificationTable';
 import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertError from '../Alerts/AlertError';
+import { AppContext } from '../../context/AppContext';
+import GetBMIDescription from './GetBMIDescription';
 
 export default function BodyMassIndex() {
+  const { userData } = useContext(AppContext);
   const [isChecked, setIsChecked] = useState(true);
   const [message, setMessage] = useState(null);
   const [alert, setAlert] = useState(false);
   const [success, setSuccess] = useState(false);
   const [BMI, setBMI] = useState(0);
+  const [userBMI, setUserBMI] = useState(0);
   const [form, setForm] = useState({
     weight: '',
     height: '',
   });
+
+  useEffect(() => {
+    if (userData?.weight && userData?.height) {
+      const squaredHeight = (Math.pow(userData?.height, 2) / 10000).toFixed(2);
+      const bmi = (userData?.weight / squaredHeight).toFixed(1);
+      setUserBMI(bmi);
+    }
+  }, []);
 
   const handleChange = () => {
     setIsChecked(!isChecked);
@@ -74,9 +86,15 @@ export default function BodyMassIndex() {
       <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
         <p>Find your BMI and health risks: </p>
         {isChecked ? (
-          <BMIInMetricSystem form={form} updateForm={updateForm} />
+          <BMIInMetricSystem
+            form={form}
+            updateForm={updateForm}
+          />
         ) : (
-          <BMIInImperialSystem form={form} updateForm={updateForm} />
+          <BMIInImperialSystem
+            form={form}
+            updateForm={updateForm}
+          />
         )}
         <div className='flex mt-4 items-center justify-end'>
           <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
@@ -97,50 +115,24 @@ export default function BodyMassIndex() {
             Calculate
           </button>
         </div>
-        <div className='mt-4'>
-          {BMI === 0 ? (
-            <p>Enter your weight and height to calculate your BMI.</p>
-          ) : BMI < 18.5 ? (
-            <p>
-              Your BMI is {BMI}. You are{' '}
-              <span className='text-blue-700 font-bold'>underweight</span>. Talk
-              to your doctor about your weight.
-            </p>
-          ) : BMI >= 18.5 && BMI < 25 ? (
-            <p>
-              Your BMI is {BMI}. You have a{' '}
-              <span className='text-green-700 font-bold'>normal weight</span>.
-              Keep up the good work.
-            </p>
-          ) : BMI >= 25 && BMI < 30 ? (
-            <p>
-              Your BMI is {BMI}. You are{' '}
-              <span className='text-yellow-500 font-bold'>overweight</span>.
-              Talk to your doctor about your weight.
-            </p>
-          ) : BMI >= 30 && BMI < 35 ? (
-            <p>
-              Your BMI is {BMI}. You are in{' '}
-              <span className='text-orange-500 font-bold'>Obesity Class I</span>
-              . Talk to your doctor about your weight.
-            </p>
-          ) : BMI >= 35 && BMI < 40 ? (
-            <p>
-              Your BMI is {BMI}. You are in{' '}
-              <span className='text-red-500 font-bold'>Obesity Class II</span>.
-              Talk to your doctor about your weight.
-            </p>
-          ) : BMI >= 40 ? (
-            <p>
-              Your BMI is {BMI}. You are in{' '}
-              <span className='text-purple-900 font-bold'>
-                Obesity Class III
-              </span>
-              . Talk to your doctor about your weight.
-            </p>
-          ) : null}
-        </div>
+        <div className='mt-4'>{GetBMIDescription(BMI)}</div>
       </div>
+      {userData?.weight && userData?.height ? (
+        <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
+          <p>
+            Your BMI is automatically calculated based on the weight and height
+            you provided in your profile.
+            {GetBMIDescription(userBMI)}
+          </p>
+        </div>
+      ) : (
+        <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
+          <p>
+            To view your automatically calculated BMI, please update your
+            profile with your weight and height.
+          </p>
+        </div>
+      )}
       <BMIClassificationTable />
       <div className='mb-4'>
         <h1 className='text-primary font-bold'>

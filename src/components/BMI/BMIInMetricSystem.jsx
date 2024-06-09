@@ -15,7 +15,7 @@ export default function BMIInMetricSystem({ form, updateForm }) {
         min={WEIGHT_MIN}
         max={WEIGHT_MAX}
         name='weight'
-        placeholder='kilograms'
+        placeholder='Kilograms'
         value={form?.weight}
         onChange={updateForm('weight')}
         className='border-2 border-gray-500 rounded p-2 mr-6 bg-gray-200 shadow-xl text-black w-28'
@@ -26,7 +26,7 @@ export default function BMIInMetricSystem({ form, updateForm }) {
         min={HEIGHT_MIN}
         max={HEIGHT_MAX}
         name='height'
-        placeholder='centimeters'
+        placeholder='Centimeters'
         value={form?.height}
         onChange={updateForm('height')}
         className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black w-32'

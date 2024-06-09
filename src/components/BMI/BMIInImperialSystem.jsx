@@ -15,7 +15,7 @@ export default function BMIInImperialSystem({ form, updateForm }) {
         min={WEIGHT_MIN_LBS}
         max={WEIGHT_MAX_LBS}
         name='weight'
-        placeholder='pounds'
+        placeholder='Pounds'
         value={form?.weight}
         onChange={updateForm('weight')}
         className='border-2 border-gray-500 rounded p-2 mr-6 bg-gray-200 shadow-xl text-black w-28'
@@ -26,7 +26,7 @@ export default function BMIInImperialSystem({ form, updateForm }) {
         min={HEIGHT_MIN_IN}
         max={HEIGHT_MAX_IN}
         name='height'
-        placeholder='inches'
+        placeholder='Inches'
         value={form?.height}
         onChange={updateForm('height')}
         className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black w-28'
