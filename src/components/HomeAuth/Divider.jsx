@@ -13,6 +13,8 @@ import {
 import { ExerciseCard } from '../Exercise/ExerciseCard';
 import PropTypes from 'prop-types';
 import { RemoveFromListButton } from '../Exercise/RemoveFromListButton';
+import { handleOnStart } from '../../helper/exercise-timer';
+import { updateGoalProgressCalories } from '../../helper/update-goals-progress';
 
 export const Divider = ({ stopButton }) => {
   const [inProgress, setInProgress] = useState([]);
@@ -21,6 +23,7 @@ export const Divider = ({ stopButton }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const { userData } = useContext(AppContext);
   const [friends, setFriends] = useState();
+  const [showModal, setShowModal] = useState(null);
 
   useEffect(() => {
     return onValue(ref(db, 'exercises'), (snapshot) => {
@@ -46,27 +49,23 @@ export const Divider = ({ stopButton }) => {
     });
   }, [userData?.username]);
 
+  useEffect(() => {
+    return onValue(
+      ref(db, `users/${userData.username}/myGoals`),
+      (snapshot) => {
+        // Object.values(snapshot.val()).filter((goal) => {
+        //   if (goal?.isDone) {
+        //     setShowModal(true);
+        //   }
+        // });
+        updateGoalProgressCalories(userData.username);
+      }
+    );
+  }, []);
+
   const stopTimer = async (exercise) => {
     await endExercise(userData.username);
     await stopTimerRemoveCalories(userData.username, exercise.calories);
-  };
-
-  const handleOnStart = async (exercise) => {
-    const endDate = new Date();
-    endDate.setHours(endDate.getHours() + Number(exercise.duration.hours));
-    endDate.setMinutes(
-      endDate.getMinutes() + Number(exercise.duration.minutes)
-    );
-    endDate.setSeconds(
-      endDate.getSeconds() + Number(exercise.duration.seconds)
-    );
-
-    await startExercise(
-      userData.username,
-      endDate.getTime(),
-      exercise.id,
-      exercise.calories
-    );
   };
 
   return (
@@ -95,7 +94,7 @@ export const Divider = ({ stopButton }) => {
 
                         {stopButton === exercise.id ? (
                           <button
-                            className='btn bg-red-400'
+                            className='btn btn-primary'
                             onClick={() => stopTimer(exercise)}
                           >
                             Stop
@@ -103,13 +102,36 @@ export const Divider = ({ stopButton }) => {
                         ) : (
                           <button
                             onClick={() => {
-                              handleOnStart(exercise);
+                              handleOnStart(exercise, startExercise, userData);
                             }}
                             className='btn btn-secondary'
                           >
                             Start
                           </button>
                         )}
+                        {/* <div>
+                          {showModal &&
+                            document.getElementById('goal_modal').showModal()}
+                          <dialog
+                            id='goal_modal'
+                            className='modal'
+                          >
+                            <div className='modal-box max-w-2xl skeleton'>
+                              <h3 className='font-bold text-lg'>
+                                Congratulations!
+                              </h3>
+                              <p>You have achieved a goal!</p>
+                              <form method='dialog'>
+                                <button
+                                  onClick={() => setShowModal(false)}
+                                  className='btn'
+                                >
+                                  Close
+                                </button>
+                              </form>
+                            </div>
+                          </dialog>
+                        </div> */}
                       </div>
                     </div>
                   </div>

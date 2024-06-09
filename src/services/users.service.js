@@ -338,3 +338,8 @@ export const stopTimerWorkout = async (username) => {
     throw new Error(error.message);
   }
 };
+
+export const getUserScores = async (username) => {
+  const scores = await get(ref(db, `users/${username}/updatedScores`));
+  return scores.val();
+};

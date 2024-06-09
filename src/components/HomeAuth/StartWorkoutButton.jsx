@@ -4,6 +4,7 @@ import {
   stopTimerWorkout,
 } from '../../services/users.service';
 import { AppContext } from '../../context/AppContext';
+import { workoutTimer } from '../../helper/workout-timer';
 import PropTypes from 'prop-types';
 
 export const StartWorkoutButton = ({ startWorkout }) => {
@@ -18,19 +19,6 @@ export const StartWorkoutButton = ({ startWorkout }) => {
     setContent({
       ...content,
       [prop]: e,
-    });
-  };
-
-  const startTimer = async () => {
-    const endDate = new Date();
-    endDate.setHours(endDate.getHours() + Number(content.hours));
-    endDate.setMinutes(endDate.getMinutes() + Number(content.minutes));
-    endDate.setSeconds(endDate.getSeconds() + Number(content.seconds));
-    await StartTimerWorkout(userData.username, endDate.getTime());
-    setContent({
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
     });
   };
 
@@ -101,7 +89,9 @@ export const StartWorkoutButton = ({ startWorkout }) => {
             <form method='dialog'>
               <button className='btn'>Cancel</button>
               <button
-                onClick={startTimer}
+                onClick={() =>
+                  workoutTimer(content, userData, setContent, StartTimerWorkout)
+                }
                 className='btn'
               >
                 Start
