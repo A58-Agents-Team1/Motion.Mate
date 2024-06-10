@@ -6,7 +6,6 @@ import { db } from '../../config/firebase-config';
 import { AppContext } from '../../context/AppContext';
 import {
   endExercise,
-  getFriends,
   startExercise,
   stopTimerRemoveCalories,
 } from '../../services/users.service';
@@ -15,6 +14,9 @@ import { RemoveFromListButton } from '../Exercise/RemoveFromListButton';
 import { handleOnStart } from '../../helper/exercise-timer';
 import { FinishedGoal } from './FinishedGoal';
 import PropTypes from 'prop-types';
+import { NoActivityCard } from './NoActivityCard';
+import { useNavigate } from 'react-router-dom';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 export const Divider = ({ stopButton }) => {
   const { userData } = useContext(AppContext);
@@ -22,10 +24,24 @@ export const Divider = ({ stopButton }) => {
   const [alertMessage, setAlertMessage] = useState('');
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [friends, setFriends] = useState();
+  const [friends, setFriends] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    return onValue(ref(db, 'exercises'), (snapshot) => {
+    const friendsRef = ref(db, `users/${userData?.username}/friends`);
+    const unsubscribe = onValue(friendsRef, (snapshot) => {
+      const friendsList = snapshot?.val() ? Object.keys(snapshot.val()) : [];
+      setFriends(friendsList);
+      console.log(friends);
+    });
+
+    return () => unsubscribe();
+  }, [userData?.username]);
+
+  useEffect(() => {
+    console.log('yes');
+    const exercisesRef = ref(db, 'exercises');
+    const unsubscribe = onValue(exercisesRef, (snapshot) => {
       try {
         const exercises = snapshot.val();
         const allExercises = [];
@@ -36,21 +52,36 @@ export const Divider = ({ stopButton }) => {
           });
         });
 
-        const filtered = allExercises.filter((obj) => obj.inProgress === true);
-        setInProgress(filtered);
+        /**
+         * fist filter all exercises by User that are in progress
+         */
+        const userExercises = allExercises.filter(
+          (exercise) =>
+            exercise.inProgress === true &&
+            exercise.createdBy === userData.username
+        );
 
-        const fetchFriends = async () => {
-          const snapshot = await getFriends(userData?.username);
-          if (snapshot) {
-            setFriends(snapshot);
-          }
-        };
-        fetchFriends();
+        /**
+         * then filter all exercises by Friends that are in progress
+         */
+        const friendExercises = friends
+          .map((friend) =>
+            allExercises.filter(
+              (exercise) =>
+                exercise.createdBy === friend && exercise.inProgress === true
+            )
+          )
+          .flat();
+
+        setInProgress([...userExercises, ...friendExercises]);
       } catch (error) {
-        throw new Error(error.message);
+        setShowError(true);
+        setAlertMessage(error.message);
       }
     });
-  }, [userData?.username]);
+
+    return () => unsubscribe();
+  }, [friends, userData.username]);
 
   const stopTimer = async (exercise) => {
     await endExercise(userData.username);
@@ -59,7 +90,7 @@ export const Divider = ({ stopButton }) => {
 
   return (
     <div>
-      {inProgress.length ? (
+      {inProgress.length > 0 ? (
         <div className='flex flex-col lg:flex-row'>
           <div className='flex-1'>
             {inProgress.map((exercise) => (
@@ -67,60 +98,63 @@ export const Divider = ({ stopButton }) => {
                 key={exercise.id}
                 className='flex flex-col items-center'
               >
-                {(exercise.createdBy === userData.username ||
-                  friends?.includes(exercise.createdBy)) && (
-                  <div className='card w-96 bg-base-300 m-2'>
-                    <div className='card-body p-4'>
-                      <ExerciseCard
+                <div className='card w-96 bg-base-300 m-2'>
+                  <div className='card-body p-4'>
+                    <ExerciseCard
+                      exercise={exercise}
+                      userData={userData}
+                    />
+                    <div className='card-actions mt-2 justify-end'>
+                      <RemoveFromListButton
                         exercise={exercise}
-                        userData={userData}
+                        category={exercise.categoryName}
+                        setAlertMessage={setAlertMessage}
+                        setShowSuccess={setShowSuccess}
+                        setShowError={setShowError}
                       />
-                      <div className='card-actions mt-2 justify-end'>
-                        <RemoveFromListButton
-                          exercise={exercise}
-                          category={exercise.categoryName}
-                          setAlertMessage={setAlertMessage}
-                          setShowSuccess={setShowSuccess}
-                          setShowError={setShowError}
-                        />
 
-                        {stopButton === exercise.id ? (
-                          <button
-                            className='btn btn-primary'
-                            onClick={() => stopTimer(exercise)}
-                          >
-                            Stop
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => {
-                              handleOnStart(exercise, startExercise, userData);
-                            }}
-                            className='btn btn-secondary'
-                          >
-                            Start
-                          </button>
-                        )}
-                      </div>
+                      {stopButton === exercise.id ? (
+                        <button
+                          className='btn btn-primary'
+                          onClick={() => stopTimer(exercise)}
+                        >
+                          Stop
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            handleOnStart(exercise, startExercise, userData);
+                          }}
+                          className='btn btn-secondary'
+                        >
+                          Start
+                        </button>
+                      )}
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             ))}
           </div>
           <div className='divider lg:divider-horizontal my-auto'>OR</div>
           <div className='flex-1 flex flex-col items-center'>
-            <FinishedGoal></FinishedGoal>
+            <FinishedGoal />
           </div>
         </div>
       ) : (
-        <div className='flex text-center flex-col'>
-          <h1 className='text-2xl font-bold mb-4'>No exercises in list </h1>
-          <h1 className='text-2xl font-bold mb-4'>
-            This is the place where you can start multiple workouts and track
-            burned calories. <br />
-            You can also add friends so you can share workouts!
-          </h1>
+        <div className='flex flex-col lg:flex-row'>
+          <NoActivityCard
+            onClick={() => navigate('/exercises')}
+            icon={faHeart}
+            title={'No exercises in progress!'}
+            content={
+              'Create and add your exercises here so you can keep track of duration and burned calories!'
+            }
+          />
+          <div className='divider lg:divider-horizontal my-auto'>OR</div>
+          <div className='flex-1 flex flex-col items-center'>
+            <FinishedGoal />
+          </div>
         </div>
       )}
       {showError && <AlertError message={alertMessage} />}
