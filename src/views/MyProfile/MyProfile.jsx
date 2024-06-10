@@ -37,8 +37,8 @@ export default function MyProfile() {
             <div className='mr-4'>
               <UnSizedAvatar user={userData} />
             </div>
-            <div className='text-center text-lg ml-5'>
-              <p className='font-bold underline text-primary'>
+            <div className='text-left text-lg ml-5'>
+              <p className='font-bold underline text-primary mb-3'>
                 Main Information:
               </p>
               <UserInfo userData={userData} />

@@ -79,7 +79,8 @@ export const createUser = (
   age,
   weight,
   height,
-  activityLevel
+  activityLevel,
+  gender
 ) => {
   return set(ref(db, `users/${username}`), {
     uid,
@@ -97,6 +98,7 @@ export const createUser = (
     weight,
     height,
     activityLevel,
+    gender,
     previousScores: {
       previousCalories: 0,
       doneExercises: 0,

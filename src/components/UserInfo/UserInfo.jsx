@@ -39,6 +39,11 @@ export default function UserInfo({ userData }) {
       ) : (
         <p>Activity Level: Missing information</p>
       )}
+      {userData?.gender ? (
+        <p>Gender: {userData?.gender}</p>
+      ) : (
+        <p>Gender: Missing information</p>
+      )}
       {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
         <p>Phone: {userData?.phoneNumber}</p>
       ) : (
