@@ -147,17 +147,39 @@ export const updateGoalCalories = async (username, goal, goalId, calories) => {
     const newCalorieProgress = (totalCalories / caloriesGoal) * 100 || 0;
     const newExercisesProgress = (exercisesDone / goal?.exercises) * 100 || 0;
 
-    const updatedGoal = {}
+    const updatedGoal = {};
     updatedGoal[`${base}/exercisesDone/`] = exercisesDone;
     updatedGoal[`${base}/caloriesBurned/`] = totalCalories;
 
-    (goal?.type === 'calories') && (
-      updatedGoal[`${base}/progress/`] = Number(newCalorieProgress.toFixed(2)));
+    goal?.type === 'calories' &&
+      (updatedGoal[`${base}/progress/`] = Number(
+        newCalorieProgress.toFixed(2)
+      ));
 
-    (goal?.type === 'exercises') && (
-      updatedGoal[`${base}/progress/`] = Number(newExercisesProgress.toFixed(2)));
+    goal?.type === 'exercises' &&
+      (updatedGoal[`${base}/progress/`] = Number(
+        newExercisesProgress.toFixed(2)
+      ));
 
     await update(ref(db), updatedGoal);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getGoalsByProgress = async (username) => {
+  try {
+    const result = [];
+    const snapshot = await get(ref(db, `users/${username}/myGoals/`));
+    snapshot.forEach((child) => {
+      result.push({
+        id: child.key,
+        ...child.val(),
+      });
+    });
+
+    const filtered = result.filter((goal) => goal?.progress >= 100);
+    return filtered;
   } catch (error) {
     throw new Error(error.message);
   }

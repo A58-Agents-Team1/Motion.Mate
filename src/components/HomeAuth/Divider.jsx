@@ -13,37 +13,42 @@ import {
 import { ExerciseCard } from '../Exercise/ExerciseCard';
 import { RemoveFromListButton } from '../Exercise/RemoveFromListButton';
 import { handleOnStart } from '../../helper/exercise-timer';
+import { FinishedGoal } from './FinishedGoal';
 import PropTypes from 'prop-types';
 
 export const Divider = ({ stopButton }) => {
-  const [inProgress, setInProgress] = useState([]);
-  const [showError, setShowError] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [showSuccess, setShowSuccess] = useState(false);
   const { userData } = useContext(AppContext);
+  const [inProgress, setInProgress] = useState([]);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [friends, setFriends] = useState();
 
   useEffect(() => {
     return onValue(ref(db, 'exercises'), (snapshot) => {
-      const exercises = snapshot.val();
-      const allExercises = [];
+      try {
+        const exercises = snapshot.val();
+        const allExercises = [];
 
-      Object.entries(exercises).map(([id, exercise]) => {
-        Object.entries(exercise).map(([exerciseId, exerciseData]) => {
-          allExercises.push({ id: exerciseId, ...exerciseData });
+        Object.entries(exercises).map(([id, exercise]) => {
+          Object.entries(exercise).map(([exerciseId, exerciseData]) => {
+            allExercises.push({ id: exerciseId, ...exerciseData });
+          });
         });
-      });
 
-      const filtered = allExercises.filter((obj) => obj.inProgress === true);
-      setInProgress(filtered);
+        const filtered = allExercises.filter((obj) => obj.inProgress === true);
+        setInProgress(filtered);
 
-      const fetchFriends = async () => {
-        const snapshot = await getFriends(userData?.username);
-        if (snapshot) {
-          setFriends(snapshot);
-        }
-      };
-      fetchFriends();
+        const fetchFriends = async () => {
+          const snapshot = await getFriends(userData?.username);
+          if (snapshot) {
+            setFriends(snapshot);
+          }
+        };
+        fetchFriends();
+      } catch (error) {
+        throw new Error(error.message);
+      }
     });
   }, [userData?.username]);
 
@@ -104,14 +109,8 @@ export const Divider = ({ stopButton }) => {
             ))}
           </div>
           <div className='divider lg:divider-horizontal my-auto'>OR</div>
-          <div className='flex-1 grid h-32  place-items-center'>
-            <div className='card w-96 bg-base-100'>
-              <div className='card-body shadow-2xl mb-7'>
-                <h2 className='card-title'>Goals</h2>
-                <p>Here are your reached goals</p>
-                <div className='card-actions justify-end'></div>
-              </div>
-            </div>
+          <div className='flex-1 flex flex-col items-center'>
+            <FinishedGoal></FinishedGoal>
           </div>
         </div>
       ) : (
