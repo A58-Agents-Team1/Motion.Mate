@@ -7,6 +7,7 @@ import { db } from '../../config/firebase-config';
 import PropTypes from 'prop-types';
 import { Timer } from './Timer';
 import { StartWorkoutButton } from './StartWorkoutButton';
+import { getGoals, updateGoalCalories } from '../../services/goal.service';
 
 export const AccountStats = ({
   timer,
@@ -39,15 +40,23 @@ export const AccountStats = ({
 
       if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours === -3) {
         const updateCalories = async () => {
+          const allGoals = await getGoals(userData.username);
           await whenTimerEnds(userData.username);
           await endExercise(userData.username);
+          allGoals.forEach(async (goal) => {
+            await updateGoalCalories(
+              userData.username,
+              goal.id,
+              currentCalories
+            );
+          });
         };
         updateCalories();
         setStopButton('');
       }
+      return () => clearTimeout();
     } else {
       setTimeLeft(null);
-      return () => clearTimeout();
     }
   }, [timeLeft, timer]);
 
