@@ -37,6 +37,7 @@ export default function Register() {
     weight: '',
     height: '',
     activityLevel: '',
+    gender: '',
   });
 
   const updateForm = (props) => (e) => {
@@ -82,7 +83,8 @@ export default function Register() {
         form.age,
         form.weight,
         form.height,
-        form.activityLevel
+        form.activityLevel,
+        form.gender
       );
 
       setAppState({ user: userCredential.user, userData: null });

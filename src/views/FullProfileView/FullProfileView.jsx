@@ -39,7 +39,10 @@ export default function FullProfileView() {
           <p>Member Since: {fullFormatDate(user?.createdOn)}</p>
         </div>
         <div className='bottom-div card-actions justify-end mt-4'>
-          <button onClick={() => navigate(-1)} className='btn btn-error'>
+          <button
+            onClick={() => navigate(-1)}
+            className='btn btn-error'
+          >
             Back
           </button>
         </div>

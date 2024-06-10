@@ -26,6 +26,7 @@ export default function RegisterAdditionalInfo() {
     weight: '',
     height: '',
     activityLevel: '',
+    gender: '',
   });
 
   const updateForm = (props) => (e) => {
@@ -149,10 +150,25 @@ export default function RegisterAdditionalInfo() {
                   className='select select-bordered w-11/12'
                   value={form.activityLevel}
                 >
+                  <option value='base'>Choose Level</option>
                   <option value='Sedentary'>Sedentary</option>
                   <option value='Lightly Active'>Lightly Active</option>
                   <option value='Moderately Active'>Moderately Active</option>
                   <option value='Very Active'>Very Active</option>
+                </select>
+              </div>
+              <div className='form-control'>
+                <label className='label'>
+                  <span className='label-text'>Gender: </span>
+                </label>
+                <select
+                  onChange={updateForm('gender')}
+                  className='select select-bordered w-11/12'
+                  value={form.gender}
+                >
+                  <option value='base'>Choose Gender</option>
+                  <option value='Male'>Male</option>
+                  <option value='Female'>Female</option>
                 </select>
               </div>
 
