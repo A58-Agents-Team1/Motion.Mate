@@ -6,6 +6,14 @@ import EditProfileInfo from '../../components/EditProfileInfo/EditProfileInfo';
 import ChangeProfilePhoto from '../../components/EditProfileInfo/ChangeProfilePhoto';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import UnSizedAvatar from '../../components/Avatar/UnSizedAvatar';
+import { FriendAvatar } from '../../components/Exercise/FriendAvatar';
+import InfoBite from '../../components/Exercise/InfoBite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCameraRetro,
+  faPen,
+  faUserGroup,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function MyProfile() {
   const { userData, setAppState } = useContext(AppContext);
@@ -26,51 +34,65 @@ export default function MyProfile() {
   };
 
   return (
-    <div className='flex flex-col text-center'>
+    <div className='flex flex-col'>
       {userData && editProfile === false && changeProfilePhoto === false ? (
-        <div className='flex flex-col text-center'>
-          <h1 className='mb-4 text-xl'>
-            Greetings, {userData?.username}! Explore all the details about your
-            account here.
-          </h1>
-          <div className='border-2 border-gray-500 rounded-xl bg-base-300 p-4 shadow-lg flex items-center justify-center'>
-            <div className='mr-4'>
-              <UnSizedAvatar user={userData} />
+        <div className='flex flex-col'>
+          <h1 className='my-5 text-4xl font-bold text-center'>My Profile</h1>
+
+          <div className='flex items-center justify-between'>
+            <div className='avatar flex items-center'>
+              <div className='w-36 mr-6 rounded-full border-2 border-primary'>
+                <FriendAvatar username={userData?.username} />
+              </div>
+
+              <div>
+                <small>Username:</small>
+                <h1 className='text-4xl font-bold'>{userData?.username}</h1>
+              </div>
             </div>
-            <div className='text-left text-lg ml-5'>
-              <p className='font-bold underline text-primary mb-3'>
-                Main Information:
-              </p>
-              <UserInfo userData={userData} />
-              {userData?.friends &&
-                (Object.keys(userData.friends).length === 1 ? (
-                  <p title={generateFriendTooltips()}>
-                    You have{' '}
-                    <strong>{Object.keys(userData.friends).length}</strong>{' '}
-                    friend.
-                  </p>
-                ) : (
-                  <p title={generateFriendTooltips()}>
-                    You have{' '}
-                    <strong>{Object.keys(userData.friends).length}</strong>{' '}
-                    friends.
-                  </p>
-                ))}
-              <div className='mt-5'>
+
+            <div className='flex flex-col  place-items-end  gap-2'>
+              <div className='flex  place-content-end items-center'>
+                <label className='label gap-1'>Friends</label>
+                <div
+                  title={`You have ${Object.keys(userData.friends).length} ${
+                    Object.keys(userData.friends).length > 1
+                      ? 'friends'
+                      : 'friend'
+                  }`}
+                  className='flex items-center text-xs text-primary  border border-primary rounded-lg p-2'
+                >
+                  <FontAwesomeIcon icon={faUserGroup} />
+
+                  <strong>{Object.keys(userData.friends).length}</strong>
+                </div>
+              </div>
+
+              <div className='flex  place-content-end items-center '>
+                <label className='label gap-1'>Edit profile</label>
                 <button
                   onClick={() => setEditProfile(!editProfile)}
-                  className='btn btn-primary mr-3'
+                  className='btn btn-primary btn-sm rounded-md'
+                  title='Edit Profile'
                 >
-                  Edit Profile
+                  <FontAwesomeIcon icon={faPen} />
                 </button>
+              </div>
+              <div className='flex  place-content-end items-center'>
+                <label className='label gap-1'>Change profile picture</label>
                 <button
                   onClick={() => setChangeProfilePhoto(!changeProfilePhoto)}
-                  className='btn btn-primary'
+                  className='btn btn-primary btn-sm rounded-md'
+                  title='Change Profile Picture'
                 >
-                  Change Photo
+                  <FontAwesomeIcon icon={faCameraRetro} />
                 </button>
               </div>
             </div>
+          </div>
+
+          <div className='info border-t border-t-gray-500 mt-4 pt-4'>
+            <UserInfo userData={userData} />
           </div>
         </div>
       ) : editProfile === true ? (

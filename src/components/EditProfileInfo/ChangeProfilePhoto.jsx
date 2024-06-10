@@ -3,6 +3,7 @@ import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { uploadPhoto } from '../../services/users.service';
 import UnSizedAvatar from '../Avatar/UnSizedAvatar';
+import { FriendAvatar } from '../Exercise/FriendAvatar';
 
 export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
   const { userData } = useContext(AppContext);
@@ -30,18 +31,25 @@ export default function ChangeProfilePhoto({ setChangeProfilePhoto }) {
       </div>
       <div className='border-2 border-gray-500 bg-base-300 rounded p-4 shadow-lg flex flex-col items-center'>
         <div className='flex items-center'>
-          <div className='mr-4'>
-            <UnSizedAvatar user={userData} />
+          <div className='avatar'>
+            <div className='w-64 mr-12 rounded-full border-2 border-primary'>
+              <FriendAvatar username={userData?.username} />
+            </div>
           </div>
+
           <div className='text-center'>
             {imageUpload !== null && (
               <div>
-                <h2 className='font-bold underline'>New Profil Photo: </h2>
-                <img
-                  src={URL.createObjectURL(imageUpload)}
-                  alt='Profile Photo'
-                  className='w-auto h-64 max-w-full rounded-2xl object-cover shadow-xl mt-2'
-                />
+                <h2 className='font-bold underline'>New Profile Photo: </h2>
+
+                <div className='avatar'>
+                  <div className='w-64 max-w-full rounded-full mt-2 border-2 border-primary'>
+                    <img
+                      src={URL.createObjectURL(imageUpload)}
+                      alt='Profile Photo'
+                    />
+                  </div>
+                </div>
               </div>
             )}
           </div>

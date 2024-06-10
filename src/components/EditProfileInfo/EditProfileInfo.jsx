@@ -75,6 +75,14 @@ export default function EditProfileInfo({ setEditProfile }) {
       </h1>
       <div className='border-2 border-gray-500 rounded bg-base-300 p-4 shadow-lg flex flex-col justify-center items-center'>
         <div className='flex'>
+          <div className='text-left text-lg mr-5'>
+            <div>
+              <p className='font-bold underline text-primary mb-6'>
+                Main Information:
+              </p>
+              <UserInfo userData={userData} />
+            </div>
+          </div>
           <div className='mr-4 flex flex-col text-left text-lg px-4'>
             <p className='font-bold underline text-primary mb-3'>
               Edit Personal Information here:
@@ -168,14 +176,6 @@ export default function EditProfileInfo({ setEditProfile }) {
               <option value='Male'>Male</option>
               <option value='Female'>Female</option>
             </select>
-          </div>
-          <div className='text-left text-lg ml-10'>
-            <div>
-              <p className='font-bold underline text-primary mb-6'>
-                Main Information:
-              </p>
-              <UserInfo userData={userData} />
-            </div>
           </div>
         </div>
         <div className='my-5'>

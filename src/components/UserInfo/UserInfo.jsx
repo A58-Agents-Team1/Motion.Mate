@@ -1,54 +1,59 @@
 import PropTypes from 'prop-types';
+import InfoBite from '../Exercise/InfoBite';
 
 export default function UserInfo({ userData }) {
+  const firstName = userData?.firstName || '';
+  const lastName = userData?.lastName || '';
+
+  const fullName = `${
+    userData?.firstName || userData?.lastName
+      ? `${firstName} ${lastName}`
+      : 'N/A'
+  }`;
+
   return (
     <>
-      {userData?.username ? (
-        <p>UserName: {userData?.username}</p>
-      ) : (
-        <p>UserName: Missing information</p>
-      )}
-      <p>Email: {userData?.email}</p>
-      {userData?.firstName ? (
-        <p>First Name: {userData?.firstName}</p>
-      ) : (
-        <p>First Name: Missing information</p>
-      )}
-      {userData?.lastName ? (
-        <p>Last Name: {userData?.lastName}</p>
-      ) : (
-        <p>Last Name: Missing information</p>
-      )}
-      {userData?.age ? (
-        <p>Age: {userData?.age} years old</p>
-      ) : (
-        <p>Age: Missing information</p>
-      )}
-      {userData?.weight ? (
-        <p>Weight: {userData?.weight} kg</p>
-      ) : (
-        <p>Weight: Missing information</p>
-      )}
-      {userData?.height ? (
-        <p>Height: {userData?.height} cm</p>
-      ) : (
-        <p>Height: Missing information</p>
-      )}
-      {userData?.activityLevel ? (
-        <p>Activity Level: {userData?.activityLevel}</p>
-      ) : (
-        <p>Activity Level: Missing information</p>
-      )}
-      {userData?.gender ? (
-        <p>Gender: {userData?.gender}</p>
-      ) : (
-        <p>Gender: Missing information</p>
-      )}
-      {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
-        <p>Phone: {userData?.phoneNumber}</p>
-      ) : (
-        <p>Phone: Missing information</p>
-      )}
+      <div className='flex flex-col gap-2'>
+        <InfoBite
+          title={'Full Name'}
+          content={fullName}
+        />
+
+        <InfoBite
+          title={'Gender'}
+          content={userData?.gender || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Email'}
+          content={userData?.email || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Phone'}
+          content={userData?.phoneNumber || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Age'}
+          content={userData?.age || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Weight'}
+          content={userData?.weight || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Height'}
+          content={userData?.height || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Activity Level'}
+          content={userData?.activityLevel || 'N/A'}
+        />
+      </div>
     </>
   );
 }
