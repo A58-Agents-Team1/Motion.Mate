@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
+import { APP_NAME } from '../../common/constants';
 
 export default function NotFound() {
+  document.querySelector('title').textContent = `${APP_NAME} | Page Not Found`;
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
 
