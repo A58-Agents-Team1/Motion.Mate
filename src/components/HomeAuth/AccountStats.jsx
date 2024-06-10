@@ -44,12 +44,18 @@ export const AccountStats = ({
           await whenTimerEnds(userData.username);
           await endExercise(userData.username);
           allGoals.forEach(async (goal) => {
-            await updateGoalCalories(
-              userData.username,
-              goal,
-              goal.id,
-              currentCalories
-            );
+            console.log(goal);
+            if (
+              goal?.timePeriod?.from <= new Date() &&
+              goal?.timePeriod?.to >= new Date()
+            ) {
+              await updateGoalCalories(
+                userData.username,
+                goal,
+                goal?.id,
+                currentCalories
+              );
+            }
           });
         };
         updateCalories();
