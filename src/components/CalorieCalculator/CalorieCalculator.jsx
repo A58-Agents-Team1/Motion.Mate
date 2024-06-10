@@ -1,6 +1,37 @@
+import { useState } from 'react';
 import calorie from '../../assets/calorie.png';
+import MetricScalar from './MetricScalar';
+import ImperialScalar from './ImperialScalar';
 
 export default function CalorieCalculator() {
+  const [isChecked, setIsChecked] = useState(true);
+  const [form, setForm] = useState({
+    weight: '',
+    height: '',
+    age: '',
+    gender: 'male',
+    activityLevel: 'Sedentary',
+  });
+
+  const handleChange = () => {
+    setIsChecked(!isChecked);
+    setForm({
+      weight: '',
+      height: '',
+      age: '',
+      gender: 'male',
+      activityLevel: 'Sedentary',
+    });
+  };
+
+  const updateForm = (key) => (e) => {
+    setForm({ ...form, [key]: e.target.value });
+  };
+
+  const calculate = () => {
+    console.log('Calculating...');
+  };
+
   return (
     <div className='card p-4 flex flex-col bg-base-100 text-center m-4 border-2 border-gray-500 rounded-2xl shadow-2xl'>
       <p className='font-bold text-xl mb-8 text-primary'>
@@ -14,6 +45,38 @@ export default function CalorieCalculator() {
       </p>
       <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
         <p>Calorie Calculator: </p>
+        <div className='flex items-center justify-center'>
+          {isChecked ? (
+            <MetricScalar
+              form={form}
+              updateForm={updateForm}
+            />
+          ) : (
+            <ImperialScalar
+              form={form}
+              updateForm={updateForm}
+            />
+          )}
+        </div>
+        <div className='flex my-4 items-center justify-end'>
+          <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
+            <p>Imperial or Metric System</p>
+            <label className='cursor-pointer label'>
+              <input
+                type='checkbox'
+                className='toggle toggle-info'
+                checked={isChecked}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <button
+            className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 ml-4'
+            onClick={() => calculate()}
+          >
+            Calculate
+          </button>
+        </div>
       </div>
       <div className='text-center'>
         <h1 className='text-primary text-xl text-center font-bold mt-6'>
@@ -21,7 +84,11 @@ export default function CalorieCalculator() {
         </h1>
         <div className='flex items-center mx-4'>
           <div>
-            <img src={calorie} alt='calorie' className='w-80' />
+            <img
+              src={calorie}
+              alt='calorie'
+              className='w-80'
+            />
           </div>
           <div className='mx-4'>
             <p>
