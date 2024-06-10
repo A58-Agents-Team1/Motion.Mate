@@ -10,12 +10,13 @@ import { alertHelper } from '../../helper/alert-helper';
 
 export const CreateExercise = () => {
   const { userData } = useContext(AppContext);
+
   const [categories, setCategories] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState('');
-  const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
   const [takeResult, setTakeResult] = useState([]);
+  const [showError, setShowError] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
   const [content, setContent] = useState({
     title: '',
     content: '',
@@ -79,6 +80,7 @@ export const CreateExercise = () => {
       });
 
       document.getElementById('exercise-create-modal').close();
+
       alertHelper(
         setAlertMessage,
         setShowSuccess,
@@ -87,7 +89,6 @@ export const CreateExercise = () => {
     } catch (error) {
       alertHelper(setAlertMessage, setShowError, error.message);
     }
-
     await addUserExercise(userData.username, takeResult);
   };
 
@@ -95,9 +96,9 @@ export const CreateExercise = () => {
     <div>
       <button
         className='btn btn-outline btn-primary'
-        onClick={() =>
-          document.getElementById('exercise-create-modal').showModal()
-        }
+        onClick={() => {
+          document.getElementById('exercise-create-modal').showModal();
+        }}
       >
         Create Exercise
       </button>
@@ -205,13 +206,6 @@ export const CreateExercise = () => {
             </label>
 
             <div className='flex items-center justify-between'>
-              <div className='modal-action mt-1'>
-                <form method='dialog'>
-                  <button className='btn btn-outline btn-primary'>
-                    Cancel
-                  </button>
-                </form>
-              </div>
               <form method='dialog'>
                 <button
                   onClick={submitExercise}
@@ -220,6 +214,14 @@ export const CreateExercise = () => {
                 >
                   Submit
                 </button>
+              </form>
+
+              <form method='dialog'>
+                <div className='modal-action mt-1'>
+                  <button className='btn btn-outline btn-primary'>
+                    Cancel
+                  </button>
+                </div>
               </form>
             </div>
           </div>
