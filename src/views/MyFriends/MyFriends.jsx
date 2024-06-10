@@ -21,10 +21,13 @@ export default function MyFriends() {
     <div>
       <div className='flex flex-col'>
         <ul>
-          {friendList.length !== 0 ? (
+          {friendList?.length !== 0 ? (
             friendList.map((user) => (
-              <li key={user.username}>
-                <SingleUserView user={user} setRefresh={setRefresh} />
+              <li key={user?.uid}>
+                <SingleUserView
+                  user={user}
+                  setRefresh={setRefresh}
+                />
               </li>
             ))
           ) : (
