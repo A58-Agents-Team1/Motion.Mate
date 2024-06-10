@@ -3,8 +3,8 @@ import { registerUser } from '../../services/auth.service';
 import { alertHelper } from '../../helper/alert-helper';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
-import AlertError from '../../components/Alerts/AlertError';
-import AlertSuccess from '../../components/Alerts/AlertSuccess';
+import AlertError from '../../components/Alerts/AlertError/AlertError';
+import AlertSuccess from '../../components/Alerts/AlertSuccess/AlertSuccess';
 import {
   createUser,
   getUploadedPhoto,

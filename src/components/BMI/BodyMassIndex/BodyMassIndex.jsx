@@ -2,16 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 import {
   validateFormInImperial,
   validateFormInMetric,
-} from '../../common/BMIValidations';
-import { BMI_CONVERSION_FACTOR } from '../../common/constants';
-import { alertHelper } from '../../helper/alert-helper';
-import BMIInMetricSystem from './BMIInMetricSystem';
-import BMIInImperialSystem from './BMIInImperialSystem';
-import BMIClassificationTable from './BMIClassificationTable';
-import AlertSuccess from '../Alerts/AlertSuccess';
-import AlertError from '../Alerts/AlertError';
-import { AppContext } from '../../context/AppContext';
-import GetBMIDescription from './GetBMIDescription';
+} from '../../../common/BMIValidations';
+import { BMI_CONVERSION_FACTOR } from '../../../common/constants';
+import { alertHelper } from '../../../helper/alert-helper';
+import BMIInMetricSystem from '../BMIInMetricSystem/BMIInMetricSystem';
+import BMIInImperialSystem from '../BMIInImperialSystem/BMIInImperialSystem';
+import BMIClassificationTable from '../BMIClassificationTable/BMIClassificationTable';
+import AlertSuccess from '../../Alerts/AlertSuccess/AlertSuccess';
+import AlertError from '../../Alerts/AlertError/AlertError';
+import { AppContext } from '../../../context/AppContext';
+import GetBMIDescription from '../GetBMIDescription/GetBMIDescription';
 
 export default function BodyMassIndex() {
   const { userData } = useContext(AppContext);

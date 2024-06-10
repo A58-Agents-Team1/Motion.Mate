@@ -1,6 +1,6 @@
 import water from '../../../assets/water.png';
-import AlertError from '../../Alerts/AlertError';
-import AlertSuccess from '../../Alerts/AlertSuccess';
+import AlertError from '../../Alerts/AlertError/AlertError';
+import AlertSuccess from '../../Alerts/AlertSuccess/AlertSuccess';
 import MetricWaterIntake from '../MetricWaterIntake/MetricWaterIntake';
 import ImperialWaterIntake from '../ImperialWaterIntake/ImperialWaterIntake';
 import { AppContext } from '../../../context/AppContext';

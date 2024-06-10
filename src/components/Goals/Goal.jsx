@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import { calculateTimeLeft } from '../../helper/format-date';
 import { AppContext } from '../../context/AppContext';
 import { useNavigate } from 'react-router-dom';
-import AlertError from '../Alerts/AlertError';
+import AlertError from '../Alerts/AlertError/AlertError';
 import { alertHelper } from '../../helper/alert-helper';
 import TimeLeft from './TimeLeft';
 import Progress from './Progress';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import AlertSuccess from '../Alerts/AlertSuccess';
+import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
 import { deleteGoal } from '../../services/goal.service';
 
 export default function Goal({ id, owner, name, from, to, progress, type }) {

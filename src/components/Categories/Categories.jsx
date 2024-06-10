@@ -8,8 +8,8 @@ import CreateCategory from './CreateCategory';
 import { DeleteIcon } from './DeleteIcon';
 import { alertHelper } from '../../helper/alert-helper';
 import { useNavigate } from 'react-router-dom';
-import AlertError from '../Alerts/AlertError';
-import AlertSuccess from '../Alerts/AlertSuccess';
+import AlertError from '../Alerts/AlertError/AlertError';
+import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
 
 const Categories = () => {
   const navigate = useNavigate();

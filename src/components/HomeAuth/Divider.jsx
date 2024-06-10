@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import AlertError from '../Alerts/AlertError';
-import AlertSuccess from '../Alerts/AlertSuccess';
+import AlertError from '../Alerts/AlertError/AlertError';
+import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
 import { AppContext } from '../../context/AppContext';

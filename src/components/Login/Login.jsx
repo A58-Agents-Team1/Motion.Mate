@@ -11,8 +11,8 @@ import {
   validateRequiredFieldsLogUsername,
   validateUserNameLogAsync,
 } from '../../common/user.validations.js';
-import AlertSuccess from '../Alerts/AlertSuccess.jsx';
-import AlertError from '../Alerts/AlertError.jsx';
+import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess.jsx';
+import AlertError from '../Alerts/AlertError/AlertError.jsx';
 import { alertHelper } from '../../helper/alert-helper.js';
 
 export default function Login() {
@@ -94,7 +94,10 @@ export default function Login() {
   }, []);
 
   return (
-    <div id='login' className='hero min-h-screen bg-base-300'>
+    <div
+      id='login'
+      className='hero min-h-screen bg-base-300'
+    >
       <div className='hero-content flex-col lg:flex-row-reverse'>
         <div className='text-center lg:text-left'>
           <h1 className='text-5xl font-bold'>Login!</h1>

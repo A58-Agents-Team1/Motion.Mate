@@ -6,7 +6,7 @@ import {
   getAllUsers,
   promoteToAdminAsync,
 } from '../../services/users.service';
-import AlertSuccess from '../../components/Alerts/AlertSuccess';
+import AlertSuccess from '../../components/Alerts/AlertSuccess/AlertSuccess';
 import { alertHelper } from '../../helper/alert-helper';
 
 export default function AdminPanel() {
@@ -67,7 +67,11 @@ export default function AdminPanel() {
                   <div className='avatar'>
                     <div className='avatar w-16 rounded-full border-1 border-black mr-2 my-3'>
                       {user?.avatar && (
-                        <img src={user?.avatar} title='Account' alt='Account' />
+                        <img
+                          src={user?.avatar}
+                          title='Account'
+                          alt='Account'
+                        />
                       )}
                     </div>
                   </div>
@@ -120,7 +124,10 @@ export default function AdminPanel() {
                 </div>
               </div>
               {userToDelete?.username === user.username && (
-                <div role='alert' className='alert mb-3'>
+                <div
+                  role='alert'
+                  className='alert mb-3'
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'

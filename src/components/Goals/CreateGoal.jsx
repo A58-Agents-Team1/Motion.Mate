@@ -11,8 +11,8 @@ import {
   GOAL_MIN_EXERCISES,
   GOAL_MIN_PROGRESS,
 } from '../../common/constants';
-import AlertSuccess from '../Alerts/AlertSuccess';
-import AlertError from '../Alerts/AlertError';
+import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
+import AlertError from '../Alerts/AlertError/AlertError';
 import { alertHelper } from '../../helper/alert-helper';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';

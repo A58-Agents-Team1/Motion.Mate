@@ -1,5 +1,5 @@
-import AlertError from '../../components/Alerts/AlertError';
-import AlertSuccess from '../../components/Alerts/AlertSuccess';
+import AlertError from '../../components/Alerts/AlertError/AlertError';
+import AlertSuccess from '../../components/Alerts/AlertSuccess/AlertSuccess';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { alertHelper } from '../../helper/alert-helper';
