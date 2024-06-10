@@ -32,14 +32,12 @@ export const Divider = ({ stopButton }) => {
     const unsubscribe = onValue(friendsRef, (snapshot) => {
       const friendsList = snapshot?.val() ? Object.keys(snapshot.val()) : [];
       setFriends(friendsList);
-      console.log(friends);
     });
 
     return () => unsubscribe();
   }, [userData?.username]);
 
   useEffect(() => {
-    console.log('yes');
     const exercisesRef = ref(db, 'exercises');
     const unsubscribe = onValue(exercisesRef, (snapshot) => {
       try {
