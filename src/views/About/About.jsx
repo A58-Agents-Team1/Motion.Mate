@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { getAllUsers } from '../../services/users.service';
 import { SVG } from '../../components/About/SVG';
+import { APP_NAME } from '../../common/constants';
 
 export default function About() {
+  document.querySelector('title').textContent = `${APP_NAME} | About`;
+
   const [countUser, setCountUser] = useState();
 
   useEffect(() => {
