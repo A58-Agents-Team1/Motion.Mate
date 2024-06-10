@@ -10,6 +10,7 @@ import {
   validateFieldsForAdditionalInfo,
   validateFirstName,
   validateHeight,
+  validateLastName,
   validateWeight,
 } from '../../common/user.validations';
 
@@ -42,7 +43,7 @@ export default function RegisterAdditionalInfo() {
       validateFirstName(form.firstName);
     }
     if (form.lastName !== '') {
-      validateFirstName(form.lastName);
+      validateLastName(form.lastName);
     }
     if (form.age !== '') {
       validateAge(form.age);
