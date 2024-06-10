@@ -51,7 +51,7 @@ const TimeLeft = ({ goal }) => {
           <div className='font-mono text-xl'>
             <div className='text-green-500 '>
               {goal?.progress < 100 && 'Just do it!'}
-              {goal?.progress === 100 && 'Goal Completed!'}
+              {goal?.progress > 99 && 'Goal Completed!'}
             </div>
             <div className='flex gap-1 align-middle justify-center text-center text-red-500 w-full'>
               {goal?.progress < 100 && 'But next time'}
