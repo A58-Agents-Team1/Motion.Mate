@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 export default function ThemeChangeIcons({ toggleTheme, currentTheme }) {
   useEffect(() => {
-    // check the current theme and set the toggle switch accordingly
     const themeController = document.querySelector('.theme-controller');
     themeController.checked = currentTheme === DARK_THEME;
   }, [currentTheme]);

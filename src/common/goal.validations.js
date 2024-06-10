@@ -1,6 +1,4 @@
 import { GOAL_MAX_CALORIES, GOAL_MAX_EXERCISES, GOAL_MAX_NAME_LENGTH, GOAL_MAX_PROGRESS, GOAL_MIN_CALORIES, GOAL_MIN_EXERCISES, GOAL_MIN_NAME_LENGTH, GOAL_MIN_PROGRESS } from "./constants";
-// TODO: Discuss with your team and implement the following validations:
-// 1. timePeriodStart should be less than now?
 
 export const validateGoalForm = (name, owner, timePeriodStart, timePeriodEnd) => {
   const timeNow = new Date().getTime();
