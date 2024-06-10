@@ -22,6 +22,7 @@ export const AccountStats = ({
   workoutTimer,
   startWorkout,
   setStartWorkout,
+  calories,
 }) => {
   const { userData } = useContext(AppContext);
   const [currentCalories, setCurrentCalories] = useState(0);
@@ -49,7 +50,7 @@ export const AccountStats = ({
         setTimeLeft({ ...calculateTimeLeft(new Date(timer)) });
       }, 1000);
 
-      if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours === -3) {
+      if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours < 1) {
         const updateCalories = async () => {
           const allGoals = await getGoals(userData.username);
           await whenTimerEnds(userData.username);
@@ -63,7 +64,7 @@ export const AccountStats = ({
                 userData.username,
                 goal,
                 goal?.id,
-                currentCalories
+                calories
               );
             }
           });
@@ -160,4 +161,6 @@ AccountStats.propTypes = {
   setStopButton: PropTypes.func,
   workoutTimer: PropTypes.number,
   startWorkout: PropTypes.bool,
+  setStartWorkout: PropTypes.func,
+  calories: PropTypes.number,
 };
