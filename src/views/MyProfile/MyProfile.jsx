@@ -52,18 +52,26 @@ export default function MyProfile() {
             <div className='flex flex-col place-items-end  gap-2'>
               <div className='flex place-content-end items-center'>
                 <label className='label gap-1'>Friends</label>
-                <div
-                  title={`You have ${Object.keys(userData?.friends).length} ${
-                    Object.keys(userData.friends).length > 1
-                      ? `friends: ${generateFriendTooltips()}`
-                      : `friend: ${generateFriendTooltips()}`
-                  }`}
-                  className='flex items-center text-xs text-primary border border-primary rounded-lg p-2'
-                >
-                  <FontAwesomeIcon icon={faUserGroup} />
-
-                  <strong>{Object.keys(userData.friends).length}</strong>
-                </div>
+                {userData?.friends ? (
+                  <div
+                    title={`You have ${Object.keys(userData?.friends).length} ${
+                      Object.keys(userData.friends).length > 1
+                        ? `friends: ${generateFriendTooltips()}`
+                        : `friend: ${generateFriendTooltips()}`
+                    }`}
+                    className='flex items-center text-xs text-primary border border-primary rounded-lg p-2'
+                  >
+                    <strong className='mr-1'>
+                      {Object.keys(userData.friends).length}
+                    </strong>
+                    <FontAwesomeIcon icon={faUserGroup} />
+                  </div>
+                ) : (
+                  <div className='flex items-center text-xs text-primary  border border-primary rounded-lg p-2'>
+                    <strong className='mr-1'>0</strong>
+                    <FontAwesomeIcon icon={faUserGroup} />
+                  </div>
+                )}
               </div>
 
               <div className='flex  place-content-end items-center '>
