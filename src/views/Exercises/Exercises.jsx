@@ -14,7 +14,6 @@ import AlertSuccess from '../../components/Alerts/AlertSuccess';
 import {
   handleAddToList,
   handleDelete,
-  handleRemoveFromList,
   startEditing,
   submitEdit,
 } from '../../helper/exercise-control';
@@ -24,11 +23,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { RemoveFromListButton } from '../../components/Exercise/RemoveFromListButton';
 
 export const Exercises = () => {
-  const [exercises, setExercises] = useState([]);
   const { userData } = useContext(AppContext);
+  const [exercises, setExercises] = useState([]);
   const [showError, setShowError] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   const [editingExerciseId, setEditingExerciseId] = useState(null);
   const [friends, setFriends] = useState();
   const [editForm, setEditForm] = useState({

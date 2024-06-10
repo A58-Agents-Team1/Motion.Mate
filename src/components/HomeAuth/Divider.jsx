@@ -11,9 +11,9 @@ import {
   stopTimerRemoveCalories,
 } from '../../services/users.service';
 import { ExerciseCard } from '../Exercise/ExerciseCard';
-import PropTypes from 'prop-types';
 import { RemoveFromListButton } from '../Exercise/RemoveFromListButton';
 import { handleOnStart } from '../../helper/exercise-timer';
+import PropTypes from 'prop-types';
 
 export const Divider = ({ stopButton }) => {
   const [inProgress, setInProgress] = useState([]);
@@ -22,15 +22,14 @@ export const Divider = ({ stopButton }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const { userData } = useContext(AppContext);
   const [friends, setFriends] = useState();
-  const [showModal, setShowModal] = useState(null);
 
   useEffect(() => {
     return onValue(ref(db, 'exercises'), (snapshot) => {
       const exercises = snapshot.val();
       const allExercises = [];
 
-      Object.entries(exercises).forEach(([id, exercise]) => {
-        Object.entries(exercise).forEach(([exerciseId, exerciseData]) => {
+      Object.entries(exercises).map(([id, exercise]) => {
+        Object.entries(exercise).map(([exerciseId, exerciseData]) => {
           allExercises.push({ id: exerciseId, ...exerciseData });
         });
       });

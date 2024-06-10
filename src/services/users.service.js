@@ -55,6 +55,10 @@ export const getAllUsersDataRequests = async (username) => {
 export const getFilterUserBySearchTerm = async (searchBy, search) => {
   const snapshot = await get(ref(db, 'users'));
   const users = [];
+
+  /**
+   * only with forEach we can iterate over snapshot
+   */
   snapshot.forEach((acc) => {
     const user = acc.val();
     if (user[searchBy].toLowerCase().includes(search.toLowerCase())) {

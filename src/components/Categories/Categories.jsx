@@ -3,20 +3,20 @@ import {
   deleteCategory,
   getAllCategories,
 } from '../../services/category.service';
-import CreateCategory from './CreateCategory';
 import { CreateExercise } from '../Exercise/CreateExercise';
+import CreateCategory from './CreateCategory';
 import { DeleteIcon } from './DeleteIcon';
 import { alertHelper } from '../../helper/alert-helper';
+import { useNavigate } from 'react-router-dom';
 import AlertError from '../Alerts/AlertError';
 import AlertSuccess from '../Alerts/AlertSuccess';
-import { useNavigate } from 'react-router-dom';
 
 const Categories = () => {
+  const navigate = useNavigate();
   const [allCategories, setAllCategories] = useState([]);
   const [showError, setShowError] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
-  const navigate = useNavigate();
+  const [alertMessage, setAlertMessage] = useState('');
 
   const navigateToExercise = (category) => {
     navigate(`/exercises/${category?.category}`);
@@ -47,6 +47,7 @@ const Categories = () => {
   useEffect(() => {
     fetchCategories();
   }, [allCategories]);
+
   return (
     <div className='flex flex-col'>
       <>

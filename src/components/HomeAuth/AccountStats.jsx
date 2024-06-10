@@ -4,10 +4,10 @@ import { calculateTimeLeft } from '../../helper/format-date';
 import { endExercise, whenTimerEnds } from '../../services/users.service';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
-import PropTypes from 'prop-types';
 import { Timer } from './Timer';
 import { StartWorkoutButton } from './StartWorkoutButton';
 import { getGoals, updateGoalCalories } from '../../services/goal.service';
+import PropTypes from 'prop-types';
 
 export const AccountStats = ({
   timer,
@@ -18,8 +18,8 @@ export const AccountStats = ({
 }) => {
   const { userData } = useContext(AppContext);
   const [currentCalories, setCurrentCalories] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(null);
   const [doneExercises, setDoneExercises] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(null);
   const [workoutTimeLeft, setWorkoutTimeLeft] = useState(null);
 
   useEffect(() => {
@@ -43,8 +43,7 @@ export const AccountStats = ({
           const allGoals = await getGoals(userData.username);
           await whenTimerEnds(userData.username);
           await endExercise(userData.username);
-          allGoals.forEach(async (goal) => {
-            console.log(goal);
+          allGoals.map(async (goal) => {
             if (
               goal?.timePeriod?.from <= new Date() &&
               goal?.timePeriod?.to >= new Date()

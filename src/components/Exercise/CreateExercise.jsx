@@ -9,6 +9,13 @@ import AlertSuccess from '../../components/Alerts/AlertSuccess';
 import { alertHelper } from '../../helper/alert-helper';
 
 export const CreateExercise = () => {
+  const { userData } = useContext(AppContext);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [takeResult, setTakeResult] = useState([]);
   const [content, setContent] = useState({
     title: '',
     content: '',
@@ -19,14 +26,6 @@ export const CreateExercise = () => {
     level: '',
     categoryId: '',
   });
-
-  const { userData } = useContext(AppContext);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState('');
-  const [showError, setShowError] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [takeResult, setTakeResult] = useState([]);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -67,6 +66,7 @@ export const CreateExercise = () => {
         userData.username
       );
       setTakeResult(result);
+
       setContent({
         title: '',
         content: '',
