@@ -17,13 +17,15 @@ export const FinishedGoal = () => {
       (snapshot) => {
         try {
           if (snapshot) {
-            const goalsWithId = Object.entries(snapshot.val()).map(
+            const goalsWithId = Object.entries(snapshot?.val()).map(
               ([id, goal]) => ({
                 id,
                 ...goal,
               })
             );
-            setGoals(goalsWithId);
+
+            const result = goalsWithId.filter((goal) => goal?.progress >= 100);
+            setGoals(result);
           }
         } catch (error) {
           throw new Error(error.message);
@@ -33,8 +35,6 @@ export const FinishedGoal = () => {
   }, []);
 
   const removeGoalAsync = async (userData, goal) => {
-    console.log(goal);
-    console.log(goal.id);
     await deleteGoal(userData?.username, goal.id);
   };
 
