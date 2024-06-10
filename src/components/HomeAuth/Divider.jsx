@@ -50,18 +50,12 @@ export const Divider = ({ stopButton }) => {
           });
         });
 
-        /**
-         * fist filter all exercises by User that are in progress
-         */
         const userExercises = allExercises.filter(
           (exercise) =>
             exercise.inProgress === true &&
             exercise.createdBy === userData.username
         );
 
-        /**
-         * then filter all exercises by Friends that are in progress
-         */
         const friendExercises = friends
           .map((friend) =>
             allExercises.filter(
