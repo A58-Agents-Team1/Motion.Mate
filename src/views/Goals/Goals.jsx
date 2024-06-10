@@ -11,6 +11,7 @@ export default function Goals() {
   document.querySelector('title').textContent = `${APP_NAME} | Goals`;
 
   const { userData } = useContext(AppContext);
+
   const [goals, setGoals] = useState([]);
   const [friendsGoals, setFriendsGoals] = useState([]);
 
