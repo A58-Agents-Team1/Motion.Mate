@@ -6,7 +6,7 @@ import {
   HEIGHT_MIN_IN,
   WEIGHT_MAX_LBS,
   WEIGHT_MIN_LBS,
-} from '../../common/constants';
+} from '../../../common/constants';
 
 export default function ImperialScalar({ form, updateForm }) {
   return (
