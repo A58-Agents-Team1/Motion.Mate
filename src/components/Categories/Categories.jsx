@@ -10,8 +10,11 @@ import { alertHelper } from '../../helper/alert-helper';
 import { useNavigate } from 'react-router-dom';
 import AlertError from '../Alerts/AlertError/AlertError';
 import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
+import { APP_NAME } from '../../common/constants';
 
 const Categories = () => {
+  document.querySelector('title').textContent = `${APP_NAME} | Exercises`;
+
   const navigate = useNavigate();
   const [allCategories, setAllCategories] = useState([]);
   const [showError, setShowError] = useState(false);

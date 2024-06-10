@@ -5,15 +5,20 @@ import { getFilterUserBySearchTerm } from '../../services/users.service';
 import SingleUserView from '../../components/SingleUser/SingleUserView';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
+import { APP_NAME } from '../../common/constants';
 
 export default function AllUsers() {
+  document.querySelector('title').textContent = `${APP_NAME} | All Users`;
+
   const { userData } = useContext(AppContext);
-  const [users, setUsers] = useState([]);
-  const [searchBy, setSearchBy] = useState('firstName');
-  const [sortBy, setSortBy] = useState('username');
   const [searchParams, setSearchParams] = useSearchParams();
-  const [refresh, setRefresh] = useState(false);
+
   const search = searchParams.get('search') || '';
+
+  const [users, setUsers] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+  const [sortBy, setSortBy] = useState('username');
+  const [searchBy, setSearchBy] = useState('firstName');
 
   const setSearch = (value) => {
     setSearchParams({ search: value });

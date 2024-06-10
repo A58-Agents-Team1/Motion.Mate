@@ -1,7 +1,10 @@
 import logo from '../../assets/logo.png';
 import userPhoto from '../../assets/userPhoto.png';
+import { APP_NAME } from '../../common/constants';
 
 export default function ContactUs() {
+  document.querySelector('title').textContent = `${APP_NAME} | Contact Us`;
+
   return (
     <div className='flex flex-col items-center'>
       <h1 className='font-bold text-4xl'>Contact Us:</h1>
@@ -23,7 +26,10 @@ export default function ContactUs() {
               <p>Backend Developer</p>
               <hr className='w-full border-2' />
               <div className='flex flex-row justify-center my-2'>
-                <a href='mailto:Tihomir@motion-mate.bg' data-rel='external'>
+                <a
+                  href='mailto:Tihomir@motion-mate.bg'
+                  data-rel='external'
+                >
                   <button className='btn btn-secondary mx-2'>Email</button>
                 </a>
               </div>
@@ -47,7 +53,10 @@ export default function ContactUs() {
               <p>Backend Developer</p>
               <hr className='w-full border-2' />
               <div className='flex flex-row justify-center my-2'>
-                <a href='mailto:Radoslav@motion-mate.bg' data-rel='external'>
+                <a
+                  href='mailto:Radoslav@motion-mate.bg'
+                  data-rel='external'
+                >
                   <button className='btn btn-secondary mx-2'>Email</button>
                 </a>
               </div>
@@ -71,14 +80,20 @@ export default function ContactUs() {
               <p>Backend Developer</p>
               <hr className='w-full border-2' />
               <div className='flex flex-row justify-center my-2'>
-                <a href='mailto:Tanya@motion-mate.bg' data-rel='external'>
+                <a
+                  href='mailto:Tanya@motion-mate.bg'
+                  data-rel='external'
+                >
                   <button className='btn btn-secondary mx-2'>Email</button>
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <img src={logo} className='w-60 h-60 mx-4' />
+        <img
+          src={logo}
+          className='w-60 h-60 mx-4'
+        />
       </div>
       <div className='flex flex-col items-center text-center my-2'>
         <p>

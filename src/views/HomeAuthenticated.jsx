@@ -5,8 +5,11 @@ import { onValue, ref } from 'firebase/database';
 import { AppContext } from '../context/AppContext';
 import { db } from '../config/firebase-config';
 import { updateGoalProgressCalories } from '../helper/update-goals-progress';
+import { APP_NAME } from '../common/constants';
 
 export const HomeAuthenticated = () => {
+  document.querySelector('title').textContent = `${APP_NAME} | Home`;
+
   const [timer, setTimer] = useState(null);
   const { userData } = useContext(AppContext);
   const [stopButton, setStopButton] = useState('');

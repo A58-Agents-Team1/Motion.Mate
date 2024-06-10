@@ -7,13 +7,18 @@ import { useNavigate } from 'react-router-dom';
 import { getAllCategories } from '../../services/category.service';
 import { Carousel } from '../../components/Home/Carousel';
 import { HomeAuthenticated } from '../HomeAuthenticated';
+import { APP_NAME } from '../../common/constants';
 
 export default function Home() {
+  document.querySelector('title').textContent = `${APP_NAME} | Home`;
+
+  const navigate = useNavigate();
+
+  const { userData } = useContext(AppContext);
+
   const [allUsers, setAllUsers] = useState([]);
   const [allExercises, setAllExercises] = useState([]);
-  const { userData } = useContext(AppContext);
   const [allCategories, setAllCategories] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const func = async () => {

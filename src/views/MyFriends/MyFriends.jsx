@@ -3,10 +3,14 @@ import { getAllFriends } from '../../services/users.service';
 import { AppContext } from '../../context/AppContext';
 import SingleUserView from '../../components/SingleUser/SingleUserView';
 import { useNavigate } from 'react-router-dom';
+import { APP_NAME } from '../../common/constants';
 
 export default function MyFriends() {
+  document.querySelector('title').textContent = `${APP_NAME} | My Friends`;
+
   const navigate = useNavigate();
   const { userData } = useContext(AppContext);
+
   const [refresh, setRefresh] = useState(false);
   const [friendList, setFriendList] = useState([]);
 

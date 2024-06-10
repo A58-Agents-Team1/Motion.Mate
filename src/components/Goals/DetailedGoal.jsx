@@ -15,13 +15,13 @@ import { shortFormatDate } from '../../helper/format-date';
 const DetailedGoal = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [goal, setGoal] = useState(null);
   const { userData } = useContext(AppContext);
+
+  const [goal, setGoal] = useState(null);
+  const [showError, setShowError] = useState(false);
+  const [showMessage, setShowMessage] = useState('');
   const [progressSlider, setProgressSlider] = useState(0);
   const [toggleEditGoal, setToggleEditGoal] = useState(false);
-
-  const [showMessage, setShowMessage] = useState('');
-  const [showError, setShowError] = useState(false);
 
   const outerTableDiv =
     'label text-primary border-b-2 place-content-center border-primary p-2 bg-base-200';

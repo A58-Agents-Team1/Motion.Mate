@@ -8,14 +8,18 @@ import {
 } from '../../services/users.service';
 import AlertSuccess from '../../components/Alerts/AlertSuccess/AlertSuccess';
 import { alertHelper } from '../../helper/alert-helper';
+import { APP_NAME } from '../../common/constants';
 
 export default function AdminPanel() {
+  document.querySelector('title').textContent = `${APP_NAME} | 👨🏼‍✈️👮🏼‍♂️👨🏼‍✈️`;
+
   const { userData } = useContext(AppContext);
+
   const [allUsers, setAllUsers] = useState([]);
-  const [refresh, setRefresh] = useState(false);
-  const [userToDelete, setUserToDelete] = useState(null);
-  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState(null);
+  const [refresh, setRefresh] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {

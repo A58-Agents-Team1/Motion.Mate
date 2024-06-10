@@ -18,14 +18,18 @@ import {
   validatePhoneNumberAsync,
   validatePhoto,
 } from '../../common/user.validations';
+import { APP_NAME } from '../../common/constants';
 
 export default function Register() {
+  document.querySelector('title').textContent = `${APP_NAME} | Register`;
+
   const navigate = useNavigate();
   const { user, setAppState } = useContext(AppContext);
-  const [alert, setAlert] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState(null);
+
   const [image, setImage] = useState(null);
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',

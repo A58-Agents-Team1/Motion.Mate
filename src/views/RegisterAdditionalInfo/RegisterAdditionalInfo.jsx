@@ -13,13 +13,17 @@ import {
   validateLastName,
   validateWeight,
 } from '../../common/user.validations';
+import { APP_NAME } from '../../common/constants';
 
 export default function RegisterAdditionalInfo() {
-  const { userData } = useContext(AppContext);
+  document.querySelector('title').textContent = `${APP_NAME} | Additional Info`;
+
   const navigate = useNavigate();
+  const { userData } = useContext(AppContext);
+
   const [alert, setAlert] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
