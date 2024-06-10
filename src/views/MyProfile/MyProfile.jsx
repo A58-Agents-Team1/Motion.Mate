@@ -12,11 +12,19 @@ import {
   faPen,
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
+import { APP_NAME } from '../../common/constants';
 
 export default function MyProfile() {
+  document.querySelector('title').textContent = `${APP_NAME} | My Profile`;
+
   const { userData, setAppState } = useContext(AppContext);
   const [editProfile, setEditProfile] = useState(false);
   const [changeProfilePhoto, setChangeProfilePhoto] = useState(false);
+
+  const generateFriendTooltips = () => {
+    const friendNames = Object.keys(userData.friends).join(', ');
+    return friendNames;
+  };
 
   useEffect(() => {
     getUserByUsername(userData?.username).then((res) => {
@@ -25,11 +33,6 @@ export default function MyProfile() {
       });
     });
   }, [userData?.username, editProfile, changeProfilePhoto]);
-
-  const generateFriendTooltips = () => {
-    const friendNames = Object.keys(userData.friends).join(', ');
-    return friendNames;
-  };
 
   return (
     <div className='flex flex-col'>
