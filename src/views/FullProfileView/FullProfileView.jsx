@@ -5,11 +5,15 @@ import { getUserByUsername } from '../../services/users.service';
 import { useEffect, useState } from 'react';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import SizedAvatar from '../../components/Avatar/Avatar';
+import { APP_NAME } from '../../common/constants';
 
 export default function FullProfileView() {
-  const [user, setUser] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [user, setUser] = useState(null);
+
+  document.querySelector('title').textContent = `${APP_NAME} | ${id} Profile`;
 
   useEffect(() => {
     try {
