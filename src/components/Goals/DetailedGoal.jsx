@@ -24,8 +24,9 @@ const DetailedGoal = () => {
   const [showError, setShowError] = useState(false);
 
   const outerTableDiv =
-    'label border-b-2 place-content-center border-primary p-2 bg-base-200';
-  const innerTableDiv = 'flex place-content-evenly w-full gap-2';
+    'label text-primary border-b-2 place-content-center border-primary p-2 bg-base-200';
+  const innerTableDiv = 'flex place-content-between w-full gap-2';
+  const paragraph = 'text-lg text-secondary';
 
   document.querySelector('title').textContent = `${APP_NAME} | ${
     goal?.name || 'Detailed Goal'
@@ -55,7 +56,7 @@ const DetailedGoal = () => {
   }, []);
 
   return (
-    <>
+    <div className='w-2/3 place-self-center'>
       <div
         className={
           'flex place-content-center gap-3 mb-2 border-2 border-primary rounded p-2 shadow-lg'
@@ -122,7 +123,9 @@ const DetailedGoal = () => {
           </div>
 
           <div className='label border-b-2 border-primary place-content-center p-2 bg-base-200'>
-            <div className='text-lg first-letter:uppercase'>{goal?.type}</div>
+            <div className='text-lg text-secondary first-letter:uppercase'>
+              {goal?.type}
+            </div>
           </div>
           {/* Current Goal Status */}
           <div className='flex place-content-center text-lg text-primary font-bold border-b-4 border-primary p-2'>
@@ -132,21 +135,21 @@ const DetailedGoal = () => {
             <div className={outerTableDiv}>
               <div className={innerTableDiv}>
                 <h3>Exercises Done:</h3>
-                <p className='text-lg'>{goal?.exercisesDone || 0}</p>
+                <p className={paragraph}>{goal?.exercisesDone || 0}</p>
               </div>
             </div>
 
             <div className={outerTableDiv}>
               <div className={innerTableDiv}>
                 <h3>Calories Burned:</h3>
-                <p className='text-lg'>{goal?.caloriesBurned || 0}</p>
+                <p className={paragraph}>{goal?.caloriesBurned || 0}</p>
               </div>
             </div>
 
             <div className={outerTableDiv}>
               <div className={innerTableDiv}>
                 <h3>Progress:</h3>
-                <div className='text-lg'>{goal?.progress}%</div>
+                <div className={paragraph}>{goal?.progress}%</div>
               </div>
             </div>
           </div>
@@ -159,28 +162,28 @@ const DetailedGoal = () => {
             <div className={outerTableDiv}>
               <div className={innerTableDiv}>
                 <h3>Goal Name:</h3>
-                <p className='text-lg'>{goal?.name}</p>
+                <p className={paragraph}>{goal?.name}</p>
               </div>
             </div>
 
             <div className={outerTableDiv}>
               <div className={innerTableDiv}>
                 <h3>Calories:</h3>
-                <p className='text-lg'>{goal?.calories}</p>
+                <p className={paragraph}>{goal?.calories}</p>
               </div>
             </div>
 
             <div className={outerTableDiv}>
               <div className={innerTableDiv}>
                 <h3>Exercises:</h3>
-                <div className='text-lg'>{goal?.exercises}</div>
+                <div className={paragraph}>{goal?.exercises}</div>
               </div>
             </div>
 
             <div className={outerTableDiv}>
               <div className={innerTableDiv}>
                 <h3>Goal Time Period:</h3>
-                <div className='text-lg'>
+                <div className={paragraph}>
                   <p className='border-b-2 border-primary'>
                     Starts: {shortFormatDate(goal?.timePeriod?.from)}
                   </p>
@@ -199,7 +202,7 @@ const DetailedGoal = () => {
         />
       </div>
       {showError && <AlertError message={showMessage} />}
-    </>
+    </div>
   );
 };
 
