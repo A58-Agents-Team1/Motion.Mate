@@ -3,7 +3,6 @@ import {
   addExerciseInProgress,
   deleteExercise,
   editExercise,
-  removeExerciseInProgress,
 } from '../../services/exercise.service';
 import { AppContext } from '../../context/AppContext';
 import { onValue, ref } from 'firebase/database';
