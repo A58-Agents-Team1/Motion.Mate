@@ -21,6 +21,7 @@ import { getFriends } from '../../services/users.service';
 import { ExerciseCard } from '../../components/Exercise/ExerciseCard';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RemoveFromListButton } from '../../components/Exercise/RemoveFromListButton';
+import { APP_NAME } from '../../common/constants';
 
 export const Exercises = () => {
   const { userData } = useContext(AppContext);
@@ -38,6 +39,8 @@ export const Exercises = () => {
   });
   const { category } = useParams();
   const navigate = useNavigate();
+
+  document.querySelector('title').textContent = `${APP_NAME} | ${category}`;
 
   useEffect(() => {
     return onValue(ref(db, `exercises/${category}`), (snapshot) => {
