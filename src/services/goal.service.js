@@ -152,10 +152,10 @@ export const updateGoalCalories = async (username, goal, goalId, calories) => {
     updatedGoal[`${base}/caloriesBurned/`] = totalCalories;
 
     (goal?.type === 'calories') && (
-      updatedGoal[`${base}/progress/`] = newCalorieProgress);
+      updatedGoal[`${base}/progress/`] = Number(newCalorieProgress.toFixed(2)));
 
     (goal?.type === 'exercises') && (
-      updatedGoal[`${base}/progress/`] = newExercisesProgress);
+      updatedGoal[`${base}/progress/`] = Number(newExercisesProgress.toFixed(2)));
 
     await update(ref(db), updatedGoal);
   } catch (error) {
