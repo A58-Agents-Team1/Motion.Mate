@@ -116,7 +116,7 @@ export default function CreateGoal() {
         id='my_modal_3'
         className='modal '
       >
-        <div className='modal-box py-16'>
+        <div className='modal-box py-3'>
           <form method='dialog'>
             <button
               type='button'
@@ -128,8 +128,18 @@ export default function CreateGoal() {
               ✕
             </button>
           </form>
+          <h2 className='text-center text-2xl font-bold text-primary'>
+            Create Goal
+          </h2>
+          <label className='label flex-col self-center text-justify font-semibold text-primary'>
+            Your progress will be calculated based on the goal type you select
+            below and the time frame you set.
+            <span className='text-secondary'>
+              You can not change the goal type after creating the goal.
+            </span>
+          </label>
           <div className='form-control gap-3'>
-            <label className='input input-bordered flex items-center gap-2 shadow-xl'>
+            <label className='input input-bordered flex items-center gap-2 shadow-xl text-primary'>
               Name
               <input
                 type='text'
@@ -139,7 +149,9 @@ export default function CreateGoal() {
                 onChange={updateForm('name')}
               />
             </label>
-
+            <label className='label self-center text-justify font-semibold text-primary'>
+              Select Date
+            </label>
             <DatePicker
               selected={startDate}
               onChange={onChange}
@@ -149,7 +161,9 @@ export default function CreateGoal() {
               inline
             />
 
-            <label className='label self-center'>Select your goal type</label>
+            <label className='label self-center text-justify font-semibold text-primary'>
+              Select your goal type
+            </label>
             <div className='flex w-full'>
               <div className='grid h-20 flex-grow card bg-base-300 rounded-box place-items-center shadow-2xl'>
                 <div className='form-control'>
@@ -196,7 +210,7 @@ export default function CreateGoal() {
                 </div>
               </div>
             </div>
-            <div className='mt-2 shadow-xl'>
+            <div className='mt-4 mb-10 justify-center shadow-xl'>
               {form.type === 'exercises' && (
                 <label className='input input-bordered flex items-center gap-2'>
                   Exercises
