@@ -57,12 +57,15 @@ export const Divider = ({ stopButton }) => {
     <div>
       {inProgress.length ? (
         <div className='flex flex-col lg:flex-row'>
-          <div className='flex-1 flex flex-wrap'>
+          <div className='flex-1'>
             {inProgress.map((exercise) => (
-              <div key={exercise.id}>
+              <div
+                key={exercise.id}
+                className='flex flex-col items-center'
+              >
                 {(exercise.createdBy === userData.username ||
                   friends?.includes(exercise.createdBy)) && (
-                  <div className='card w-96 bg-base-300 mb-4'>
+                  <div className='card w-96 bg-base-300 m-2'>
                     <div className='card-body p-4'>
                       <ExerciseCard
                         exercise={exercise}
