@@ -43,7 +43,7 @@ export const FinishedGoal = () => {
         }
       }
     );
-  }, [toggleDelete]);
+  }, []);
 
   const removeGoalAsync = async (userData, goal) => {
     await deleteGoal(userData?.username, goal.id);
