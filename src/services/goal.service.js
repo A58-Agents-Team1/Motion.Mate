@@ -135,11 +135,10 @@ export const markAsDone = async (username, goalId) => {
   }
 };
 
-export const updateGoalCalories = async (username, goalId, calories) => {
+export const updateGoalCalories = async (username, goal, goalId, calories) => {
   try {
     const base = `users/${username}/myGoals/${goalId}`;
 
-    const goal = await getGoalById(username, goalId);
     const caloriesGoal = goal?.calories;
     const exercisesDone = goal?.exercisesDone + 1;
     const currentCalories = goal?.caloriesBurned;

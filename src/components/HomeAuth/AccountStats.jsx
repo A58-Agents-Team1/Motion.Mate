@@ -46,6 +46,7 @@ export const AccountStats = ({
           allGoals.forEach(async (goal) => {
             await updateGoalCalories(
               userData.username,
+              goal,
               goal.id,
               currentCalories
             );
