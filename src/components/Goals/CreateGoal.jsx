@@ -18,8 +18,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function CreateGoal() {
-  document.querySelector('title').textContent = `${APP_NAME} | Create Goal`;
-
   const { userData } = useContext(AppContext);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setAlertMessage] = useState('');
@@ -89,6 +87,7 @@ export default function CreateGoal() {
       setStartDate(null);
       setEndDate(null);
 
+      document.querySelector('title').textContent = `${APP_NAME} | Goals`;
       document.getElementById('my_modal_3').close();
       alertHelper(setAlertMessage, setShowSuccess, 'Goal Created!');
     } catch (error) {
@@ -102,13 +101,19 @@ export default function CreateGoal() {
       setStartDate(null),
       setEndDate(null),
       document.getElementById('my_modal_3').close();
+    document.querySelector('title').textContent = `${APP_NAME} | Goals`;
   };
 
   return (
     <>
       <button
         className='btn btn-primary self-center w-1/2'
-        onClick={() => document.getElementById('my_modal_3').showModal()}
+        onClick={() => {
+          document.getElementById('my_modal_3').showModal();
+          document.querySelector(
+            'title'
+          ).textContent = `${APP_NAME} | Create Goals`;
+        }}
       >
         Create Goal
       </button>
