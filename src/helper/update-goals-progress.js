@@ -13,7 +13,7 @@ export const updateGoalProgressCalories = async (username, calories) => {
       (goal) => goal?.type === 'calories' && !goal?.isDone
     )) {
       if (calories) {
-        await updateGoalCalories(username, goal?.id, calories);
+        await updateGoalCalories(username, goal, goal?.id, calories);
 
         (await getGoals(username)).map(async (goal) => {
           let calculate = Math.floor(
