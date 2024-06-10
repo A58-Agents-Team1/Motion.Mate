@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   deleteCategory,
   getAllCategories,
@@ -11,15 +11,18 @@ import { useNavigate } from 'react-router-dom';
 import AlertError from '../Alerts/AlertError/AlertError';
 import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
 import { APP_NAME } from '../../common/constants';
+import { AppContext } from '../../context/AppContext';
 
 const Categories = () => {
   document.querySelector('title').textContent = `${APP_NAME} | Exercises`;
 
   const navigate = useNavigate();
-  const [allCategories, setAllCategories] = useState([]);
+  const { userData } = useContext(AppContext);
+
   const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [allCategories, setAllCategories] = useState([]);
 
   const navigateToExercise = (category) => {
     navigate(`/exercises/${category?.category}`);
@@ -58,10 +61,14 @@ const Categories = () => {
           <h1 className='text-3xl font-bold'>
             Here you can browse through different category exercises. <br />{' '}
             <br /> You can also{' '}
-            <span className='inline-block'>
-              <CreateCategory onCategoryCreated={fetchCategories} />
-            </span>{' '}
-            and{' '}
+            {userData?.userRole === 'admin' && (
+              <>
+                <span className='inline-block'>
+                  <CreateCategory onCategoryCreated={fetchCategories} />
+                </span>{' '}
+                and{' '}
+              </>
+            )}
             <span className='inline-block'>
               <CreateExercise />
             </span>
