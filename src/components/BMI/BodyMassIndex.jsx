@@ -119,11 +119,11 @@ export default function BodyMassIndex() {
       </div>
       {userData?.weight && userData?.height ? (
         <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-          <p>
+          <div>
             Your BMI is automatically calculated based on the weight and height
             you provided in your profile.
             {GetBMIDescription(userBMI)}
-          </p>
+          </div>
         </div>
       ) : (
         <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
