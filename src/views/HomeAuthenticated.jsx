@@ -58,6 +58,7 @@ export const HomeAuthenticated = () => {
         startWorkout={startWorkout}
         setTimer={setTimer}
         setStartWorkout={setStartWorkout}
+        calories={calories}
       />
       <Divider
         stopButton={stopButton}
