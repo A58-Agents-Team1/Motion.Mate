@@ -5,9 +5,7 @@ import { getUserByUsername } from '../../services/users.service';
 import EditProfileInfo from '../../components/EditProfileInfo/EditProfileInfo';
 import ChangeProfilePhoto from '../../components/EditProfileInfo/ChangeProfilePhoto';
 import UserInfo from '../../components/UserInfo/UserInfo';
-import UnSizedAvatar from '../../components/Avatar/UnSizedAvatar';
 import { FriendAvatar } from '../../components/Exercise/FriendAvatar';
-import InfoBite from '../../components/Exercise/InfoBite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCameraRetro,
