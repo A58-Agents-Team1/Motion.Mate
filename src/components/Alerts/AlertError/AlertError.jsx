@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 const AlertError = ({ message }) => {
   return (
     <div className='toast toast-end z-50'>
@@ -10,4 +11,5 @@ const AlertError = ({ message }) => {
 AlertError.propTypes = {
   message: PropTypes.string.isRequired,
 };
+
 export default AlertError;

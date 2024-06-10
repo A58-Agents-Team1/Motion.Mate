@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import calorie from '../../assets/calorie.png';
-import MetricScalar from './MetricScalar';
-import ImperialScalar from './ImperialScalar';
+import calorie from '../../../assets/calorie.png';
+import MetricScalar from '../MetricScalar/MetricScalar';
+import ImperialScalar from '../ImperialScalar/ImperialScalar';
 
 export default function CalorieCalculator() {
   const [isChecked, setIsChecked] = useState(true);

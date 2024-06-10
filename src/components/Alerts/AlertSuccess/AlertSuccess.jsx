@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 const AlertSuccess = ({ message }) => {
   return (
     <div className='toast toast-end z-50'>

@@ -9,8 +9,8 @@ import { AppContext } from '../../context/AppContext';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
 import { alertHelper } from '../../helper/alert-helper';
-import AlertError from '../../components/Alerts/AlertError';
-import AlertSuccess from '../../components/Alerts/AlertSuccess';
+import AlertError from '../../components/Alerts/AlertError/AlertError';
+import AlertSuccess from '../../components/Alerts/AlertSuccess/AlertSuccess';
 import {
   handleAddToList,
   handleDelete,

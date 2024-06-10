@@ -9,7 +9,7 @@ import GoalButton from './GoalButton';
 import Progress from './Progress';
 import { updateGoalProgress } from '../../services/goal.service';
 import { alertHelper } from '../../helper/alert-helper';
-import AlertError from '../Alerts/AlertError';
+import AlertError from '../Alerts/AlertError/AlertError';
 import { shortFormatDate } from '../../helper/format-date';
 
 const DetailedGoal = () => {

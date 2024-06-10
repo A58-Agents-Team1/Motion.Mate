@@ -1,4 +1,4 @@
-import { BMI_THRESHOLDS } from '../../common/constants';
+import { BMI_THRESHOLDS } from '../../../common/constants';
 
 export default function GetBMIDescription(BMI) {
   if (BMI === BMI_THRESHOLDS.INITIAL) {

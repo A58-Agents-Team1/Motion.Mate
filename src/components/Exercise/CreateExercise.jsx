@@ -4,8 +4,8 @@ import { createExercises } from '../../services/exercise.service';
 import { addUserExercise } from '../../services/users.service';
 import { getAllCategories } from '../../services/category.service';
 import { validateExerciseForm } from '../../common/exercise.validations';
-import AlertError from '../../components/Alerts/AlertError';
-import AlertSuccess from '../../components/Alerts/AlertSuccess';
+import AlertError from '../Alerts/AlertError/AlertError';
+import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
 import { alertHelper } from '../../helper/alert-helper';
 
 export const CreateExercise = () => {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
-import { AppContext } from '../../context/AppContext';
-import { updateUserByUsername } from '../../services/users.service';
+import { AppContext } from '../../../context/AppContext';
+import { updateUserByUsername } from '../../../services/users.service';
 import {
   validateAge,
   validateFirstName,
@@ -9,11 +9,11 @@ import {
   validateLastName,
   validatePhoneNumberAsync,
   validateWeight,
-} from '../../common/user.validations';
-import { alertHelper } from '../../helper/alert-helper';
-import AlertSuccess from '../Alerts/AlertSuccess';
-import AlertError from '../Alerts/AlertError';
-import UserInfo from '../UserInfo/UserInfo';
+} from '../../../common/user.validations';
+import { alertHelper } from '../../../helper/alert-helper';
+import AlertSuccess from '../../Alerts/AlertSuccess/AlertSuccess';
+import AlertError from '../../Alerts/AlertError/AlertError';
+import UserInfo from '../../UserInfo/UserInfo';
 
 export default function EditProfileInfo({ setEditProfile }) {
   const { userData } = useContext(AppContext);

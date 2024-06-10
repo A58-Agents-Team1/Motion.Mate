@@ -10,7 +10,7 @@ import { onValue, ref } from 'firebase/database';
 import { useContext, useEffect, useState } from 'react';
 import { db } from '../../config/firebase-config';
 import { AppContext } from '../../context/AppContext';
-import SizedAvatar from '../Avatar/SizedAvatar';
+import SizedAvatar from '../Avatar/Avatar';
 
 export default function SingleUserView({ user, setRefresh }) {
   const { userData } = useContext(AppContext);

@@ -4,7 +4,7 @@ import { fullFormatDate } from '../../helper/format-date';
 import { getUserByUsername } from '../../services/users.service';
 import { useEffect, useState } from 'react';
 import UserInfo from '../../components/UserInfo/UserInfo';
-import SizedAvatar from '../../components/Avatar/SizedAvatar';
+import SizedAvatar from '../../components/Avatar/Avatar';
 
 export default function FullProfileView() {
   const [user, setUser] = useState(null);
@@ -28,15 +28,23 @@ export default function FullProfileView() {
       </div>
       <div className='container card-body text-left justify-between'>
         <div className='top-div text-center'>
-          {user?.firstName && user?.lastName ? (
-            <h2 className='font-bold mb-8 underline text-primary'>{`${user?.firstName} ${user?.lastName}`}</h2>
-          ) : (
-            <h2 className='font-bold mb-8 underline text-primary'>
-              {user?.username}
-            </h2>
-          )}
-          <UserInfo userData={user} />
-          <p>Member Since: {fullFormatDate(user?.createdOn)}</p>
+          <div>
+            {user?.firstName && user?.lastName ? (
+              <h2 className='font-bold mb-8 underline text-primary'>{`${user?.firstName} ${user?.lastName}`}</h2>
+            ) : (
+              <h2 className='font-bold mb-8 underline text-primary'>
+                {user?.username}
+              </h2>
+            )}
+          </div>
+          <div className='text-right'>
+            <UserInfo userData={user} />
+          </div>
+          <div>
+            <p className='mt-3'>
+              Member Since: {fullFormatDate(user?.createdOn)}
+            </p>
+          </div>
         </div>
         <div className='bottom-div card-actions justify-end mt-4'>
           <button

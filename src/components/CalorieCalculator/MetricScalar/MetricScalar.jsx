@@ -6,7 +6,7 @@ import {
   HEIGHT_MIN,
   WEIGHT_MAX,
   WEIGHT_MIN,
-} from '../../common/constants';
+} from '../../../common/constants';
 
 export default function MetricScalar({ form, updateForm }) {
   return (

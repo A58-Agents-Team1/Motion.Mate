@@ -52,10 +52,11 @@ export const StartWorkoutButton = ({ startWorkout }) => {
         id='my_modal_1'
         className='modal'
       >
-        <div className='modal-box max-w-2xl skeleton'>
-          <h3 className='font-bold text-lg'>Hello!</h3>
+        <div className='flex flex-col text-center gap-2 modal-box max-w-4xl skeleton'>
+          <h3 className='font-bold text-lg'>Set workout timer</h3>
           <div className='flex gap-2'>
-            <label className='input input-bordered w-1/3 flex items-center mb-3 select-secondary'>
+            <label className='input input-bordered gap-2 w-1/3 flex items-center select-secondary'>
+              Hours:
               <input
                 onChange={(e) => updateContent(e.target.value, 'hours')}
                 type='number'
@@ -65,7 +66,8 @@ export const StartWorkoutButton = ({ startWorkout }) => {
               />
             </label>
 
-            <label className='input input-bordered w-1/3 flex items-center mb-3 select-secondary'>
+            <label className='input input-bordered gap-2 w-1/3 flex items-center select-secondary'>
+              Minutes:
               <input
                 onChange={(e) => updateContent(e.target.value, 'minutes')}
                 type='number'
@@ -75,7 +77,8 @@ export const StartWorkoutButton = ({ startWorkout }) => {
               />
             </label>
 
-            <label className='input input-bordered w-1/3 flex items-center mb-3 select-secondary'>
+            <label className='input input-bordered gap-2 w-1/3 flex items-center select-secondary'>
+              Seconds:{' '}
               <input
                 onChange={(e) => updateContent(e.target.value, 'seconds')}
                 type='number'
@@ -86,16 +89,19 @@ export const StartWorkoutButton = ({ startWorkout }) => {
             </label>
           </div>
           <div className='modal-action'>
-            <form method='dialog'>
-              <button className='btn'>Cancel</button>
+            <form
+              method='dialog'
+              className='flex gap-2'
+            >
               <button
                 onClick={() =>
                   workoutTimer(content, userData, setContent, StartTimerWorkout)
                 }
-                className='btn'
+                className='btn  btn-wide btn-primary'
               >
                 Start
               </button>
+              <button className='btn btn-wide btn-secondary'>Cancel</button>
             </form>
           </div>
         </div>

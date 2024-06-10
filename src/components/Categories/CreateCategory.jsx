@@ -6,8 +6,8 @@ import {
 } from '../../services/users.service';
 import { validateCategoryForm } from '../../common/category.validations';
 import { alertHelper } from '../../helper/alert-helper';
-import AlertError from '../Alerts/AlertError';
-import AlertSuccess from '../Alerts/AlertSuccess';
+import AlertError from '../Alerts/AlertError/AlertError';
+import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
 import PropTypes from 'prop-types';
 
 const CreateCategory = ({ onCategoryCreated }) => {
