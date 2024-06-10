@@ -14,11 +14,14 @@ import {
 import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess.jsx';
 import AlertError from '../Alerts/AlertError/AlertError.jsx';
 import { alertHelper } from '../../helper/alert-helper.js';
+import { APP_NAME } from '../../common/constants.js';
 
 export default function Login() {
-  const { setAppState, user, refresh } = useContext(AppContext);
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const { setAppState, user, refresh } = useContext(AppContext);
+
   const [alert, setAlert] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState(null);
@@ -28,6 +31,10 @@ export default function Login() {
     email: '',
     password: '',
   });
+
+  document.querySelector('title').textContent = `${APP_NAME} | Login by ${
+    usernameEmail ? 'Username' : 'Email'
+  }`;
 
   const updateForm = (props) => (e) => {
     setForm({
