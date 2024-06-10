@@ -1,20 +1,20 @@
+import water from '../../../assets/water.png';
+import AlertError from '../../Alerts/AlertError';
+import AlertSuccess from '../../Alerts/AlertSuccess';
+import MetricWaterIntake from '../MetricWaterIntake/MetricWaterIntake';
+import ImperialWaterIntake from '../ImperialWaterIntake/ImperialWaterIntake';
+import { AppContext } from '../../../context/AppContext';
+import { alertHelper } from '../../../helper/alert-helper';
 import { useContext, useEffect, useState } from 'react';
-import AlertSuccess from '../Alerts/AlertSuccess';
-import AlertError from '../Alerts/AlertError';
-import { alertHelper } from '../../helper/alert-helper';
 import {
   validateFormInImperial,
   validateFormInMetric,
-} from '../../common/ALWIValidations';
-import MetricWaterIntake from './MetricWaterIntake';
-import ImperialWaterIntake from './ImperialWaterIntake';
+} from '../../../common/ALWIValidations';
 import {
   ACTIVITY_MULTIPLIERS,
   KG_TO_LBS_CONVERSION_FACTOR,
   WATER_INTAKE_CONSTANT,
-} from '../../common/constants';
-import water from '../../assets/water.png';
-import { AppContext } from '../../context/AppContext';
+} from '../../../common/constants';
 
 export default function ActivityLevelWaterIntake() {
   const { userData } = useContext(AppContext);

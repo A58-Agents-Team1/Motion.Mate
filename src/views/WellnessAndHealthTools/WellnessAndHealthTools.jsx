@@ -1,4 +1,4 @@
-import ActivityLevelWaterIntake from '../../components/ActivityLevelWaterIntake/ActivityLevelWaterIntake';
+import ActivityLevelWaterIntake from '../../components/ActivityLevelWaterIntake/ActivityLevelWaterIntake/ActivityLevelWaterIntake';
 import BodyMassIndex from '../../components/BMI/BodyMassIndex';
 import CalorieCalculator from '../../components/CalorieCalculator/CalorieCalculator';
 

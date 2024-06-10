@@ -13,6 +13,7 @@ import {
 import { alertHelper } from '../../helper/alert-helper';
 import AlertSuccess from '../Alerts/AlertSuccess';
 import AlertError from '../Alerts/AlertError';
+import UserInfo from '../UserInfo/UserInfo';
 
 export default function EditProfileInfo({ setEditProfile }) {
   const { userData } = useContext(AppContext);
@@ -26,6 +27,7 @@ export default function EditProfileInfo({ setEditProfile }) {
     weight: userData?.weight || '',
     height: userData?.height || '',
     activityLevel: userData?.activityLevel || '',
+    gender: userData?.gender || '',
     phoneNumber: userData?.phoneNumber || '',
   });
 
@@ -71,142 +73,124 @@ export default function EditProfileInfo({ setEditProfile }) {
         <p>Greetings, {userData?.username}! Ready to make updates? </p>
         <p>Edit your account details here.</p>
       </h1>
-      <div className='border-2 border-gray-500 rounded bg-base-300 p-4 shadow-lg flex items-center justify-center'>
-        <div className='mr-4 flex flex-col text-left text-lg px-4'>
-          <p className='font-bold underline text-primary'>
-            Edit profile info here:
-          </p>
-          <label htmlFor='firstName'>First Name:</label>
-          <input
-            type='text'
-            name='firstName'
-            placeholder='First Name'
-            id='firstName'
-            value={form?.firstName}
-            onChange={updateForm('firstName')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
-          />
-          <label htmlFor='lastName'>Last Name:</label>
-          <input
-            type='text'
-            name='lastName'
-            placeholder='Last Name'
-            id='lastName'
-            value={form?.lastName}
-            onChange={updateForm('lastName')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
-          />
-          <label htmlFor='age'>Age:</label>
-          <input
-            type='number'
-            name='age'
-            placeholder='Age'
-            id='age'
-            value={form?.age}
-            onChange={updateForm('age')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
-          />
-          <label htmlFor='weight'>Weight in kg:</label>
-          <input
-            type='number'
-            name='weight'
-            placeholder='Weight'
-            id='weight'
-            value={form?.weight}
-            onChange={updateForm('weight')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
-          />
-          <label htmlFor='height'>Height in cm:</label>
-          <input
-            type='number'
-            name='height'
-            placeholder='Height'
-            id='height'
-            value={form?.height}
-            onChange={updateForm('height')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
-          />
-          <label htmlFor='activity-level'>Activity Level:</label>
-          <select
-            name='activity-level'
-            id='activity-level'
-            value={form?.activityLevel}
-            onChange={updateForm('activityLevel')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
-          >
-            <option value='Sedentary'>Sedentary</option>
-            <option value='Lightly-Active'>Lightly Active</option>
-            <option value='Moderately-Active'>Moderately Active</option>
-            <option value='Very-Active'>Very Active</option>
-          </select>
-          <label htmlFor='phoneNumber'>Phone Number:</label>
-          <input
-            type='number'
-            name='phoneNumber'
-            placeholder='Phone Number'
-            id='phoneNumber'
-            value={form?.phoneNumber}
-            onChange={updateForm('phoneNumber')}
-            className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
-          />
-        </div>
-        <div className='text-center text-lg ml-4 px-4'>
-          <p className='font-bold underline text-primary'>Main Information:</p>
-          {userData?.username ? (
-            <p className='my-4'>UserName: {userData?.username}</p>
-          ) : (
-            <p className='my-4'>UserName: Missing information</p>
-          )}
-          <p className='my-4'>Email: {userData?.email}</p>
-          {userData?.firstName ? (
-            <p className='my-4'>First Name: {userData?.firstName}</p>
-          ) : (
-            <p className='my-4'>First Name: Missing information</p>
-          )}
-          {userData?.lastName ? (
-            <p className='my-4'>Last Name: {userData?.lastName}</p>
-          ) : (
-            <p className='my-4'>Last Name: Missing information</p>
-          )}
-          {userData?.age ? (
-            <p className='my-4'>Age: {userData?.age} years old</p>
-          ) : (
-            <p className='my-4'>Age: Missing information</p>
-          )}
-          {userData?.weight ? (
-            <p className='my-4'>Weight: {userData?.weight} kg</p>
-          ) : (
-            <p className='my-4'>Weight: Missing information</p>
-          )}
-          {userData?.height ? (
-            <p className='my-4'>Height: {userData?.height} cm</p>
-          ) : (
-            <p className='my-4'>Height: Missing information</p>
-          )}
-          {userData?.activityLevel ? (
-            <p className='my-4'>Activity Level: {userData?.activityLevel}</p>
-          ) : (
-            <p className='my-4'>Activity Level: Missing information</p>
-          )}
-          {userData?.phoneNumber && userData?.phoneNumber !== '' ? (
-            <p className='my-4'>Phone: {userData?.phoneNumber}</p>
-          ) : (
-            <p className='my-4'>Phone: Missing information</p>
-          )}
-          <div className='my-5'>
-            <button
-              className='btn btn-primary mr-4'
-              onClick={() => editProfileInformation()}
-            >
-              Save Changes
-            </button>
-            <button
-              className='btn btn-error'
-              onClick={() => setEditProfile(false)}
-            >
-              Discard Changes
-            </button>
+      <div className='border-2 border-gray-500 rounded bg-base-300 p-4 shadow-lg flex flex-col justify-center items-center'>
+        <div className='flex'>
+          <div className='mr-4 flex flex-col text-left text-lg px-4'>
+            <p className='font-bold underline text-primary mb-3'>
+              Edit Personal Information here:
+            </p>
+            <label htmlFor='firstName'>First Name:</label>
+            <input
+              type='text'
+              name='firstName'
+              placeholder='First Name'
+              id='firstName'
+              value={form?.firstName}
+              onChange={updateForm('firstName')}
+              className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+            />
+            <label htmlFor='lastName'>Last Name:</label>
+            <input
+              type='text'
+              name='lastName'
+              placeholder='Last Name'
+              id='lastName'
+              value={form?.lastName}
+              onChange={updateForm('lastName')}
+              className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+            />
+            <label htmlFor='age'>Age:</label>
+            <input
+              type='number'
+              name='age'
+              placeholder='Age'
+              id='age'
+              value={form?.age}
+              onChange={updateForm('age')}
+              className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+            />
+            <label htmlFor='phoneNumber'>Phone Number:</label>
+            <input
+              type='number'
+              name='phoneNumber'
+              placeholder='Phone Number'
+              id='phoneNumber'
+              value={form?.phoneNumber}
+              onChange={updateForm('phoneNumber')}
+              className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+            />
           </div>
+          <div className='mr-4 flex flex-col text-left text-lg px-4'>
+            <p className='font-bold underline text-primary mb-3'>
+              Edit Physical Attributes:
+            </p>
+            <label htmlFor='weight'>Weight in kg:</label>
+            <input
+              type='number'
+              name='weight'
+              placeholder='Weight'
+              id='weight'
+              value={form?.weight}
+              onChange={updateForm('weight')}
+              className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+            />
+            <label htmlFor='height'>Height in cm:</label>
+            <input
+              type='number'
+              name='height'
+              placeholder='Height'
+              id='height'
+              value={form?.height}
+              onChange={updateForm('height')}
+              className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+            />
+            <label htmlFor='activity-level'>Activity Level:</label>
+            <select
+              name='activity-level'
+              id='activity-level'
+              value={form?.activityLevel}
+              onChange={updateForm('activityLevel')}
+              className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+            >
+              <option value='Sedentary'>Sedentary</option>
+              <option value='Lightly-Active'>Lightly Active</option>
+              <option value='Moderately-Active'>Moderately Active</option>
+              <option value='Very-Active'>Very Active</option>
+            </select>
+            <label htmlFor='gender'>Gender:</label>
+            <select
+              name='gender'
+              id='gender'
+              value={form?.gender}
+              onChange={updateForm('gender')}
+              className='border-2 border-gray-500 rounded p-2 m-2 bg-gray-200 shadow-xl text-black'
+            >
+              <option value='Male'>Male</option>
+              <option value='Female'>Female</option>
+            </select>
+          </div>
+          <div className='text-left text-lg ml-10'>
+            <div>
+              <p className='font-bold underline text-primary mb-6'>
+                Main Information:
+              </p>
+              <UserInfo userData={userData} />
+            </div>
+          </div>
+        </div>
+        <div className='my-5'>
+          <button
+            className='btn btn-primary mr-4'
+            onClick={() => editProfileInformation()}
+          >
+            Save Changes
+          </button>
+          <button
+            className='btn btn-error'
+            onClick={() => setEditProfile(false)}
+          >
+            Discard Changes
+          </button>
         </div>
       </div>
       {success && <AlertSuccess message={message} />}

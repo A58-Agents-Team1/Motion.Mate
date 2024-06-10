@@ -55,6 +55,10 @@ export const getAllUsersDataRequests = async (username) => {
 export const getFilterUserBySearchTerm = async (searchBy, search) => {
   const snapshot = await get(ref(db, 'users'));
   const users = [];
+
+  /**
+   * only with forEach we can iterate over snapshot
+   */
   snapshot.forEach((acc) => {
     const user = acc.val();
     if (user[searchBy].toLowerCase().includes(search.toLowerCase())) {
@@ -75,7 +79,8 @@ export const createUser = (
   age,
   weight,
   height,
-  activityLevel
+  activityLevel,
+  gender
 ) => {
   return set(ref(db, `users/${username}`), {
     uid,
@@ -93,6 +98,7 @@ export const createUser = (
     weight,
     height,
     activityLevel,
+    gender,
     previousScores: {
       previousCalories: 0,
       doneExercises: 0,

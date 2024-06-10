@@ -12,13 +12,13 @@ import PropTypes from 'prop-types';
 
 const CreateCategory = ({ onCategoryCreated }) => {
   const [image, setImage] = useState(null);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [category, setCategory] = useState({
     name: '',
     description: '',
   });
-  const [showError, setShowError] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [showSuccess, setShowSuccess] = useState(false);
 
   const updateCategory = (e, prop) => {
     setCategory({

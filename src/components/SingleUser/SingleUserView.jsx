@@ -20,42 +20,42 @@ export default function SingleUserView({ user, setRefresh }) {
   const [hasMyRequest, setHasMyRequest] = useState(false);
 
   const handleSendFriendRequest = async () => {
-    await sendRequestService(userData.username, user.username);
+    await sendRequestService(userData?.username, user.username);
     setRefresh((prev) => !prev);
     setHasRequest(true);
   };
 
   const handleRemoveFriend = async () => {
-    await removeFriendService(userData.username, user.username);
+    await removeFriendService(userData?.username, user.username);
     setIsFriend(false);
     setHasRequest(false);
     setRefresh((prev) => !prev);
   };
 
   const handleRemoveFriendRequest = async () => {
-    await removeFriendRequestService(userData.username, user.username);
+    await removeFriendRequestService(userData?.username, user.username);
     setIsFriend(false);
     setHasRequest(false);
     setRefresh((prev) => !prev);
   };
 
   useEffect(() => {
-    return onValue(ref(db, `users/${userData.username}`), (snapshot) => {
+    return onValue(ref(db, `users/${userData?.username}`), (snapshot) => {
       const data = snapshot?.val();
 
       const dataRequests = data?.requests || [];
       const dataFriends = data?.friends || [];
       const dataMyRequests = data?.myRequests || [];
 
-      Object.keys(dataRequests).includes(user.username)
+      Object.keys(dataRequests).includes(user?.username)
         ? setHasRequest(() => true)
         : setHasRequest(() => false);
 
-      Object.keys(dataMyRequests).includes(user.username)
+      Object.keys(dataMyRequests).includes(user?.username)
         ? setHasMyRequest(() => true)
         : setHasMyRequest(() => false);
 
-      Object.keys(dataFriends).includes(user.username)
+      Object.keys(dataFriends).includes(user?.username)
         ? setIsFriend(() => true)
         : setIsFriend(() => false);
     });
@@ -114,6 +114,6 @@ export default function SingleUserView({ user, setRefresh }) {
 }
 
 SingleUserView.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   setRefresh: PropTypes.func,
 };
