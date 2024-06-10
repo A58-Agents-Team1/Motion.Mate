@@ -10,7 +10,7 @@ import Progress from './Progress';
 import { updateGoalProgress } from '../../services/goal.service';
 import { alertHelper } from '../../helper/alert-helper';
 import AlertError from '../Alerts/AlertError';
-import { fullFormatDate, shortFormatDate } from '../../helper/format-date';
+import { shortFormatDate } from '../../helper/format-date';
 
 const DetailedGoal = () => {
   const params = useParams();
@@ -22,6 +22,10 @@ const DetailedGoal = () => {
 
   const [showMessage, setShowMessage] = useState('');
   const [showError, setShowError] = useState(false);
+
+  const outerTableDiv =
+    'label border-b-2 place-content-center border-primary p-2 bg-base-200';
+  const innerTableDiv = 'flex place-content-evenly w-full gap-2';
 
   document.querySelector('title').textContent = `${APP_NAME} | ${
     goal?.name || 'Detailed Goal'
@@ -124,20 +128,26 @@ const DetailedGoal = () => {
           <div className='flex place-content-center text-lg text-primary font-bold border-b-4 border-primary p-2'>
             <h2>Current Goal Status</h2>
           </div>
-          <div className='flex flex-col gap-2'>
-            <div className='label border-b-2 border-primary p-2 bg-base-200'>
-              Exercises Done
-              <div className='text-lg'>{goal?.exercisesDone || 0}</div>
+          <div className='flex flex-col'>
+            <div className={outerTableDiv}>
+              <div className={innerTableDiv}>
+                <h3>Exercises Done:</h3>
+                <p className='text-lg'>{goal?.exercisesDone || 0}</p>
+              </div>
             </div>
 
-            <div className='label border-b-2 border-primary p-2'>
-              Calories Burned
-              <div className='text-lg'>{goal?.caloriesBurned || 0}</div>
+            <div className={outerTableDiv}>
+              <div className={innerTableDiv}>
+                <h3>Calories Burned:</h3>
+                <p className='text-lg'>{goal?.caloriesBurned || 0}</p>
+              </div>
             </div>
 
-            <div className='label border-b-2 border-primary p-2 bg-base-200'>
-              Progress
-              <div className='text-lg'>{goal?.progress}%</div>
+            <div className={outerTableDiv}>
+              <div className={innerTableDiv}>
+                <h3>Progress:</h3>
+                <div className='text-lg'>{goal?.progress}%</div>
+              </div>
             </div>
           </div>
           {/* Goal Details */}
@@ -145,27 +155,40 @@ const DetailedGoal = () => {
             <h2>Goal Details</h2>
           </div>
 
-          <div className='flex flex-col gap-2'>
-            <div className='label border-b-2 border-primary p-2'>
-              Goal Name
-              <div className='text-lg'>{goal?.name}</div>
+          <div className='flex flex-col'>
+            <div className={outerTableDiv}>
+              <div className={innerTableDiv}>
+                <h3>Goal Name:</h3>
+                <p className='text-lg'>{goal?.name}</p>
+              </div>
             </div>
 
-            <div className='label border-b-2 border-primary p-2 bg-base-200'>
-              Calories
-              <div className='text-lg'>{goal?.calories}</div>
+            <div className={outerTableDiv}>
+              <div className={innerTableDiv}>
+                <h3>Calories:</h3>
+                <p className='text-lg'>{goal?.calories}</p>
+              </div>
             </div>
 
-            <div className='label border-b-2 border-primary p-2'>
-              Exercises
-              <div className='text-lg'>{goal?.exercises}</div>
+            <div className={outerTableDiv}>
+              <div className={innerTableDiv}>
+                <h3>Exercises:</h3>
+                <div className='text-lg'>{goal?.exercises}</div>
+              </div>
             </div>
 
-            <div className='label border-b-2 border-primary p-2 bg-base-200'>
-              Goal Time Period
-              <div className='text-lg'></div>
-              {fullFormatDate(goal?.timePeriod?.from)} -{' '}
-              {fullFormatDate(goal?.timePeriod?.to)}
+            <div className={outerTableDiv}>
+              <div className={innerTableDiv}>
+                <h3>Goal Time Period:</h3>
+                <div className='text-lg'>
+                  <p className='border-b-2 border-primary'>
+                    Starts: {shortFormatDate(goal?.timePeriod?.from)}
+                  </p>
+                  <p className='border-b-2 border-primary'>
+                    Ends: {shortFormatDate(goal?.timePeriod?.to)}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
