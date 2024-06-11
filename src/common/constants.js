@@ -78,6 +78,8 @@ export const GOAL_MIN_CALORIES = 0;
 
 export const KG_TO_LBS_CONVERSION_FACTOR = 2.2046;
 
+export const INCHES_TO_CM_CONVERSION_FACTOR = 2.54;
+
 export const WATER_INTAKE_CONSTANT = 0.033;
 
 export const ACTIVITY_MULTIPLIERS = {
@@ -100,3 +102,19 @@ export const BMI_THRESHOLDS = {
   OBESITY_II_MAX: 39.9,
   OBESITY_III_MIN: 40,
 };
+
+export const BMR_MEN_CONSTANT = 88.362;
+
+export const BMR_MEN_WEIGHT_MULTIPLIER = 13.397;
+
+export const BMR_MEN_HEIGHT_MULTIPLIER = 4.799;
+
+export const BMR_MEN_AGE_MULTIPLIER = 5.677;
+
+export const BMR_WOMEN_CONSTANT = 447.593;
+
+export const BMR_WOMEN_WEIGHT_MULTIPLIER = 9.247;
+
+export const BMR_WOMEN_HEIGHT_MULTIPLIER = 3.098;
+
+export const BMR_WOMEN_AGE_MULTIPLIER = 4.33;
