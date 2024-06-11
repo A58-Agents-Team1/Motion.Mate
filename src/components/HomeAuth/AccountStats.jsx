@@ -50,15 +50,16 @@ export const AccountStats = ({
         setTimeLeft({ ...calculateTimeLeft(new Date(timer)) });
       }, 1000);
 
-      if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours < 1) {
+      if (timeLeft?.seconds + timeLeft?.minutes + timeLeft?.hours === -3) {
         const updateCalories = async () => {
           const allGoals = await getGoals(userData.username);
           await whenTimerEnds(userData.username);
           await endExercise(userData.username);
+          const today = new Date().getTime();
           allGoals.map(async (goal) => {
             if (
-              goal?.timePeriod?.from <= new Date() &&
-              goal?.timePeriod?.to >= new Date()
+              goal?.timePeriod?.from <= today &&
+              goal?.timePeriod?.to >= today
             ) {
               await updateGoalCalories(
                 userData.username,
