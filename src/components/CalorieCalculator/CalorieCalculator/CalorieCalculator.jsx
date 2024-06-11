@@ -1,25 +1,65 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../../context/AppContext';
 import calorie from '../../../assets/calorie.png';
 import MetricScalar from '../MetricScalar/MetricScalar';
 import ImperialScalar from '../ImperialScalar/ImperialScalar';
+import {
+  ACTIVITY_MULTIPLIERS,
+  BMR_MEN_AGE_MULTIPLIER,
+  BMR_MEN_CONSTANT,
+  BMR_MEN_HEIGHT_MULTIPLIER,
+  BMR_MEN_WEIGHT_MULTIPLIER,
+  BMR_WOMEN_AGE_MULTIPLIER,
+  BMR_WOMEN_CONSTANT,
+  BMR_WOMEN_HEIGHT_MULTIPLIER,
+  BMR_WOMEN_WEIGHT_MULTIPLIER,
+  INCHES_TO_CM_CONVERSION_FACTOR,
+  KG_TO_LBS_CONVERSION_FACTOR,
+} from '../../../common/constants';
 
 export default function CalorieCalculator() {
+  const { userData } = useContext(AppContext);
   const [isChecked, setIsChecked] = useState(true);
+  const [calories, setCalories] = useState(0);
+  const [userCalorie, setUserCalorie] = useState(0);
   const [form, setForm] = useState({
     weight: '',
     height: '',
     age: '',
-    gender: 'male',
+    gender: 'Male',
     activityLevel: 'Sedentary',
   });
 
+  useEffect(() => {
+    if (
+      userData?.weight &&
+      userData?.height &&
+      userData?.age &&
+      userData?.gender &&
+      userData?.activityLevel
+    ) {
+      const BMR = calculateBMR(
+        userData?.gender,
+        userData?.weight,
+        userData?.height,
+        userData?.age
+      );
+      const TDEE = calculateTotalDailyEnergyExpenditure(
+        BMR,
+        form.activityLevel
+      );
+      setUserCalorie(TDEE);
+    }
+  }, []);
+
   const handleChange = () => {
     setIsChecked(!isChecked);
+    setCalories(0);
     setForm({
       weight: '',
       height: '',
       age: '',
-      gender: 'male',
+      gender: 'Male',
       activityLevel: 'Sedentary',
     });
   };
@@ -28,8 +68,62 @@ export default function CalorieCalculator() {
     setForm({ ...form, [key]: e.target.value });
   };
 
+  const calculateTotalDailyEnergyExpenditure = (BMR, activityLevel) => {
+    let activityMultiplier;
+
+    switch (activityLevel) {
+      case 'Lightly-Active':
+        activityMultiplier = ACTIVITY_MULTIPLIERS.lightly_active;
+        break;
+      case 'Moderately-Active':
+        activityMultiplier = ACTIVITY_MULTIPLIERS.moderately_active;
+        break;
+      case 'Very-Active':
+        activityMultiplier = ACTIVITY_MULTIPLIERS.very_active;
+        break;
+      default:
+        activityMultiplier = ACTIVITY_MULTIPLIERS.default;
+    }
+
+    return Math.floor(BMR * activityMultiplier);
+  };
+
+  const calculateBMR = (gender, weight, height, age) => {
+    if (gender === 'Male') {
+      return (
+        BMR_MEN_CONSTANT +
+        BMR_MEN_WEIGHT_MULTIPLIER * weight +
+        BMR_MEN_HEIGHT_MULTIPLIER * height -
+        BMR_MEN_AGE_MULTIPLIER * age
+      );
+    } else if (gender === 'Female') {
+      return (
+        BMR_WOMEN_CONSTANT +
+        BMR_WOMEN_WEIGHT_MULTIPLIER * weight +
+        BMR_WOMEN_HEIGHT_MULTIPLIER * height -
+        BMR_WOMEN_AGE_MULTIPLIER * age
+      );
+    }
+  };
+
   const calculate = () => {
-    console.log('Calculating...');
+    if (isChecked) {
+      const BMR = calculateBMR(form.gender, form.weight, form.height, form.age);
+      const TDEE = calculateTotalDailyEnergyExpenditure(
+        BMR,
+        form.activityLevel
+      );
+      setCalories(TDEE);
+    } else {
+      const weightInKg = form?.weight / KG_TO_LBS_CONVERSION_FACTOR;
+      const heightInCm = form?.height * INCHES_TO_CM_CONVERSION_FACTOR;
+      const BMR = calculateBMR(form.gender, weightInKg, heightInCm, form.age);
+      const TDEE = calculateTotalDailyEnergyExpenditure(
+        BMR,
+        form.activityLevel
+      );
+      setCalories(TDEE);
+    }
   };
 
   return (
@@ -77,6 +171,43 @@ export default function CalorieCalculator() {
             Calculate
           </button>
         </div>
+        {calories === 0 ? (
+          <p>
+            Enter your weight, height, and age, then choose your gender and
+            activity level to calculate your daily calorie needs.
+          </p>
+        ) : (
+          <p>
+            Your estimated total daily energy expenditure (caloric needs) is
+            around <strong>{calories} kcal/day</strong> to maintain your current
+            weight and activity level.
+          </p>
+        )}
+      </div>
+      <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
+        {userData?.weight &&
+        userData?.height &&
+        userData?.age &&
+        userData?.gender &&
+        userData?.activityLevel ? (
+          <>
+            <p>
+              Your daily calorie needs are automatically calculated based on
+              your age, gender, weight, height, and activity level you provided
+              in your profile.
+            </p>
+            <p>
+              Calories to keep your body properly fueled:{' '}
+              <strong>{userCalorie} kcal/day</strong>
+            </p>
+          </>
+        ) : (
+          <p>
+            Please provide your weight, height, age, gender and activity level
+            in your profile to get an accurate calculation of your daily caloric
+            needs.
+          </p>
+        )}
       </div>
       <div className='text-center'>
         <h1 className='text-primary text-xl text-center font-bold mt-6'>

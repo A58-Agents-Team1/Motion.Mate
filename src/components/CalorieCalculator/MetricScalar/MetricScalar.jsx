@@ -53,8 +53,8 @@ export default function MetricScalar({ form, updateForm }) {
           onChange={updateForm('gender')}
           className='border-2 border-gray-500 rounded p-2 mr-4 ml-1 bg-gray-200 shadow-xl text-black w-44'
         >
-          <option value='male'>Male</option>
-          <option value='female'>Female</option>
+          <option value='Male'>Male</option>
+          <option value='Female'>Female</option>
         </select>
         <label htmlFor='activity-level'>Activity Level: </label>
         <select

@@ -165,7 +165,10 @@ export default function ActivityLevelWaterIntake() {
             Your recommended water intake is automatically calculated based on
             the activity level and your weight you provided in your profile.
           </p>
-          <p>Recommended Water Intake: {userWaterIntake} liters per day.</p>
+          <p>
+            Recommended Water Intake:{' '}
+            <strong>{userWaterIntake} liters per day.</strong>
+          </p>
         </div>
       ) : (
         <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
