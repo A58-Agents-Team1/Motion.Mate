@@ -78,7 +78,7 @@ function App() {
               element={<RegisterAdditionalInfo />}
             />
             <Route
-              path={'*'}
+              path={`${BASE}*`}
               element={<NotFound />}
             />
             <Route
