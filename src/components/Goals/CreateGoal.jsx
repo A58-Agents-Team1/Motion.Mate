@@ -119,20 +119,23 @@ export default function CreateGoal() {
       </button>
       <dialog
         id='my_modal_3'
-        className='modal '
+        className='modal'
       >
-        <div className='modal-box py-3'>
-          <form method='dialog'>
+        <div className='modal-box'>
+          <div
+            method='dialog'
+            className='flex place-content-end relative right-0 top-0 w-full h-7'
+          >
             <button
               type='button'
-              className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'
+              className='btn btn-sm btn-circle btn-ghost'
               onClick={(e) => {
                 handleCloseModal(e);
               }}
             >
               ✕
             </button>
-          </form>
+          </div>
           <h2 className='text-center text-2xl font-bold text-primary'>
             Create Goal
           </h2>
@@ -143,7 +146,7 @@ export default function CreateGoal() {
               You can not change the goal type after creating the goal.
             </span>
           </label>
-          <div className='form-control gap-3'>
+          <div className='form-control gap-1'>
             <label className='input input-bordered flex items-center gap-2 shadow-xl text-primary'>
               Name
               <input
@@ -215,7 +218,7 @@ export default function CreateGoal() {
                 </div>
               </div>
             </div>
-            <div className='mt-4 mb-10 justify-center shadow-xl'>
+            <div className='mt-4 mb-3 justify-center shadow-xl'>
               {form.type === 'exercises' && (
                 <label className='input input-bordered flex items-center gap-2'>
                   Exercises
@@ -263,13 +266,28 @@ export default function CreateGoal() {
               )}
             </div>
           </div>
-          <button
-            type='button'
-            className='btn btn-sm btn-ghost absolute right-2 bottom-2'
-            onClick={handleCreateGoal}
+          <div
+            method='dialog'
+            className='flex gap-2 place-content-end relative right-0 top-0 w-full h-7'
           >
-            Create
-          </button>
+            <button
+              type='button'
+              className='btn btn-sm btn-ghost'
+              onClick={handleCreateGoal}
+            >
+              Create
+            </button>
+            |
+            <button
+              type='button'
+              className='btn btn-sm btn-ghost'
+              onClick={(e) => {
+                handleCloseModal(e);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
         {showError && <AlertError message={`${errorMessage}!`} />}
       </dialog>
