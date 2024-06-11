@@ -54,7 +54,7 @@ Fitness tracking application, where app offers both public and private features,
 
 To install and run the project, follow these steps:
 
-1. Clone the [Motion Mate _gitlab repository_](https://github.com/A58-Agents-Team1/Motion.Mate) locally:
+1. Clone the [Motion Mate _GitHub repository_](https://github.com/A58-Agents-Team1/Motion.Mate) locally:
 
 ```bash
 git clone https://github.com/A58-Agents-Team1/Motion.Mate.git
