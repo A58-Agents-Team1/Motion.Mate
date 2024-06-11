@@ -107,62 +107,60 @@ export const CreateExercise = () => {
           id='exercise-create-modal'
           className='modal'
         >
-          <div className='modal-box overflow-x-hidden'>
+          <div className='modal-box w-full max-w-lg overflow-hidden'>
             <h3 className='font-bold text-lg mb-3'>Ready to workout</h3>
-            <label className='input input-bordered flex items-center mb-3 select-primary'>
+            <label className='input input-bordered flex items-center mb-3'>
               <input
                 onChange={(e) => updateContent(e.target.value, 'title')}
                 type='text'
                 className='grow'
-                placeholder='title'
+                placeholder='Title'
                 value={content.title}
               />
             </label>
-            <label className='input input-bordered flex items-center mb-3 select-primary'>
+            <label className='input input-bordered flex items-center mb-3'>
               <input
                 onChange={(e) => updateContent(e.target.value, 'content')}
                 type='text'
-                className='grow no-spinners'
+                className='grow'
                 placeholder='Content'
                 value={content.content}
               />
             </label>
-            <div className='flex gap-2 mb-2 w-fit'>
-              <label className='input input-bordered w-36 flex items-center gap-1 select-primary'>
+            <div className='flex gap-2'>
+              <label className='input input-bordered flex items-center mb-3 w-1/3'>
                 Hours:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'hours')}
                   type='number'
-                  className=' no-spinners'
+                  className='w-full'
                   placeholder='Hours'
                   value={content.hours}
                 />
               </label>
-
-              <label className='input input-bordered w-36 flex items-center select-primary gap-1'>
+              <label className='input input-bordered flex items-center mb-3 w-1/3'>
                 Minutes:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'minutes')}
                   type='number'
-                  className=' no-spinners'
+                  className='w-full'
                   placeholder='Minutes'
                   value={content.minutes}
                 />
               </label>
-
-              <label className='input input-bordered w-36 flex items-center gap-1 select-primary'>
+              <label className='input input-bordered flex items-center mb-3 w-1/3'>
                 Seconds:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'seconds')}
                   type='number'
-                  className=' no-spinners'
+                  className='w-full'
                   placeholder='Seconds'
                   value={content.seconds}
                 />
               </label>
             </div>
             <select
-              className='select  w-full max-w-xs mb-3 text-primary select-primary '
+              className='select select-primary w-full mb-3'
               value={content.level}
               onChange={(e) => updateContent(e.target.value, 'level')}
             >
@@ -176,9 +174,8 @@ export const CreateExercise = () => {
               <option value='Medium'>Medium</option>
               <option value='Hard'>Hard</option>
             </select>
-
             <select
-              className='select select-primary w-full max-w-xs mb-3 text-primary'
+              className='select select-primary w-full mb-3'
               value={selectedCategoryId}
               onChange={(e) => setSelectedCategoryId(e.target.value)}
             >
@@ -197,18 +194,16 @@ export const CreateExercise = () => {
                 </option>
               ))}
             </select>
-
-            <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
+            <label className='input input-bordered flex items-center mb-3 w-full'>
               <input
                 onChange={(e) => updateContent(e.target.value, 'calories')}
                 type='number'
-                className='grow'
-                placeholder='calories'
+                className='w-full'
+                placeholder='Calories'
                 value={content.calories}
               />
             </label>
-
-            <div className='flex items-center justify-between'>
+            <div className='flex justify-between'>
               <form method='dialog'>
                 <button
                   onClick={submitExercise}
@@ -218,13 +213,8 @@ export const CreateExercise = () => {
                   Submit
                 </button>
               </form>
-
               <form method='dialog'>
-                <div className='modal-action mt-1'>
-                  <button className='btn btn-outline btn-primary'>
-                    Cancel
-                  </button>
-                </div>
+                <button className='btn btn-outline btn-primary'>Cancel</button>
               </form>
             </div>
           </div>
