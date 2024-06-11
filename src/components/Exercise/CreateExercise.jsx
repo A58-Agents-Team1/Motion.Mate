@@ -122,40 +122,40 @@ export const CreateExercise = () => {
               <input
                 onChange={(e) => updateContent(e.target.value, 'content')}
                 type='text'
-                className='grow'
+                className='grow no-spinners'
                 placeholder='Content'
                 value={content.content}
               />
             </label>
-            <div className='flex gap-2'>
-              <label className='input input-bordered w-1/3 flex items-center mb-3 gap-1 select-primary no-spinners'>
+            <div className='flex gap-2 mb-2 w-fit'>
+              <label className='input input-bordered w-36 flex items-center gap-1 select-primary'>
                 Hours:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'hours')}
                   type='number'
-                  className='grow'
+                  className=' no-spinners'
                   placeholder='Hours'
                   value={content.hours}
                 />
               </label>
 
-              <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary gap-1 no-spinners'>
+              <label className='input input-bordered w-36 flex items-center select-primary gap-1'>
                 Minutes:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'minutes')}
                   type='number'
-                  className='grow'
+                  className=' no-spinners'
                   placeholder='Minutes'
                   value={content.minutes}
                 />
               </label>
 
-              <label className='input input-bordered w-1/3 flex items-center mb-3 gap-1 select-primary no-spinners'>
+              <label className='input input-bordered w-36 flex items-center gap-1 select-primary'>
                 Seconds:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'seconds')}
                   type='number'
-                  className='grow'
+                  className=' no-spinners'
                   placeholder='Seconds'
                   value={content.seconds}
                 />
