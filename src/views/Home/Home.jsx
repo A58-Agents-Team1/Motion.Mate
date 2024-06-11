@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAllCategories } from '../../services/category.service';
 import { Carousel } from '../../components/Home/Carousel';
 import { HomeAuthenticated } from '../HomeAuthenticated';
-import { APP_NAME } from '../../common/constants';
+import { APP_NAME, BASE } from '../../common/constants';
 
 export default function Home() {
   document.querySelector('title').textContent = `${APP_NAME} | Home`;
@@ -58,7 +58,7 @@ export default function Home() {
                   other users and exchange ideas.
                 </p>
                 <button
-                  onClick={() => navigate('/login')}
+                  onClick={() => navigate(`${BASE}login`)}
                   className='btn btn-secondary'
                 >
                   Get Started

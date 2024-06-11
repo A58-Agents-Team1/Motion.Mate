@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
-import { APP_NAME } from '../../common/constants';
+import { APP_NAME, BASE } from '../../common/constants';
 
 export default function NotFound() {
   document.querySelector('title').textContent = `${APP_NAME} | Page Not Found`;
@@ -38,7 +38,7 @@ export default function NotFound() {
               </p>
               <button
                 className='btn btn-primary mt-8'
-                onClick={() => navigate('/')}
+                onClick={() => navigate(`${BASE}`)}
               >
                 Home
               </button>
@@ -51,7 +51,7 @@ export default function NotFound() {
               </p>
               <button
                 className='btn btn-primary mt-8'
-                onClick={() => navigate('/login')}
+                onClick={() => navigate(`${BASE}login`)}
               >
                 Login
               </button>

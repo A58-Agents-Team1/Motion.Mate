@@ -10,7 +10,7 @@ import { alertHelper } from '../../helper/alert-helper';
 import { useNavigate } from 'react-router-dom';
 import AlertError from '../Alerts/AlertError/AlertError';
 import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
-import { APP_NAME } from '../../common/constants';
+import { APP_NAME, BASE } from '../../common/constants';
 import { AppContext } from '../../context/AppContext';
 
 const Categories = () => {
@@ -25,7 +25,7 @@ const Categories = () => {
   const [allCategories, setAllCategories] = useState([]);
 
   const navigateToExercise = (category) => {
-    navigate(`/exercises/${category?.category}`);
+    navigate(`${BASE}exercises/${category?.category}`);
   };
 
   const fetchCategories = async () => {

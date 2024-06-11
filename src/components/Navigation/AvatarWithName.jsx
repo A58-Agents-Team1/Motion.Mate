@@ -6,6 +6,7 @@ import userPhoto from '../../assets/userPhoto.png';
 import Notifications from './Notifications/Notifications';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
+import { BASE } from '../../common/constants';
 
 export function AvatarWithNameAndDropDownMenu() {
   const { user, userData, setAppState } = useContext(AppContext);
@@ -17,7 +18,7 @@ export function AvatarWithNameAndDropDownMenu() {
     e.preventDefault();
     await logoutUser();
     setAppState({ user: null, userData: null });
-    navigate('/');
+    navigate(`${BASE}`);
   };
 
   useEffect(() => {
@@ -42,13 +43,20 @@ export function AvatarWithNameAndDropDownMenu() {
               <h2 className='text-4xl font-bold mx-2'>{userData?.username}</h2>
             )}
           </div>
-          <Notifications requests={requests} refresher={refresher} />
+          <Notifications
+            requests={requests}
+            refresher={refresher}
+          />
           <div className='dropdown dropdown-hover flex items-center'>
             <div>
               <div className='avatar'>
                 <div className='avatar w-16 rounded-full border-1 border-black'>
                   {userData?.avatar ? (
-                    <img src={userData?.avatar} title='Account' alt='Account' />
+                    <img
+                      src={userData?.avatar}
+                      title='Account'
+                      alt='Account'
+                    />
                   ) : (
                     <img
                       src={userPhoto}
@@ -65,15 +73,15 @@ export function AvatarWithNameAndDropDownMenu() {
                 className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-gray-400 absolute right-0'
               >
                 <li>
-                  <NavLink to='/my-profile'>My Profile</NavLink>
+                  <NavLink to={`${BASE}my-profile`}>My Profile</NavLink>
                 </li>
                 {userData && !userData?.isBlocked && (
                   <>
                     <li>
-                      <NavLink to='/my-friends'>My Friends</NavLink>
+                      <NavLink to={`${BASE}my-friends`}>My Friends</NavLink>
                     </li>
                     <li>
-                      <NavLink to='/all-users'>All Users</NavLink>
+                      <NavLink to={`${BASE}all-users`}>All Users</NavLink>
                     </li>
                   </>
                 )}
@@ -102,7 +110,11 @@ export function AvatarWithName() {
         <div className='avatar'>
           <div className='avatar w-16 rounded-full border-1 border-black mr-2 mb-2'>
             {userData?.avatar ? (
-              <img src={userData?.avatar} title='Account' alt='Account' />
+              <img
+                src={userData?.avatar}
+                title='Account'
+                alt='Account'
+              />
             ) : (
               <img
                 src={userPhoto}

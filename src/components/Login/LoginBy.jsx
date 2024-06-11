@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { BASE } from '../../common/constants';
 
 export default function LoginBy({
   placeholder,
@@ -40,13 +41,20 @@ export default function LoginBy({
           required
         />
         <label className='label'>
-          <NavLink to='/contact-us' className='label-text-alt link link-hover'>
+          <NavLink
+            to={`${BASE}contact-us`}
+            className='label-text-alt link link-hover'
+          >
             Forgot password?
           </NavLink>
         </label>
       </div>
       <div className='form-control mt-6'>
-        <button type='button' className='btn btn-primary' onClick={handleLogin}>
+        <button
+          type='button'
+          className='btn btn-primary'
+          onClick={handleLogin}
+        >
           Login
         </button>
       </div>

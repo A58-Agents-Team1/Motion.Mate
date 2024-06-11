@@ -23,7 +23,7 @@ import RegisterAdditionalInfo from './views/RegisterAdditionalInfo/RegisterAddit
 import WellnessHealthTools from './views/WellnessAndHealthTools/WellnessAndHealthTools';
 import About from './views/About/About';
 import Home from './views/Home/Home';
-import Index from './views/Index';
+import { BASE } from './common/constants';
 
 function App() {
   const [appState, setAppState] = useState({
@@ -58,40 +58,35 @@ function App() {
         <Layout>
           <Routes>
             <Route
-              path='/'
+              path={`${BASE}`}
               element={<Home />}
             />
             <Route
-              path='/Motion.Mate'
-              element={<Index />}
-            />
-
-            <Route
-              path='/about'
+              path={`${BASE}about`}
               element={<About />}
             />
             <Route
-              path='/login'
+              path={`${BASE}login`}
               element={<Login />}
             />
             <Route
-              path='/register'
+              path={`${BASE}register`}
               element={<Register />}
             />
             <Route
-              path='/register-additional-info'
+              path={`${BASE}register-additional-info`}
               element={<RegisterAdditionalInfo />}
             />
             <Route
-              path='*'
+              path={'*'}
               element={<NotFound />}
             />
             <Route
-              path='/contact-us'
+              path={`${BASE}contact-us`}
               element={<ContactUs />}
             />
             <Route
-              path='/wellness-health-tools'
+              path={`${BASE}wellness-health-tools`}
               element={
                 <Authenticated user={user}>
                   <WellnessHealthTools />
@@ -99,7 +94,7 @@ function App() {
               }
             />
             <Route
-              path='/goals'
+              path={`${BASE}goals`}
               element={
                 <Authenticated user={user}>
                   <Goals />
@@ -107,7 +102,7 @@ function App() {
               }
             />
             <Route
-              path='/goals/:id'
+              path={`${BASE}goals/:id`}
               element={
                 <Authenticated user={user}>
                   <DetailedGoal />
@@ -115,7 +110,7 @@ function App() {
               }
             />
             <Route
-              path='/all-users'
+              path={`${BASE}all-users`}
               element={
                 <Authenticated user={user}>
                   <AllUsers />
@@ -123,7 +118,7 @@ function App() {
               }
             />
             <Route
-              path='/my-friends'
+              path={`${BASE}my-friends`}
               element={
                 <Authenticated user={user}>
                   <MyFriends />
@@ -131,7 +126,7 @@ function App() {
               }
             />
             <Route
-              path='/users/:id'
+              path={`${BASE}users/:id`}
               element={
                 <Authenticated user={user}>
                   <FullProfileView />
@@ -139,7 +134,7 @@ function App() {
               }
             />
             <Route
-              path='/my-profile'
+              path={`${BASE}my-profile`}
               element={
                 <Authenticated user={user}>
                   <MyProfile />
@@ -147,7 +142,7 @@ function App() {
               }
             />
             <Route
-              path='/exercises/:category'
+              path={`${BASE}exercises/:category`}
               element={
                 <Authenticated user={user}>
                   <Exercises />
@@ -155,7 +150,7 @@ function App() {
               }
             />
             <Route
-              path='/exercises'
+              path={`${BASE}exercises`}
               element={
                 <Authenticated user={user}>
                   <Categories />
@@ -163,7 +158,7 @@ function App() {
               }
             />
             <Route
-              path='/admin-panel'
+              path={`${BASE}admin-panel`}
               element={
                 <Authenticated user={user}>
                   <AdminPanel />

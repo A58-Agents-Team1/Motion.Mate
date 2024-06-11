@@ -3,7 +3,7 @@ import { getAllFriends } from '../../services/users.service';
 import { AppContext } from '../../context/AppContext';
 import SingleUserView from '../../components/SingleUser/SingleUserView';
 import { useNavigate } from 'react-router-dom';
-import { APP_NAME } from '../../common/constants';
+import { APP_NAME, BASE } from '../../common/constants';
 
 export default function MyFriends() {
   document.querySelector('title').textContent = `${APP_NAME} | My Friends`;
@@ -45,7 +45,7 @@ export default function MyFriends() {
                 <button
                   type='button'
                   className='btn btn-warning btn-sm'
-                  onClick={() => navigate('/all-users')}
+                  onClick={() => navigate(`${BASE}all-users`)}
                 >
                   find friends now!
                 </button>

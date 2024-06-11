@@ -13,7 +13,7 @@ import {
   validateLastName,
   validateWeight,
 } from '../../common/user.validations';
-import { APP_NAME } from '../../common/constants';
+import { APP_NAME, BASE } from '../../common/constants';
 
 export default function RegisterAdditionalInfo() {
   document.querySelector('title').textContent = `${APP_NAME} | Additional Info`;
@@ -66,7 +66,7 @@ export default function RegisterAdditionalInfo() {
       await validateAdditionalInfo();
       await updateUserByUsername(userData?.username, form);
       alertHelper(setMessage, setSuccess, 'Info Added successfully!');
-      navigate('/');
+      navigate(`${BASE}`);
     } catch (error) {
       alertHelper(setMessage, setAlert, error.message);
     }
@@ -185,7 +185,7 @@ export default function RegisterAdditionalInfo() {
                   Add Additional Info
                 </button>
                 <button
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate(`${BASE}`)}
                   className='btn btn-primary mx-3'
                 >
                   Skip and Continue

@@ -17,6 +17,7 @@ import PropTypes from 'prop-types';
 import { NoActivityCard } from './NoActivityCard';
 import { useNavigate } from 'react-router-dom';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { BASE } from '../../common/constants';
 
 export const Divider = ({ stopButton }) => {
   const { userData } = useContext(AppContext);
@@ -136,7 +137,7 @@ export const Divider = ({ stopButton }) => {
       ) : (
         <div className='flex flex-col lg:flex-row'>
           <NoActivityCard
-            onClick={() => navigate('/exercises')}
+            onClick={() => navigate(`${BASE}exercises`)}
             icon={faHeart}
             title={'No exercises in progress!'}
             content={
