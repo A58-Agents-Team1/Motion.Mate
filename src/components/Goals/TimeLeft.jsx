@@ -47,7 +47,7 @@ const TimeLeft = ({ goal }) => {
           </div>
         </div>
       ) : timeLeft !== null ? (
-        <div className='flex flex-col text-center'>
+        <div className='flex flex-col'>
           <div className='font-mono text-xl'>
             <div className='text-green-500 '>
               {goal?.progress < 100 && 'Just do it!'}
