@@ -38,7 +38,7 @@ export default function NotFound() {
               </p>
               <button
                 className='btn btn-primary mt-8'
-                onClick={() => navigate(`${BASE}`)}
+                onClick={() => navigate(`${BASE}/`)}
               >
                 Home
               </button>

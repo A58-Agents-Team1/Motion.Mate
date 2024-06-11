@@ -34,19 +34,22 @@ export function AvatarWithNameAndDropDownMenu() {
     <div className='flex justify-end'>
       {user && (
         <div className='flex items-center'>
-          <div>
-            {userData?.firstName ? (
-              <h2 className='text-4xl font-bold mx-2'>
-                {`${userData?.firstName} ${userData?.lastName}`}
-              </h2>
-            ) : (
-              <h2 className='text-4xl font-bold mx-2'>{userData?.username}</h2>
-            )}
-          </div>
           <Notifications
             requests={requests}
             refresher={refresher}
           />
+          <div>
+            {userData?.firstName ? (
+              <div className='flex flex-col'>
+                <h2 className='text-xl font-bold mx-2'>
+                  {`${userData?.firstName} ${userData?.lastName}`}
+                </h2>
+              </div>
+            ) : (
+              <h2 className='text-xl font-bold mx-2'>{userData?.username}</h2>
+            )}
+          </div>
+
           <div className='dropdown dropdown-hover flex items-center'>
             <div>
               <div className='avatar'>
@@ -67,7 +70,6 @@ export function AvatarWithNameAndDropDownMenu() {
                   )}
                 </div>
               </div>
-
               <ul
                 tabIndex={0}
                 className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-gray-400 absolute right-0'
