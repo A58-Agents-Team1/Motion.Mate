@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext.js';
+import { BASE } from '../../common/constants.js';
 
 /**
  *
@@ -13,7 +14,13 @@ export default function Authenticated({ children }) {
   const location = useLocation();
 
   if (!user) {
-    return <Navigate replace to='/login' state={{ from: location }} />;
+    return (
+      <Navigate
+        replace
+        to={`${BASE}login`}
+        state={{ from: location }}
+      />
+    );
   }
 
   return <>{children}</>;
