@@ -128,7 +128,8 @@ export const CreateExercise = () => {
               />
             </label>
             <div className='flex gap-2'>
-              <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
+              <label className='input input-bordered w-1/3 flex items-center mb-3 gap-1 select-primary no-spinners'>
+                Hours:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'hours')}
                   type='number'
@@ -138,7 +139,8 @@ export const CreateExercise = () => {
                 />
               </label>
 
-              <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
+              <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary gap-1 no-spinners'>
+                Minutes:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'minutes')}
                   type='number'
@@ -148,7 +150,8 @@ export const CreateExercise = () => {
                 />
               </label>
 
-              <label className='input input-bordered w-1/3 flex items-center mb-3 select-primary'>
+              <label className='input input-bordered w-1/3 flex items-center mb-3 gap-1 select-primary no-spinners'>
+                Seconds:
                 <input
                   onChange={(e) => updateContent(e.target.value, 'seconds')}
                   type='number'
