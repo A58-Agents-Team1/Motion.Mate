@@ -1,14 +1,14 @@
 import { NavLink } from 'react-router-dom';
-import { AppContext } from '../../context/AppContext.js';
+import { AppContext } from '../../../context/AppContext.js';
 import { useContext, useEffect, useState } from 'react';
-import { logoutUser } from '../../services/auth.service.js';
+import { logoutUser } from '../../../services/auth.service.js';
 import { useNavigate } from 'react-router-dom';
-import ThemeChangeIcons from './ThemeChangeIcons.jsx';
+import ThemeChangeIcons from '../ThemeChangeIcons.jsx';
 import {
   AvatarWithName,
   AvatarWithNameAndDropDownMenu,
-} from './AvatarWithName.jsx';
-import { BASE, DARK_THEME, LIGHT_THEME } from '../../common/constants.js';
+} from '../AvatarWithName.jsx';
+import { BASE, DARK_THEME, LIGHT_THEME } from '../../../common/constants.js';
 
 export const NavBar = () => {
   const { setAppState, userData } = useContext(AppContext);
@@ -35,15 +35,15 @@ export const NavBar = () => {
   };
 
   return (
-    <div className='drawer'>
+    <div className='drawer bg-base-300'>
       <input
         id='my-drawer-3'
         type='checkbox'
         className='drawer-toggle'
       />
-      <div className='drawer-content flex flex-col'>
+      <div className='drawer-content max-w-7xl place-self-center justify-between'>
         {/* Navbar */}
-        <div className='w-full navbar bg-base-300 flex justify-between px-3'>
+        <div className='flex-grow w-full navbar flex justify-between px-3 '>
           <div>
             <ThemeChangeIcons
               toggleTheme={handleToggle}
@@ -84,7 +84,7 @@ export const NavBar = () => {
                   </li>
                 )}
                 <li>
-                  <NavLink to={`${BASE}`}>Home</NavLink>
+                  <NavLink to={`${BASE}/`}>Home</NavLink>
                 </li>
                 {userData && !userData?.isBlocked && (
                   <>
@@ -152,7 +152,7 @@ export const NavBar = () => {
             </li>
           )}
           <li>
-            <NavLink to={`${BASE}`}>Home</NavLink>
+            <NavLink to={`${BASE}/`}>Home</NavLink>
           </li>
           {userData && (
             <li>
@@ -198,7 +198,7 @@ export const NavBar = () => {
               <button
                 onClick={(e) => logout(e)}
                 className={
-                  'btn-ghost  hover:text-red-700 hover:font-bold text-red-500'
+                  'btn-ghost hover:text-red-700 hover:font-bold text-red-500'
                 }
               >
                 Logout
