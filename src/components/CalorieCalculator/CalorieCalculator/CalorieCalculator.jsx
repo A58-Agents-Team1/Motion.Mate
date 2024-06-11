@@ -1,8 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../../context/AppContext';
 import calorie from '../../../assets/calorie.png';
 import MetricScalar from '../MetricScalar/MetricScalar';
+import AlertError from '../../Alerts/AlertError/AlertError';
 import ImperialScalar from '../ImperialScalar/ImperialScalar';
+import AlertSuccess from '../../Alerts/AlertSuccess/AlertSuccess';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../../context/AppContext';
+import { alertHelper } from '../../../helper/alert-helper';
 import {
   ACTIVITY_MULTIPLIERS,
   BMR_MEN_AGE_MULTIPLIER,
@@ -16,11 +19,18 @@ import {
   INCHES_TO_CM_CONVERSION_FACTOR,
   KG_TO_LBS_CONVERSION_FACTOR,
 } from '../../../common/constants';
+import {
+  validateFormInImperial,
+  validateFormInMetric,
+} from '../../../common/calorie.validations';
 
 export default function CalorieCalculator() {
   const { userData } = useContext(AppContext);
-  const [isChecked, setIsChecked] = useState(true);
+  const [alert, setAlert] = useState(false);
   const [calories, setCalories] = useState(0);
+  const [message, setMessage] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const [userCalorie, setUserCalorie] = useState(0);
   const [form, setForm] = useState({
     weight: '',
@@ -107,22 +117,34 @@ export default function CalorieCalculator() {
   };
 
   const calculate = () => {
-    if (isChecked) {
-      const BMR = calculateBMR(form.gender, form.weight, form.height, form.age);
-      const TDEE = calculateTotalDailyEnergyExpenditure(
-        BMR,
-        form.activityLevel
-      );
-      setCalories(TDEE);
-    } else {
-      const weightInKg = form?.weight / KG_TO_LBS_CONVERSION_FACTOR;
-      const heightInCm = form?.height * INCHES_TO_CM_CONVERSION_FACTOR;
-      const BMR = calculateBMR(form.gender, weightInKg, heightInCm, form.age);
-      const TDEE = calculateTotalDailyEnergyExpenditure(
-        BMR,
-        form.activityLevel
-      );
-      setCalories(TDEE);
+    try {
+      if (isChecked) {
+        validateFormInMetric(form);
+        const BMR = calculateBMR(
+          form.gender,
+          form.weight,
+          form.height,
+          form.age
+        );
+        const TDEE = calculateTotalDailyEnergyExpenditure(
+          BMR,
+          form.activityLevel
+        );
+        setCalories(TDEE);
+      } else {
+        validateFormInImperial(form);
+        const weightInKg = form?.weight / KG_TO_LBS_CONVERSION_FACTOR;
+        const heightInCm = form?.height * INCHES_TO_CM_CONVERSION_FACTOR;
+        const BMR = calculateBMR(form.gender, weightInKg, heightInCm, form.age);
+        const TDEE = calculateTotalDailyEnergyExpenditure(
+          BMR,
+          form.activityLevel
+        );
+        setCalories(TDEE);
+      }
+      alertHelper(setMessage, setSuccess, 'Calorie calculated successfully!');
+    } catch (error) {
+      alertHelper(setMessage, setAlert, error.message);
     }
   };
 
@@ -262,6 +284,8 @@ export default function CalorieCalculator() {
           meeting your daily caloric requirements for a healthier lifestyle.
         </p>
       </div>
+      {success && <AlertSuccess message={message} />}
+      {alert && <AlertError message={message} />}
     </div>
   );
 }
