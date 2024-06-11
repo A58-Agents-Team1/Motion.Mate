@@ -144,7 +144,7 @@ export const NavBar = () => {
           {userData?.userRole === 'admin' && (
             <li>
               <NavLink
-                to={'/admin-panel'}
+                to={`${BASE}admin-panel`}
                 className={'font-bold'}
               >
                 Admin Panel
