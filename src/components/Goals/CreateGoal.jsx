@@ -128,7 +128,7 @@ export default function CreateGoal() {
           >
             <button
               type='button'
-              className='btn btn-sm btn-circle btn-ghost'
+              className='btn btn-sm btn-circle btn-outline'
               onClick={(e) => {
                 handleCloseModal(e);
               }}
@@ -272,7 +272,7 @@ export default function CreateGoal() {
           >
             <button
               type='button'
-              className='btn btn-sm btn-ghost'
+              className='btn btn-sm btn-primary'
               onClick={handleCreateGoal}
             >
               Create
@@ -280,7 +280,7 @@ export default function CreateGoal() {
             |
             <button
               type='button'
-              className='btn btn-sm btn-ghost'
+              className='btn btn-sm btn-warning'
               onClick={(e) => {
                 handleCloseModal(e);
               }}
