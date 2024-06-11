@@ -84,34 +84,34 @@ export const NavBar = () => {
                   </li>
                 )}
                 <li>
-                  <NavLink to={'/'}>Home</NavLink>
+                  <NavLink to={`${BASE}`}>Home</NavLink>
                 </li>
                 {userData && !userData?.isBlocked && (
                   <>
                     <li>
-                      <NavLink to={'/wellness-health-tools'}>
+                      <NavLink to={`${BASE}wellness-health-tools`}>
                         Wellness & Health Tools
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to={'/goals'}>Goals</NavLink>
+                      <NavLink to={`${BASE}goals`}>Goals</NavLink>
                     </li>
                     <li>
-                      <NavLink to={'/exercises'}>Exercises</NavLink>
+                      <NavLink to={`${BASE}exercises`}>Exercises</NavLink>
                     </li>
                   </>
                 )}
                 <li>
-                  <NavLink to={'/about'}>About</NavLink>
+                  <NavLink to={`${BASE}about`}>About</NavLink>
                 </li>
                 {!userData && (
                   <>
                     <li>
-                      <NavLink to={'/login'}>Login</NavLink>
+                      <NavLink to={`${BASE}login`}>Login</NavLink>
                     </li>
 
                     <li>
-                      <NavLink to={'/register'}>Register</NavLink>
+                      <NavLink to={`${BASE}register`}>Register</NavLink>
                     </li>
                   </>
                 )}
@@ -152,45 +152,45 @@ export const NavBar = () => {
             </li>
           )}
           <li>
-            <NavLink to={'/'}>Home</NavLink>
+            <NavLink to={`${BASE}`}>Home</NavLink>
           </li>
           {userData && (
             <li>
-              <NavLink to={'/my-profile'}>My Profile</NavLink>
+              <NavLink to={`${BASE}my-profile`}>My Profile</NavLink>
             </li>
           )}
           {userData && !userData?.isBlocked && (
             <>
               <li>
-                <NavLink to={'/my-friends'}>My Friends</NavLink>
+                <NavLink to={`${BASE}my-friends`}>My Friends</NavLink>
               </li>
               <li>
-                <NavLink to={'/all-users'}>All Users</NavLink>
+                <NavLink to={`${BASE}all-users`}>All Users</NavLink>
               </li>
               <li>
-                <NavLink to={'/wellness-health-tools'}>
+                <NavLink to={`${BASE}wellness-health-tools`}>
                   Wellness & Health Tools
                 </NavLink>
               </li>
               <li>
-                <NavLink to={'/goals'}>Goals</NavLink>
+                <NavLink to={`${BASE}goals`}>Goals</NavLink>
               </li>
               <li>
-                <NavLink to={'/exercises'}>Exercises</NavLink>
+                <NavLink to={`${BASE}exercises`}>Exercises</NavLink>
               </li>
             </>
           )}
           <li>
-            <NavLink to={'/about'}>About</NavLink>
+            <NavLink to={`${BASE}about`}>About</NavLink>
           </li>
           {!userData ? (
             <>
               <li>
-                <NavLink to={'/login'}>Login</NavLink>
+                <NavLink to={`${BASE}login`}>Login</NavLink>
               </li>
 
               <li>
-                <NavLink to={'/register'}>Register</NavLink>
+                <NavLink to={`${BASE}register`}>Register</NavLink>
               </li>
             </>
           ) : (

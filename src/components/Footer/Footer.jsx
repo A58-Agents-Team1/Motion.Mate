@@ -5,6 +5,7 @@ import logo from '../../assets/logo.png';
 import github from '../../assets/github.png';
 import about from '../../assets/about.png';
 import contact from '../../assets/contact.png';
+import { BASE } from '../../common/constants';
 
 export const Footer = () => {
   const { user } = useContext(AppContext);
@@ -12,7 +13,7 @@ export const Footer = () => {
     <footer className='footer p-4 bg-base-200 text-base-content rounded flex justify-between items-center'>
       <div>
         <aside className='flex items-center mr-20'>
-          <NavLink to='/'>
+          <NavLink to={`${BASE}`}>
             <img
               src={logo}
               alt='Logo'
@@ -47,7 +48,7 @@ export const Footer = () => {
               />
             </a>
           )}
-          <NavLink to='/about'>
+          <NavLink to={`${BASE}about`}>
             <img
               src={about}
               alt='About Us Logo'
@@ -57,7 +58,7 @@ export const Footer = () => {
               title='About Us'
             />
           </NavLink>
-          <NavLink to='/contact-us'>
+          <NavLink to={`${BASE}contact-us`}>
             <img
               src={contact}
               alt='Contact Us Logo'

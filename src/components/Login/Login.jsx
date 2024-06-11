@@ -61,7 +61,7 @@ export default function Login() {
       const { user } = await loginUser(form.email, form.password);
       setAppState({ user, userData: null, refresh: !refresh });
       alertHelper(setMessage, setSuccess, 'User login successfully!');
-      navigate(location.state.from.pathname || `${BASE}/`);
+      navigate(location.state.from.pathname || `${BASE}`);
     } catch (error) {
       if (error.message.includes('auth/invalid-credential')) {
         alertHelper(setMessage, setAlert, 'Wrong Password!');
@@ -77,7 +77,7 @@ export default function Login() {
       await loginUserByUsername(form.username, form.password);
       setAppState({ user, userData: null, refresh: !refresh });
       alertHelper(setMessage, setSuccess, 'User login successfully!');
-      navigate(location.state.from.pathname || `${BASE}/`);
+      navigate(location.state.from.pathname || `${BASE}`);
     } catch (error) {
       if (error.message.includes('auth/invalid-credential')) {
         alertHelper(setMessage, setAlert, 'Wrong Password!');

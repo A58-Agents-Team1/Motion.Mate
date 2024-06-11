@@ -73,15 +73,15 @@ export function AvatarWithNameAndDropDownMenu() {
                 className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-gray-400 absolute right-0'
               >
                 <li>
-                  <NavLink to='/my-profile'>My Profile</NavLink>
+                  <NavLink to={`${BASE}my-profile`}>My Profile</NavLink>
                 </li>
                 {userData && !userData?.isBlocked && (
                   <>
                     <li>
-                      <NavLink to='/my-friends'>My Friends</NavLink>
+                      <NavLink to={`${BASE}my-friends`}>My Friends</NavLink>
                     </li>
                     <li>
-                      <NavLink to='/all-users'>All Users</NavLink>
+                      <NavLink to={`${BASE}all-users`}>All Users</NavLink>
                     </li>
                   </>
                 )}
