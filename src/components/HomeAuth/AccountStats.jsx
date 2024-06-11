@@ -32,7 +32,7 @@ export const AccountStats = ({
 
   useEffect(() => {
     return onValue(
-      ref(db, `users/${userData.username}/updatedScores`),
+      ref(db, `users/${userData?.username}/updatedScores`),
       (snapshot) => {
         try {
           setCurrentCalories(snapshot?.val()?.updatedCalories);

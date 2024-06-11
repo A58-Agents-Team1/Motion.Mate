@@ -74,11 +74,11 @@ export const Divider = ({ stopButton }) => {
     });
 
     return () => unsubscribe();
-  }, [friends, userData.username]);
+  }, [friends, userData?.username]);
 
   const stopTimer = async (exercise) => {
-    await endExercise(userData.username);
-    await stopTimerRemoveCalories(userData.username, exercise.calories);
+    await endExercise(userData?.username);
+    await stopTimerRemoveCalories(userData?.username, exercise.calories);
   };
 
   return (

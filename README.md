@@ -6,13 +6,49 @@ Fitness tracking application, where app offers both public and private features,
 
 **Languages:** <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" height="20"> <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" height="20">
 
-**Frameworks/Libraries:** <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" height="20"> <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" height="20"> <img src="https://media.licdn.com/dms/image/D4E12AQE1NInvgAfR3Q/article-cover_image-shrink_423_752/0/1696488544540?e=1722470400&v=beta&t=B6ngRnuqG90ia7gPvOs2Wnjk7o8NlWQe3rOVhKAq6a0" height="25"> <img src="https://img.daisyui.com/images/daisyui-logo/daisyui-logotype.svg" height="20">
+**Frameworks/Libraries:** <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" height="20"> <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" height="20"> <img src="https://media.licdn.com/dms/image/D4E12AQE1NInvgAfR3Q/article-cover_image-shrink_423_752/0/1696488544540?e=1722470400&v=beta&t=B6ngRnuqG90ia7gPvOs2Wnjk7o8NlWQe3rOVhKAq6a0" height="25"> <img src="https://img.daisyui.com/images/daisyui-logo/daisyui-logotype.svg" height="20"> <img src="https://camo.githubusercontent.com/285fdadfaf59ede5da219ccf9f8278322e8f85cfa48f5ba33df53ce2f0c72098/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f566974652d4237334246453f7374796c653d666f722d7468652d6261646765266c6f676f3d76697465266c6f676f436f6c6f723d464644363245" height='20'>
 
 **Linters:** <img src="https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white" height="20">
 
 **Databases:** <img src="https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white" height="20">
 
 **Browsers:** <img src="https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white" height="20"> <img src="https://img.shields.io/badge/Safari-000000?style=for-the-badge&logo=Safari&logoColor=white" height="20"> <img src="https://img.shields.io/badge/Edge-0078D7?style=for-the-badge&logo=Microsoft-edge&logoColor=white" height="20"> <img src="https://img.shields.io/badge/Firefox-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white" height="20"> <img src="https://img.shields.io/badge/Opera-FF1B2D?style=for-the-badge&logo=Opera&logoColor=white" height="20">
+
+## <img src="https://firebasestorage.googleapis.com/v0/b/dare2fit-f6eb4.appspot.com/o/assets%2FREADME-images%2Ffeatures.png?alt=media&token=e5fc5779-b3db-41c2-a576-947ca382ea5a&_gl=1*81oei1*_ga*MjExMzk5MTA5MC4xNjgzMjcwMjg1*_ga_CW55HF8NVT*MTY4NjU3Njg5Ni4xMDMuMS4xNjg2NTc3OTgzLjAuMC4w"  width="30" height="30"> Features
+
+- For first-time users we present a quick overview of our `Morion Mate` community right on the `Landing Page`:
+
+  - a **total count** of all `Motion Mate` users;
+  - a **total count** of all `Motion Mate` category exercises;
+  - a **total count** of all `Motion Mate` available exercises;
+
+- Want to join?
+  - Head right on to the `Register` page and create your profile with a username, email, password, and telephone;
+- Already a member?
+  - Make sure to `Log In` to re-enter your profile and use all functionality;
+- Once in your account you have access to our all `Motion Mate` tabs:
+
+- The `Wellness and Health Tools` tab is where you will find your central dashboard:
+
+  - BMI Calculator: Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a simple calculation that helps individuals understand their body composition and potential health risks associated with being underweight, overweight, or obese. Users can input their height and weight into the BMI calculator to get their BMI score, which is then categorized into different ranges such as underweight, normal weight, overweight, or obese.
+
+  - Water Intake Calculator: Proper hydration is essential for overall health and well-being. The water intake calculator helps users determine how much water they should drink daily based on factors like weight and activity level. It provides personalized recommendations to ensure users stay adequately hydrated throughout the day.
+
+  - Calorie Calculator: Monitoring calorie intake is crucial for maintaining a healthy weight and achieving fitness goals. The calorie calculator allows users to estimate the number of calories they need to consume each day based on factors like age, gender, weight, height and activity level. It provides a guideline for creating balanced meal plans and making informed dietary choices.
+
+- The `Exercises` tab allows you to create brand new exercises.
+- The `Goals` tab is where you can add new goals, setting yourself either recurring targets or challenge yourself within a certain timeframe.
+- The `All Users` tab allows you to interact with other users:
+  - Search users by their first name or username ;
+  - Sort users by username or date if creation;
+  - Send them friend requests;
+  - Check and manage your friends list;
+  - Check and manage your Sent friend requests;
+- The `My Profile` tab, accessible by clicking on your profile at the top-right of the navbar, allows you to:
+  - See all information about your profile and your profile photo;
+  - Edit your general and health data details from the `Edit Profile` tab;
+  - Edit your profile photo from the `Change Photo` tab;
+- Alternatively, other users `View Profile` tabs will allow you to view their general details.
 
 ## <img src="https://firebasestorage.googleapis.com/v0/b/dare2fit-f6eb4.appspot.com/o/assets%2FREADME-images%2Fstart.png?alt=media&token=ee8cc2b3-1a61-4519-9f96-59177216b4d6&_gl=1*t5p8co*_ga*MjExMzk5MTA5MC4xNjgzMjcwMjg1*_ga_CW55HF8NVT*MTY4NjU3Njg5Ni4xMDMuMS4xNjg2NTc4MDEzLjAuMC4w"  width="30" height="30"> Getting Started
 
@@ -64,6 +100,8 @@ users: {
     isBlocked: <boolean>,
     userRole: <string>,
     uid: <string>,
+    activityLevel: <string>
+    gender: <string>
     friends: { <object> (optional)
       username: <boolean>,
       ...
@@ -88,6 +126,13 @@ users: {
       }
       ...
     },
+    previousScores:{ <object> (optional)
+      uid: <string>
+    }
+    updatedScores:{ <object> (optional)
+      doneExercises: <number>,
+      updatedCalories: <number>
+    }
   }
   ...
 }
@@ -114,7 +159,7 @@ categories: {
 
 ```js
 exercises: {
-  uid: { <object>
+  uid: {
     calories: <number>,
     categoryId: <string>,
     content: <string>
@@ -156,7 +201,15 @@ exercises: {
   - Moderating Content: You can moderate content related to Goals and Exercises, ensuring that all posts adhere to the app's guidelines and standards. This helps maintain the quality and relevance of the content shared on the platform.
 
 - **How can i calculate my Body Mass Index?**
+
   - When you go to the BMI page, you can choose between the metric or imperial system. Enter your weight and height, click 'Calculate,' and see your BMI.
+
+- **How can I calculate my Daily Water Intake?**
+
+  - When you go to the Water Intake Calculator, you can choose between the metric or imperial system. Enter your weight and activity level, click 'Calculate,' and see your recommended daily water intake.
+
+- **How can I calculate my Daily Calorie Intake?**
+  - When you go to the Calorie Calculator, you can choose between the metric or imperial system. Enter your weight, height, age, gender, and activity level, click 'Calculate,' and see your recommended daily calorie intake.
 
 ## <img src="https://firebasestorage.googleapis.com/v0/b/dare2fit-f6eb4.appspot.com/o/assets%2FREADME-images%2Fcommunity.png?alt=media&token=893ecd6f-908b-4c1e-9223-25d82f1bb8b1&_gl=1*watnuy*_ga*MjExMzk5MTA5MC4xNjgzMjcwMjg1*_ga_CW55HF8NVT*MTY4NjU3Njg5Ni4xMDMuMS4xNjg2NTc3OTI1LjAuMC4w"  width="30" height="30"> Community and Contributions
 

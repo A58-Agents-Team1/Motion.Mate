@@ -89,12 +89,15 @@ const Categories = () => {
                   />
                 </figure>
                 <div className='card-body text-xl'>
-                  <button
-                    onClick={() => handleDelete(category)}
-                    className='absolute top-2 right-2'
-                  >
-                    <DeleteIcon />
-                  </button>
+                  {userData?.userRole === 'admin' && (
+                    <button
+                      onClick={() => handleDelete(category)}
+                      className='absolute top-2 right-2'
+                    >
+                      <DeleteIcon />
+                    </button>
+                  )}
+
                   <h2 className='card-title text-white'>{category.category}</h2>
                   <p className='text-white opacity-70'>
                     {category.description}

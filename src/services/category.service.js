@@ -9,9 +9,6 @@ export const getAllCategories = async () => {
     if (!snapshot.exists()) return [];
 
     const exercises = [];
-    /**
-     * only forEach can be used for snapshots
-     */
     Object.keys(data).forEach((category) => {
       Object.keys(data[category]).forEach((categoryId) => {
         exercises.push({
