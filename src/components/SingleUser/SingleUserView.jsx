@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from 'react';
 import { db } from '../../config/firebase-config';
 import { AppContext } from '../../context/AppContext';
 import SizedAvatar from '../Avatar/Avatar';
+import { BASE } from '../../common/constants';
 
 export default function SingleUserView({ user, setRefresh }) {
   const { userData } = useContext(AppContext);
@@ -102,7 +103,7 @@ export default function SingleUserView({ user, setRefresh }) {
           )}
 
           <button
-            onClick={() => navigate(`/users/${user?.username}`)}
+            onClick={() => navigate(`${BASE}users/${user?.username}`)}
             className='btn btn-primary'
           >
             View Profile

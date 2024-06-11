@@ -8,7 +8,7 @@ import {
   AvatarWithName,
   AvatarWithNameAndDropDownMenu,
 } from './AvatarWithName.jsx';
-import { DARK_THEME, LIGHT_THEME } from '../../common/constants.js';
+import { BASE, DARK_THEME, LIGHT_THEME } from '../../common/constants.js';
 
 export const NavBar = () => {
   const { setAppState, userData } = useContext(AppContext);
@@ -31,17 +31,24 @@ export const NavBar = () => {
     e.preventDefault();
     await logoutUser();
     setAppState({ user: null, userData: null });
-    navigate('/');
+    navigate(`${BASE}`);
   };
 
   return (
     <div className='drawer'>
-      <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
+      <input
+        id='my-drawer-3'
+        type='checkbox'
+        className='drawer-toggle'
+      />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
         <div className='w-full navbar bg-base-300 flex justify-between px-3'>
           <div>
-            <ThemeChangeIcons toggleTheme={handleToggle} currentTheme={theme} />
+            <ThemeChangeIcons
+              toggleTheme={handleToggle}
+              currentTheme={theme}
+            />
             <div className='flex-none lg:hidden'>
               <label
                 htmlFor='my-drawer-3'
@@ -68,7 +75,10 @@ export const NavBar = () => {
                 {/* Navbar menu content here */}
                 {userData?.userRole === 'admin' && (
                   <li>
-                    <NavLink to={'/admin-panel'} className={'font-bold'}>
+                    <NavLink
+                      to={'/admin-panel'}
+                      className={'font-bold'}
+                    >
                       Admin Panel
                     </NavLink>
                   </li>
@@ -133,7 +143,10 @@ export const NavBar = () => {
           {userData && <AvatarWithName className />}
           {userData?.userRole === 'admin' && (
             <li>
-              <NavLink to={'/admin-panel'} className={'font-bold'}>
+              <NavLink
+                to={'/admin-panel'}
+                className={'font-bold'}
+              >
                 Admin Panel
               </NavLink>
             </li>

@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess';
 import { deleteGoal } from '../../services/goal.service';
+import { BASE } from '../../common/constants';
 
 export default function Goal({ id, owner, name, from, to, progress, type }) {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
   });
 
   const handleDetailsClick = () => {
-    navigate(`/goals/${(userData?.username, id)}`);
+    navigate(`${BASE}goals/${(userData?.username, id)}`);
   };
 
   const handleDeleteClick = async (user) => {

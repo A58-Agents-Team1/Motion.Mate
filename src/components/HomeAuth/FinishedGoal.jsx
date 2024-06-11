@@ -12,6 +12,7 @@ import { db } from '../../config/firebase-config';
 import InfoBite from '../Exercise/InfoBite';
 import { useNavigate } from 'react-router-dom';
 import { NoActivityCard } from './NoActivityCard';
+import { BASE } from '../../common/constants';
 
 export const FinishedGoal = () => {
   const navigate = useNavigate();
@@ -113,7 +114,7 @@ export const FinishedGoal = () => {
       ) : (
         <>
           <NoActivityCard
-            onClick={() => navigate('/goals')}
+            onClick={() => navigate(`${BASE}goals`)}
             icon={faRankingStar}
             title={'No finished goals!'}
             content={

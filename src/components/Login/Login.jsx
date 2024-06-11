@@ -14,7 +14,7 @@ import {
 import AlertSuccess from '../Alerts/AlertSuccess/AlertSuccess.jsx';
 import AlertError from '../Alerts/AlertError/AlertError.jsx';
 import { alertHelper } from '../../helper/alert-helper.js';
-import { APP_NAME } from '../../common/constants.js';
+import { APP_NAME, BASE } from '../../common/constants.js';
 
 export default function Login() {
   const location = useLocation();
@@ -61,7 +61,7 @@ export default function Login() {
       const { user } = await loginUser(form.email, form.password);
       setAppState({ user, userData: null, refresh: !refresh });
       alertHelper(setMessage, setSuccess, 'User login successfully!');
-      navigate(location.state.from.pathname || '/');
+      navigate(location.state.from.pathname || `${BASE}/`);
     } catch (error) {
       if (error.message.includes('auth/invalid-credential')) {
         alertHelper(setMessage, setAlert, 'Wrong Password!');
@@ -77,7 +77,7 @@ export default function Login() {
       await loginUserByUsername(form.username, form.password);
       setAppState({ user, userData: null, refresh: !refresh });
       alertHelper(setMessage, setSuccess, 'User login successfully!');
-      navigate(location.state.from.pathname || '/');
+      navigate(location.state.from.pathname || `${BASE}/`);
     } catch (error) {
       if (error.message.includes('auth/invalid-credential')) {
         alertHelper(setMessage, setAlert, 'Wrong Password!');
@@ -89,7 +89,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate(`${BASE}`);
     }
   }, [user]);
 

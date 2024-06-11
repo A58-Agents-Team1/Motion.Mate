@@ -6,6 +6,7 @@ import userPhoto from '../../assets/userPhoto.png';
 import Notifications from './Notifications/Notifications';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
+import { BASE } from '../../common/constants';
 
 export function AvatarWithNameAndDropDownMenu() {
   const { user, userData, setAppState } = useContext(AppContext);
@@ -17,7 +18,7 @@ export function AvatarWithNameAndDropDownMenu() {
     e.preventDefault();
     await logoutUser();
     setAppState({ user: null, userData: null });
-    navigate('/');
+    navigate(`${BASE}`);
   };
 
   useEffect(() => {
@@ -42,13 +43,20 @@ export function AvatarWithNameAndDropDownMenu() {
               <h2 className='text-4xl font-bold mx-2'>{userData?.username}</h2>
             )}
           </div>
-          <Notifications requests={requests} refresher={refresher} />
+          <Notifications
+            requests={requests}
+            refresher={refresher}
+          />
           <div className='dropdown dropdown-hover flex items-center'>
             <div>
               <div className='avatar'>
                 <div className='avatar w-16 rounded-full border-1 border-black'>
                   {userData?.avatar ? (
-                    <img src={userData?.avatar} title='Account' alt='Account' />
+                    <img
+                      src={userData?.avatar}
+                      title='Account'
+                      alt='Account'
+                    />
                   ) : (
                     <img
                       src={userPhoto}
@@ -102,7 +110,11 @@ export function AvatarWithName() {
         <div className='avatar'>
           <div className='avatar w-16 rounded-full border-1 border-black mr-2 mb-2'>
             {userData?.avatar ? (
-              <img src={userData?.avatar} title='Account' alt='Account' />
+              <img
+                src={userData?.avatar}
+                title='Account'
+                alt='Account'
+              />
             ) : (
               <img
                 src={userPhoto}

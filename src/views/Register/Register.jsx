@@ -18,7 +18,7 @@ import {
   validatePhoneNumberAsync,
   validatePhoto,
 } from '../../common/user.validations';
-import { APP_NAME } from '../../common/constants';
+import { APP_NAME, BASE } from '../../common/constants';
 
 export default function Register() {
   document.querySelector('title').textContent = `${APP_NAME} | Register`;
@@ -93,7 +93,7 @@ export default function Register() {
 
       setAppState({ user: userCredential.user, userData: null });
       alertHelper(setMessage, setSuccess, 'User registered successfully!');
-      navigate('/register-additional-info');
+      navigate(`${BASE}register-additional-info`);
     } catch (error) {
       alertHelper(setMessage, setAlert, error.message);
     }
@@ -101,7 +101,7 @@ export default function Register() {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate(`${BASE}`);
     }
   }, []);
 
