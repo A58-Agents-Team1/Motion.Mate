@@ -65,7 +65,7 @@ const DetailedGoal = () => {
         <div className='avatar'>
           <div className='mask mask-squircle w-12 h-12'>
             <img
-              src={userData?.avatar || '/img/avatars/avatar-1.jpg'}
+              src={userData?.avatar}
               alt={`Avatar of ${userData?.firstName} ${userData?.lastName}`}
             />
           </div>

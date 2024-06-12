@@ -69,7 +69,7 @@ export default function Goal({ id, owner, name, from, to, progress, type }) {
           <div className='avatar'>
             <div className='mask mask-squircle w-12 h-12'>
               <img
-                src={ownerObj?.avatar || '/img/avatars/avatar-1.jpg'}
+                src={ownerObj?.avatar}
                 alt={`Avatar of ${ownerObj?.firstName} ${ownerObj?.lastName}`}
               />
             </div>

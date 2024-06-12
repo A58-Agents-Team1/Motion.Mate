@@ -6,8 +6,8 @@ import { AppContext } from '../../context/AppContext';
 import { useNavigate } from 'react-router-dom';
 import { getAllCategories } from '../../services/category.service';
 import { Carousel } from '../../components/Home/Carousel';
-import { HomeAuthenticated } from '../HomeAuthenticated';
 import { APP_NAME, BASE } from '../../common/constants';
+import { HomeAuthenticated } from './HomeAuthenticated';
 
 export default function Home() {
   document.querySelector('title').textContent = `${APP_NAME} | Home`;
