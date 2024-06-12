@@ -402,3 +402,18 @@ export const getUserScores = async (username) => {
   const scores = await get(ref(db, `users/${username}/updatedScores`));
   return scores.val();
 };
+
+export const resetUserScores = async (username) => {
+  const resetPreviousScores = {
+    doneExercises: 0,
+    previousCalories: 0,
+  };
+
+  const resetUpdatedScores = {
+    doneExercises: 0,
+    updatedCalories: 0,
+  };
+
+  await set(ref(db, `users/${username}/previousScores`), resetPreviousScores);
+  await set(ref(db, `users/${username}/updatedScores`), resetUpdatedScores);
+};
