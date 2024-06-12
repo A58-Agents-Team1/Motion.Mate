@@ -33,7 +33,7 @@ export const FinishedGoal = () => {
               id,
               ...goal,
             }));
-            console.log(goalsWithId);
+
             const result = goalsWithId.filter((goal) => goal?.progress >= 100);
             if (result) {
               setGoals(result);

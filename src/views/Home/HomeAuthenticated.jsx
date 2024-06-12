@@ -5,7 +5,6 @@ import { onValue, ref } from 'firebase/database';
 import { db } from '../../config/firebase-config';
 import { AccountStats } from '../../components/HomeAuth/AccountStats';
 import { Divider } from '../../components/HomeAuth/Divider';
-import { updateGoalProgressCalories } from '../../helper/update-goals-progress';
 
 export const HomeAuthenticated = () => {
   document.querySelector('title').textContent = `${APP_NAME} | Home`;
@@ -47,10 +46,6 @@ export const HomeAuthenticated = () => {
       }
     );
   }, []);
-
-  useEffect(() => {
-    updateGoalProgressCalories(userData.username, calories);
-  }, [calories]);
 
   return (
     <>
