@@ -7,11 +7,19 @@ import { auth } from '../config/firebase-config.js';
 import { getUserByUsername } from './users.service.js';
 
 export const registerUser = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+  try {
+    return createUserWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const loginUser = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password);
+  try {
+    return signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const loginUserByUsername = async (username, password) => {
@@ -23,10 +31,14 @@ export const loginUserByUsername = async (username, password) => {
     const { email } = user.val();
     return signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
-    console.error(error.message);
+    throw new Error(error.message);
   }
-}
+};
 
 export const logoutUser = () => {
-  return signOut(auth);
+  try {
+    return signOut(auth);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };

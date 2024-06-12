@@ -52,10 +52,10 @@ export const StartWorkoutButton = ({ startWorkout }) => {
         id='my_modal_1'
         className='modal'
       >
-        <div className='flex flex-col text-center gap-2 modal-box max-w-4xl skeleton'>
-          <h3 className='font-bold text-lg'>Set workout timer</h3>
-          <div className='flex gap-2'>
-            <label className='input input-bordered gap-2 w-1/3 flex items-center select-secondary'>
+        <div className='modal-box skeleton'>
+          <h3 className='font-bold text-lg mb-4'>Set workout timer</h3>
+          <div className='flex flex-col gap-3'>
+            <label className='input input-bordered flex items-center gap-2'>
               Hours:
               <input
                 onChange={(e) => updateContent(e.target.value, 'hours')}
@@ -66,7 +66,7 @@ export const StartWorkoutButton = ({ startWorkout }) => {
               />
             </label>
 
-            <label className='input input-bordered gap-2 w-1/3 flex items-center select-secondary'>
+            <label className='input input-bordered flex items-center gap-2'>
               Minutes:
               <input
                 onChange={(e) => updateContent(e.target.value, 'minutes')}
@@ -77,8 +77,8 @@ export const StartWorkoutButton = ({ startWorkout }) => {
               />
             </label>
 
-            <label className='input input-bordered gap-2 w-1/3 flex items-center select-secondary'>
-              Seconds:{' '}
+            <label className='input input-bordered flex items-center gap-2'>
+              Seconds:
               <input
                 onChange={(e) => updateContent(e.target.value, 'seconds')}
                 type='number'
@@ -97,11 +97,11 @@ export const StartWorkoutButton = ({ startWorkout }) => {
                 onClick={() =>
                   workoutTimer(content, userData, setContent, StartTimerWorkout)
                 }
-                className='btn  btn-wide btn-primary'
+                className='btn btn-primary'
               >
                 Start
               </button>
-              <button className='btn btn-wide btn-secondary'>Cancel</button>
+              <button className='btn btn-secondary ml-2'>Cancel</button>
             </form>
           </div>
         </div>

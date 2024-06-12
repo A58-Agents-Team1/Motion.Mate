@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { AccountStats } from '../components/HomeAuth/AccountStats';
-import { Divider } from '../components/HomeAuth/Divider';
+import { APP_NAME } from '../../common/constants';
+import { AppContext } from '../../context/AppContext';
 import { onValue, ref } from 'firebase/database';
-import { AppContext } from '../context/AppContext';
-import { db } from '../config/firebase-config';
-import { updateGoalProgressCalories } from '../helper/update-goals-progress';
-import { APP_NAME } from '../common/constants';
+import { db } from '../../config/firebase-config';
+import { AccountStats } from '../../components/HomeAuth/AccountStats';
+import { Divider } from '../../components/HomeAuth/Divider';
+import { updateGoalProgressCalories } from '../../helper/update-goals-progress';
 
 export const HomeAuthenticated = () => {
   document.querySelector('title').textContent = `${APP_NAME} | Home`;
@@ -19,7 +19,7 @@ export const HomeAuthenticated = () => {
 
   useEffect(() => {
     return onValue(
-      ref(db, `users/${userData.username}/endCurrentExercise`),
+      ref(db, `users/${userData?.username}/endCurrentExercise`),
       (snapshot) => {
         if (snapshot?.val()) {
           setTimer(snapshot.val().timeLeft);

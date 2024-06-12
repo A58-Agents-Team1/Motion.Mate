@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const InfoBite = ({ title, content, isBlock }) => {
@@ -14,10 +13,10 @@ const InfoBite = ({ title, content, isBlock }) => {
   );
 };
 
-export default InfoBite;
-
 InfoBite.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
   isBlock: PropTypes.bool,
 };
+
+export default InfoBite;

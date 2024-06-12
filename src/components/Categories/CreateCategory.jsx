@@ -36,9 +36,8 @@ const CreateCategory = ({ onCategoryCreated }) => {
 
   const submitCategory = async () => {
     try {
-      let url;
       if (image) {
-        url = await uploadCategoryPhoto(image, category.name);
+        await uploadCategoryPhoto(image, category.name);
       }
       const catUrl = await getCategoryPhoto(category.name);
       validateCategoryForm(category.name, category.description, image);
