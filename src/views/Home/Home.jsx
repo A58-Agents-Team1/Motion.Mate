@@ -43,8 +43,8 @@ export default function Home() {
       {userData?.username ? (
         <HomeAuthenticated />
       ) : (
-        <div className='flex flex-col'>
-          <div className=' bg-base-200'>
+        <div className='flex flex-col '>
+          <div className=' bg-base-200 shadow-2xl'>
             <div className='hero-content flex-col lg:flex-row'>
               <Carousel />
               <div>
@@ -66,8 +66,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className='max-w-fit'>
-            <div className='stats shadow flex-1'>
+          <div className='mt-10 place-self-center'>
+            <div className='stats shadow-2xl flex-1'>
               <div className='stat'>
                 <div className='stat-figure text-secondary'>
                   <svg
