@@ -15,6 +15,7 @@ import {
   faPersonRunning,
   faStopwatch20,
 } from '@fortawesome/free-solid-svg-icons';
+import { ResetScoresButton } from './ResetScoresButton';
 
 export const AccountStats = ({
   timer,
@@ -105,7 +106,7 @@ export const AccountStats = ({
     <div className='flex flex-col items-center w-full mb-5'>
       <div className='stats shadow w-full max-w-4xl flex items-start '>
         <div className='stat gap-2'>
-          <div className='stat-figure text-secondary'>
+          <div className='stat-figure text-secondary mb-6'>
             <FontAwesomeIcon
               icon={faDumbbell}
               size='2x'
@@ -113,7 +114,7 @@ export const AccountStats = ({
           </div>
           <div className='stat-title'>Exercises done </div>
           <div className='stat-value text-secondary'>{doneExercises || 0}</div>
-          <div className='stat-desc text-secondary'>Be active</div>
+          <ResetScoresButton />
         </div>
         <div className='stat gap-2'>
           <div className='stat-figure text-secondary'>
@@ -142,7 +143,7 @@ export const AccountStats = ({
           <div className='stat-desc text-secondary'>Challenge yourself</div>
         </div>
         <div className='stat gap-2'>
-          <div className='stat-figure text-secondary'>
+          <div className='stat-figure text-secondary mb-6'>
             <FontAwesomeIcon
               icon={faPersonRunning}
               size='2x'
