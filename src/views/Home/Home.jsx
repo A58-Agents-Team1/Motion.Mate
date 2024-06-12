@@ -19,13 +19,7 @@ export default function Home() {
   const [allExercises, setAllExercises] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
 
-  titleAndMeta(
-    'Home',
-    'Home page of Motion Mate',
-    null,
-    userData?.firstName || 'Motion',
-    userData?.lastName || 'Mate'
-  );
+  titleAndMeta('Home', 'Home page of Motion Mate');
 
   useEffect(() => {
     const func = async () => {
