@@ -13,7 +13,6 @@ export default function Goals() {
 
   const [goals, setGoals] = useState([]);
   const [friends, setFriends] = useState([]);
-  const [trigger, setTrigger] = useState(false);
   const [friendsGoals, setFriendsGoals] = useState([]);
 
   const friendGoalsMap = new Map();
@@ -36,30 +35,26 @@ export default function Goals() {
         setGoals(_goals);
       }
     });
-  }, [trigger]);
+  }, []);
 
   useEffect(() => {
-    setFriendsGoals([]);
-    friendGoalsMap.clear();
+    if (!friends.length) return;
 
-    friends?.map((friend) => {
+    friends.forEach((friend) => {
       return onValue(ref(db, `users/${friend}`), (snapshot) => {
-        const myGoals = snapshot.val()?.myGoals;
+        const friendGoals = snapshot.val()?.myGoals;
+        if (!friendGoals) return;
 
-        for (const key in myGoals) {
-          if (!friendGoalsMap.has(key)) {
-            setTrigger(!trigger);
-          }
-
+        for (const key in friendGoals) {
           friendGoalsMap.set(key, {
             id: key,
-            ...snapshot.val()?.myGoals[key],
+            ...friendGoals[key],
           });
         }
         setFriendsGoals([...friendGoalsMap.values()]);
       });
     });
-  }, [friends, goals]);
+  }, [friends]);
 
   return (
     <div className='flex flex-col w-full gap-2  overflow-x-auto'>
