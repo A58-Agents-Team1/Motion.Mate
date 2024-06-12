@@ -159,77 +159,82 @@ export default function CalorieCalculator() {
         significant role in determining this amount. Different activity levels
         require different amounts of calories to keep your body properly fueled.
       </p>
-      <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-        <p>Calorie Calculator: </p>
-        <div className='flex items-center justify-center'>
-          {isChecked ? (
-            <MetricScalar
-              form={form}
-              updateForm={updateForm}
-            />
+      <div className='flex gap-2 mt-5'>
+        <div className='w-1/4 justify-center'>
+          {userData?.weight &&
+          userData?.height &&
+          userData?.age &&
+          userData?.gender &&
+          userData?.activityLevel ? (
+            <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black h-full justify-center'>
+              <p className='font-bold mb-3'>Calorie Intake Recommendation:</p>
+              <p>
+                Your daily calorie needs are automatically calculated based on
+                your age, gender, weight, height, and activity level you
+                provided in your profile.
+              </p>
+              <p>
+                Calories to keep your body properly fueled:{' '}
+                <strong>{userCalorie} kcal/day</strong>
+              </p>
+            </div>
           ) : (
-            <ImperialScalar
-              form={form}
-              updateForm={updateForm}
-            />
+            <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black h-full justify-center'>
+              <p>
+                Please provide your weight, height, age, gender and activity
+                level in your profile to get an accurate calculation of your
+                daily caloric needs.
+              </p>
+            </div>
           )}
         </div>
-        <div className='flex my-4 items-center justify-end'>
-          <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
-            <p>Imperial or Metric System</p>
-            <label className='cursor-pointer label'>
-              <input
-                type='checkbox'
-                className='toggle toggle-info'
-                checked={isChecked}
-                onChange={handleChange}
+        <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black w-3/4'>
+          <p className='font-bold mb-2'>Calorie Calculator: </p>
+          <div className='flex items-center justify-center'>
+            {isChecked ? (
+              <MetricScalar
+                form={form}
+                updateForm={updateForm}
               />
-            </label>
+            ) : (
+              <ImperialScalar
+                form={form}
+                updateForm={updateForm}
+              />
+            )}
           </div>
-          <button
-            className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 ml-4'
-            onClick={() => calculate()}
-          >
-            Calculate
-          </button>
+          <div className='flex my-4 items-center justify-end'>
+            <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
+              <p>Imperial or Metric System</p>
+              <label className='cursor-pointer label'>
+                <input
+                  type='checkbox'
+                  className='toggle toggle-info'
+                  checked={isChecked}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <button
+              className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 ml-4'
+              onClick={() => calculate()}
+            >
+              Calculate
+            </button>
+          </div>
+          {calories === 0 ? (
+            <p>
+              Enter your weight, height, and age, then choose your gender and
+              activity level to calculate your daily calorie needs.
+            </p>
+          ) : (
+            <p>
+              Your estimated total daily energy expenditure (caloric needs) is
+              around <strong>{calories} kcal/day</strong> to maintain your
+              current weight and activity level.
+            </p>
+          )}
         </div>
-        {calories === 0 ? (
-          <p>
-            Enter your weight, height, and age, then choose your gender and
-            activity level to calculate your daily calorie needs.
-          </p>
-        ) : (
-          <p>
-            Your estimated total daily energy expenditure (caloric needs) is
-            around <strong>{calories} kcal/day</strong> to maintain your current
-            weight and activity level.
-          </p>
-        )}
-      </div>
-      <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-        {userData?.weight &&
-        userData?.height &&
-        userData?.age &&
-        userData?.gender &&
-        userData?.activityLevel ? (
-          <>
-            <p>
-              Your daily calorie needs are automatically calculated based on
-              your age, gender, weight, height, and activity level you provided
-              in your profile.
-            </p>
-            <p>
-              Calories to keep your body properly fueled:{' '}
-              <strong>{userCalorie} kcal/day</strong>
-            </p>
-          </>
-        ) : (
-          <p>
-            Please provide your weight, height, age, gender and activity level
-            in your profile to get an accurate calculation of your daily caloric
-            needs.
-          </p>
-        )}
       </div>
       <div className='text-center'>
         <h1 className='text-primary text-xl text-center font-bold mt-6'>

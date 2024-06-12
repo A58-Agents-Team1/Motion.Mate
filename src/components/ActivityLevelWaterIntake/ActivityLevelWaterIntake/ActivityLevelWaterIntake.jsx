@@ -99,86 +99,86 @@ export default function ActivityLevelWaterIntake() {
         body properly hydrated. A sedentary individual needs less water compared
         to someone who is very active.
       </p>
-      <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-        <p>Water Intake Calculator: </p>
-
-        <div>
-          <div>
-            {isChecked ? (
-              <MetricWaterIntake
-                weight={weight}
-                setWeight={setWeight}
-              />
-            ) : (
-              <ImperialWaterIntake
-                weight={weight}
-                setWeight={setWeight}
-              />
-            )}
-            <label>Activity Level:</label>
-            <select
-              value={activityLevel}
-              onChange={(e) => setActivityLevel(e.target.value)}
-              className='border-2 border-gray-500 rounded p-2 ml-1 bg-gray-200 shadow-xl text-black w-44'
-            >
-              <option value='Sedentary'>Sedentary</option>
-              <option value='Lightly-Active'>Lightly Active</option>
-              <option value='Moderately-Active'>Moderately Active</option>
-              <option value='Very-Active'>Very Active</option>
-            </select>
-          </div>
-          <div className='flex my-4 items-center justify-end'>
-            <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
-              <p>Imperial or Metric System</p>
-              <label className='cursor-pointer label'>
-                <input
-                  type='checkbox'
-                  className='toggle toggle-info'
-                  checked={isChecked}
-                  onChange={handleChange}
-                />
-              </label>
+      <div className='flex gap-2 mt-5'>
+        <div className='w-1/4'>
+          {userData?.weight && userData?.activityLevel ? (
+            <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black h-full justify-center'>
+              <p className='mb-2 font-bold'>Your Recommended Water Intake:</p>
+              <p>
+                Water intake is automatically calculated based on the activity
+                level and your weight you provided in your profile.
+              </p>
+              <p>Recommended Water Intake: </p>
+              <strong>{userWaterIntake} liters per day.</strong>
             </div>
-            <button
-              className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 ml-4'
-              onClick={() => calculate()}
-            >
-              Calculate
-            </button>
-          </div>
-          {waterIntake === 0 ? (
-            <h2>
-              Enter your weight and choose your activity level to calculate your
-              daily water intake.
-            </h2>
-          ) : isChecked ? (
-            <h2>Recommended Water Intake: {waterIntake} liters per day.</h2>
           ) : (
-            <h2>Recommended Water Intake: {waterIntake} ounces per day.</h2>
+            <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black h-full justify-center'>
+              <p>
+                To view your recommended daily water intake, please update your
+                profile with your activity level and weight.
+              </p>
+            </div>
           )}
         </div>
+        <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black w-3/4'>
+          <p className='font-bold mb-2'>Water Intake Calculator: </p>
+          <div>
+            <div>
+              {isChecked ? (
+                <MetricWaterIntake
+                  weight={weight}
+                  setWeight={setWeight}
+                />
+              ) : (
+                <ImperialWaterIntake
+                  weight={weight}
+                  setWeight={setWeight}
+                />
+              )}
+              <label>Activity Level:</label>
+              <select
+                value={activityLevel}
+                onChange={(e) => setActivityLevel(e.target.value)}
+                className='border-2 border-gray-500 rounded p-2 ml-1 bg-gray-200 shadow-xl text-black w-44'
+              >
+                <option value='Sedentary'>Sedentary</option>
+                <option value='Lightly-Active'>Lightly Active</option>
+                <option value='Moderately-Active'>Moderately Active</option>
+                <option value='Very-Active'>Very Active</option>
+              </select>
+            </div>
+            <div className='flex my-4 items-center justify-end'>
+              <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
+                <p>Imperial or Metric System</p>
+                <label className='cursor-pointer label'>
+                  <input
+                    type='checkbox'
+                    className='toggle toggle-info'
+                    checked={isChecked}
+                    onChange={handleChange}
+                  />
+                </label>
+              </div>
+              <button
+                className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 ml-4'
+                onClick={() => calculate()}
+              >
+                Calculate
+              </button>
+            </div>
+            {waterIntake === 0 ? (
+              <h2>
+                Enter your weight and choose your activity level to calculate
+                your daily water intake.
+              </h2>
+            ) : isChecked ? (
+              <h2>Recommended Water Intake: {waterIntake} liters per day.</h2>
+            ) : (
+              <h2>Recommended Water Intake: {waterIntake} ounces per day.</h2>
+            )}
+          </div>
+        </div>
       </div>
-
-      {userData?.weight && userData?.activityLevel ? (
-        <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-          <p>
-            Your recommended water intake is automatically calculated based on
-            the activity level and your weight you provided in your profile.
-          </p>
-          <p>
-            Recommended Water Intake:{' '}
-            <strong>{userWaterIntake} liters per day.</strong>
-          </p>
-        </div>
-      ) : (
-        <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-          <p>
-            To view your recommended daily water intake, please update your
-            profile with your activity level and weight.
-          </p>
-        </div>
-      )}
-
       <div className='text-center'>
         <h1 className='text-primary text-xl text-center font-bold mt-6'>
           Guidelines to Choose Your Activity Level

@@ -83,56 +83,61 @@ export default function BodyMassIndex() {
         popular measure, it can also be misleading in certain cases and for some
         groups of people.
       </p>
-      <div className='mt-8 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-        <p>Find your BMI and health risks: </p>
-        {isChecked ? (
-          <BMIInMetricSystem
-            form={form}
-            updateForm={updateForm}
-          />
-        ) : (
-          <BMIInImperialSystem
-            form={form}
-            updateForm={updateForm}
-          />
-        )}
-        <div className='flex mt-4 items-center justify-end'>
-          <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
-            <p>Imperial or Metric System</p>
-            <label className='cursor-pointer label'>
-              <input
-                type='checkbox'
-                className='toggle toggle-info'
-                checked={isChecked}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <button
-            className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 mx-4'
-            onClick={() => calculate()}
-          >
-            Calculate
-          </button>
+      <div className='flex gap-2 mt-5'>
+        <div className='w-1/4'>
+          {userData?.weight && userData?.height ? (
+            <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black h-full justify-center'>
+              <p className='mb-2 font-bold'>Your BMI Result:</p>
+              <div>
+                Your BMI is automatically calculated based on the weight and
+                height you provided in your profile.
+                {GetBMIDescription(userBMI)}
+              </div>
+            </div>
+          ) : (
+            <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black h-full justify-center'>
+              <p>
+                To view your automatically calculated BMI, please update your
+                profile with your weight and height.
+              </p>
+            </div>
+          )}
         </div>
-        <div className='mt-4'>{GetBMIDescription(BMI)}</div>
+        <div className='flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black w-3/4'>
+          <p className='mb-2 font-bold'>Find your BMI and health risks: </p>
+          {isChecked ? (
+            <BMIInMetricSystem
+              form={form}
+              updateForm={updateForm}
+            />
+          ) : (
+            <BMIInImperialSystem
+              form={form}
+              updateForm={updateForm}
+            />
+          )}
+          <div className='flex mt-4 items-center justify-end'>
+            <div className='form-control flex flex-row items-center border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14'>
+              <p>Imperial or Metric System</p>
+              <label className='cursor-pointer label'>
+                <input
+                  type='checkbox'
+                  className='toggle toggle-info'
+                  checked={isChecked}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <button
+              className='border-2 border-gray-500 rounded-2xl p-2 bg-blue-200 text-black h-14 mx-4'
+              onClick={() => calculate()}
+            >
+              Calculate
+            </button>
+          </div>
+          <div className='mt-4'>{GetBMIDescription(BMI)}</div>
+        </div>
       </div>
-      {userData?.weight && userData?.height ? (
-        <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-          <div>
-            Your BMI is automatically calculated based on the weight and height
-            you provided in your profile.
-            {GetBMIDescription(userBMI)}
-          </div>
-        </div>
-      ) : (
-        <div className='mt-2 flex flex-col border-2 border-gray-500 rounded-3xl p-4 bg-orange-300 text-black'>
-          <p>
-            To view your automatically calculated BMI, please update your
-            profile with your weight and height.
-          </p>
-        </div>
-      )}
       <BMIClassificationTable />
       <div className='mb-4'>
         <h1 className='text-primary font-bold'>
