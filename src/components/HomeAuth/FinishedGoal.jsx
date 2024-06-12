@@ -94,7 +94,7 @@ export const FinishedGoal = () => {
 
                       <InfoBite
                         title={'Calories'}
-                        content={String(`${goal.calories} kcal`)}
+                        content={`${goal.calories} kcal`}
                       />
                     </div>
 
