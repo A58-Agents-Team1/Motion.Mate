@@ -215,6 +215,12 @@ exercises: {
 
 - The `Motion Mate` platform is developed by **Team 1** (Tihomir Denev, Radoslav Marinov and Tanya Jecheva).
 
+- [Tanya Zhecheva](https://github.com/TanyaZhecheva) Clicking on the name will take you to the GitHub profile of Tanya Zhecheva.
+
+- [Tihomir Denev](https://github.com/TihomirDenev) Clicking on the name will take you to the GitHub profile of Tihomir Denev.
+
+- [Radoslav Marinov](https://github.com/Radoslav-Marinovv) Clicking on the name will take you to the GitHub profile of Radoslav Marinov.
+
 ## <img src="https://firebasestorage.googleapis.com/v0/b/dare2fit-f6eb4.appspot.com/o/assets%2FREADME-images%2Fresources.png?alt=media&token=9fe5f5ee-5413-4af3-a50b-c7f01650d1fe&_gl=1*4u0xo2*_ga*MjExMzk5MTA5MC4xNjgzMjcwMjg1*_ga_CW55HF8NVT*MTY4NjU3Njg5Ni4xMDMuMS4xNjg2NTc3OTk4LjAuMC4w"  width="30" height="30"> Hosting Information and Deployment
 
 - This site is hosted on GitHub Pages, which provides free hosting for static websites directly from GitHub repositories. You can view the live site here: [Motion Mate GitHub pages](https://a58-agents-team1.github.io/Motion.Mate/).
