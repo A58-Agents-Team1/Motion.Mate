@@ -1,16 +1,17 @@
 import { useContext } from 'react';
 import { useEffect, useState } from 'react';
-import { BASE } from '../../common/constants';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
+import { APP_NAME, BASE } from '../../common/constants';
 import { HomeAuthenticated } from './HomeAuthenticated';
-import { titleAndMeta } from '../../helper/titleAndMeta.js';
 import { Carousel } from '../../components/Home/Carousel';
 import { getAllUsers } from '../../services/users.service';
 import { getExercises } from '../../services/exercise.service';
 import { getAllCategories } from '../../services/category.service';
 
 export default function Home() {
+  document.querySelector('title').textContent = `${APP_NAME} | Home`;
+
   const navigate = useNavigate();
 
   const { userData } = useContext(AppContext);
@@ -18,8 +19,6 @@ export default function Home() {
   const [allUsers, setAllUsers] = useState([]);
   const [allExercises, setAllExercises] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
-
-  titleAndMeta('Home', 'Home page of Motion Mate');
 
   useEffect(() => {
     const func = async () => {
