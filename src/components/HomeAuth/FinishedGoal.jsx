@@ -22,10 +22,10 @@ export const FinishedGoal = () => {
 
   useEffect(() => {
     return onValue(
-      ref(db, `users/${userData?.username}`),
+      ref(db, `users/${userData?.username}/myGoals`),
 
       (snapshot) => {
-        const myGoals = snapshot.val()?.myGoals;
+        const myGoals = snapshot?.val();
 
         if (myGoals) {
           try {
@@ -33,7 +33,7 @@ export const FinishedGoal = () => {
               id,
               ...goal,
             }));
-            console.log(goalsWithId);
+
             const result = goalsWithId.filter((goal) => goal?.progress >= 100);
             if (result) {
               setGoals(result);
