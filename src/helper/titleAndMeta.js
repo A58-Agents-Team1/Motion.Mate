@@ -12,6 +12,7 @@ export const titleAndMeta = (title, description, avatar = null, firstName, lastN
     { name: 'author', content: `${firstName} ${lastName}` },
     { name: 'robots', content: 'index, follow' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { charset: 'UTF-8' },
     {
       name: 'date',
       content: `${shortFormatDate(new Date().getTime())}`,
@@ -36,7 +37,11 @@ export const titleAndMeta = (title, description, avatar = null, firstName, lastN
       name: 'MotionMate:image:alt',
       content: `${firstName} ${lastName}`,
     },
+
   ];
+  const existingMetaTags = document.querySelectorAll('meta');
+  existingMetaTags.forEach(tag => tag.remove());
+
   metadata.forEach(m => {
     const metaTag = document.createElement('meta');
     if (m.property) {
