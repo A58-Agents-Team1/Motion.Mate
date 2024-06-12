@@ -4,11 +4,9 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext, useEffect, useState } from 'react';
-import { deleteGoal } from '../../services/goal.service';
+import React, { useContext, useEffect, useState } from 'react';
+import { deleteGoal, getGoals } from '../../services/goal.service';
 import { AppContext } from '../../context/AppContext';
-import { onValue, ref } from 'firebase/database';
-import { db } from '../../config/firebase-config';
 import InfoBite from '../Exercise/InfoBite';
 import { useNavigate } from 'react-router-dom';
 import { NoActivityCard } from './NoActivityCard';
@@ -18,37 +16,23 @@ export const FinishedGoal = () => {
   const navigate = useNavigate();
   const [goals, setGoals] = useState();
   const { userData } = useContext(AppContext);
-  const [toggleDelete, setToggleDelete] = useState(null);
+  const [goalId, setGoalId] = useState(null);
 
   useEffect(() => {
-    return onValue(
-      ref(db, `users/${userData?.username}/myGoals`),
+    const fetch = async () => {
+      const result = await getGoals(userData?.username);
 
-      (snapshot) => {
-        if (snapshot.val()) {
-          try {
-            const goalsWithId = Object.entries(snapshot?.val()).map(
-              ([id, goal]) => ({
-                id,
-                ...goal,
-              })
-            );
-
-            const result = goalsWithId.filter((goal) => goal?.progress >= 100);
-            if (result) {
-              setGoals(result);
-            }
-          } catch (error) {
-            throw new Error(error.message);
-          }
-        }
+      if (result) {
+        const filtered = result.filter((goal) => goal?.progress >= 100);
+        setGoals(filtered);
       }
-    );
-  }, []);
+    };
+    fetch();
+  }, [goalId]);
 
   const removeGoalAsync = async (userData, goal) => {
+    setGoalId(goal.id);
     await deleteGoal(userData?.username, goal.id);
-    setToggleDelete(!toggleDelete);
   };
 
   return (
