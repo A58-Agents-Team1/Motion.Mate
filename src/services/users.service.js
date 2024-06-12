@@ -261,7 +261,9 @@ export const uploadPhoto = async (image, username) => {
     updateUserByUsername(username, { avatar: url });
     return await uploadBytes(imageRef, image);
   } catch (e) {
-    throw new Error(e.message);
+    if (e) {
+      console.log(e.message);
+    }
   }
 };
 
@@ -271,7 +273,9 @@ export const getUploadedPhoto = async (username) => {
     const url = await getDownloadURL(imageRef);
     return url;
   } catch (e) {
-    throw new Error(e.message);
+    if (e.message === 'storage/object-not-found') {
+      return null;
+    }
   }
 };
 
