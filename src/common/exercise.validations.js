@@ -30,6 +30,9 @@ export const validateExerciseForm = (
   if (content.length > EXERCISE_MAX_CONTENT_LENGTH) {
     throw new Error('content is too long');
   }
+  if (hours < 0 || minutes < 0 || seconds < 0) {
+    throw new Error('duration cannot be negative!');
+  }
   if (!hours && !minutes && !seconds) {
     throw new Error('missing time duration for exercise');
   }
