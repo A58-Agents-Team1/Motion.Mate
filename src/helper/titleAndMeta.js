@@ -17,29 +17,33 @@ export const titleAndMeta = (title, description, avatar = null, firstName, lastN
       content: `${shortFormatDate(new Date().getTime())}`,
       scheme: 'DD-MM-YYYY',
     },
-    { name: 'og:title', content: `${title}` },
-    { name: 'og:type', content: 'website' },
-    { name: 'og:url', content: `${window.location.href}` },
-    { name: 'og:image', content: `${avatar || Image}` },
-    { name: 'og:description', content: `${description}` },
-    { name: 'og:site_name', content: `Motion Mate` },
+    { property: 'og:title', content: `${title}` },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: `${window.location.href}` },
+    { property: 'og:image', content: `${avatar || Image}` },
+    { property: 'og:description', content: `${description}` },
+    { property: 'og:site_name', content: `Motion Mate` },
     { name: 'og:locale', content: 'en_US' },
-    { name: 'twitter:card', content: 'summary' },
-    { name: 'twitter:site', content: '@' },
-    { name: 'twitter:creator', content: '@' },
+    { name: 'MotionMate:card', content: `${description}` },
+    { name: 'MotionMate:site', content: '@' },
+    { name: 'MotionMate:creator', content: '@' },
     {
-      name: 'twitter:title', content: `${title}`
+      name: 'MotionMate:title', content: `${title}`
     },
-    { name: 'twitter:description', content: `${description}` },
-    { name: 'twitter:image', content: `${Image}` },
+    { name: 'MotionMate:description', content: `${description}` },
+    { name: 'MotionMate:image', content: `${Image}` },
     {
-      name: 'twitter:image:alt',
+      name: 'MotionMate:image:alt',
       content: `${firstName} ${lastName}`,
     },
   ];
   metadata.forEach(m => {
     const metaTag = document.createElement('meta');
-    metaTag.setAttribute('name', m.name);
+    if (m.property) {
+      metaTag.setAttribute('property', m.property);
+    } else if (m.name) {
+      metaTag.setAttribute('name', m.name);
+    }
     metaTag.setAttribute('content', m.content);
     if (m.scheme) {
       metaTag.setAttribute('scheme', m.scheme);

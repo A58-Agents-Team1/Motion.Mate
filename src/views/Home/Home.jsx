@@ -4,7 +4,7 @@ import { BASE } from '../../common/constants';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { HomeAuthenticated } from './HomeAuthenticated';
-import { titleAndMeta } from '../../helper/titleAndMeta';
+import { titleAndMeta } from '../../helper/titleAndMeta.js';
 import { Carousel } from '../../components/Home/Carousel';
 import { getAllUsers } from '../../services/users.service';
 import { getExercises } from '../../services/exercise.service';
