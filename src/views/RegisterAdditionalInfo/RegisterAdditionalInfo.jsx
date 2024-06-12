@@ -66,7 +66,7 @@ export default function RegisterAdditionalInfo() {
       await validateAdditionalInfo();
       await updateUserByUsername(userData?.username, form);
       alertHelper(setMessage, setSuccess, 'Info Added successfully!');
-      navigate(`${BASE}`);
+      navigate(`${BASE}/`);
     } catch (error) {
       alertHelper(setMessage, setAlert, error.message);
     }

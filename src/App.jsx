@@ -86,6 +86,16 @@ function App() {
               element={<ContactUs />}
             />
             <Route
+              path={`${BASE}logo.png`}
+              element={
+                <img
+                  src='/assets/logo.png'
+                  alt='logo'
+                  style={{ display: 'none' }}
+                />
+              }
+            />
+            <Route
               path={`${BASE}wellness-health-tools`}
               element={
                 <Authenticated user={user}>

@@ -135,17 +135,19 @@ export const Divider = ({ stopButton }) => {
           </div>
         </div>
       ) : (
-        <div className='flex flex-col lg:flex-row'>
-          <NoActivityCard
-            onClick={() => navigate(`${BASE}exercises`)}
-            icon={faHeart}
-            title={'No exercises in progress!'}
-            content={
-              'Create and add your exercises here so you can keep track of duration and burned calories!'
-            }
-          />
+        <div className='flex flex-col place-content-center lg:flex-row'>
+          <div className='flex flex-col items-center'>
+            <NoActivityCard
+              onClick={() => navigate(`${BASE}exercises`)}
+              icon={faHeart}
+              title={'No exercises in progress!'}
+              content={
+                'Create and add your exercises here so you can keep track of duration and burned calories!'
+              }
+            />
+          </div>
           <div className='divider lg:divider-horizontal my-auto'>OR</div>
-          <div className='flex-1 flex flex-col items-center'>
+          <div className='flex flex-col items-center'>
             <FinishedGoal />
           </div>
         </div>
