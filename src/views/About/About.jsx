@@ -25,9 +25,9 @@ export default function About() {
         </div>
         <div className='timeline-start md:text-end mb-10 text-lg font-black'>
           This is your personal fitness app, designed for users to set their own
-          goals. With a simple and intuitive design, we make every workout not a
-          duty, but a habit, thats drives you out of bed! We encourage people to
-          be active and feel energized.
+          goals and exercises. With a simple and intuitive design, we make every
+          workout not a duty, but a habit, that drives you out of bed! We
+          encourage people to be active and feel energized.
         </div>
         <hr className='bg-primary' />
       </li>
@@ -54,12 +54,15 @@ export default function About() {
         </div>
         <div className='timeline-start md:text-end mb-10 text-lg font-black'>
           <div className='text-lg font-black text-primary'>
-            BMI, goals and more
+            BMI, Water Intake Calculator, goals and more
           </div>
           We provide you with Body Mass Index tool to assess whether an
-          individual has a healthy body weight for a given height. <br /> You
-          can also set different personal goals with a time period. For example,
-          set a goal to be active all seven days of the week and more on!
+          individual has a healthy body weight for a given height. <br />
+          Calorie and Water Intake Calculator for understanding how much water
+          and calories you need to consume daily.
+          <br /> You can also set different personal goals with a time period.
+          For example, set a goal to be active all seven days of the week and
+          more on!
         </div>
         <hr className='bg-primary' />
       </li>
@@ -71,8 +74,9 @@ export default function About() {
         <div className='timeline-end mb-10 text-lg font-black'>
           <div className='text-lg font-black text-primary'>Motion Mates</div>
           Connect with people using the same app! <br />
-          You can add other users in your friend list and share exercises.
-          <br /> You decide which is your perfect Motion Mate!
+          You can add other users in your friend list and share exercises and
+          goals.
+          <br /> You decide who is your perfect Motion Mate!
         </div>
         <hr className='bg-primary' />
       </li>
