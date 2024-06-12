@@ -186,13 +186,13 @@ exercises: {
   - Motion Mate is to those who are dedicated to a healthy lifestyle and seek to better themselves! You can create and assemble workout routines, which can present you with a huge amount of effective exercises. You can browse other users and add them as friends from the `All Users`.
 - **User Interaction and Admin Roles?**
 
-  -**Normal User Actions**
+  -**Normal User Actions:**
 
   - Sending Friend Requests: You can search for and send friend requests to other users. This allows you to expand your network and connect with others who share similar interests.
   - Canceling Friend Requests: If you change your mind after sending a friend request, you have the option to cancel it before the recipient responds. This gives you control over your outgoing friend requests.
   - Managing Friend List: Once a friend request is accepted, the user is added to your friend list. You can view all your friends in one place. If you no longer wish to be friends with someone, you can remove them from your friend list at any time.
 
-  -**Admin Actions**
+  -**Admin Actions:**
 
   - To become an admin, you can contact us through the `Contact Us` section. As an admin, you gain additional privileges and responsibilities that allow you to manage and moderate the app effectively. These include:
   - Blocking Users: You have the authority to block users who violate the app's policies or engage in inappropriate behavior. This helps maintain a safe and respectful community.
@@ -213,4 +213,10 @@ exercises: {
 
 ## <img src="https://firebasestorage.googleapis.com/v0/b/dare2fit-f6eb4.appspot.com/o/assets%2FREADME-images%2Fcommunity.png?alt=media&token=893ecd6f-908b-4c1e-9223-25d82f1bb8b1&_gl=1*watnuy*_ga*MjExMzk5MTA5MC4xNjgzMjcwMjg1*_ga_CW55HF8NVT*MTY4NjU3Njg5Ni4xMDMuMS4xNjg2NTc3OTI1LjAuMC4w"  width="30" height="30"> Community and Contributions
 
-The `Motion Mate` platform is developed by **Team 1** (Tihomir Denev, Radoslav Marinov and Tanya Jecheva).
+- The `Motion Mate` platform is developed by **Team 1** (Tihomir Denev, Radoslav Marinov and Tanya Jecheva).
+
+## <img src="https://firebasestorage.googleapis.com/v0/b/dare2fit-f6eb4.appspot.com/o/assets%2FREADME-images%2Fresources.png?alt=media&token=9fe5f5ee-5413-4af3-a50b-c7f01650d1fe&_gl=1*4u0xo2*_ga*MjExMzk5MTA5MC4xNjgzMjcwMjg1*_ga_CW55HF8NVT*MTY4NjU3Njg5Ni4xMDMuMS4xNjg2NTc3OTk4LjAuMC4w"  width="30" height="30"> Hosting Information and Deployment
+
+- This site is hosted on GitHub Pages, which provides free hosting for static websites directly from GitHub repositories. You can view the live site here: [Motion Mate GitHub pages](https://a58-agents-team1.github.io/Motion.Mate/).
+
+- We use GitHub Actions for automated deployment. The deploy.yml workflow handles the build and deployment process to GitHub Pages, ensuring that the latest changes are always live on the site.
