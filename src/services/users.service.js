@@ -16,56 +16,73 @@ import {
 } from 'firebase/storage';
 
 export const getUserByUsername = async (username) => {
-  return get(ref(db, `users/${username}`));
+  try {
+    return get(ref(db, `users/${username}`));
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const getAllUsers = async () => {
-  const result = await get(ref(db, 'users'));
-  return result;
+  try {
+    const result = await get(ref(db, 'users'));
+    return result;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const getAllFriends = async (username) => {
-  const friendsRef = ref(db, `users/${username}/friends`);
-  const friendsSnapshot = await get(friendsRef);
-  const friendsData = await friendsSnapshot.val();
-  const friendsList = [];
+  try {
+    const friendsRef = ref(db, `users/${username}/friends`);
+    const friendsSnapshot = await get(friendsRef);
+    const friendsData = await friendsSnapshot.val();
+    const friendsList = [];
 
-  for (const friendUsername in friendsData) {
-    const friendSnapshot = await getUserByUsername(friendUsername);
-    friendsList.push(friendSnapshot.val());
+    for (const friendUsername in friendsData) {
+      const friendSnapshot = await getUserByUsername(friendUsername);
+      friendsList.push(friendSnapshot.val());
+    }
+
+    return friendsList;
+  } catch (error) {
+    throw new Error(error.message);
   }
-
-  return friendsList;
 };
 
 export const getAllUsersDataRequests = async (username) => {
-  const requestsRef = ref(db, `users/${username}/requests`);
-  const requestsSnapshot = await get(requestsRef);
-  const requestsData = await requestsSnapshot.val();
-  const requestsList = [];
+  try {
+    const requestsRef = ref(db, `users/${username}/requests`);
+    const requestsSnapshot = await get(requestsRef);
+    const requestsData = await requestsSnapshot.val();
+    const requestsList = [];
 
-  for (const requestUsername in requestsData) {
-    const requestSnapshot = await getUserByUsername(requestUsername);
-    requestsList.push(requestSnapshot.val());
+    for (const requestUsername in requestsData) {
+      const requestSnapshot = await getUserByUsername(requestUsername);
+      requestsList.push(requestSnapshot.val());
+    }
+
+    return requestsList;
+  } catch (error) {
+    throw new Error(error.message);
   }
-
-  return requestsList;
 };
 
 export const getFilterUserBySearchTerm = async (searchBy, search) => {
-  const snapshot = await get(ref(db, 'users'));
-  const users = [];
+  try {
+    const snapshot = await get(ref(db, 'users'));
+    const users = [];
 
-  /**
-   * only with forEach we can iterate over snapshot
-   */
-  snapshot.forEach((acc) => {
-    const user = acc.val();
-    if (user[searchBy].toLowerCase().includes(search.toLowerCase())) {
-      users.push(user);
-    }
-  });
-  return users;
+    snapshot.forEach((acc) => {
+      const user = acc.val();
+      if (user[searchBy].toLowerCase().includes(search.toLowerCase())) {
+        users.push(user);
+      }
+    });
+    return users;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const createUser = (
@@ -82,28 +99,32 @@ export const createUser = (
   activityLevel,
   gender
 ) => {
-  return set(ref(db, `users/${username}`), {
-    uid,
-    username,
-    email,
-    phoneNumber,
-    firstName,
-    lastName,
-    avatar,
-    userRole: 'user',
-    isBlocked: false,
-    createdOn: new Date().valueOf(),
-    exercises: [],
-    age,
-    weight,
-    height,
-    activityLevel,
-    gender,
-    previousScores: {
-      previousCalories: 0,
-      doneExercises: 0,
-    },
-  });
+  try {
+    return set(ref(db, `users/${username}`), {
+      uid,
+      username,
+      email,
+      phoneNumber,
+      firstName,
+      lastName,
+      avatar,
+      userRole: 'user',
+      isBlocked: false,
+      createdOn: new Date().valueOf(),
+      exercises: [],
+      age,
+      weight,
+      height,
+      activityLevel,
+      gender,
+      previousScores: {
+        previousCalories: 0,
+        doneExercises: 0,
+      },
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const deleteUserAsync = async (username) => {
@@ -132,69 +153,105 @@ export const blockUserAsync = async (username, isBlocked) => {
 };
 
 export const addFriendService = async (username, friendUsername) => {
-  const updateData = {};
-  updateData[`users/${username}/friends/${friendUsername}`] = true;
-  updateData[`users/${friendUsername}/friends/${username}`] = true;
-  updateData[`users/${username}/requests/${friendUsername}`] = null;
-  updateData[`users/${username}/myRequests/${friendUsername}`] = null;
-  updateData[`users/${friendUsername}/myRequests/${username}`] = null;
-  update(ref(db), updateData);
+  try {
+    const updateData = {};
+    updateData[`users/${username}/friends/${friendUsername}`] = true;
+    updateData[`users/${friendUsername}/friends/${username}`] = true;
+    updateData[`users/${username}/requests/${friendUsername}`] = null;
+    updateData[`users/${username}/myRequests/${friendUsername}`] = null;
+    updateData[`users/${friendUsername}/myRequests/${username}`] = null;
+    update(ref(db), updateData);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const removeFriendRequestService = async (username, friendUsername) => {
-  const updateData = {};
-  updateData[`users/${username}/requests/${friendUsername}`] = null;
-  updateData[`users/${friendUsername}/requests/${username}`] = null;
-  updateData[`users/${username}/myRequests/${friendUsername}`] = null;
-  updateData[`users/${friendUsername}/myRequests/${username}`] = null;
+  try {
+    const updateData = {};
+    updateData[`users/${username}/requests/${friendUsername}`] = null;
+    updateData[`users/${friendUsername}/requests/${username}`] = null;
+    updateData[`users/${username}/myRequests/${friendUsername}`] = null;
+    updateData[`users/${friendUsername}/myRequests/${username}`] = null;
 
-  update(ref(db), updateData);
+    update(ref(db), updateData);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const sendRequestService = async (username, friendUsername) => {
-  const updateData = {};
-  updateData[`users/${friendUsername}/requests/${username}`] = true;
-  updateData[`users/${username}/myRequests/${friendUsername}`] = true;
+  try {
+    const updateData = {};
+    updateData[`users/${friendUsername}/requests/${username}`] = true;
+    updateData[`users/${username}/myRequests/${friendUsername}`] = true;
 
-  update(ref(db), updateData);
+    update(ref(db), updateData);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const removeFriendService = async (username, friendUsername) => {
-  const updateData = {};
-  updateData[`users/${username}/friends/${friendUsername}`] = null;
-  updateData[`users/${friendUsername}/friends/${username}`] = null;
-  updateData[`users/${username}/myRequests/${friendUsername}`] = null;
-  updateData[`users/${friendUsername}/myRequests/${username}`] = null;
+  try {
+    const updateData = {};
+    updateData[`users/${username}/friends/${friendUsername}`] = null;
+    updateData[`users/${friendUsername}/friends/${username}`] = null;
+    updateData[`users/${username}/myRequests/${friendUsername}`] = null;
+    updateData[`users/${friendUsername}/myRequests/${username}`] = null;
 
-  update(ref(db), updateData);
+    update(ref(db), updateData);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const checkFriendStatusService = async (username, friendUsername) => {
-  const friendsRef = ref(db, `users/${username}/friends/${friendUsername}`);
+  try {
+    const friendsRef = ref(db, `users/${username}/friends/${friendUsername}`);
 
-  const snapshot = await get(friendsRef);
-  return snapshot.exists();
+    const snapshot = await get(friendsRef);
+    return snapshot.exists();
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const checkFriendRequestService = async (username, friendUsername) => {
-  const requestsRef = ref(db, `users/${friendUsername}/requests/${username}`);
+  try {
+    const requestsRef = ref(db, `users/${friendUsername}/requests/${username}`);
 
-  const snapshot = await get(requestsRef);
-  return snapshot.exists();
+    const snapshot = await get(requestsRef);
+    return snapshot.exists();
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const addUserExercise = async (username, exerciseId) => {
-  return await update(ref(db, `users/${username}`), {
-    exercises: exerciseId,
-  });
+  try {
+    return await update(ref(db, `users/${username}`), {
+      exercises: exerciseId,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const getUserData = (uid) => {
-  return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
+  try {
+    return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const updateUserByUsername = async (username, data) => {
-  return await update(ref(db, `users/${username}`), data);
+  try {
+    return await update(ref(db, `users/${username}`), data);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const uploadPhoto = async (image, username) => {
@@ -204,9 +261,7 @@ export const uploadPhoto = async (image, username) => {
     updateUserByUsername(username, { avatar: url });
     return await uploadBytes(imageRef, image);
   } catch (e) {
-    if (e) {
-      console.log(e.message);
-    }
+    throw new Error(e.message);
   }
 };
 
@@ -216,9 +271,7 @@ export const getUploadedPhoto = async (username) => {
     const url = await getDownloadURL(imageRef);
     return url;
   } catch (e) {
-    if (e.message === 'storage/object-not-found') {
-      return null;
-    }
+    throw new Error(e.message);
   }
 };
 
@@ -229,8 +282,7 @@ export const uploadCategoryPhoto = async (image, category) => {
     const url = await getDownloadURL(imageRef);
     return url;
   } catch (e) {
-    console.log(e.message);
-    return null;
+    throw new Error(e.message);
   }
 };
 
@@ -240,12 +292,7 @@ export const getCategoryPhoto = async (category) => {
     const url = await getDownloadURL(imageRef);
     return url;
   } catch (e) {
-    if (e.code === 'storage/object-not-found') {
-      return null;
-    } else {
-      console.log(e.message);
-      return null;
-    }
+    throw new Error(e.message);
   }
 };
 
@@ -263,8 +310,12 @@ export const getFriends = async (username) => {
 };
 
 export const getUserAvatar = async (username) => {
-  const result = await get(ref(db, `users/${username}/avatar`));
-  return result.val();
+  try {
+    const result = await get(ref(db, `users/${username}/avatar`));
+    return result.val();
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const startExercise = async (username, time, exerciseId, calories) => {
