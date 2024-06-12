@@ -78,22 +78,23 @@ export const FinishedGoal = () => {
                     <div className='grid grid-cols-2 gap-2 '>
                       <InfoBite
                         isBlock
-                        title={'Duration'}
-                        content={`From : ${new Date(
+                        title={'Duration From'}
+                        content={`${new Date(
                           goal?.timePeriod?.from
                         ).toLocaleString()}`}
                       />
 
                       <InfoBite
                         isBlock
-                        content={`To: ${new Date(
+                        title={'Duration To'}
+                        content={`${new Date(
                           goal?.timePeriod?.to
                         ).toLocaleString()}`}
                       />
 
                       <InfoBite
                         title={'Calories'}
-                        content={String(goal.calories)}
+                        content={String(`${goal.calories} kcal`)}
                       />
                     </div>
 
