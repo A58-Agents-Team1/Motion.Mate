@@ -13,8 +13,8 @@ export default function Goals() {
 
   const [goals, setGoals] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [trigger, setTrigger] = useState(false);
   const [friendsGoals, setFriendsGoals] = useState([]);
-  const [counter, setCounter] = useState(0);
 
   const friendGoalsMap = new Map();
 
@@ -23,6 +23,8 @@ export default function Goals() {
       const _goals = [];
       const myGoals = snapshot.val()?.myGoals;
       const friends = Object.keys(snapshot.val()?.friends);
+
+      if (!myGoals) setGoals([]);
 
       setFriends(friends);
 
@@ -34,31 +36,30 @@ export default function Goals() {
         setGoals(_goals);
       }
     });
-  }, []);
+  }, [trigger]);
 
   useEffect(() => {
-    if (!friends) return;
-    if (friends.length === 0) return;
-    if (counter > friends.length) {
-      friendGoalsMap.clear();
-      setFriendsGoals([]);
-      setCounter(0);
-    }
+    setFriendsGoals([]);
+    friendGoalsMap.clear();
+
     friends?.map((friend) => {
       return onValue(ref(db, `users/${friend}`), (snapshot) => {
         const myGoals = snapshot.val()?.myGoals;
 
         for (const key in myGoals) {
+          if (!friendGoalsMap.has(key)) {
+            setTrigger(!trigger);
+          }
+
           friendGoalsMap.set(key, {
             id: key,
             ...snapshot.val()?.myGoals[key],
           });
         }
         setFriendsGoals([...friendGoalsMap.values()]);
-        setCounter((prev) => prev + 1);
       });
     });
-  }, [friends]);
+  }, [friends, goals]);
 
   return (
     <div className='flex flex-col w-full gap-2  overflow-x-auto'>
