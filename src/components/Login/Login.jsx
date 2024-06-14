@@ -159,7 +159,7 @@ export default function Login() {
             <p className='py-6'>
               Don`t have an account?
               <Link
-                to='/register'
+                to={`${BASE}register`}
                 className='link link-hover text-accent-700 font-bold ml-1'
               >
                 Register
