@@ -1,22 +1,15 @@
 import PropTypes from 'prop-types';
 import InfoBite from '../Exercise/InfoBite';
-import { AppContext } from '../../context/AppContext';
-import { useContext } from 'react';
 
-export default function UserInfo({ detailsProfileUserData }) {
-  const { userData } = useContext(AppContext);
-
-  const firstName = detailsProfileUserData?.firstName || '';
-  const lastName = detailsProfileUserData?.lastName || '';
+export default function UserInfo({ userData }) {
+  const firstName = userData?.firstName || '';
+  const lastName = userData?.lastName || '';
 
   const fullName = `${
-    detailsProfileUserData?.firstName || detailsProfileUserData?.lastName
+    userData?.firstName || userData?.lastName
       ? `${firstName} ${lastName}`
       : 'N/A'
   }`;
-
-  const friendsList = Object.keys(detailsProfileUserData?.friends || {});
-  const friends = friendsList.includes(userData?.username) ? true : false;
 
   return (
     <>
@@ -28,50 +21,43 @@ export default function UserInfo({ detailsProfileUserData }) {
 
         <InfoBite
           title={'Gender'}
-          content={detailsProfileUserData?.gender || 'N/A'}
+          content={userData?.gender || 'N/A'}
         />
 
-        {friends && (
-          <InfoBite
-            title={'Email'}
-            content={detailsProfileUserData?.email || 'N/A'}
-          />
-        )}
-        {friends && (
-          <InfoBite
-            title={'Phone'}
-            content={detailsProfileUserData?.phoneNumber || 'N/A'}
-          />
-        )}
-        {friends && (
-          <InfoBite
-            title={'Age'}
-            content={detailsProfileUserData?.age || 'N/A'}
-          />
-        )}
-        {friends && (
-          <InfoBite
-            title={'Weight'}
-            content={detailsProfileUserData?.weight || 'N/A'}
-          />
-        )}
-        {friends && (
-          <InfoBite
-            title={'Height'}
-            content={detailsProfileUserData?.height || 'N/A'}
-          />
-        )}
-        {friends && (
-          <InfoBite
-            title={'Activity Level'}
-            content={detailsProfileUserData?.activityLevel || 'N/A'}
-          />
-        )}
+        <InfoBite
+          title={'Email'}
+          content={userData?.email || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Phone'}
+          content={userData?.phoneNumber || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Age'}
+          content={userData?.age || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Weight'}
+          content={userData?.weight || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Height'}
+          content={userData?.height || 'N/A'}
+        />
+
+        <InfoBite
+          title={'Activity Level'}
+          content={userData?.activityLevel || 'N/A'}
+        />
       </div>
     </>
   );
 }
 
 UserInfo.propTypes = {
-  detailsProfileUserData: PropTypes.object,
+  userData: PropTypes.object,
 };

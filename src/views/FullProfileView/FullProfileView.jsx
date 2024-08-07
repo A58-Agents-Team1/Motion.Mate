@@ -42,7 +42,7 @@ export default function FullProfileView() {
             )}
           </div>
           <div className='text-right'>
-            <UserInfo detailsProfileUserData={user} />
+            <UserInfo userData={user} />
           </div>
           <div>
             <p className='mt-3'>
