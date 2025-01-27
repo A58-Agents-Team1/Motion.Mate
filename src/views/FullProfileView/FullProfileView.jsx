@@ -26,11 +26,11 @@ export default function FullProfileView() {
   }, [id]);
 
   return (
-    <div className='card card-side shadow-xl bg-base-300 m-4 border-2 border-gray-500 flex flex-row rounded-2xl'>
+    <div className='card card-side shadow-xl bg-base-300 m-4 border-2 border-gray-500 flex flex-wrap rounded-sm '>
       <div className='flex ml-8'>
         <SizedAvatar user={user} />
       </div>
-      <div className='container card-body text-left justify-between'>
+      <div className='container card-body text-left justify-between w-1'>
         <div className='top-div text-center'>
           <div>
             {user?.firstName && user?.lastName ? (

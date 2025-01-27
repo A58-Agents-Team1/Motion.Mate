@@ -9,7 +9,7 @@ export default function SizedAvatar({ user }) {
           src={user?.avatar}
           title='Profile Photo'
           alt='userPhoto'
-          className='w-80 h-80 rounded-2xl'
+          className='w-60 h-60 rounded-2xl'
         />
       ) : (
         <img
