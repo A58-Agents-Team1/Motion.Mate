@@ -21,7 +21,7 @@ export default function Goals() {
     return onValue(ref(db, `users/${userData?.username}`), (snapshot) => {
       const _goals = [];
       const myGoals = snapshot.val()?.myGoals;
-      const friends = Object.keys(snapshot.val()?.friends);
+      const friends = Object.keys(snapshot.val()?.friends || []);
 
       if (!myGoals) setGoals([]);
 
